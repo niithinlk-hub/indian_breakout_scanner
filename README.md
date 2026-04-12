@@ -9,6 +9,7 @@ Production-ready Python scaffold for scanning Indian equities for daily breakout
 - Placeholder `ZerodhaKiteProvider` and `UpstoxProvider` adapters
 - Signal engine for breakouts, volume, moving averages, ATR, and benchmark-relative strength
 - Configurable scoring engine with ranking support
+- Fundamental scoring matrix and composite technical-plus-fundamental ranking
 - Deterministic explanation generator designed for optional future LLM enhancement
 - Daily end-of-day scanning pipeline with parallel symbol processing and SQLite persistence
 - Streamlit dashboard with breakout pages, filters, explanations, mini charts, and CSV export
@@ -35,6 +36,7 @@ indian_breakout_scanner/
 │   ├── models.py
 │   └── pipeline.py
 ├── config/
+│   ├── fundamentals.example.csv
 │   └── watchlist.example.txt
 ├── data/
 ├── tests/
@@ -61,6 +63,24 @@ Required live-data environment variables:
 - Zerodha: `MARKET_DATA_PROVIDER=zerodha`, `ZERODHA_API_KEY`, `ZERODHA_ACCESS_TOKEN`
 - Upstox: `MARKET_DATA_PROVIDER=upstox`, `UPSTOX_ACCESS_TOKEN`
 - Common: `DEFAULT_EXCHANGE=NSE`
+
+Fundamentals are loaded from a local CSV file configured via `FUNDAMENTALS_CSV_PATH`. The sample file at `config/fundamentals.example.csv` includes:
+
+- `symbol`
+- `sector`
+- `market_cap_bucket`
+- `revenue_growth_pct`
+- `eps_growth_pct`
+- `roe_pct`
+- `roce_pct`
+- `debt_to_equity`
+- `net_margin_pct`
+- `promoter_holding_pct`
+
+The scanner converts these into a `fundamental_score`, keeps the existing technical score as `technical_score`, and then creates a composite `total_score` using:
+
+- `COMPOSITE_TECHNICAL_WEIGHT`
+- `COMPOSITE_FUNDAMENTAL_WEIGHT`
 
 Zerodha token helper:
 
@@ -112,6 +132,7 @@ The sidebar scanner lets you choose between:
 - `All NSE equities`
 
 For large universes, use the `Symbol limit` control to cap scan size.
+You can also filter the dashboard by composite, technical, and fundamental minimum scores.
 
 ## Deploying to Streamlit Community Cloud
 

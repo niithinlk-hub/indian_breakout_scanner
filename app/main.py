@@ -5,6 +5,8 @@ from pathlib import Path
 
 from app.config import get_settings
 from app.data_ingestion import MarketDataService
+from app.fundamentals.csv_provider import CsvFundamentalsProvider
+from app.fundamentals.service import FundamentalsService
 from app.pipeline import DailyScanner
 from app.providers.factory import build_market_data_provider
 from app.storage.sqlite_store import SQLiteStore
@@ -54,8 +56,14 @@ def main() -> None:
 
     provider = build_market_data_provider(settings)
     data_service = MarketDataService(provider=provider, settings=settings)
+    fundamentals_service = FundamentalsService(CsvFundamentalsProvider(settings.fundamentals_csv_path))
     store = SQLiteStore(settings.database_path)
-    scanner = DailyScanner(data_service=data_service, store=store, settings=settings)
+    scanner = DailyScanner(
+        data_service=data_service,
+        store=store,
+        settings=settings,
+        fundamentals_service=fundamentals_service,
+    )
     universe = build_stock_universe(
         data_service=data_service,
         mode=args.universe_mode,

@@ -52,12 +52,15 @@ class AppSettings:
     provider_name: str
     log_level: str
     benchmark_symbol: str
+    fundamentals_csv_path: Path
     scan_lookback_days: int
     scan_workers: int
     max_retry_attempts: int
     retry_base_delay_seconds: float
     request_timeout_seconds: float
     default_exchange: str
+    composite_technical_weight: float
+    composite_fundamental_weight: float
     zerodha_api_key: str | None
     zerodha_api_secret: str | None
     zerodha_access_token: str | None
@@ -80,12 +83,18 @@ def get_settings() -> AppSettings:
         provider_name=(_get_setting("MARKET_DATA_PROVIDER", "zerodha") or "zerodha").strip().lower(),
         log_level=(_get_setting("LOG_LEVEL", "INFO") or "INFO").upper(),
         benchmark_symbol=_get_setting("BENCHMARK_SYMBOL", "^NSEI") or "^NSEI",
+        fundamentals_csv_path=Path(
+            _get_setting("FUNDAMENTALS_CSV_PATH", str(project_root / "config" / "fundamentals.example.csv"))
+            or project_root / "config" / "fundamentals.example.csv",
+        ),
         scan_lookback_days=int(_get_setting("SCAN_LOOKBACK_DAYS", "365") or "365"),
         scan_workers=int(_get_setting("SCAN_WORKERS", "4") or "4"),
         max_retry_attempts=int(_get_setting("MAX_RETRY_ATTEMPTS", "3") or "3"),
         retry_base_delay_seconds=float(_get_setting("RETRY_BASE_DELAY_SECONDS", "1.0") or "1.0"),
         request_timeout_seconds=float(_get_setting("REQUEST_TIMEOUT_SECONDS", "30") or "30"),
         default_exchange=(_get_setting("DEFAULT_EXCHANGE", "NSE") or "NSE").upper(),
+        composite_technical_weight=float(_get_setting("COMPOSITE_TECHNICAL_WEIGHT", "0.6") or "0.6"),
+        composite_fundamental_weight=float(_get_setting("COMPOSITE_FUNDAMENTAL_WEIGHT", "0.4") or "0.4"),
         zerodha_api_key=_get_setting("ZERODHA_API_KEY"),
         zerodha_api_secret=_get_setting("ZERODHA_API_SECRET"),
         zerodha_access_token=_get_setting("ZERODHA_ACCESS_TOKEN"),

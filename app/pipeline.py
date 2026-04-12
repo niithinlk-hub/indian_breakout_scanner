@@ -9,8 +9,10 @@ import pandas as pd
 from app.config import AppSettings
 from app.data_ingestion import MarketDataService
 from app.explanations.generator import generate_breakout_explanation
+from app.fundamentals.engine import CompositeScoreWeights, combine_scores, rank_stocks_by_score, score_fundamentals
+from app.fundamentals.service import FundamentalsService
 from app.models import ScanJobResult
-from app.scoring.engine import rank_stocks_by_score, score_breakout_setup
+from app.scoring.engine import score_breakout_setup
 from app.signals.breakout import combine_latest_signals
 from app.storage.sqlite_store import SQLiteStore
 from app.utils.logging import get_logger
@@ -25,10 +27,12 @@ class DailyScanner:
         data_service: MarketDataService,
         store: SQLiteStore,
         settings: AppSettings,
+        fundamentals_service: FundamentalsService | None = None,
     ) -> None:
         self.data_service = data_service
         self.store = store
         self.settings = settings
+        self.fundamentals_service = fundamentals_service
         self.logger = get_logger(__name__)
 
     def scan_end_of_day(
@@ -45,6 +49,9 @@ class DailyScanner:
         end_date = datetime.utcnow().date()
         start_date = end_date - timedelta(days=self.settings.scan_lookback_days)
         benchmark = benchmark_symbol or self.settings.benchmark_symbol
+        fundamentals_lookup = (
+            self.fundamentals_service.build_lookup(watchlist) if self.fundamentals_service is not None else {}
+        )
         try:
             benchmark_df = self.data_service.get_historical_ohlcv(benchmark, "day", start_date, end_date)
         except Exception as exc:
@@ -67,6 +74,7 @@ class DailyScanner:
                     end_date,
                     benchmark_df,
                     (symbol_metadata or {}).get(symbol, {}),
+                    fundamentals_lookup.get(symbol.upper(), {}),
                 ): symbol
                 for symbol in watchlist
             }
@@ -95,6 +103,18 @@ class DailyScanner:
             self.store.save_price_history(history_df)
         return results_df
 
+    @staticmethod
+    def _pick_text(*values: object, default: str = "Unknown") -> str:
+        for value in values:
+            if value is None:
+                continue
+            if pd.isna(value):
+                continue
+            text = str(value).strip()
+            if text and text.lower() != "nan":
+                return text
+        return default
+
     def _process_symbol(
         self,
         symbol: str,
@@ -102,6 +122,7 @@ class DailyScanner:
         end_date: date,
         benchmark_df: pd.DataFrame,
         metadata: dict[str, str],
+        fundamentals_snapshot: dict[str, Any],
     ) -> ScanJobResult:
         try:
             history = self.data_service.get_historical_ohlcv(symbol, "day", start_date, end_date)
@@ -111,11 +132,33 @@ class DailyScanner:
                 symbol,
                 history,
                 benchmark_df,
-                sector=metadata.get("sector"),
-                market_cap_bucket=metadata.get("market_cap_bucket"),
+                sector=self._pick_text(fundamentals_snapshot.get("sector"), metadata.get("sector")),
+                market_cap_bucket=self._pick_text(
+                    fundamentals_snapshot.get("market_cap_bucket"),
+                    metadata.get("market_cap_bucket"),
+                ),
             )
-            score = score_breakout_setup(combined)
-            enriched = {**combined, **score.to_dict()}
+            technical_score = score_breakout_setup(combined)
+            fundamental_score = score_fundamentals(fundamentals_snapshot)
+            composite_score = combine_scores(
+                technical_score,
+                fundamental_score,
+                weights=CompositeScoreWeights(
+                    technical=self.settings.composite_technical_weight,
+                    fundamental=self.settings.composite_fundamental_weight,
+                ),
+            )
+            enriched = {
+                **combined,
+                "technical_score": technical_score.total_score,
+                "technical_component_scores": technical_score.component_scores,
+                "technical_rating": technical_score.rating,
+                "fundamental_score": fundamental_score.total_score,
+                "fundamental_component_scores": fundamental_score.component_scores,
+                "fundamental_rating": fundamental_score.rating,
+                "fundamentals": fundamentals_snapshot,
+                **composite_score.to_dict(),
+            }
             explanation = generate_breakout_explanation(enriched)
             flattened = self._flatten_scan_result(enriched, explanation.to_dict())
             return ScanJobResult(
@@ -142,6 +185,10 @@ class DailyScanner:
             "liquidity_turnover_20": combined.get("liquidity_turnover_20"),
             "liquidity_status": combined.get("liquidity_status"),
             "failed_breakout": int(bool(combined.get("failed_breakout"))),
+            "technical_score": combined.get("technical_score"),
+            "technical_rating": combined.get("technical_rating"),
+            "fundamental_score": combined.get("fundamental_score"),
+            "fundamental_rating": combined.get("fundamental_rating"),
             "total_score": combined.get("total_score"),
             "rating": combined.get("rating"),
             "explanation": explanation.get("explanation"),
@@ -150,5 +197,10 @@ class DailyScanner:
             "sector": combined.get("sector"),
             "market_cap_bucket": combined.get("market_cap_bucket"),
             "component_scores_json": SQLiteStore.dumps_payload(combined.get("component_scores", {})),
+            "technical_component_scores_json": SQLiteStore.dumps_payload(combined.get("technical_component_scores", {})),
+            "fundamental_component_scores_json": SQLiteStore.dumps_payload(
+                combined.get("fundamental_component_scores", {}),
+            ),
+            "fundamentals_json": SQLiteStore.dumps_payload(combined.get("fundamentals", {})),
             "signal_payload_json": SQLiteStore.dumps_payload(combined),
         }

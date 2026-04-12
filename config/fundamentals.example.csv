@@ -1,0 +1,17 @@
+symbol,sector,market_cap_bucket,revenue_growth_pct,eps_growth_pct,roe_pct,roce_pct,debt_to_equity,net_margin_pct,promoter_holding_pct
+RELIANCE,Energy,mega_cap,8.0,10.0,9.5,11.0,0.45,9.0,50.3
+TCS,Technology,mega_cap,6.5,8.0,42.0,50.0,0.02,19.5,71.7
+INFY,Technology,mega_cap,4.0,5.5,30.0,36.0,0.03,16.0,14.7
+HDFCBANK,Financials,mega_cap,12.0,14.0,16.0,15.0,1.20,22.0,25.5
+ICICIBANK,Financials,mega_cap,14.0,16.0,18.0,17.0,1.15,23.0,0.0
+SBIN,Financials,mega_cap,11.0,13.0,17.0,15.5,1.40,16.0,57.4
+LT,Industrials,mega_cap,15.0,18.0,14.0,16.0,0.95,8.0,0.0
+BAJFINANCE,Financials,large_cap,23.0,24.0,19.0,18.5,3.40,18.0,54.7
+AXISBANK,Financials,mega_cap,10.0,12.0,16.0,15.0,1.10,21.0,8.2
+SUNPHARMA,Healthcare,large_cap,9.0,11.0,15.0,17.0,0.05,13.0,54.5
+ABB,Industrials,large_cap,18.0,20.0,27.0,31.0,0.02,11.5,75.0
+AAVAS,Financials,mid_cap,16.0,17.0,14.0,13.5,2.20,24.0,48.0
+ABCAPITAL,Financials,large_cap,14.0,15.0,11.0,10.0,4.00,11.0,69.0
+AADHARHFC,Financials,mid_cap,20.0,22.0,16.0,15.0,6.50,21.0,76.0
+AARTIIND,Chemicals,large_cap,7.0,9.0,12.5,14.5,0.55,8.5,44.0
+AARTIPHARM,Healthcare,mid_cap,13.0,14.0,11.0,12.0,0.35,10.5,60.0

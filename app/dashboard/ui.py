@@ -8,6 +8,8 @@ import streamlit as st
 
 from app.config import get_settings
 from app.data_ingestion import MarketDataService
+from app.fundamentals.csv_provider import CsvFundamentalsProvider
+from app.fundamentals.service import FundamentalsService
 from app.pipeline import DailyScanner
 from app.providers.factory import build_market_data_provider
 from app.storage.sqlite_store import SQLiteStore
@@ -16,19 +18,23 @@ from app.utils.logging import configure_logging
 
 
 def _apply_common_filters(results_df: pd.DataFrame) -> tuple[pd.DataFrame, str]:
-    score_floor = st.sidebar.slider("Minimum score", 0, 100, 60)
+    composite_floor = st.sidebar.slider("Minimum composite score", 0, 100, 60)
+    technical_floor = st.sidebar.slider("Minimum technical score", 0, 100, 40)
+    fundamental_floor = st.sidebar.slider("Minimum fundamental score", 0, 100, 30)
     sectors = sorted(value for value in results_df.get("sector", pd.Series(dtype=str)).dropna().unique())
     market_caps = sorted(value for value in results_df.get("market_cap_bucket", pd.Series(dtype=str)).dropna().unique())
     selected_sectors = st.sidebar.multiselect("Sector", sectors, default=sectors)
     selected_market_caps = st.sidebar.multiselect("Market cap bucket", market_caps, default=market_caps)
     sort_by = st.sidebar.selectbox(
         "Sort by",
-        options=["total_score", "volume_multiple", "distance_above_breakout_pct"],
+        options=["total_score", "technical_score", "fundamental_score", "volume_multiple", "distance_above_breakout_pct"],
         index=0,
     )
 
     filtered = results_df.copy()
-    filtered = filtered.loc[filtered["total_score"] >= score_floor]
+    filtered = filtered.loc[filtered["total_score"] >= composite_floor]
+    filtered = filtered.loc[filtered["technical_score"] >= technical_floor]
+    filtered = filtered.loc[filtered["fundamental_score"] >= fundamental_floor]
     if selected_sectors:
         filtered = filtered.loc[filtered["sector"].isin(selected_sectors)]
     if selected_market_caps:
@@ -46,6 +52,8 @@ def _show_results_table(store: SQLiteStore, title: str, results_df: pd.DataFrame
     display_columns = [
         "symbol",
         "total_score",
+        "technical_score",
+        "fundamental_score",
         "rating",
         "signal_state",
         "close",
@@ -69,7 +77,9 @@ def _show_results_table(store: SQLiteStore, title: str, results_df: pd.DataFrame
 
     col1, col2 = st.columns([2, 3])
     with col1:
-        st.metric("Score", f"{selected_row['total_score']:.1f}")
+        st.metric("Composite score", f"{selected_row['total_score']:.1f}")
+        st.metric("Technical score", f"{selected_row['technical_score']:.1f}")
+        st.metric("Fundamental score", f"{selected_row['fundamental_score']:.1f}")
         st.metric("Volume multiple", f"{selected_row['volume_multiple']:.2f}x")
         st.metric("Breakout distance", f"{selected_row['distance_above_breakout_pct']:.2f}%")
         st.write(selected_row["trader_summary"])
@@ -97,10 +107,21 @@ def _show_signal_history(store: SQLiteStore) -> None:
     symbol_history = history_df.loc[history_df["symbol"] == symbol].copy()
     symbol_history["scan_timestamp"] = pd.to_datetime(symbol_history["scan_timestamp"])
     st.dataframe(
-        symbol_history[["scan_timestamp", "total_score", "rating", "signal_state", "close", "volume_multiple"]],
+        symbol_history[
+            [
+                "scan_timestamp",
+                "total_score",
+                "technical_score",
+                "fundamental_score",
+                "rating",
+                "signal_state",
+                "close",
+                "volume_multiple",
+            ]
+        ],
         use_container_width=True,
     )
-    score_chart = symbol_history.set_index("scan_timestamp")[["total_score", "close"]]
+    score_chart = symbol_history.set_index("scan_timestamp")[["total_score", "technical_score", "fundamental_score"]]
     st.line_chart(score_chart)
 
 
@@ -151,7 +172,13 @@ def _show_scan_controls(settings, store: SQLiteStore) -> pd.DataFrame:
             configure_logging(settings.log_level)
             provider = build_market_data_provider(settings)
             data_service = MarketDataService(provider=provider, settings=settings)
-            scanner = DailyScanner(data_service=data_service, store=store, settings=settings)
+            fundamentals_service = FundamentalsService(CsvFundamentalsProvider(settings.fundamentals_csv_path))
+            scanner = DailyScanner(
+                data_service=data_service,
+                store=store,
+                settings=settings,
+                fundamentals_service=fundamentals_service,
+            )
             with st.spinner("Resolving symbol universe..."):
                 universe = build_stock_universe(
                     data_service=data_service,

@@ -38,6 +38,10 @@ class SQLiteStore:
                     relative_strength_status TEXT,
                     liquidity_turnover_20 REAL,
                     liquidity_status TEXT,
+                    technical_score REAL,
+                    technical_rating TEXT,
+                    fundamental_score REAL,
+                    fundamental_rating TEXT,
                     total_score REAL,
                     rating TEXT,
                     explanation TEXT,
@@ -47,6 +51,9 @@ class SQLiteStore:
                     market_cap_bucket TEXT,
                     failed_breakout INTEGER,
                     component_scores_json TEXT,
+                    technical_component_scores_json TEXT,
+                    fundamental_component_scores_json TEXT,
+                    fundamentals_json TEXT,
                     signal_payload_json TEXT
                 );
 
@@ -90,6 +97,13 @@ class SQLiteStore:
                 """,
             )
             self._ensure_column(connection, "scan_results", "rank", "INTEGER")
+            self._ensure_column(connection, "scan_results", "technical_score", "REAL")
+            self._ensure_column(connection, "scan_results", "technical_rating", "TEXT")
+            self._ensure_column(connection, "scan_results", "fundamental_score", "REAL")
+            self._ensure_column(connection, "scan_results", "fundamental_rating", "TEXT")
+            self._ensure_column(connection, "scan_results", "technical_component_scores_json", "TEXT")
+            self._ensure_column(connection, "scan_results", "fundamental_component_scores_json", "TEXT")
+            self._ensure_column(connection, "scan_results", "fundamentals_json", "TEXT")
 
     def save_scan_results(self, results_df: pd.DataFrame) -> None:
         if results_df.empty:

@@ -34,6 +34,20 @@ class ScoreResult:
 
 
 @dataclass(slots=True)
+class CompositeScoreResult:
+    """Combined technical and fundamental score output."""
+
+    total_score: float
+    technical_score: float
+    fundamental_score: float
+    component_scores: dict[str, float]
+    rating: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(slots=True)
 class ExplanationResult:
     """Human-readable explanation for a flagged setup."""
 
