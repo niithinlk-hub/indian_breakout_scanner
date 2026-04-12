@@ -77,6 +77,12 @@ The second command saves the new `ZERODHA_ACCESS_TOKEN` into `.env`.
 python -m app.main --scan-eod
 ```
 
+Scan all NSE cash equities instead of the manual watchlist:
+
+```bash
+python -m app.main --scan-eod --universe-mode nse_equities --symbol-limit 500
+```
+
 If the dashboard is empty, the most common cause is that no successful scan has been stored yet. Run the scanner after configuring your broker access token:
 
 ```bash
@@ -93,11 +99,19 @@ streamlit run streamlit_app.py
 
 Dashboard pages:
 
+1. All scanned stocks
 1. Top breakouts today
 2. Near-breakouts
 3. Failed breakouts
 4. Signal history
 5. Backtest summary
+
+The sidebar scanner lets you choose between:
+
+- `Manual watchlist`
+- `All NSE equities`
+
+For large universes, use the `Symbol limit` control to cap scan size.
 
 ## Deploying to Streamlit Community Cloud
 

@@ -8,13 +8,8 @@ from app.data_ingestion import MarketDataService
 from app.pipeline import DailyScanner
 from app.providers.factory import build_market_data_provider
 from app.storage.sqlite_store import SQLiteStore
+from app.universe import build_stock_universe
 from app.utils.logging import configure_logging, get_logger
-
-
-def _load_watchlist(path: Path) -> list[str]:
-    if not path.exists():
-        raise FileNotFoundError(f"Watchlist file not found: {path}")
-    return [line.strip().upper() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -32,6 +27,18 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Override the configured number of parallel workers.",
     )
+    parser.add_argument(
+        "--universe-mode",
+        choices=["watchlist", "nse_equities"],
+        default="watchlist",
+        help="Choose whether to scan the manual watchlist or all NSE cash equities.",
+    )
+    parser.add_argument(
+        "--symbol-limit",
+        type=int,
+        default=None,
+        help="Optional cap on the number of symbols scanned from the selected universe.",
+    )
     return parser
 
 
@@ -45,12 +52,27 @@ def main() -> None:
         logger.info("Nothing to do. Run with --scan-eod to execute the scanner.")
         return
 
-    watchlist = _load_watchlist(args.watchlist_file)
     provider = build_market_data_provider(settings)
     data_service = MarketDataService(provider=provider, settings=settings)
     store = SQLiteStore(settings.database_path)
     scanner = DailyScanner(data_service=data_service, store=store, settings=settings)
-    results_df = scanner.scan_end_of_day(watchlist, max_workers=args.max_workers)
+    universe = build_stock_universe(
+        data_service=data_service,
+        mode=args.universe_mode,
+        default_exchange=settings.default_exchange,
+        watchlist_path=args.watchlist_file,
+        symbol_limit=args.symbol_limit,
+    )
+    if not universe.symbols:
+        logger.warning("No symbols resolved for universe mode '%s'.", args.universe_mode)
+        return
+
+    logger.info("Scanning %s symbols using universe mode '%s'.", len(universe.symbols), args.universe_mode)
+    results_df = scanner.scan_end_of_day(
+        universe.symbols,
+        symbol_metadata=universe.metadata,
+        max_workers=args.max_workers,
+    )
 
     if results_df.empty:
         logger.warning("Scanner completed with no successful results. Check provider configuration.")

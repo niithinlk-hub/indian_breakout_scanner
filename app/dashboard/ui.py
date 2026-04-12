@@ -11,6 +11,7 @@ from app.data_ingestion import MarketDataService
 from app.pipeline import DailyScanner
 from app.providers.factory import build_market_data_provider
 from app.storage.sqlite_store import SQLiteStore
+from app.universe import build_stock_universe, load_watchlist
 from app.utils.logging import configure_logging
 
 
@@ -111,24 +112,28 @@ def _show_backtest_summary(store: SQLiteStore) -> None:
         return
 
     st.dataframe(summaries, use_container_width=True)
-
-
-def _load_watchlist(path: Path) -> list[str]:
-    if not path.exists():
-        return []
-    return [line.strip().upper() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
-
-
 def _show_scan_controls(settings, store: SQLiteStore) -> pd.DataFrame:
     st.sidebar.divider()
     st.sidebar.subheader("Scanner")
+    universe_mode = st.sidebar.selectbox(
+        "Universe mode",
+        options=["watchlist", "nse_equities"],
+        format_func=lambda value: "Manual watchlist" if value == "watchlist" else "All NSE equities",
+    )
     watchlist_path = st.sidebar.text_input(
         "Watchlist file",
         value="config/watchlist.example.txt",
         help="Path relative to the project root.",
+        disabled=universe_mode != "watchlist",
     )
-    watchlist = _load_watchlist(settings.project_root / watchlist_path)
-    st.sidebar.caption(f"Loaded {len(watchlist)} symbols.")
+    symbol_limit = st.sidebar.number_input(
+        "Symbol limit",
+        min_value=0,
+        max_value=5000,
+        value=250 if universe_mode == "nse_equities" else 0,
+        step=50,
+        help="Use 0 to scan the full selected universe.",
+    )
 
     credentials_ready = (
         (settings.provider_name == "zerodha" and bool(settings.zerodha_api_key) and bool(settings.zerodha_access_token))
@@ -140,22 +145,42 @@ def _show_scan_controls(settings, store: SQLiteStore) -> pd.DataFrame:
         )
 
     if st.sidebar.button("Run scan now", type="primary", use_container_width=True):
-        if not watchlist:
-            st.sidebar.error("No watchlist symbols found.")
-        elif not credentials_ready:
+        if not credentials_ready:
             st.sidebar.error("Broker credentials are required before running a live scan.")
         else:
             configure_logging(settings.log_level)
             provider = build_market_data_provider(settings)
             data_service = MarketDataService(provider=provider, settings=settings)
             scanner = DailyScanner(data_service=data_service, store=store, settings=settings)
+            with st.spinner("Resolving symbol universe..."):
+                universe = build_stock_universe(
+                    data_service=data_service,
+                    mode=universe_mode,
+                    default_exchange=settings.default_exchange,
+                    watchlist_path=settings.project_root / watchlist_path,
+                    symbol_limit=symbol_limit or None,
+                )
+            if not universe.symbols:
+                st.sidebar.error("No symbols resolved for the selected universe.")
+                return store.load_latest_scan_results()
+
             with st.spinner("Running end-of-day scan..."):
-                results = scanner.scan_end_of_day(watchlist)
+                results = scanner.scan_end_of_day(
+                    universe.symbols,
+                    symbol_metadata=universe.metadata,
+                )
             if results.empty:
                 st.warning("Scan completed, but no successful rows were stored.")
             else:
                 st.success(f"Scan complete. Stored {len(results)} rows.")
                 st.rerun()
+    else:
+        if universe_mode == "watchlist":
+            watchlist = load_watchlist(settings.project_root / watchlist_path)
+            st.sidebar.caption(f"Loaded {len(watchlist)} symbols from watchlist.")
+        else:
+            limit_label = "all symbols" if symbol_limit == 0 else f"up to {symbol_limit} symbols"
+            st.sidebar.caption(f"Will scan {limit_label} from NSE cash equities.")
 
     return store.load_latest_scan_results()
 
@@ -171,6 +196,7 @@ def render_dashboard() -> None:
     page = st.sidebar.radio(
         "Page",
         [
+            "All scanned stocks",
             "Top breakouts today",
             "Near-breakouts",
             "Failed breakouts",
@@ -203,7 +229,9 @@ def render_dashboard() -> None:
     filtered, sort_by = _apply_common_filters(latest_results)
     st.caption(f"Sorted by {sort_by}.")
 
-    if page == "Top breakouts today":
+    if page == "All scanned stocks":
+        _show_results_table(store, page, filtered)
+    elif page == "Top breakouts today":
         _show_results_table(store, page, filtered.loc[filtered["signal_state"] == "breakout"])
     elif page == "Near-breakouts":
         _show_results_table(store, page, filtered.loc[filtered["signal_state"] == "near_breakout"])
