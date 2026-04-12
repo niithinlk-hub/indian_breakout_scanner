@@ -13,6 +13,7 @@ from app.fundamentals.csv_provider import CsvFundamentalsProvider
 from app.fundamentals.service import FundamentalsService
 from app.pipeline import DailyScanner
 from app.providers.factory import build_market_data_provider
+from app.smc.page import render_smc_analyzer_page
 from app.storage.sqlite_store import SQLiteStore
 from app.universe import build_stock_universe, load_watchlist
 from app.utils.logging import configure_logging
@@ -380,10 +381,10 @@ def render_dashboard() -> None:
     st.set_page_config(page_title="Indian Breakout Scanner", layout="wide")
     st.title("Indian Breakout Scanner")
     st.sidebar.title("Views")
-    latest_results = _show_scan_controls(settings, store)
     page = st.sidebar.radio(
         "Page",
         [
+            "BOS + FVG Analyzer",
             "All scanned stocks",
             "Top breakouts today",
             "Near-breakouts",
@@ -393,6 +394,12 @@ def render_dashboard() -> None:
             "Backtest summary",
         ],
     )
+
+    if page == "BOS + FVG Analyzer":
+        render_smc_analyzer_page()
+        return
+
+    latest_results = _show_scan_controls(settings, store)
 
     if page == "Signal history":
         _show_signal_history(store)

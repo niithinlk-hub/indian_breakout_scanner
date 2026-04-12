@@ -13,6 +13,7 @@ Production-ready Python scaffold for scanning Indian equities for daily breakout
 - Deterministic explanation generator designed for optional future LLM enhancement
 - Daily end-of-day scanning pipeline with parallel symbol processing and SQLite persistence
 - Streamlit dashboard with breakout pages, filters, explanations, mini charts, and CSV export
+- Separate BOS + FVG analyzer page for Yahoo-powered watchlist screening and 5-year single-stock chart analysis
 - Backtesting engine with configurable entries and exits
 - Pytest scaffolding with synthetic OHLCV fixtures
 
@@ -123,8 +124,10 @@ Dashboard pages:
 1. Top breakouts today
 2. Near-breakouts
 3. Failed breakouts
-4. Signal history
-5. Backtest summary
+4. Fundamental scores
+5. Signal history
+6. Backtest summary
+7. BOS + FVG Analyzer
 
 The sidebar scanner lets you choose between:
 
@@ -133,6 +136,24 @@ The sidebar scanner lets you choose between:
 
 For large universes, use the `Symbol limit` control to cap scan size.
 You can also filter the dashboard by composite, technical, and fundamental minimum scores.
+
+## BOS + FVG Analyzer
+
+The dashboard includes a dedicated `BOS + FVG Analyzer` page for multi-symbol screening and detailed single-stock chart work. It is intentionally separate from the main breakout scanner so the technical BOS/FVG workflow stays independent from the end-of-day ranking workflow.
+
+The analyzer supports:
+
+- Default watchlists for `NIFTY 50` and `BANKNIFTY majors`
+- Custom comma-separated tickers and CSV uploads
+- Timeframes `5m`, `15m`, `1h`, `4h`, and `1d`
+- BOS/CHoCH structure detection, swing highs/lows, breakout levels, and fair value gaps
+- Plotly candlestick charts with FVG rectangles and structure annotations
+- 5-year single-stock analysis on the daily timeframe
+
+Notes:
+
+- `1d` is the recommended interval for the full 5-year pattern study.
+- Intraday Yahoo Finance intervals can return shorter history windows, so the app clamps those requests and shows a notice when that happens.
 
 ## Deploying to Streamlit Community Cloud
 
