@@ -10,12 +10,20 @@ _DEFAULT_COLUMNS = [
     "symbol",
     "sector",
     "market_cap_bucket",
+    "market_cap_inr_cr",
+    "pe_ratio",
+    "pb_ratio",
+    "ev_ebitda",
+    "dividend_yield_pct",
     "revenue_growth_pct",
     "eps_growth_pct",
     "roe_pct",
     "roce_pct",
     "debt_to_equity",
     "net_margin_pct",
+    "operating_margin_pct",
+    "current_ratio",
+    "interest_coverage",
     "promoter_holding_pct",
 ]
 
@@ -38,12 +46,20 @@ class CsvFundamentalsProvider(FundamentalsProvider):
 
         frame["symbol"] = frame["symbol"].fillna("").astype(str).str.upper()
         for column in [
+            "market_cap_inr_cr",
+            "pe_ratio",
+            "pb_ratio",
+            "ev_ebitda",
+            "dividend_yield_pct",
             "revenue_growth_pct",
             "eps_growth_pct",
             "roe_pct",
             "roce_pct",
             "debt_to_equity",
             "net_margin_pct",
+            "operating_margin_pct",
+            "current_ratio",
+            "interest_coverage",
             "promoter_holding_pct",
         ]:
             frame[column] = pd.to_numeric(frame[column], errors="coerce")
