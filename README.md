@@ -62,6 +62,15 @@ Required live-data environment variables:
 - Upstox: `MARKET_DATA_PROVIDER=upstox`, `UPSTOX_ACCESS_TOKEN`
 - Common: `DEFAULT_EXCHANGE=NSE`
 
+Zerodha token helper:
+
+```bash
+python -m app.auth.zerodha_token --redirect-url "https://your-app.streamlit.app/" --show-login-url
+python -m app.auth.zerodha_token --request-token "paste_request_token_here"
+```
+
+The second command saves the new `ZERODHA_ACCESS_TOKEN` into `.env`.
+
 ## Running the scanner
 
 ```bash
