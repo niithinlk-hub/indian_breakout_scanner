@@ -6,13 +6,17 @@ import numpy as np
 import pandas as pd
 
 
-def normalize_nse_symbol(symbol: str) -> str:
+def normalize_symbol(symbol: str, default_suffix: str | None = ".NS") -> str:
     cleaned = str(symbol).strip().upper()
     if not cleaned:
         return ""
-    if cleaned.startswith("^") or cleaned.endswith(".NS"):
+    if cleaned.startswith("^") or "." in cleaned:
         return cleaned
-    return f"{cleaned}.NS"
+    return f"{cleaned}{default_suffix}" if default_suffix else cleaned
+
+
+def normalize_nse_symbol(symbol: str) -> str:
+    return normalize_symbol(symbol, ".NS")
 
 
 def strip_exchange_suffix(symbol: str) -> str:
@@ -20,8 +24,8 @@ def strip_exchange_suffix(symbol: str) -> str:
     return cleaned[:-3] if cleaned.endswith(".NS") else cleaned
 
 
-def parse_symbol_input(raw: str) -> list[str]:
-    return [normalize_nse_symbol(item) for item in str(raw).replace("\n", ",").split(",") if str(item).strip()]
+def parse_symbol_input(raw: str, default_suffix: str | None = ".NS") -> list[str]:
+    return [normalize_symbol(item, default_suffix) for item in str(raw).replace("\n", ",").split(",") if str(item).strip()]
 
 
 def ensure_ohlcv_schema(df: pd.DataFrame, symbol: str) -> pd.DataFrame:

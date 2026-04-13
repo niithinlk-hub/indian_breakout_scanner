@@ -80,8 +80,13 @@ def render_stock_alerter_page(project_root) -> None:
 
     st.sidebar.divider()
     st.sidebar.subheader("Stock Alerter")
-    universe_choice = st.sidebar.selectbox("Universe selector", options=["NIFTY LargeMidcap 250", "Custom"], index=0, key="stock_alerter_universe")
-    custom_text = st.sidebar.text_area("Custom symbols", value="RELIANCE, TCS, HDFCBANK", disabled=universe_choice != "Custom")
+    universe_choice = st.sidebar.selectbox(
+        "Universe selector",
+        options=["NIFTY LargeMidcap 250", "NASDAQ Top 250", "Custom"],
+        index=0,
+        key="stock_alerter_universe",
+    )
+    custom_text = st.sidebar.text_area("Custom symbols", value="RELIANCE.NS, TCS.NS, AAPL, NVDA", disabled=universe_choice != "Custom")
     config = load_stock_alerter_config(project_root)
     config.universe_name = universe_choice
     config.custom_universe_text = custom_text
@@ -106,7 +111,7 @@ def render_stock_alerter_page(project_root) -> None:
     company_names = {str(row["Symbol"]).upper(): str(row.get("Company Name", row["Symbol"])) for _, row in universe_frame.iterrows()}
 
     st.subheader("Bullish Breakout Stock Alerter")
-    st.caption(f"Default universe: {config.universe_name}. Symbols loaded: {len(symbols)}")
+    st.caption(f"Universe: {config.universe_name}. Symbols loaded: {len(symbols)}")
 
     if st.button("Run stock alerter scan", type="primary", width="stretch"):
         with st.spinner("Fetching market data and scanning bullish breakout candidates..."):

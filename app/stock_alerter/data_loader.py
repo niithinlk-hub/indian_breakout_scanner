@@ -11,7 +11,7 @@ import requests
 import streamlit as st
 
 from app.stock_alerter.config import StockAlerterConfig
-from app.stock_alerter.utils import ensure_ohlcv_schema, normalize_nse_symbol, parse_symbol_input, strip_exchange_suffix
+from app.stock_alerter.utils import ensure_ohlcv_schema, normalize_symbol, parse_symbol_input, strip_exchange_suffix
 from app.utils.logging import get_logger
 
 LOGGER = get_logger(__name__)
@@ -20,9 +20,11 @@ logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 _UNIVERSE_URLS = {
     "NIFTY 100": "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
     "NIFTY Midcap 150": "https://archives.nseindia.com/content/indices/ind_niftymidcap150list.csv",
+    "NASDAQ Screener": "https://api.nasdaq.com/api/screener/stocks?tableonly=true&download=true&exchange=nasdaq&limit=5000&offset=0",
 }
 _BUNDLED_FALLBACKS = {
     "NIFTY LargeMidcap 250": "config/nifty_largemidcap250_fallback.csv",
+    "NASDAQ Top 250": "config/nasdaq_top250_fallback.csv",
 }
 
 
@@ -57,11 +59,47 @@ def _fetch_universe_csv(url: str) -> pd.DataFrame:
     return pd.read_csv(StringIO(response.text))
 
 
+@st.cache_data(ttl=60 * 60 * 12, show_spinner=False)
+def _fetch_nasdaq_top250_frame() -> pd.DataFrame:
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/json, text/plain, */*",
+        "Origin": "https://www.nasdaq.com",
+        "Referer": "https://www.nasdaq.com/market-activity/stocks/screener",
+    }
+    response = requests.get(_UNIVERSE_URLS["NASDAQ Screener"], headers=headers, timeout=45)
+    response.raise_for_status()
+    payload = response.json()
+    rows = payload.get("data", {}).get("rows", [])
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return pd.DataFrame(columns=["Symbol", "Company Name", "Sector", "Industry", "Market Cap", "Country"])
+
+    frame["marketCap"] = pd.to_numeric(frame["marketCap"], errors="coerce").fillna(0.0)
+    name_upper = frame["name"].fillna("").astype(str).str.upper()
+    exclude_patterns = [" ETF", " FUND", " TRUST", " ACQUISITION", " WARRANT", " RIGHTS", " UNITS", "UNIT ", " PREFERRED", " DEPOSITARY", " ADR "]
+    filtered = frame.loc[
+        (frame["marketCap"] > 0)
+        & (~name_upper.str.contains("|".join(exclude_patterns), regex=True))
+    ].copy()
+    filtered = filtered.sort_values("marketCap", ascending=False).head(250)
+    return filtered.rename(
+        columns={
+            "symbol": "Symbol",
+            "name": "Company Name",
+            "sector": "Sector",
+            "industry": "Industry",
+            "marketCap": "Market Cap",
+            "country": "Country",
+        },
+    )[["Symbol", "Company Name", "Sector", "Industry", "Market Cap", "Country"]]
+
+
 def load_universe_frame(config: StockAlerterConfig) -> pd.DataFrame:
     """Load the selected universe as a dataframe with symbol metadata."""
 
     if config.universe_name == "Custom":
-        symbols = [symbol for symbol in parse_symbol_input(config.custom_universe_text) if symbol][: config.max_symbols]
+        symbols = [symbol for symbol in parse_symbol_input(config.custom_universe_text, default_suffix=None) if symbol][: config.max_symbols]
         return pd.DataFrame({"Symbol": [strip_exchange_suffix(symbol) for symbol in symbols], "Company Name": [strip_exchange_suffix(symbol) for symbol in symbols]})
 
     if config.universe_name == "NIFTY LargeMidcap 250":
@@ -76,6 +114,16 @@ def load_universe_frame(config: StockAlerterConfig) -> pd.DataFrame:
                 LOGGER.warning("Universe live fetch failed for %s and no fallback was cached: %s", config.universe_name, exc)
         return combined.head(config.max_symbols).reset_index(drop=True)
 
+    if config.universe_name == "NASDAQ Top 250":
+        combined = _load_best_available_universe(config, config.universe_name)
+        try:
+            combined = _fetch_nasdaq_top250_frame()
+            combined.to_csv(_cache_path(config, config.universe_name), index=False)
+        except Exception as exc:
+            if combined.empty:
+                LOGGER.warning("Universe live fetch failed for %s and no fallback was cached: %s", config.universe_name, exc)
+        return combined.head(config.max_symbols).reset_index(drop=True)
+
     raise ValueError(f"Unsupported universe: {config.universe_name}")
 
 
@@ -83,7 +131,8 @@ def load_universe_symbols(config: StockAlerterConfig) -> list[str]:
     """Load symbols for the selected universe with live fetch and local cache fallback."""
 
     frame = load_universe_frame(config)
-    symbols = [normalize_nse_symbol(symbol) for symbol in frame.get("Symbol", pd.Series(dtype=str)).dropna().tolist()]
+    default_suffix = ".NS" if config.universe_name == "NIFTY LargeMidcap 250" else None
+    symbols = [normalize_symbol(symbol, default_suffix) for symbol in frame.get("Symbol", pd.Series(dtype=str)).dropna().tolist()]
     return symbols[: config.max_symbols]
 
 

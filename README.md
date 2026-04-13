@@ -15,6 +15,7 @@ Production-ready Python scaffold for scanning Indian equities for daily breakout
 - Streamlit dashboard with breakout pages, filters, explanations, mini charts, and CSV export
 - Separate BOS + FVG analyzer page for Yahoo-powered watchlist screening and 5-year single-stock chart analysis
 - Separate stock alerter page for bullish breakout scoring, NIFTY LargeMidcap 250 scans, and Telegram alerts
+- Stock alerter also supports a `NASDAQ Top 250` universe with live Nasdaq-screener fetch plus bundled fallback
 - Backtesting engine with configurable entries and exits
 - Pytest scaffolding with synthetic OHLCV fixtures
 
@@ -121,15 +122,21 @@ streamlit run streamlit_app.py
 
 Dashboard pages:
 
+The dashboard now uses a top workspace selector instead of a sidebar radio list. The main workspaces are:
+
+1. Technical Scanner
+2. Fundamental Scores
+3. Signal History
+4. Backtest Summary
+5. BOS + FVG Analyzer
+6. Stock Alerter
+
+Inside `Technical Scanner`, you can switch between:
+
 1. All scanned stocks
-1. Top breakouts today
-2. Near-breakouts
-3. Failed breakouts
-4. Fundamental scores
-5. Signal history
-6. Backtest summary
-7. BOS + FVG Analyzer
-8. Stock Alerter
+2. Top breakouts today
+3. Near-breakouts
+4. Failed breakouts
 
 The sidebar scanner lets you choose between:
 
@@ -164,6 +171,7 @@ The dashboard also includes a dedicated `Stock Alerter` page focused on high-qua
 Highlights:
 
 - Default universe: `NIFTY LargeMidcap 250`, sourced from official NSE index constituent CSVs by combining `NIFTY 100` and `NIFTY Midcap 150`
+- Alternate universe: `NASDAQ Top 250`, sourced from the official Nasdaq stock screener API with a bundled fallback snapshot
 - Pattern modules for range breakouts, ascending triangles, bull flags, cup-and-handle approximations, major swing highs, 52-week highs, bullish BOS, bullish FVGs, and BOS+FVG continuation breakouts
 - Trend, momentum, candle-quality, relative-strength, retest, BOS, and FVG confirmations
 - Score categories: `A+ Breakout`, `A Breakout`, `Watchlist`, and `Reject / ignore`
