@@ -14,6 +14,7 @@ Production-ready Python scaffold for scanning Indian equities for daily breakout
 - Daily end-of-day scanning pipeline with parallel symbol processing and SQLite persistence
 - Streamlit dashboard with breakout pages, filters, explanations, mini charts, and CSV export
 - Separate BOS + FVG analyzer page for Yahoo-powered watchlist screening and 5-year single-stock chart analysis
+- Separate stock alerter page for bullish breakout scoring, NIFTY LargeMidcap 250 scans, and Telegram alerts
 - Backtesting engine with configurable entries and exits
 - Pytest scaffolding with synthetic OHLCV fixtures
 
@@ -128,6 +129,7 @@ Dashboard pages:
 5. Signal history
 6. Backtest summary
 7. BOS + FVG Analyzer
+8. Stock Alerter
 
 The sidebar scanner lets you choose between:
 
@@ -154,6 +156,27 @@ Notes:
 
 - `1d` is the recommended interval for the full 5-year pattern study.
 - Intraday Yahoo Finance intervals can return shorter history windows, so the app clamps those requests and shows a notice when that happens.
+
+## Stock Alerter
+
+The dashboard also includes a dedicated `Stock Alerter` page focused on high-quality bullish breakout candidates with transparent rule-based scoring and optional Telegram delivery.
+
+Highlights:
+
+- Default universe: `NIFTY LargeMidcap 250`, sourced from official NSE index constituent CSVs by combining `NIFTY 100` and `NIFTY Midcap 150`
+- Pattern modules for range breakouts, ascending triangles, bull flags, cup-and-handle approximations, major swing highs, 52-week highs, bullish BOS, bullish FVGs, and BOS+FVG continuation breakouts
+- Trend, momentum, candle-quality, relative-strength, retest, BOS, and FVG confirmations
+- Score categories: `A+ Breakout`, `A Breakout`, `Watchlist`, and `Reject / ignore`
+- Duplicate-alert prevention backed by local JSON persistence
+- Telegram alerts driven by `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
+
+Add these when you want Telegram alerts:
+
+```env
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+STOCK_ALERTER_ALERT_HISTORY_PATH=data/stock_alerter_alerts.json
+```
 
 ## Deploying to Streamlit Community Cloud
 

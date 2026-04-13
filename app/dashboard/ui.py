@@ -14,6 +14,7 @@ from app.fundamentals.service import FundamentalsService
 from app.pipeline import DailyScanner
 from app.providers.factory import build_market_data_provider
 from app.smc.page import render_smc_analyzer_page
+from app.stock_alerter.page import render_stock_alerter_page
 from app.storage.sqlite_store import SQLiteStore
 from app.universe import build_stock_universe, load_watchlist
 from app.utils.logging import configure_logging
@@ -384,6 +385,7 @@ def render_dashboard() -> None:
     page = st.sidebar.radio(
         "Page",
         [
+            "Stock Alerter",
             "BOS + FVG Analyzer",
             "All scanned stocks",
             "Top breakouts today",
@@ -394,6 +396,10 @@ def render_dashboard() -> None:
             "Backtest summary",
         ],
     )
+
+    if page == "Stock Alerter":
+        render_stock_alerter_page(settings.project_root)
+        return
 
     if page == "BOS + FVG Analyzer":
         render_smc_analyzer_page()
