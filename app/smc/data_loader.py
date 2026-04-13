@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from typing import Any
 
@@ -8,6 +9,8 @@ import streamlit as st
 
 from app.smc.config import TIMEFRAME_OPTIONS
 from app.smc.utils import clamp_period, denormalize_nse_ticker, normalize_nse_ticker, unique_preserving_order
+
+logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 
 
 @dataclass(slots=True)
@@ -83,6 +86,14 @@ def _download_history_cached(symbol: str, interval: str, period: str) -> pd.Data
     return frame
 
 
+def _friendly_failure_message(exc: Exception) -> str:
+    message = str(exc).strip()
+    lowered = message.lower()
+    if "rate limit" in lowered or "too many requests" in lowered:
+        return "Yahoo Finance rate limit hit. Wait a bit and try again."
+    return message or exc.__class__.__name__
+
+
 def load_symbol_history(symbol: str, timeframe: str, period: str) -> tuple[pd.DataFrame, list[str]]:
     """Load one symbol from Yahoo Finance with interval-aware period clamping."""
 
@@ -95,7 +106,10 @@ def load_symbol_history(symbol: str, timeframe: str, period: str) -> tuple[pd.Da
             f"{denormalize_nse_ticker(normalized_symbol)}: Yahoo returned {timeframe} data using {effective_period} instead of {period}.",
         )
 
-    raw = _download_history_cached(normalized_symbol, timeframe_meta["download_interval"], effective_period)
+    try:
+        raw = _download_history_cached(normalized_symbol, timeframe_meta["download_interval"], effective_period)
+    except Exception as exc:
+        raise RuntimeError(_friendly_failure_message(exc)) from exc
     history = _standardize_history(raw, normalized_symbol)
     if timeframe_meta["resample_rule"]:
         history = _resample_history(history, timeframe_meta["resample_rule"])

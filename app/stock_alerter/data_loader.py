@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+import time
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -13,6 +15,7 @@ from app.stock_alerter.utils import ensure_ohlcv_schema, normalize_nse_symbol, p
 from app.utils.logging import get_logger
 
 LOGGER = get_logger(__name__)
+logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 
 _UNIVERSE_URLS = {
     "NIFTY 100": "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
@@ -76,8 +79,16 @@ def _download_batch(symbols: tuple[str, ...], period: str, interval: str) -> Any
         group_by="ticker",
         auto_adjust=False,
         progress=False,
-        threads=True,
+        threads=False,
     )
+
+
+def _friendly_failure_message(exc: Exception) -> str:
+    message = str(exc).strip()
+    lowered = message.lower()
+    if "rate limit" in lowered or "too many requests" in lowered:
+        return "Yahoo Finance rate limit hit. Wait a bit and scan again."
+    return message or exc.__class__.__name__
 
 
 def fetch_universe_data(symbol_list: list[str], config: StockAlerterConfig) -> tuple[dict[str, pd.DataFrame], dict[str, str]]:
@@ -88,14 +99,15 @@ def fetch_universe_data(symbol_list: list[str], config: StockAlerterConfig) -> t
     if not symbol_list:
         return data, failures
 
-    batch_size = 40
+    batch_size = 15
     for start in range(0, len(symbol_list), batch_size):
         batch = tuple(symbol_list[start : start + batch_size])
         try:
             downloaded = _download_batch(batch, config.period, config.timeframe)
         except Exception as exc:
+            failure_message = _friendly_failure_message(exc)
             for symbol in batch:
-                failures[strip_exchange_suffix(symbol)] = str(exc)
+                failures[strip_exchange_suffix(symbol)] = failure_message
             continue
 
         if not isinstance(downloaded, pd.DataFrame) or downloaded.empty:
@@ -119,7 +131,9 @@ def fetch_universe_data(symbol_list: list[str], config: StockAlerterConfig) -> t
                 else:
                     data[strip_exchange_suffix(symbol)] = history.sort_values("datetime").reset_index(drop=True)
             except Exception as exc:
-                failures[strip_exchange_suffix(symbol)] = str(exc)
+                failures[strip_exchange_suffix(symbol)] = _friendly_failure_message(exc)
+        if start + batch_size < len(symbol_list):
+            time.sleep(0.5)
     return data, failures
 
 

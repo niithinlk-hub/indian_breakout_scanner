@@ -108,7 +108,7 @@ def render_stock_alerter_page(project_root) -> None:
     st.subheader("Bullish Breakout Stock Alerter")
     st.caption(f"Default universe: {config.universe_name}. Symbols loaded: {len(symbols)}")
 
-    if st.button("Run stock alerter scan", type="primary", use_container_width=True):
+    if st.button("Run stock alerter scan", type="primary", width="stretch"):
         with st.spinner("Fetching market data and scanning bullish breakout candidates..."):
             history_map, failures = fetch_universe_data(symbols, config)
             benchmark_df = fetch_benchmark_data(config)
@@ -159,7 +159,7 @@ def render_stock_alerter_page(project_root) -> None:
         "score",
         "category",
     ]
-    st.dataframe(filtered[display_columns], use_container_width=True)
+    st.dataframe(filtered[display_columns], width="stretch")
 
     selected_symbol = st.selectbox("Selected stock", filtered["symbol"].tolist())
     selected_row = filtered.loc[filtered["symbol"] == selected_symbol].iloc[0]
@@ -183,11 +183,11 @@ def render_stock_alerter_page(project_root) -> None:
     symbol_history = history_map.get(selected_symbol)
     if symbol_history is not None and not symbol_history.empty:
         chart = build_stock_chart(symbol_history, selected_row.to_dict(), config, benchmark_df=benchmark_df)
-        st.plotly_chart(chart, use_container_width=True)
+        st.plotly_chart(chart, width="stretch")
 
     if failures:
         with st.expander("Download failures"):
-            st.dataframe(pd.DataFrame({"symbol": list(failures), "error": list(failures.values())}), use_container_width=True)
+            st.dataframe(pd.DataFrame({"symbol": list(failures), "error": list(failures.values())}), width="stretch")
 
     if trigger_alerts and "stock_alerter_alert_messages" in st.session_state:
         with st.expander("Telegram alert log"):

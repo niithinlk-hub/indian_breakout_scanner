@@ -149,7 +149,7 @@ def _show_technical_results_table(store: SQLiteStore, title: str, results_df: pd
         "volume_multiple",
         "market_cap_bucket",
     ]
-    st.dataframe(results_df[display_columns], use_container_width=True)
+    st.dataframe(results_df[display_columns], width="stretch")
     st.download_button(
         label="Export filtered CSV",
         data=results_df.to_csv(index=False),
@@ -203,7 +203,7 @@ def _show_fundamental_page(fundamentals_df: pd.DataFrame) -> None:
         "promoter_holding_pct",
     ]
     available_columns = [column for column in display_columns if column in fundamentals_df.columns]
-    st.dataframe(fundamentals_df[available_columns], use_container_width=True)
+    st.dataframe(fundamentals_df[available_columns], width="stretch")
     st.download_button(
         label="Export fundamentals CSV",
         data=fundamentals_df.to_csv(index=False),
@@ -254,7 +254,7 @@ def _show_fundamental_page(fundamentals_df: pd.DataFrame) -> None:
             if column in selected_row.index
         ],
     )
-    st.dataframe(details_frame, use_container_width=True, hide_index=True)
+    st.dataframe(details_frame, width="stretch", hide_index=True)
 
 
 def _show_signal_history(store: SQLiteStore) -> None:
@@ -280,7 +280,7 @@ def _show_signal_history(store: SQLiteStore) -> None:
                 "volume_multiple",
             ]
         ],
-        use_container_width=True,
+        width="stretch",
     )
     score_chart = symbol_history.set_index("scan_timestamp")[["technical_score", "fundamental_score"]]
     st.line_chart(score_chart)
@@ -293,7 +293,7 @@ def _show_backtest_summary(store: SQLiteStore) -> None:
         st.info("No backtest summaries are stored yet.")
         return
 
-    st.dataframe(summaries, use_container_width=True)
+    st.dataframe(summaries, width="stretch")
 
 
 def _show_scan_controls(settings, store: SQLiteStore) -> pd.DataFrame:
@@ -328,7 +328,7 @@ def _show_scan_controls(settings, store: SQLiteStore) -> pd.DataFrame:
             "Broker credentials are missing. Add them as environment variables or Streamlit secrets before scanning.",
         )
 
-    if st.sidebar.button("Run scan now", type="primary", use_container_width=True):
+    if st.sidebar.button("Run scan now", type="primary", width="stretch"):
         if not credentials_ready:
             st.sidebar.error("Broker credentials are required before running a live scan.")
         else:

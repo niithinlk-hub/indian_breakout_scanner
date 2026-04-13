@@ -62,7 +62,7 @@ def _render_screener_section(results_df: pd.DataFrame) -> None:
     if selected_statuses:
         filtered = filtered.loc[filtered["breakout_status"].isin(selected_statuses)]
 
-    st.dataframe(filtered, use_container_width=True)
+    st.dataframe(filtered, width="stretch")
     st.download_button(
         "Export BOS/FVG results",
         filtered.to_csv(index=False),
@@ -70,7 +70,7 @@ def _render_screener_section(results_df: pd.DataFrame) -> None:
         mime="text/csv",
     )
     st.caption("Top 5 setups")
-    st.dataframe(filtered.head(5), use_container_width=True)
+    st.dataframe(filtered.head(5), width="stretch")
 
 
 def _render_single_symbol_section(config: SMCAnalyzerConfig, analyses: dict[str, object]) -> None:
@@ -79,7 +79,7 @@ def _render_single_symbol_section(config: SMCAnalyzerConfig, analyses: dict[str,
     analysis_symbol = st.text_input("Analyze symbol", value=default_symbol, help="Enter an NSE ticker like RELIANCE or TCS.")
     history_period = st.selectbox("Single-symbol history period", options=["1y", "2y", "5y", "10y"], index=2)
 
-    if st.button("Analyze single stock", use_container_width=True):
+    if st.button("Analyze single stock", width="stretch"):
         try:
             history, notices = load_symbol_history(analysis_symbol, config.timeframe, history_period)
         except Exception as exc:
@@ -94,7 +94,7 @@ def _render_single_symbol_section(config: SMCAnalyzerConfig, analyses: dict[str,
 
         analysis = analyze_symbol(denormalize_nse_ticker(analysis_symbol), history, config)
         figure = build_analysis_chart(analysis)
-        st.plotly_chart(figure, use_container_width=True)
+        st.plotly_chart(figure, width="stretch")
 
         latest_setup = analysis.setup
         active_fvgs = analysis.fvgs.loc[analysis.fvgs["status"] != "fully filled"]
@@ -110,7 +110,7 @@ def _render_single_symbol_section(config: SMCAnalyzerConfig, analyses: dict[str,
 
         st.info(latest_setup["setup_context"])
         if not active_fvgs.empty:
-            st.dataframe(active_fvgs.sort_values("timestamp", ascending=False), use_container_width=True)
+            st.dataframe(active_fvgs.sort_values("timestamp", ascending=False), width="stretch")
 
 
 def render_smc_analyzer_page() -> None:
@@ -163,7 +163,7 @@ def render_smc_analyzer_page() -> None:
     if not symbols:
         st.info("Choose a watchlist source and add symbols to run the screener. The single-symbol section below still works.")
 
-    run_scan = st.button("Run BOS + FVG screener", type="primary", use_container_width=True, disabled=not symbols)
+    run_scan = st.button("Run BOS + FVG screener", type="primary", width="stretch", disabled=not symbols)
 
     if run_scan:
         with st.spinner("Downloading Yahoo Finance history and scanning setups..."):
@@ -189,7 +189,7 @@ def render_smc_analyzer_page() -> None:
             st.caption(notice)
     if failures:
         st.warning("Some symbols failed to download.")
-        st.dataframe(pd.DataFrame({"symbol": list(failures), "error": list(failures.values())}), use_container_width=True)
+        st.dataframe(pd.DataFrame({"symbol": list(failures), "error": list(failures.values())}), width="stretch")
 
     _render_summary_cards(results_df, analyses)
     if not results_df.empty or analyses:
