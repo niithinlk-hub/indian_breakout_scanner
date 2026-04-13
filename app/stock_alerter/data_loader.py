@@ -21,11 +21,33 @@ _UNIVERSE_URLS = {
     "NIFTY 100": "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
     "NIFTY Midcap 150": "https://archives.nseindia.com/content/indices/ind_niftymidcap150list.csv",
 }
+_BUNDLED_FALLBACKS = {
+    "NIFTY LargeMidcap 250": "config/nifty_largemidcap250_fallback.csv",
+}
 
 
 def _cache_path(config: StockAlerterConfig, universe_name: str) -> Path:
     slug = universe_name.lower().replace(" ", "_").replace("/", "_")
     return config.project_root / "data" / f"{slug}_universe_cache.csv"
+
+
+def _bundled_fallback_path(config: StockAlerterConfig, universe_name: str) -> Path | None:
+    relative = _BUNDLED_FALLBACKS.get(universe_name)
+    if not relative:
+        return None
+    return config.project_root / relative
+
+
+def _load_best_available_universe(config: StockAlerterConfig, universe_name: str) -> pd.DataFrame:
+    cache_file = _cache_path(config, universe_name)
+    if cache_file.exists():
+        return pd.read_csv(cache_file)
+
+    bundled = _bundled_fallback_path(config, universe_name)
+    if bundled is not None and bundled.exists():
+        return pd.read_csv(bundled)
+
+    return pd.DataFrame(columns=["Company Name", "Industry", "Symbol", "Series", "ISIN Code"])
 
 
 @st.cache_data(ttl=60 * 60 * 12, show_spinner=False)
@@ -43,18 +65,15 @@ def load_universe_frame(config: StockAlerterConfig) -> pd.DataFrame:
         return pd.DataFrame({"Symbol": [strip_exchange_suffix(symbol) for symbol in symbols], "Company Name": [strip_exchange_suffix(symbol) for symbol in symbols]})
 
     if config.universe_name == "NIFTY LargeMidcap 250":
+        combined = _load_best_available_universe(config, config.universe_name)
         try:
             nifty100 = _fetch_universe_csv(_UNIVERSE_URLS["NIFTY 100"])
             midcap150 = _fetch_universe_csv(_UNIVERSE_URLS["NIFTY Midcap 150"])
             combined = pd.concat([nifty100, midcap150], ignore_index=True).drop_duplicates(subset=["Symbol"])
             combined.to_csv(_cache_path(config, config.universe_name), index=False)
         except Exception as exc:
-            LOGGER.warning("Universe live fetch failed for %s: %s", config.universe_name, exc)
-            cache_file = _cache_path(config, config.universe_name)
-            if cache_file.exists():
-                combined = pd.read_csv(cache_file)
-            else:
-                combined = pd.DataFrame(columns=["Symbol"])
+            if combined.empty:
+                LOGGER.warning("Universe live fetch failed for %s and no fallback was cached: %s", config.universe_name, exc)
         return combined.head(config.max_symbols).reset_index(drop=True)
 
     raise ValueError(f"Unsupported universe: {config.universe_name}")
