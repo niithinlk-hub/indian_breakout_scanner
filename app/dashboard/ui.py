@@ -36,20 +36,6 @@ _FUNDAMENTAL_DISPLAY_COLUMNS = [
     "interest_coverage",
     "promoter_holding_pct",
 ]
-_WORKSPACE_LABELS = {
-    "technical": "Technical Scanner",
-    "fundamental": "Fundamental Scores",
-    "history": "Signal History",
-    "backtest": "Backtest Summary",
-    "smc": "BOS + FVG Analyzer",
-    "alerter": "Stock Alerter",
-}
-_TECHNICAL_VIEWS = [
-    "All scanned stocks",
-    "Top breakouts today",
-    "Near-breakouts",
-    "Failed breakouts",
-]
 
 
 def _as_numeric(frame: pd.DataFrame, column: str) -> pd.Series:
@@ -310,38 +296,6 @@ def _show_backtest_summary(store: SQLiteStore) -> None:
     st.dataframe(summaries, width="stretch")
 
 
-def _render_navigation() -> tuple[str, str]:
-    current_workspace = st.session_state.get("dashboard_workspace", "technical")
-    current_technical_view = st.session_state.get("dashboard_technical_view", "All scanned stocks")
-
-    nav_cols = st.columns(len(_WORKSPACE_LABELS))
-    for index, (workspace_key, label) in enumerate(_WORKSPACE_LABELS.items()):
-        if nav_cols[index].button(label, key=f"workspace_{workspace_key}", width="stretch"):
-            st.session_state["dashboard_workspace"] = workspace_key
-            current_workspace = workspace_key
-
-    selected_workspace_label = st.selectbox(
-        "Workspace",
-        options=list(_WORKSPACE_LABELS.values()),
-        index=list(_WORKSPACE_LABELS).index(current_workspace),
-        key="dashboard_workspace_select",
-    )
-    workspace = next(key for key, label in _WORKSPACE_LABELS.items() if label == selected_workspace_label)
-    st.session_state["dashboard_workspace"] = workspace
-
-    technical_view = current_technical_view
-    if workspace == "technical":
-        technical_view = st.selectbox(
-            "Technical view",
-            options=_TECHNICAL_VIEWS,
-            index=_TECHNICAL_VIEWS.index(current_technical_view) if current_technical_view in _TECHNICAL_VIEWS else 0,
-            key="dashboard_technical_view_select",
-        )
-        st.session_state["dashboard_technical_view"] = technical_view
-
-    return workspace, technical_view
-
-
 def _show_scan_controls(settings, store: SQLiteStore) -> pd.DataFrame:
     st.sidebar.divider()
     st.sidebar.subheader("Scanner")
@@ -427,26 +381,41 @@ def render_dashboard() -> None:
 
     st.set_page_config(page_title="Indian Breakout Scanner", layout="wide")
     st.title("Indian Breakout Scanner")
-    workspace, technical_view = _render_navigation()
+    st.sidebar.title("Views")
+    page = st.sidebar.radio(
+        "Page",
+        options=[
+            "All scanned stocks",
+            "Top breakouts today",
+            "Near-breakouts",
+            "Failed breakouts",
+            "Fundamental scores",
+            "Signal history",
+            "Backtest summary",
+            "BOS + FVG Analyzer",
+            "Stock Alerter",
+        ],
+        index=0,
+    )
 
-    if workspace == "alerter":
+    if page == "Stock Alerter":
         render_stock_alerter_page(settings.project_root)
         return
 
-    if workspace == "smc":
+    if page == "BOS + FVG Analyzer":
         render_smc_analyzer_page()
         return
 
-    if workspace == "backtest":
+    if page == "Backtest summary":
         _show_backtest_summary(store)
         return
 
     latest_results = _show_scan_controls(settings, store)
 
-    if workspace == "history":
+    if page == "Signal history":
         _show_signal_history(store)
         return
-    if workspace == "fundamental":
+    if page == "Fundamental scores":
         fundamentals_df = _build_fundamental_view(latest_results)
         filtered_fundamentals, sort_by = _apply_fundamental_filters(fundamentals_df)
         st.caption(f"Fundamental table sorted by {sort_by}.")
@@ -471,14 +440,14 @@ def render_dashboard() -> None:
     filtered, sort_by = _apply_technical_filters(latest_results)
     st.caption(f"Technical table sorted by {sort_by}.")
 
-    if technical_view == "All scanned stocks":
-        _show_technical_results_table(store, technical_view, filtered)
-    elif technical_view == "Top breakouts today":
-        _show_technical_results_table(store, technical_view, filtered.loc[filtered["signal_state"] == "breakout"])
-    elif technical_view == "Near-breakouts":
-        _show_technical_results_table(store, technical_view, filtered.loc[filtered["signal_state"] == "near_breakout"])
-    elif technical_view == "Failed breakouts":
-        _show_technical_results_table(store, technical_view, filtered.loc[filtered["signal_state"] == "failed_breakout"])
+    if page == "All scanned stocks":
+        _show_technical_results_table(store, page, filtered)
+    elif page == "Top breakouts today":
+        _show_technical_results_table(store, page, filtered.loc[filtered["signal_state"] == "breakout"])
+    elif page == "Near-breakouts":
+        _show_technical_results_table(store, page, filtered.loc[filtered["signal_state"] == "near_breakout"])
+    elif page == "Failed breakouts":
+        _show_technical_results_table(store, page, filtered.loc[filtered["signal_state"] == "failed_breakout"])
 
 
 if __name__ == "__main__":

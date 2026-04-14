@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pandas as pd
+
+from app.stock_alerter import data_loader
 from app.stock_alerter.config import StockAlerterConfig
 from app.stock_alerter.indicators import calculate_indicators
 from app.stock_alerter.pattern_detectors import detect_major_swing_breakout, detect_range_breakout
@@ -38,3 +41,15 @@ def test_scan_stock_returns_structured_signal_rows(breakout_stock_df, benchmark_
     if signals:
         signal = signals[0]
         assert {"symbol", "pattern_name", "score", "category", "reasoning"}.issubset(signal.keys())
+
+
+def test_load_universe_symbols_keeps_nasdaq_tickers_unmodified(monkeypatch) -> None:
+    config = _config()
+    config.universe_name = "NASDAQ Top 250"
+    monkeypatch.setattr(
+        data_loader,
+        "load_universe_frame",
+        lambda _: pd.DataFrame({"Symbol": ["AAPL", "MSFT", "NVDA"]}),
+    )
+
+    assert data_loader.load_universe_symbols(config) == ["AAPL", "MSFT", "NVDA"]

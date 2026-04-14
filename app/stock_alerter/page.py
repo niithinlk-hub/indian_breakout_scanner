@@ -9,7 +9,7 @@ import streamlit as st
 from app.stock_alerter.alerts import format_telegram_message, send_telegram_alert
 from app.stock_alerter.charts import build_stock_chart
 from app.stock_alerter.config import load_stock_alerter_config
-from app.stock_alerter.data_loader import fetch_benchmark_data, fetch_universe_data, load_universe_frame
+from app.stock_alerter.data_loader import fetch_benchmark_data, fetch_universe_data, load_universe_frame, load_universe_symbols
 from app.stock_alerter.scanner import scan_universe
 from app.stock_alerter.storage import alert_already_sent, load_alert_history, save_alert_history
 from app.stock_alerter.utils import strip_exchange_suffix
@@ -75,6 +75,12 @@ def _send_new_alerts(results: pd.DataFrame, config: StockAlerterConfig) -> tuple
     return sent_count, sent_messages
 
 
+def _default_benchmark_for_universe(universe_name: str) -> str:
+    if universe_name == "NASDAQ Top 250":
+        return "^IXIC"
+    return "^NSEI"
+
+
 def render_stock_alerter_page(project_root) -> None:
     """Render the bullish breakout stock alerter dashboard."""
 
@@ -92,6 +98,13 @@ def render_stock_alerter_page(project_root) -> None:
     config.custom_universe_text = custom_text
     config.timeframe = st.sidebar.selectbox("Timeframe selector", options=["1d", "1wk"], index=0)
     config.period = st.sidebar.selectbox("Lookback period", options=["1y", "2y", "5y"], index=1)
+    benchmark_options = ["^NSEI", "^NSEBANK", "^IXIC", "^NDX", "^GSPC", "QQQ"]
+    default_benchmark = _default_benchmark_for_universe(universe_choice)
+    config.benchmark_symbol = st.sidebar.selectbox(
+        "Benchmark",
+        options=benchmark_options,
+        index=benchmark_options.index(default_benchmark),
+    )
     config.breakout_lookback = st.sidebar.slider("Breakout lookback", 20, 120, 40, 5)
     config.breakout_buffer_pct = float(st.sidebar.slider("Breakout buffer %", 0.2, 2.0, 0.5, 0.05))
     config.minimum_volume_multiple = float(st.sidebar.slider("Minimum volume multiple", 1.0, 3.0, 1.5, 0.1))
@@ -107,11 +120,14 @@ def render_stock_alerter_page(project_root) -> None:
     trigger_alerts = st.sidebar.checkbox("Send Telegram alerts for new A/A+ breakouts", value=False)
 
     universe_frame = load_universe_frame(config)
-    symbols = [f"{symbol}.NS" if not str(symbol).endswith(".NS") else str(symbol) for symbol in universe_frame.get("Symbol", pd.Series(dtype=str)).tolist()]
-    company_names = {str(row["Symbol"]).upper(): str(row.get("Company Name", row["Symbol"])) for _, row in universe_frame.iterrows()}
+    symbols = load_universe_symbols(config)
+    company_names = {
+        strip_exchange_suffix(str(row["Symbol"])): str(row.get("Company Name", row["Symbol"]))
+        for _, row in universe_frame.iterrows()
+    }
 
     st.subheader("Bullish Breakout Stock Alerter")
-    st.caption(f"Universe: {config.universe_name}. Symbols loaded: {len(symbols)}")
+    st.caption(f"Universe: {config.universe_name}. Symbols loaded: {len(symbols)}. Benchmark: {config.benchmark_symbol}")
 
     if st.button("Run stock alerter scan", type="primary", width="stretch"):
         with st.spinner("Fetching market data and scanning bullish breakout candidates..."):
