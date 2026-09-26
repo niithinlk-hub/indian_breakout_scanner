@@ -1,5 +1,10 @@
 # Indian Stock Breakout Scanner
 
+> **New: EOD breakout scanner (Nifty 500 + Nifty Microcap 250) in [`scanner/`](scanner/README.md).**
+> Yahoo data layer with point-in-time QA, Supabase schema (drafted, not applied), and
+> the step-1 data report and step-2 base-rate study in [`scanner/reports/`](scanner/reports/).
+> The Streamlit app described below is the earlier project and is unchanged.
+
 Production-ready Python scaffold for scanning Indian equities for daily breakout setups. The project is organized into typed modules for data ingestion, technical signals, scoring, explanations, backtesting, alerts, persistence, and a Streamlit dashboard.
 
 ## Features

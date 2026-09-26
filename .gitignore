@@ -4,3 +4,8 @@ data/*.sqlite
 data/*.log
 __pycache__/
 .pytest_cache/
+.venv/
+scanner/data/
+*.parquet.tmp
+node_modules/
+.next/
