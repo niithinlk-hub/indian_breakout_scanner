@@ -1,6 +1,6 @@
 # Step 1: data layer and QA report
 
-Generated 2026-09-26 19:50 UTC from git `debb9f1`, config `b2080aab7cb6` (defaults). Latest session in the data: **2026-09-25**. Reproduce with `python -m nsescan universe && python -m nsescan history && python -m nsescan data-report` from `scanner/`.
+Generated 2026-09-26 19:50 UTC from git `0f2c42f`, config `b2080aab7cb6` (defaults). Latest session in the data: **2026-09-25**. Reproduce with `python -m nsescan universe && python -m nsescan history && python -m nsescan data-report` from `scanner/`.
 
 ## 1. Tickers loaded / failed by segment
 
