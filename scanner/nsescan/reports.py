@@ -221,9 +221,9 @@ def write_data_report(store, cfg: Config, out_dir: Path) -> Path:
     add(md_table(counts, "{:.0f}"))
     add("")
     jan1 = moves.loc[pd.to_datetime(moves["date"]).dt.strftime("%m-%d").eq("01-01")]
-    add("Many of these are not trading moves. Large drops on normal volume match corporate actions Yahoo did "
-        "not adjust, e.g. the demergers of Tata Motors (TMPV 2025-10-14), ABFRL (2025-05-22), SKF India "
-        "(2025-10-15), Quess (2025-04-15) and Strides (STAR 2024-12-06). "
+    add("Many of these are not trading moves. Several coincide with demergers that Yahoo did not adjust: "
+        "Tata Motors (TMPV 2025-10-14), ABFRL (2025-05-22), SKF India (2025-10-15), Quess (2025-04-15) and "
+        "Strides (STAR 2024-12-06). "
         f"{len(jan1)} fall on 1 January ({', '.join(sorted(set(jan1['symbol'])))}). Muhurat sessions produce "
         "spikes that reverse two sessions later (INDIAMART and THYROCARE on 2019-10-27 and 2020-11-14). Genuine "
         "moves exist too (PSU-bank recapitalisation 2017-10-25, March 2020, Adani 2023), mostly on several times "
