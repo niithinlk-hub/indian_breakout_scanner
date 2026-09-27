@@ -1,0 +1,7 @@
+.git
+.venv
+**/__pycache__
+**/.pytest_cache
+scanner/data
+scanner/site
+node_modules

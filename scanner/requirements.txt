@@ -5,3 +5,4 @@ pyarrow>=15
 requests>=2.31,<3
 supabase>=2.4,<3
 pytest>=8
+-r requirements-site.txt

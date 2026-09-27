@@ -65,6 +65,26 @@ python -m pytest                  # tests
 Without `SUPABASE_URL` / `SUPABASE_SERVICE_KEY` the commands use the built-in config
 defaults and the local store, and say so in the log.
 
+## Deploying the status site (Railway)
+
+Until the dashboard exists (step 6), `stockbreak.up.railway.app` serves a read-only
+status page: the status table above and the step-1 / step-2 reports. It is packaged
+here but only goes live once the Railway service below is created.
+
+`/railway.json` (repo root) tells Railway to build `scanner/Dockerfile`: a slim
+Python image that installs only `requirements-site.txt`, renders the committed
+reports into static HTML at build time (`python -m nsescan site`), and serves them
+with no data access and no compute per request (`/`, `/step1.html`, `/step2.html`,
+`/healthz`; anything else is 404). No environment variables or secrets are needed.
+
+1. Railway: New Project -> Deploy from GitHub repo -> `niithinlk-hub/indian_breakout_scanner`.
+2. Service settings -> Source -> branch `claude/nse-breakout-scanner-l6wqqp` (until merged).
+3. Settings -> Networking -> Generate Domain, then edit the name to `stockbreak`
+   (-> `stockbreak.up.railway.app`).
+
+Every push to that branch that touches `scanner/` or `railway.json` redeploys.
+Local check: `python -m nsescan site && PORT=8080 python -m nsescan serve`.
+
 ## Rules that hold everywhere
 
 * **No lookahead.** Every value at date T uses bars dated <= T; entries are at the T+1

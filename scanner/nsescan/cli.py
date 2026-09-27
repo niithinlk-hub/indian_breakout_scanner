@@ -111,6 +111,36 @@ def cmd_config_sql(args: argparse.Namespace) -> int:
     return 0
 
 
+def _git_sha() -> str:
+    """Commit for the site footer: SITE_GIT_SHA (set from Railway's build variable), else local git."""
+
+    sha = os.environ.get("SITE_GIT_SHA", "").strip()
+    if sha and sha != "unknown":
+        return sha[:7]
+    import subprocess
+
+    try:
+        return subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
+                              check=True, cwd=SCANNER_ROOT).stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return "unknown"
+
+
+def cmd_site(args: argparse.Namespace) -> int:
+    from .site import build_site
+
+    for path in build_site(SCANNER_ROOT, SCANNER_ROOT / "site", _git_sha()):
+        print(path)
+    return 0
+
+
+def cmd_serve(args: argparse.Namespace) -> int:
+    from .site import serve
+
+    serve(SCANNER_ROOT / "site", port=int(os.environ.get("PORT", args.port)))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"), format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     parser = argparse.ArgumentParser(prog="nsescan")
@@ -140,6 +170,13 @@ def main(argv: list[str] | None = None) -> int:
 
     p = sub.add_parser("config-sql", help="Print SQL seeding the config table with defaults")
     p.set_defaults(func=cmd_config_sql)
+
+    p = sub.add_parser("site", help="Render the read-only status site into scanner/site/")
+    p.set_defaults(func=cmd_site)
+
+    p = sub.add_parser("serve", help="Serve scanner/site/ on $PORT (Railway)")
+    p.add_argument("--port", type=int, default=8080)
+    p.set_defaults(func=cmd_serve)
 
     args = parser.parse_args(argv)
     return int(args.func(args))

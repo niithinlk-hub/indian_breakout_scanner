@@ -9,3 +9,4 @@ scanner/data/
 *.parquet.tmp
 node_modules/
 .next/
+scanner/site/
