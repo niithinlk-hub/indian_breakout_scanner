@@ -1,0 +1,126 @@
+<title>Forward Test Log</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column, summary first, then the latest session, then the day-by-day ledger. Money in mono, right-aligned. */
+:root {
+  --bg: #f6f7f5; --surface: #ffffff; --fg: #17201c; --muted: #5d6a64; --line: #dde2de; --accent: #1f5f4a;
+  --gain: #17734f; --loss: #b23a2e; --pill-bg: #e7efe9;
+  --text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111614; --surface: #19201d; --fg: #e7ece9; --muted: #98a59f; --line: #2a3430; --accent: #7fcfb0;
+  --gain: #6fd3a6; --loss: #f08b7c; --pill-bg: #22302a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111614; --surface: #19201d; --fg: #e7ece9; --muted: #98a59f; --line: #2a3430; --accent: #7fcfb0;
+  --gain: #6fd3a6; --loss: #f08b7c; --pill-bg: #22302a; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--text); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 30px; }
+.fx-head h1 { font-size: 26px; font-weight: 600; margin: 0 0 6px; letter-spacing: -0.01em; text-wrap: balance; }
+.fx-head p { margin: 0; color: var(--muted); max-width: 62ch; }
+.fx-meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 12px; color: var(--muted); font-size: 13px; }
+.fx-pill { background: var(--pill-bg); color: var(--accent); border-radius: 999px; padding: 3px 11px; font-weight: 500; font-size: 13px; }
+.fx-sec h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 0 0 10px; }
+.fx-note { color: var(--muted); font-size: 13px; margin: 8px 0 0; max-width: 68ch; }
+.fx-scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table.fx { border-collapse: collapse; width: 100%; font-size: 14px; }
+table.fx th, table.fx td { padding: 9px 12px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+table.fx th { font-weight: 500; color: var(--muted); font-size: 12.5px; }
+table.fx th:first-child, table.fx td:first-child { text-align: left; }
+table.fx tr:last-child td { border-bottom: 0; }
+table.fx td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.gain { color: var(--gain); } .loss { color: var(--loss); } .dim { color: var(--muted); }
+.fx-empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; padding: 22px 18px; color: var(--muted); }
+.fx-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.fx-list li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.fx-list .who { font-weight: 600; } .fx-list .picks { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+details.fx-rules { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+details.fx-rules summary { cursor: pointer; font-weight: 500; }
+details.fx-rules pre { white-space: pre-wrap; font-family: var(--text); font-size: 13.5px; color: var(--fg); margin: 10px 0 2px; overflow-wrap: anywhere; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+<div class="wrap">
+  <header class="fx-head">
+    <h1>Forward Test Log</h1>
+    <p>Each trading day after the close, the scanner's five score models are replayed on that day's real futures and option prices. Opus, Opus v2 and Opus v3 exit at T1; Fable and Fable-OP exit at T3. Same-day exit, paper only.</p>
+    <div class="fx-meta"><span class="fx-pill" id="status">Loading</span><span id="count"></span><span id="updated"></span></div>
+  </header>
+  <section class="fx-sec" id="sec-summary"><h2>Running totals</h2><div id="summary"></div><p class="fx-note" id="summary-note"></p></section>
+  <section class="fx-sec" id="sec-latest"><h2>Latest session</h2><div id="latest"></div></section>
+  <section class="fx-sec" id="sec-compare"><h2>Is the difference real yet</h2><div id="compare"></div></section>
+  <section class="fx-sec" id="sec-ledger"><h2>Options running total by day (Rs)</h2><div id="ledger"></div></section>
+  <section class="fx-sec" id="sec-rules"><h2>Rules of the test</h2><details class="fx-rules" id="rules"><summary>Fixed on 14 Nov 2026, before the first session</summary><pre id="rules-text"></pre></details></section>
+</div>
+<script>
+(function () {
+  var ORDER = ["opus", "opus_v2", "opus_v3", "fable", "fable_op"];
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+  function inr(x) {
+    var n = Math.round(Number(x) || 0), s = String(Math.abs(n));
+    if (s.length > 3) { var tail = s.slice(-3), head = s.slice(0, -3), parts = []; while (head.length > 2) { parts.unshift(head.slice(-2)); head = head.slice(0, -2); } if (head) parts.unshift(head); s = parts.concat([tail]).join(","); }
+    return (n < 0 ? "-" : n > 0 ? "+" : "") + s;
+  }
+  function money(td, x) { td.className = "num " + (x > 0 ? "gain" : x < 0 ? "loss" : "dim"); td.textContent = inr(x); return td; }
+  function table(heads) { var box = el("div", "fx-scroll"), t = el("table", "fx"), tr = el("tr"); heads.forEach(function (h) { tr.appendChild(el("th", "", h)); }); t.appendChild(el("thead")).appendChild(tr); var tb = t.appendChild(el("tbody")); box.appendChild(t); return { box: box, body: tb }; }
+  function empty(node, text) { node.replaceChildren(el("div", "fx-empty", text)); }
+  function pct(a, b) { return b ? (100 * a / b).toFixed(0) + "%" : "-"; }
+  function render(state) {
+    var log = state && state.log, days = (log && log.sessions) || [], n = days.length;
+    $("rules-text").textContent = (state && state.protocol_md) || "";
+    $("count").textContent = n + (n === 1 ? " session" : " sessions") + " since 16 Nov 2026";
+    $("updated").textContent = log && log.updated ? "Updated " + log.updated.replace("T", " ").slice(0, 16) + " IST" : "";
+    $("status").textContent = n === 0 ? "Waiting for the first session" : n < 40 ? "Too early to judge: " + n + " of 40 sessions" : "Checkpoint reached";
+    if (!n) {
+      empty($("summary"), "No sessions yet. The first one is Monday 16 Nov 2026; results appear here after that day's close.");
+      empty($("latest"), "Nothing to show yet."); empty($("compare"), "Comparisons start after 10 sessions."); empty($("ledger"), "Nothing to show yet.");
+      return;
+    }
+    var t = table(["Model", "Options net (Rs)", "Futures net (Rs)", "Trades", "Reached T1", "Stopped", "Exit"]);
+    ORDER.forEach(function (m) {
+      var v = log.models[m]; if (!v) return;
+      var tr = el("tr"); tr.appendChild(el("td", "", v.label));
+      tr.appendChild(money(el("td"), v.options_net)); tr.appendChild(money(el("td"), v.futures_net));
+      [String(v.trades), pct(v.reached_t1, v.trades), pct(v.stopped, v.trades)].forEach(function (x) { tr.appendChild(el("td", "num", x)); });
+      tr.appendChild(el("td", "", v.exit)); t.body.appendChild(tr);
+    });
+    $("summary").replaceChildren(t.box);
+    $("summary-note").textContent = "Options: the monthly option nearest the signal price, same lots as the futures trade, charges and 0.25% slippage a side. A few trades have no option price and are left out of the options column.";
+    var last = days[n - 1], rows = ((state.days || {})[last] || {}).rows || [], ul = el("ul", "fx-list");
+    ORDER.forEach(function (m) {
+      var v = log.models[m]; if (!v) return;
+      var pick = rows.filter(function (r) { return r.live.indexOf(m) >= 0; }), f = 0, o = 0;
+      pick.forEach(function (r) { f += r.fut[v.exit][1]; if (r.opt[v.exit]) o += r.opt[v.exit][1]; });
+      var li = el("li"), head = el("div"); head.appendChild(el("span", "who", v.label + " "));
+      head.appendChild(el("span", "dim", pick.length + (pick.length === 1 ? " trade" : " trades") + " · options "));
+      var a = el("span", "num " + (o > 0 ? "gain" : o < 0 ? "loss" : "dim"), inr(o)); a.style.fontFamily = "var(--mono)"; head.appendChild(a);
+      head.appendChild(el("span", "dim", " · futures ")); var b = el("span", f > 0 ? "gain" : f < 0 ? "loss" : "dim", inr(f)); b.style.fontFamily = "var(--mono)"; head.appendChild(b);
+      li.appendChild(head);
+      li.appendChild(el("div", "picks", pick.length ? pick.map(function (r) { return r.time + " " + r.symbol + " " + (r.side === "LONG" ? "long" : "short") + " (" + (r.fut[v.exit][0] === "target" ? "target" : r.fut[v.exit][0] === "stopped" ? "stopped" : "closed") + ")"; }).join(", ") : "No trade"));
+      ul.appendChild(li);
+    });
+    var wrap = el("div"); wrap.appendChild(el("p", "fx-note", last)).style.margin = "0 0 8px"; wrap.appendChild(ul); $("latest").replaceChildren(wrap);
+    var cmp = log.compare || {}, keys = Object.keys(cmp);
+    if (!keys.length) empty($("compare"), "Comparisons start after 10 sessions. Until 40 sessions the answer is \"too early\" whatever the numbers look like.");
+    else {
+      var names = { opus: "Opus", opus_v3: "Opus v3", fable_op: "Fable-OP" }, ct = table(["Comparison", "On", "Difference (Rs)", "Ahead in", "First one in profit in"]);
+      keys.forEach(function (k) {
+        var p = k.split("_vs_"), kind = p[1].slice(p[1].lastIndexOf("_") + 1), b = p[1].slice(0, p[1].lastIndexOf("_")), v = cmp[k], tr = el("tr");
+        tr.appendChild(el("td", "", (names[p[0]] || p[0]) + " against " + (names[b] || b))); tr.appendChild(el("td", "", kind));
+        tr.appendChild(money(el("td"), v.difference)); tr.appendChild(el("td", "num", v.ahead_pct + "%")); tr.appendChild(el("td", "num", v.first_in_profit_pct + "%")); ct.body.appendChild(tr);
+      });
+      $("compare").replaceChildren(ct.box);
+    }
+    var lt = table(["Day"].concat(ORDER.map(function (m) { return log.models[m] ? log.models[m].label : m; }))), run = {};
+    days.forEach(function (d, i) {
+      var tr = el("tr"); tr.appendChild(el("td", "", d));
+      ORDER.forEach(function (m) { var v = log.models[m]; run[m] = (run[m] || 0) + ((v && v.options_by_day[i]) || 0); tr.appendChild(money(el("td"), run[m])); });
+      lt.body.insertBefore(tr, lt.body.firstChild);
+    });
+    $("ledger").replaceChildren(lt.box);
+  }
+  fetch("state.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(render).catch(function () {
+    $("status").textContent = "Could not load the log"; empty($("summary"), "The results file could not be read. Reload the page; if it stays like this, the daily run has not published yet.");
+  });
+})();
+</script>

@@ -1,0 +1,15 @@
+stocks 218 | sessions 142 2026-04-20 2026-11-12 | short sessions [datetime.date(2026, 11, 8)]
+   2026-05-12 1/126 rows 49 miss 0 1s
+   2026-05-26 11/126 rows 390 miss 0 9s
+   2026-06-10 21/126 rows 783 miss 0 18s
+   2026-06-24 31/126 rows 1122 miss 0 26s
+   2026-07-09 41/126 rows 1458 miss 0 33s
+   2026-07-23 51/126 rows 1792 miss 0 41s
+   2026-08-06 61/126 rows 2158 miss 0 49s
+   2026-08-20 71/126 rows 2518 miss 0 57s
+   2026-09-03 81/126 rows 2874 miss 0 66s
+   2026-09-18 91/126 rows 3261 miss 0 74s
+   2026-10-05 101/126 rows 3802 miss 0 86s
+   2026-10-19 111/126 rows 4124 miss 0 93s
+   2026-11-03 121/126 rows 4726 miss 0 106s
+DONE rows 4996 missing 0 in 112s

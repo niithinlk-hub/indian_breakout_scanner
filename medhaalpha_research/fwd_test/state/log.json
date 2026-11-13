@@ -1,0 +1,177 @@
+{
+ "start": "2026-11-12",
+ "updated": "2026-11-14T02:28:28+05:30",
+ "sessions": [
+  "2026-11-12"
+ ],
+ "exit_judged_on": {
+  "opus": "T1",
+  "opus_v2": "T1",
+  "opus_v3": "T1",
+  "fable": "T3",
+  "fable_op": "T3"
+ },
+ "models": {
+  "opus": {
+   "label": "Opus",
+   "exit": "T1",
+   "trades": 6,
+   "reached_t1": 3,
+   "stopped": 0,
+   "won": 5,
+   "futures": {
+    "T1": 33098,
+    "T2": 38791,
+    "T3": 39721,
+    "CLOSE": 39721
+   },
+   "options": {
+    "T1": 19632,
+    "T2": 20854,
+    "T3": 22474,
+    "CLOSE": 22474
+   },
+   "options_priced": 6,
+   "days_up": 1,
+   "days_down": 0,
+   "days_no_trade": 0,
+   "futures_net": 33098,
+   "options_net": 19632,
+   "futures_by_day": [
+    33098
+   ],
+   "options_by_day": [
+    19632
+   ]
+  },
+  "fable": {
+   "label": "Fable",
+   "exit": "T3",
+   "trades": 1,
+   "reached_t1": 0,
+   "stopped": 1,
+   "won": 0,
+   "futures": {
+    "T1": -9965,
+    "T2": -9965,
+    "T3": -9965,
+    "CLOSE": -9965
+   },
+   "options": {
+    "T1": -6489,
+    "T2": -6489,
+    "T3": -6489,
+    "CLOSE": -6489
+   },
+   "options_priced": 1,
+   "days_up": 0,
+   "days_down": 1,
+   "days_no_trade": 0,
+   "futures_net": -9965,
+   "options_net": -6489,
+   "futures_by_day": [
+    -9965
+   ],
+   "options_by_day": [
+    -6489
+   ]
+  },
+  "fable_op": {
+   "label": "Fable-OP",
+   "exit": "T3",
+   "trades": 1,
+   "reached_t1": 1,
+   "stopped": 0,
+   "won": 1,
+   "futures": {
+    "T1": 11695,
+    "T2": 2821,
+    "T3": 2821,
+    "CLOSE": 2821
+   },
+   "options": {
+    "T1": 7814,
+    "T2": -1487,
+    "T3": -1487,
+    "CLOSE": -1487
+   },
+   "options_priced": 1,
+   "days_up": 1,
+   "days_down": 0,
+   "days_no_trade": 0,
+   "futures_net": 2821,
+   "options_net": -1487,
+   "futures_by_day": [
+    2821
+   ],
+   "options_by_day": [
+    -1487
+   ]
+  },
+  "opus_v2": {
+   "label": "Opus v2",
+   "exit": "T1",
+   "trades": 1,
+   "reached_t1": 1,
+   "stopped": 0,
+   "won": 1,
+   "futures": {
+    "T1": 11695,
+    "T2": 2821,
+    "T3": 2821,
+    "CLOSE": 2821
+   },
+   "options": {
+    "T1": 7814,
+    "T2": -1487,
+    "T3": -1487,
+    "CLOSE": -1487
+   },
+   "options_priced": 1,
+   "days_up": 1,
+   "days_down": 0,
+   "days_no_trade": 0,
+   "futures_net": 11695,
+   "options_net": 7814,
+   "futures_by_day": [
+    11695
+   ],
+   "options_by_day": [
+    7814
+   ]
+  },
+  "opus_v3": {
+   "label": "Opus v3",
+   "exit": "T1",
+   "trades": 1,
+   "reached_t1": 1,
+   "stopped": 0,
+   "won": 1,
+   "futures": {
+    "T1": 11695,
+    "T2": 2821,
+    "T3": 2821,
+    "CLOSE": 2821
+   },
+   "options": {
+    "T1": 7814,
+    "T2": -1487,
+    "T3": -1487,
+    "CLOSE": -1487
+   },
+   "options_priced": 1,
+   "days_up": 1,
+   "days_down": 0,
+   "days_no_trade": 0,
+   "futures_net": 11695,
+   "options_net": 7814,
+   "futures_by_day": [
+    11695
+   ],
+   "options_by_day": [
+    7814
+   ]
+  }
+ },
+ "compare": {}
+}

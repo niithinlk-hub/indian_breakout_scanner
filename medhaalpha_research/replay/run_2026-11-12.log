@@ -1,0 +1,17 @@
+  20s loading history 26/218 | calls 86 | source errors 0
+  40s loading history 58/218 | calls 183 | source errors 0
+  60s loading history 92/218 | calls 281 | source errors 0
+  80s loading history 125/218 | calls 379 | source errors 0
+ 100s loading history 156/218 | calls 476 | source errors 0
+ 120s loading history 189/218 | calls 573 | source errors 0
+ 140s loading history 218/218 | calls 658 | source errors 0
+ 160s scanning 49/218 | calls 758 | source errors 0
+ 180s scanning 100/218 | calls 857 | source errors 0
+ 200s scanning 149/218 | calls 957 | source errors 0
+ 220s scanning 198/218 | calls 1057 | source errors 0
+ 240s pricing options | calls 1111 | source errors 0
+ 260s done | calls 1112 | source errors 0
+status {"running": false, "day": "2026-11-12", "started": "2026-11-13T15:07:01+05:30", "progress": "done", "error": null, "finished": "2026-11-13T15:11:02+05:30", "signals": 47}
+source errors (last 15): []
+engine errors: []
+saved; universe 218 scanned 218 signals 47 counts {'A': 45, 'B': 0, 'C': 2}

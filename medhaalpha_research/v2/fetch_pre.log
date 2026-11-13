@@ -1,0 +1,11 @@
+   20/218 | source errors 0
+   40/218 | source errors 0
+   60/218 | source errors 0
+   80/218 | source errors 0
+   100/218 | source errors 0
+   120/218 | source errors 0
+   140/218 | source errors 0
+   160/218 | source errors 0
+   180/218 | source errors 0
+   200/218 | source errors 0
+ALL DONE | series 218 | rows 10068285 | nifty 46185 | no data: [] | latest-starting: [('2025-10-15', 'VBL'), ('2025-10-15', 'VEDL'), ('2025-10-15', 'VMM'), ('2025-10-15', 'VOLTAS'), ('2025-10-15', 'WAAREEENER'), ('2025-10-15', 'WIPRO'), ('2025-10-15', 'YESBANK'), ('2025-10-15', 'ZYDUSLIFE')] | source errors 0 []

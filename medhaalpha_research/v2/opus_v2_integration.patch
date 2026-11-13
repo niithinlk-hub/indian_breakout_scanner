@@ -1,0 +1,121 @@
+--- scanner/equity/score.py
++++ scanner/equity/score.py
+@@ -1,6 +1,6 @@
+ """Strength scores (0-100) used to rank signals and keep only the strongest few per day.
+ 
+-Three models, all computed for every signal from what is known at the signal minute (no lookahead):
++Four models, all computed for every signal from what is known at the signal minute (no lookahead):
+ 
+ opus      "how far has it already moved": move from the open 35, distance beyond VWAP 25, small opening
+           gap 15, RSI room 10, stop at a real level 15.
+@@ -16,6 +16,10 @@
+             early 15  minutes since the open (fable's own part, kept)
+             solo 15   the stock is moving without the index (Nifty flat or against the trade)
+           fable's tight and extreme parts are dropped: neither raised the T1 hit rate net of stops.
++opus_v2   side split with no weights of its own: a long takes its fable_op score, a short its opus score.
++          opus's parts were fitted on 21 Oct - 9 Nov 2026, a window of mostly short signals. Its picks made money
++          on shorts and not on longs on 12 May - 31 Aug, which it never saw, and again on 1 Sep - 11 Nov;
++          fable_op is the reverse (see below).
+ 
+ Evidence, 21 Oct - 11 Nov 2026 (15 sessions; see scripts/eq_backtest.py "research"):
+   * opus had no within-day ranking power on setup A (the profitable setup); its top 5 beat a random 5
+@@ -37,7 +41,16 @@
+     little lower (+Rs 0.93 lakh against +Rs 1.08 lakh).
+   * It leans long (85 % setup A): a short needs Nifty down and pos >= 0.9, which cap its solo and room parts.
+   * 9 in 10 of its trades fire in the first 15 minutes, where real slippage is likely above the 0.02 % assumed.
+-Weights and scales live in EqConfig (score_*, fable_* and fable_op_*).
++Evidence for opus_v2, same six-month run, live rule (first 6 a day scoring >= 75), exit at T1, setups A + B:
++  * 12 May - 11 Nov 2026 (126 sessions): 353 trades, 48 % reached T1, +Rs 1,497 a trade.
++    opus: 369 trades, 36 %, +Rs 678.   fable_op: 233 trades, 55 %, +Rs 1,551.
++  * By side, opus picks: longs 30-34 % reached T1 (+Rs 0.23 lakh on 12 May - 31 Aug, -Rs 0.55 lakh on 1 Sep -
++    11 Nov), shorts 40-41 % (+Rs 1.20 lakh, +Rs 1.63 lakh). fable_op longs on 1 Sep - 11 Nov, which it had not
++    seen: 51 %, +Rs 0.66 lakh. The opposite pairing (opus longs + fable_op shorts) made +Rs 0.10 lakh in all.
++  * The split was chosen after the 1 Sep - 11 Nov totals of two blended candidates had been looked at, so that
++    window is not a clean test of it. It has no fitted number, but treat it as unproven until forward paper
++    trades agree. 6 in 10 of its trades fire in the first 15 minutes (see the slippage note above).
++Weights and scales live in EqConfig (score_*, fable_* and fable_op_*; opus_v2 has only its threshold).
+ """
+ from __future__ import annotations
+ 
+@@ -46,8 +59,8 @@
+ from .config import EqConfig
+ from .features import LONG
+ 
+-MODELS = ("opus", "fable", "fable_op")
+-LABELS = {"opus": "Opus", "fable": "Fable", "fable_op": "Fable-OP"}
++MODELS = ("opus", "fable", "fable_op", "opus_v2")
++LABELS = {"opus": "Opus", "fable": "Fable", "fable_op": "Fable-OP", "opus_v2": "Opus v2"}
+ 
+ 
+ def _c01(x) -> float:
+@@ -137,17 +150,25 @@
+     return score, {k: round(v * scale, 1) for k, v in parts.items()}      # parts shown in score points
+ 
+ 
++def opus_v2_score(snap: dict, side: str, stop_at: str, cfg: EqConfig) -> tuple[float, dict]:
++    """Side split: a long is scored by fable_op, a short by opus. The parts are that model's own parts."""
++    return fable_op_score(snap, side, cfg) if side == LONG else opus_score(snap, side, stop_at, cfg)
++
++
+ def all_scores(snap: dict, side: str, stop_at: str, risk: float, entry_ref: float, cfg: EqConfig) -> dict:
+-    """{'opus': {'score', 'parts'}, 'fable': {...}, 'fable_op': {...}} for one signal."""
++    """{'opus': {'score', 'parts'}, 'fable': {...}, 'fable_op': {...}, 'opus_v2': {...}} for one signal."""
+     risk_pct = risk / entry_ref * 100 if entry_ref else None
+     o, op = opus_score(snap, side, stop_at, cfg)
+     f, fp = fable_score(snap, side, risk_pct, cfg)
+     t, tp = fable_op_score(snap, side, cfg)
+-    return {"opus": {"score": o, "parts": op}, "fable": {"score": f, "parts": fp}, "fable_op": {"score": t, "parts": tp}}
++    v, vp = (t, tp) if side == LONG else (o, op)          # opus_v2_score, without scoring twice
++    return {"opus": {"score": o, "parts": op}, "fable": {"score": f, "parts": fp}, "fable_op": {"score": t, "parts": tp},
++            "opus_v2": {"score": v, "parts": vp}}
+ 
+ 
+ def min_score(cfg: EqConfig, model: str) -> float:
+-    return {"fable": cfg.fable_min_score, "fable_op": cfg.fable_op_min_score}.get(model, cfg.min_score)
++    return {"fable": cfg.fable_min_score, "fable_op": cfg.fable_op_min_score,
++            "opus_v2": cfg.opus_v2_min_score}.get(model, cfg.min_score)
+ 
+ 
+ strength = opus_score    # earlier name, kept for callers and tests
+--- scanner/equity/config.py
++++ scanner/equity/config.py
+@@ -125,6 +125,10 @@
+     fable_op_solo_full: float = -0.2    # Nifty this % against the trade (or more) earns the full part
+     fable_op_solo_zero: float = 0.6     # Nifty this % with the trade (or more) earns nothing
+ 
++    # ---------------------------------------------------------------- "opus_v2" score: fable_op for longs, opus for shorts
++    # No weights of its own. One threshold for both sides; 75 is each side's own live threshold today.
++    opus_v2_min_score: float = 75.0     # about 2.8 trades a day on May-Nov 2026 (opus: 2.9)
++
+     # ---------------------------------------------------------------- stop and targets
+     stop_buffer_pct: float = 0.2        # proposed stop = support x (1 - buffer/100)
+     stop_atr_min: float = 0.3           # keep proposals between these multiples of daily ATR
+--- scanner/equity/backtest.py
++++ scanner/equity/backtest.py
+@@ -19,6 +19,7 @@
+ from collections import Counter
+ 
+ from .config import EqConfig
++from .features import LONG
+ from .fills import DAY_POLICIES
+ from .rules import SETUPS, enabled
+ from .scan import option_summary
+@@ -170,13 +171,17 @@
+ def _fill_scores(day: dict, cfg: EqConfig) -> dict:
+     """Signals stored before fable_op existed get that score from their stored snapshot (the inputs the scan had;
+     fable_op needs nothing else). Returns `day` itself when every signal already has it."""
+-    if all("fable_op" in s["scores"] for s in day["signals"]):
++    if all("fable_op" in s["scores"] and "opus_v2" in s["scores"] for s in day["signals"]):
+         return day
+     sigs = []
+     for s in day["signals"]:
+         if "fable_op" not in s["scores"]:
+             sc, parts = fable_op_score(s.get("snapshot") or {}, s["side"], cfg)
+             s = dict(s, scores=dict(s["scores"], fable_op=sc), parts=dict(s.get("parts") or {}, fable_op=parts))
++        if "opus_v2" not in s["scores"]:                   # the stored score of the model that side uses
++            src = "fable_op" if s["side"] == LONG else "opus"
++            s = dict(s, scores=dict(s["scores"], opus_v2=s["scores"][src]),
++                     parts=dict(s.get("parts") or {}, opus_v2=(s.get("parts") or {}).get(src, {})))
+         sigs.append(s)
+     return dict(day, signals=sigs)
+ 

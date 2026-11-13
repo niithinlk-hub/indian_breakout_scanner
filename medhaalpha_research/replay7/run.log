@@ -1,0 +1,41 @@
+sessions found before today: ['2026-10-16', '2026-10-19', '2026-10-21', '2026-10-22', '2026-10-23', '2026-10-26', '2026-10-27', '2026-10-28', '2026-10-29', '2026-10-30', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06', '2026-11-09', '2026-11-11', '2026-11-12']
+replaying: ['2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06', '2026-11-09', '2026-11-11', '2026-11-12']
+   2026-11-03   15s loading history 22/218 | net reads 74 | errors 0
+   2026-11-03   30s loading history 46/218 | net reads 147 | errors 0
+   2026-11-03   45s loading history 71/218 | net reads 221 | errors 0
+   2026-11-03   60s loading history 96/218 | net reads 294 | errors 0
+   2026-11-03   75s loading history 120/218 | net reads 367 | errors 0
+   2026-11-03   90s loading history 144/218 | net reads 440 | errors 0
+   2026-11-03  105s loading history 163/218 | net reads 502 | errors 0
+   2026-11-03  120s loading history 187/218 | net reads 569 | errors 0
+   2026-11-03  135s loading history 211/218 | net reads 641 | errors 0
+   2026-11-03  150s pricing options | net reads 669 | errors 0
+   2026-11-03  165s done | net reads 672 | errors 0
+DONE 2026-11-03 in 165s: universe 218 scanned 218 signals 45 {'A': 42, 'B': 0, 'C': 3} | engine errors 0
+   2026-11-04   15s pricing options | net reads 690 | errors 0
+   2026-11-04   30s done | net reads 691 | errors 0
+DONE 2026-11-04 in 30s: universe 218 scanned 218 signals 59 {'A': 54, 'B': 0, 'C': 5} | engine errors 0
+   2026-11-05   15s pricing options | net reads 707 | errors 0
+   2026-11-05   30s done | net reads 708 | errors 0
+DONE 2026-11-05 in 30s: universe 218 scanned 218 signals 91 {'A': 90, 'B': 0, 'C': 1} | engine errors 0
+   2026-11-06   15s done | net reads 724 | errors 0
+DONE 2026-11-06 in 15s: universe 218 scanned 218 signals 32 {'A': 23, 'B': 8, 'C': 1} | engine errors 0
+   2026-11-09   15s pricing options | net reads 736 | errors 0
+   2026-11-09   30s done | net reads 741 | errors 0
+DONE 2026-11-09 in 30s: universe 218 scanned 218 signals 47 {'A': 45, 'B': 2, 'C': 0} | engine errors 0
+   2026-11-11   15s pricing options | net reads 760 | errors 0
+   2026-11-11   30s done | net reads 762 | errors 0
+DONE 2026-11-11 in 30s: universe 218 scanned 218 signals 80 {'A': 77, 'B': 0, 'C': 3} | engine errors 0
+   2026-11-12   15s done | net reads 782 | errors 0
+DONE 2026-11-12 in 15s: universe 218 scanned 218 signals 47 {'A': 45, 'B': 0, 'C': 2} | engine errors 0
+source errors so far: [] | net reads 782
+waiting 546 s for today's close
+   2026-11-13   15s scanning 28/218 | net reads 843 | errors 0
+   2026-11-13   30s scanning 66/218 | net reads 918 | errors 0
+   2026-11-13   45s scanning 103/218 | net reads 993 | errors 0
+   2026-11-13   60s scanning 140/218 | net reads 1067 | errors 0
+   2026-11-13   75s scanning 177/218 | net reads 1142 | errors 0
+   2026-11-13   90s scanning 215/218 | net reads 1217 | errors 0
+   2026-11-13  105s done | net reads 1235 | errors 0
+DONE 2026-11-13 in 105s: universe 218 scanned 218 signals 21 {'A': 21, 'B': 0, 'C': 0} | engine errors 0
+ALL DONE | net reads 1235 | source errors 0 []

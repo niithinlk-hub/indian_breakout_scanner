@@ -1,0 +1,6 @@
+model,exit,sessions,trades,reached_t1,stopped,reached_t1_pct,stopped_pct,futures_net,options_net,options_priced,days_up,days_down,days_no_trade
+Opus,T1,1,6,3,0,50.0,0.0,33098,19632,6,1,0,0
+Fable,T3,1,1,0,1,0.0,100.0,-9965,-6489,1,0,1,0
+Fable-OP,T3,1,1,1,0,100.0,0.0,2821,-1487,1,1,0,0
+Opus v2,T1,1,1,1,0,100.0,0.0,11695,7814,1,1,0,0
+Opus v3,T1,1,1,1,0,100.0,0.0,11695,7814,1,1,0,0

@@ -1,0 +1,81 @@
+replaying: ['2026-09-01', '2026-09-02', '2026-09-03', '2026-09-04', '2026-09-07', '2026-09-08', '2026-09-09', '2026-09-10', '2026-09-11', '2026-09-15', '2026-09-16', '2026-09-17', '2026-09-18', '2026-09-21', '2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25', '2026-09-28', '2026-09-29', '2026-09-30', '2026-10-01', '2026-10-05', '2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09', '2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-16', '2026-10-19']
+F&O membership by first futures candle: 209 stocks from the start, 9 later or never: {'ANANDRATHI': '2026-09-30', 'COROMANDEL': '2026-10-28', 'CUB': '2026-10-28', 'DATAPATTNS': '2026-10-28', 'ENRIN': '2026-09-30', 'KARURVYSYA': '2026-10-28', 'NAVINFLUOR': '2026-10-28', 'SYRMA': '2026-10-28', 'UJJIVANSFB': '2026-10-01'}
+   2026-09-01   20s loading history 16/209 | net reads 316 | errors 0
+   2026-09-01   40s loading history 35/209 | net reads 412 | errors 0
+   2026-09-01   60s loading history 54/209 | net reads 505 | errors 0
+   2026-09-01   80s loading history 73/209 | net reads 601 | errors 0
+   2026-09-01  100s loading history 92/209 | net reads 697 | errors 0
+   2026-09-01  120s loading history 111/209 | net reads 791 | errors 0
+   2026-09-01  140s loading history 130/209 | net reads 890 | errors 0
+   2026-09-01  160s loading history 150/209 | net reads 984 | errors 0
+   2026-09-01  180s loading history 169/209 | net reads 1080 | errors 0
+   2026-09-01  200s loading history 188/209 | net reads 1175 | errors 0
+   2026-09-01  220s loading history 207/209 | net reads 1269 | errors 0
+   2026-09-01  240s done | net reads 1271 | errors 0
+DONE 2026-09-01 in 240s: universe 209 scanned 209 signals 38 {'A': 7, 'B': 30, 'C': 1} basis {None: 38} | engine errors 0
+   2026-09-02   20s done | net reads 1271 | errors 0
+DONE 2026-09-02 in 20s: universe 209 scanned 209 signals 83 {'A': 5, 'B': 77, 'C': 1} basis {None: 83} | engine errors 0
+   2026-09-03   20s done | net reads 1271 | errors 0
+DONE 2026-09-03 in 20s: universe 209 scanned 209 signals 22 {'A': 15, 'B': 0, 'C': 7} basis {None: 22} | engine errors 0
+   2026-09-04   20s done | net reads 1271 | errors 0
+DONE 2026-09-04 in 20s: universe 209 scanned 209 signals 24 {'A': 20, 'B': 0, 'C': 4} basis {None: 24} | engine errors 0
+   2026-09-07   20s done | net reads 1271 | errors 0
+DONE 2026-09-07 in 20s: universe 209 scanned 209 signals 56 {'A': 12, 'B': 44, 'C': 0} basis {None: 56} | engine errors 0
+   2026-09-08   20s done | net reads 1271 | errors 0
+DONE 2026-09-08 in 20s: universe 209 scanned 209 signals 54 {'A': 14, 'B': 39, 'C': 1} basis {None: 54} | engine errors 0
+   2026-09-09   20s done | net reads 1271 | errors 0
+DONE 2026-09-09 in 20s: universe 209 scanned 209 signals 70 {'A': 16, 'B': 53, 'C': 1} basis {None: 70} | engine errors 0
+   2026-09-10   20s done | net reads 1271 | errors 0
+DONE 2026-09-10 in 20s: universe 209 scanned 209 signals 37 {'A': 8, 'B': 25, 'C': 4} basis {None: 37} | engine errors 0
+   2026-09-11   20s done | net reads 1271 | errors 0
+DONE 2026-09-11 in 20s: universe 209 scanned 209 signals 96 {'A': 7, 'B': 87, 'C': 2} basis {None: 96} | engine errors 0
+   2026-09-15   20s done | net reads 1271 | errors 0
+DONE 2026-09-15 in 20s: universe 209 scanned 209 signals 92 {'A': 1, 'B': 87, 'C': 4} basis {None: 92} | engine errors 0
+   2026-09-16   20s done | net reads 1271 | errors 0
+DONE 2026-09-16 in 20s: universe 209 scanned 209 signals 3 {'A': 1, 'B': 0, 'C': 2} basis {None: 3} | engine errors 0
+   2026-09-17   20s done | net reads 1271 | errors 0
+DONE 2026-09-17 in 20s: universe 209 scanned 209 signals 20 {'A': 2, 'B': 0, 'C': 18} basis {None: 20} | engine errors 0
+   2026-09-18   20s done | net reads 1271 | errors 0
+DONE 2026-09-18 in 20s: universe 209 scanned 209 signals 31 {'A': 20, 'B': 0, 'C': 11} basis {None: 31} | engine errors 0
+   2026-09-21   20s done | net reads 1271 | errors 0
+DONE 2026-09-21 in 20s: universe 209 scanned 209 signals 25 {'A': 22, 'B': 0, 'C': 3} basis {None: 25} | engine errors 0
+   2026-09-22   20s done | net reads 1271 | errors 0
+DONE 2026-09-22 in 20s: universe 209 scanned 209 signals 32 {'A': 17, 'B': 15, 'C': 0} basis {None: 32} | engine errors 0
+   2026-09-23   20s done | net reads 1271 | errors 0
+DONE 2026-09-23 in 20s: universe 209 scanned 209 signals 25 {'A': 23, 'B': 0, 'C': 2} basis {None: 25} | engine errors 0
+   2026-09-24   20s done | net reads 1271 | errors 0
+DONE 2026-09-24 in 20s: universe 209 scanned 209 signals 47 {'A': 11, 'B': 36, 'C': 0} basis {None: 47} | engine errors 0
+   2026-09-25   20s done | net reads 1271 | errors 0
+DONE 2026-09-25 in 20s: universe 209 scanned 209 signals 10 {'A': 9, 'B': 0, 'C': 1} basis {None: 10} | engine errors 0
+   2026-09-28   20s done | net reads 1271 | errors 0
+DONE 2026-09-28 in 20s: universe 209 scanned 209 signals 129 {'A': 7, 'B': 120, 'C': 2} basis {None: 129} | engine errors 0
+   2026-09-29   20s done | net reads 1271 | errors 0
+DONE 2026-09-29 in 20s: universe 209 scanned 209 signals 132 {'A': 3, 'B': 128, 'C': 1} basis {None: 132} | engine errors 0
+   2026-09-30   20s done | net reads 1281 | errors 0
+DONE 2026-09-30 in 20s: universe 211 scanned 211 signals 51 {'A': 6, 'B': 32, 'C': 13} basis {None: 51} | engine errors 0
+   2026-10-01   20s done | net reads 1286 | errors 0
+DONE 2026-10-01 in 20s: universe 212 scanned 212 signals 136 {'A': 1, 'B': 131, 'C': 4} basis {None: 136} | engine errors 0
+   2026-10-05   20s done | net reads 1286 | errors 0
+DONE 2026-10-05 in 20s: universe 212 scanned 212 signals 18 {'A': 4, 'B': 0, 'C': 14} basis {None: 18} | engine errors 0
+   2026-10-06   20s done | net reads 1286 | errors 0
+DONE 2026-10-06 in 20s: universe 212 scanned 212 signals 23 {'A': 10, 'B': 0, 'C': 13} basis {None: 23} | engine errors 0
+   2026-10-07   20s done | net reads 1286 | errors 0
+DONE 2026-10-07 in 20s: universe 212 scanned 212 signals 63 {'A': 19, 'B': 38, 'C': 6} basis {None: 63} | engine errors 0
+   2026-10-08   20s done | net reads 1286 | errors 0
+DONE 2026-10-08 in 20s: universe 212 scanned 212 signals 102 {'A': 7, 'B': 94, 'C': 1} basis {None: 102} | engine errors 0
+   2026-10-09   20s done | net reads 1286 | errors 0
+DONE 2026-10-09 in 20s: universe 212 scanned 212 signals 23 {'A': 7, 'B': 0, 'C': 16} basis {None: 23} | engine errors 0
+   2026-10-12   20s done | net reads 1286 | errors 0
+DONE 2026-10-12 in 20s: universe 212 scanned 212 signals 45 {'A': 14, 'B': 15, 'C': 16} basis {None: 45} | engine errors 0
+   2026-10-13   20s done | net reads 1286 | errors 0
+DONE 2026-10-13 in 20s: universe 212 scanned 212 signals 27 {'A': 11, 'B': 0, 'C': 16} basis {None: 27} | engine errors 0
+   2026-10-14   20s done | net reads 1286 | errors 0
+DONE 2026-10-14 in 20s: universe 212 scanned 212 signals 45 {'A': 31, 'B': 10, 'C': 4} basis {None: 45} | engine errors 0
+   2026-10-15   20s done | net reads 1286 | errors 0
+DONE 2026-10-15 in 20s: universe 212 scanned 212 signals 28 {'A': 22, 'B': 0, 'C': 6} basis {None: 28} | engine errors 0
+   2026-10-16   20s done | net reads 1286 | errors 0
+DONE 2026-10-16 in 20s: universe 212 scanned 212 signals 31 {'A': 20, 'B': 9, 'C': 2} basis {None: 31} | engine errors 0
+   2026-10-19   20s done | net reads 1286 | errors 0
+DONE 2026-10-19 in 20s: universe 212 scanned 212 signals 44 {'A': 13, 'B': 31, 'C': 0} basis {None: 44} | engine errors 0
+source errors so far: [] | net reads 1286
+ALL DONE | net reads 1286 | source errors 0 [] | cached minute series 213

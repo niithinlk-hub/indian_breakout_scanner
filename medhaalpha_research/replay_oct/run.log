@@ -1,0 +1,32 @@
+sessions found before today: ['2026-10-16', '2026-10-19', '2026-10-21', '2026-10-22', '2026-10-23', '2026-10-26', '2026-10-27', '2026-10-28', '2026-10-29', '2026-10-30', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06', '2026-11-09', '2026-11-11', '2026-11-12']
+replaying: ['2026-10-21', '2026-10-22', '2026-10-23', '2026-10-26', '2026-10-27', '2026-10-28', '2026-10-29', '2026-10-30']
+   2026-10-21   15s loading history 21/218 | net reads 73 | errors 0
+   2026-10-21   30s loading history 46/218 | net reads 147 | errors 0
+   2026-10-21   45s loading history 71/218 | net reads 220 | errors 0
+   2026-10-21   60s loading history 95/218 | net reads 292 | errors 0
+   2026-10-21   75s loading history 119/218 | net reads 366 | errors 0
+   2026-10-21   90s loading history 143/218 | net reads 438 | errors 0
+   2026-10-21  105s loading history 167/218 | net reads 511 | errors 0
+   2026-10-21  120s loading history 192/218 | net reads 584 | errors 0
+   2026-10-21  135s loading history 216/218 | net reads 656 | errors 0
+   2026-10-21  150s pricing options | net reads 673 | errors 0
+   2026-10-21  165s done | net reads 676 | errors 0
+DONE 2026-10-21 in 165s: universe 218 scanned 218 signals 130 {'A': 13, 'B': 117, 'C': 0} | engine errors 0
+   2026-10-22   15s pricing options | net reads 696 | errors 0
+   2026-10-22   30s done | net reads 698 | errors 0
+DONE 2026-10-22 in 30s: universe 218 scanned 218 signals 140 {'A': 4, 'B': 134, 'C': 2} | engine errors 0
+   2026-10-23   15s pricing options | net reads 719 | errors 0
+   2026-10-23   30s done | net reads 719 | errors 0
+DONE 2026-10-23 in 30s: universe 218 scanned 218 signals 158 {'A': 5, 'B': 153, 'C': 0} | engine errors 0
+   2026-10-26   15s done | net reads 734 | errors 0
+DONE 2026-10-26 in 15s: universe 218 scanned 218 signals 78 {'A': 5, 'B': 47, 'C': 26} | engine errors 0
+   2026-10-27   15s done | net reads 747 | errors 0
+DONE 2026-10-27 in 15s: universe 218 scanned 218 signals 60 {'A': 13, 'B': 14, 'C': 33} | engine errors 0
+   2026-10-28   15s done | net reads 764 | errors 0
+DONE 2026-10-28 in 15s: universe 218 scanned 218 signals 60 {'A': 18, 'B': 20, 'C': 22} | engine errors 0
+   2026-10-29   15s done | net reads 778 | errors 0
+DONE 2026-10-29 in 15s: universe 218 scanned 218 signals 40 {'A': 26, 'B': 0, 'C': 14} | engine errors 0
+   2026-10-30   15s done | net reads 790 | errors 0
+DONE 2026-10-30 in 15s: universe 218 scanned 218 signals 29 {'A': 19, 'B': 9, 'C': 1} | engine errors 0
+source errors so far: [] | net reads 790
+ALL DONE | net reads 790 | source errors 0 []

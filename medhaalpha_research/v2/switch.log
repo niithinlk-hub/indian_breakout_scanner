@@ -1,0 +1,101 @@
+{"n": 59, "per_session": 2.4583333333333335, "hit": 57.6271186440678, "stop": 28.8135593220339, "net": 256429.22000000003, "net_ps": 10684.550833333335, "opt": 203398.0220122397, "opt_ps": 8474.91758384332, "net_t1": 122176.83, "net_t3": 256429.22000000003, "longs": 54, "shorts": 5, "long_net": 300162.62999999995, "short_net": -43733.41, "days_up": 15, "days_dn": 6}
+
+== REAL 6m futures | label A | sessions 126
+Opus alone                                          250,359  trades 369
+Opus v2 alone                                       528,284  trades 353
+Opus v3 alone                                       589,038  trades 335
+Fable alone                                         473,539  trades 475
+Fable-OP alone                                      702,290  trades 233
+SWITCH-1: Fable-OP, but Opus v3 in downtrend        811,393  trades 272
+SWITCH-2: Fable-OP, but Fable in downtrend          910,064  trades 290
+SWITCH-3: Fable-OP up, Opus v3 sideways+down        711,086  trades 328
+
+== REAL 6m futures | label B | sessions 126
+Opus alone                                          250,359  trades 369
+Opus v2 alone                                       528,284  trades 353
+Opus v3 alone                                       589,038  trades 335
+Fable alone                                         473,539  trades 475
+Fable-OP alone                                      702,290  trades 233
+SWITCH-1: Fable-OP, but Opus v3 in downtrend        925,453  trades 301
+SWITCH-2: Fable-OP, but Fable in downtrend          760,944  trades 329
+SWITCH-3: Fable-OP up, Opus v3 sideways+down        714,138  trades 333
+
+== REAL 6m options est | label A | sessions 126
+Opus alone                                          349,874  trades 369
+Opus v2 alone                                       538,147  trades 353
+Opus v3 alone                                       553,263  trades 335
+Fable alone                                         699,737  trades 475
+Fable-OP alone                                      612,190  trades 233
+SWITCH-1: Fable-OP, but Opus v3 in downtrend        657,085  trades 272
+SWITCH-2: Fable-OP, but Fable in downtrend          765,584  trades 290
+SWITCH-3: Fable-OP up, Opus v3 sideways+down        638,979  trades 328
+
+== REAL 6m options est | label B | sessions 126
+Opus alone                                          349,874  trades 369
+Opus v2 alone                                       538,147  trades 353
+Opus v3 alone                                       553,263  trades 335
+Fable alone                                         699,737  trades 475
+Fable-OP alone                                      612,190  trades 233
+SWITCH-1: Fable-OP, but Opus v3 in downtrend        743,747  trades 301
+SWITCH-2: Fable-OP, but Fable in downtrend          734,633  trades 329
+SWITCH-3: Fable-OP up, Opus v3 sideways+down        640,231  trades 333
+
+== STAND-IN unseen (Nov25-May26) | label A | sessions 127
+Opus alone                                         -179,918  trades 388
+Opus v2 alone                                      -203,092  trades 375
+Opus v3 alone                                      -128,597  trades 366
+Fable alone                                        -526,521  trades 503
+Fable-OP alone                                       78,849  trades 232
+SWITCH-1: Fable-OP, but Opus v3 in downtrend        178,272  trades 298
+SWITCH-2: Fable-OP, but Fable in downtrend          -47,502  trades 298
+SWITCH-3: Fable-OP up, Opus v3 sideways+down         -8,949  trades 344
+
+== STAND-IN unseen (Nov25-May26) | label B | sessions 127
+Opus alone                                         -179,918  trades 388
+Opus v2 alone                                      -203,092  trades 375
+Opus v3 alone                                      -128,597  trades 366
+Fable alone                                        -526,521  trades 503
+Fable-OP alone                                       78,849  trades 232
+SWITCH-1: Fable-OP, but Opus v3 in downtrend        129,889  trades 295
+SWITCH-2: Fable-OP, but Fable in downtrend          -46,320  trades 284
+SWITCH-3: Fable-OP up, Opus v3 sideways+down        -53,851  trades 343
+
+== STAND-IN known (May-Oct26) | label A | sessions 111
+Opus alone                                          105,459  trades 315
+Opus v2 alone                                       152,664  trades 313
+Opus v3 alone                                       152,729  trades 299
+Fable alone                                         -45,900  trades 402
+Fable-OP alone                                       42,654  trades 228
+SWITCH-1: Fable-OP, but Opus v3 in downtrend         69,567  trades 250
+SWITCH-2: Fable-OP, but Fable in downtrend           13,843  trades 277
+SWITCH-3: Fable-OP up, Opus v3 sideways+down        210,726  trades 286
+
+== STAND-IN known (May-Oct26) | label B | sessions 111
+Opus alone                                          105,459  trades 315
+Opus v2 alone                                       152,664  trades 313
+Opus v3 alone                                       152,729  trades 299
+Fable alone                                         -45,900  trades 402
+Fable-OP alone                                       42,654  trades 228
+SWITCH-1: Fable-OP, but Opus v3 in downtrend        127,286  trades 270
+SWITCH-2: Fable-OP, but Fable in downtrend          -16,491  trades 292
+SWITCH-3: Fable-OP up, Opus v3 sideways+down        275,153  trades 295
+
+== real futures by month: Fable-OP alone vs SWITCH-1 (label A)
+2026-05 FableOP    56,567  Switch1    56,567  v3    68,915 {'Sideways': 10, 'Uptrend': 3}
+2026-06 FableOP    19,065  Switch1     6,323  v3   107,734 {'Sideways': 16, 'Downtrend': 5}
+2026-07 FableOP   242,901  Switch1   242,901  v3   116,793 {'Sideways': 14, 'Uptrend': 9}
+2026-08 FableOP   115,175  Switch1   115,175  v3    15,555 {'Uptrend': 11, 'Sideways': 10}
+2026-09 FableOP    96,500  Switch1   187,449  v3   193,158 {'Downtrend': 16, 'Sideways': 5}
+2026-10 FableOP    44,718  Switch1    75,613  v3       266 {'Downtrend': 12, 'Sideways': 8}
+2026-11 FableOP   127,365  Switch1   127,365  v3    86,618 {'Sideways': 6, 'Uptrend': 1}
+
+== stand-in unseen by month: Fable-OP alone vs SWITCH-1 (label A)
+2025-11 FableOP    68,728  Switch1    68,728  v3   -25,979 {'Uptrend': 16, 'Sideways': 3}
+2025-12 FableOP   -53,435  Switch1   -53,435  v3   -36,775 {'Uptrend': 11, 'Sideways': 11}
+2026-01 FableOP   -42,192  Switch1   -21,983  v3  -124,721 {'Sideways': 7, 'Downtrend': 7, 'Uptrend': 6}
+2026-02 FableOP    74,336  Switch1    38,422  v3   -67,389 {'Sideways': 14, 'Downtrend': 7}
+2026-03 FableOP   -22,867  Switch1   113,018  v3   113,018 {'Downtrend': 19}
+2026-04 FableOP    45,611  Switch1    24,855  v3    39,662 {'Sideways': 15, 'Downtrend': 5}
+2026-05 FableOP     8,666  Switch1     8,666  v3   -26,413 {'Sideways': 3, 'Uptrend': 3}
+
+latest label row 2026-11-12 {'prev': 25255.05, 'ma20': 23500.555, 'ma50': 23304.255, 'r20': 11.148250920365532, 'chg': 0.1754104624619668, 'A': 'Uptrend', 'B': 'Uptrend', 'D': 'Flat day'}

@@ -1,0 +1,141 @@
+latest label (for the session after 2026-11-12): A=Uptrend B=Uptrend | prev close 25255, 20-day avg 23501, 50-day avg 23304, 20-day change +11.1%
+
+== REAL futures, 12 May - 11 Nov 2026 (trend label A: moving averages) | sessions by label: {'Sideways': 69, 'Downtrend': 33, 'Uptrend': 24}
+  Uptrend (24 sessions; Nifty over those days -5.3% in total)
+    Opus      exit T1: trades  69 (2.9/day) reach-T1 31.9% stop 27.5% | net   -35999 ( -1500/session) options est   +23932 (  +997/session) | at T1   -35999 at T3   -30597 | longs  52   -69124 shorts  17   +33125 | days +9/-10
+    Opus v2   exit T1: trades  74 (3.1/day) reach-T1 51.4% stop 23.0% | net  +145784 ( +6074/session) options est  +130532 ( +5439/session) | at T1  +145784 at T3  +283053 | longs  54  +125340 shorts  20   +20443 | days +16/-6
+    Opus v3   exit T1: trades  66 (2.8/day) reach-T1 51.5% stop 22.7% | net  +134381 ( +5599/session) options est  +117682 ( +4903/session) | at T1  +134381 at T3  +228320 | longs  46  +113938 shorts  20   +20443 | days +16/-6
+    Fable     exit T3: trades  99 (4.1/day) reach-T1 39.4% stop 40.4% | net  +144448 ( +6019/session) options est  +183942 ( +7664/session) | at T1   -49098 at T3  +144448 | longs  80  +182649 shorts  19   -38202 | days +14/-10
+    Fable-OP  exit T3: trades  59 (2.5/day) reach-T1 57.6% stop 28.8% | net  +256429 (+10685/session) options est  +203398 ( +8475/session) | at T1  +122177 at T3  +256429 | longs  54  +300163 shorts   5   -43733 | days +15/-6
+  Sideways (69 sessions; Nifty over those days +13.6% in total)
+    Opus      exit T1: trades 210 (3.0/day) reach-T1 37.1% stop 24.8% | net  +180969 ( +2623/session) options est  +227550 ( +3298/session) | at T1  +180969 at T3  +227603 | longs 125  +108269 shorts  85   +72701 | days +36/-26
+    Opus v2   exit T1: trades 195 (2.8/day) reach-T1 46.2% stop 29.7% | net  +221453 ( +3209/session) options est  +272619 ( +3951/session) | at T1  +221453 at T3  +245934 | longs 117  +178661 shorts  78   +42792 | days +34/-28
+    Opus v3   exit T1: trades 187 (2.7/day) reach-T1 48.1% stop 28.9% | net  +274639 ( +3980/session) options est  +293483 ( +4253/session) | at T1  +274639 at T3  +352139 | longs 107  +219754 shorts  80   +54886 | days +35/-25
+    Fable     exit T3: trades 276 (4.0/day) reach-T1 41.7% stop 35.9% | net   +50402 (  +730/session) options est  +265198 ( +3843/session) | at T1  -127220 at T3   +50402 | longs 208  +220488 shorts  68  -170086 | days +33/-33
+    Fable-OP  exit T3: trades 131 (1.9/day) reach-T1 55.7% stop 29.0% | net  +374946 ( +5434/session) options est  +311589 ( +4516/session) | at T1  +245210 at T3  +374946 | longs 117  +297979 shorts  14   +76967 | days +36/-19
+  Downtrend (33 sessions; Nifty over those days -1.8% in total)
+    Opus      exit T1: trades  90 (2.7/day) reach-T1 36.7% stop 20.0% | net  +105389 ( +3194/session) options est   +98392 ( +2982/session) | at T1  +105389 at T3  +146405 | longs  32   -71125 shorts  58  +176514 | days +11/-15
+    Opus v2   exit T1: trades  84 (2.5/day) reach-T1 47.6% stop 21.4% | net  +161047 ( +4880/session) options est  +134997 ( +4091/session) | at T1  +161047 at T3  +230715 | longs  27   -20771 shorts  57  +181817 | days +18/-8
+    Opus v3   exit T1: trades  82 (2.5/day) reach-T1 48.8% stop 19.5% | net  +180018 ( +5455/session) options est  +142097 ( +4306/session) | at T1  +180018 at T3  +251976 | longs  24    -8708 shorts  58  +188726 | days +18/-8
+    Fable     exit T3: trades 100 (3.0/day) reach-T1 46.0% stop 36.0% | net  +278689 ( +8445/session) options est  +250597 ( +7594/session) | at T1   +14359 at T3  +278689 | longs  49   -73116 shorts  51  +351805 | days +13/-16
+    Fable-OP  exit T3: trades  43 (1.3/day) reach-T1 48.8% stop 41.9% | net   +70915 ( +2149/session) options est   +97203 ( +2946/session) | at T1    -6099 at T3   +70915 | longs  27   -16845 shorts  16   +87760 | days +13/-9
+
+== REAL futures, same period (trend label B: 20-day change +/-2%) | sessions by label: {'Sideways': 57, 'Downtrend': 49, 'Uptrend': 20}
+  Uptrend (20 sessions; Nifty over those days +7.5% in total)
+    Opus      exit T1: trades  54 (2.7/day) reach-T1 40.7% stop 18.5% | net  +112158 ( +5608/session) options est   +88335 ( +4417/session) | at T1  +112158 at T3  +189408 | longs  50   +86942 shorts   4   +25216 | days +11/-5
+    Opus v2   exit T1: trades  33 (1.6/day) reach-T1 57.6% stop 12.1% | net  +131508 ( +6575/session) options est   +90024 ( +4501/session) | at T1  +131508 at T3  +303429 | longs  27  +113484 shorts   6   +18023 | days +11/-3
+    Opus v3   exit T1: trades  31 (1.6/day) reach-T1 64.5% stop  6.5% | net  +177956 ( +8898/session) options est  +111258 ( +5563/session) | at T1  +177956 at T3  +368284 | longs  25  +159932 shorts   6   +18023 | days +12/-1
+    Fable     exit T3: trades  75 (3.8/day) reach-T1 50.7% stop 26.7% | net  +335177 (+16759/session) options est  +245564 (+12278/session) | at T1   +92505 at T3  +335177 | longs  68  +296016 shorts   7   +39161 | days +14/-5
+    Fable-OP  exit T3: trades  29 (1.4/day) reach-T1 62.1% stop 17.2% | net  +303055 (+15153/session) options est  +198225 ( +9911/session) | at T1  +111657 at T3  +303055 | longs  27  +289026 shorts   2   +14029 | days +11/-2
+  Sideways (57 sessions; Nifty over those days +4.8% in total)
+    Opus      exit T1: trades 160 (2.8/day) reach-T1 30.0% stop 26.9% | net   -55159 (  -968/session) options est   +66132 ( +1160/session) | at T1   -55159 at T3   -66065 | longs  93   -35870 shorts  67   -19289 | days +24/-24
+    Opus v2   exit T1: trades 183 (3.2/day) reach-T1 43.7% stop 31.7% | net   +62462 ( +1096/session) options est  +181854 ( +3190/session) | at T1   +62462 at T3  +161025 | longs 123  +109684 shorts  60   -47222 | days +29/-26
+    Opus v3   exit T1: trades 171 (3.0/day) reach-T1 43.9% stop 32.7% | net   +41058 (  +720/session) options est  +162602 ( +2853/session) | at T1   +41058 at T3  +108628 | longs 110   +83232 shorts  61   -42174 | days +28/-26
+    Fable     exit T3: trades 239 (4.2/day) reach-T1 39.3% stop 39.3% | net   -67154 ( -1178/session) options est  +183884 ( +3226/session) | at T1  -176782 at T3   -67154 | longs 194   +50498 shorts  45  -117652 | days +27/-30
+    Fable-OP  exit T3: trades 139 (2.4/day) reach-T1 52.5% stop 33.1% | net  +252373 ( +4428/session) options est  +266118 ( +4669/session) | at T1  +144640 at T3  +252373 | longs 123  +240835 shorts  16   +11538 | days +34/-20
+  Downtrend (49 sessions; Nifty over those days -5.9% in total)
+    Opus      exit T1: trades 155 (3.2/day) reach-T1 40.6% stop 23.2% | net  +193360 ( +3946/session) options est  +195407 ( +3988/session) | at T1  +193360 at T3  +220068 | longs  66   -83052 shorts  89  +276412 | days +21/-22
+    Opus v2   exit T1: trades 137 (2.8/day) reach-T1 50.4% stop 22.6% | net  +334314 ( +6823/session) options est  +266270 ( +5434/session) | at T1  +334314 at T3  +295249 | longs  48   +60063 shorts  89  +274251 | days +28/-13
+    Opus v3   exit T1: trades 133 (2.7/day) reach-T1 51.9% stop 20.3% | net  +370024 ( +7552/session) options est  +279403 ( +5702/session) | at T1  +370024 at T3  +355523 | longs  42   +81819 shorts  91  +288205 | days +29/-12
+    Fable     exit T3: trades 161 (3.3/day) reach-T1 42.2% stop 37.9% | net  +205516 ( +4194/session) options est  +270289 ( +5516/session) | at T1   -77682 at T3  +205516 | longs  75   -16493 shorts  86  +222009 | days +19/-24
+    Fable-OP  exit T3: trades  65 (1.3/day) reach-T1 56.9% stop 33.8% | net  +146862 ( +2997/session) options est  +147846 ( +3017/session) | at T1  +104990 at T3  +146862 | longs  48   +51435 shorts  17   +95426 | days +19/-12
+
+== REAL futures, same period, by what Nifty did ON the day (hindsight) | sessions by label: {'Flat day': 57, 'Up day': 36, 'Down day': 33}
+  Up day (36 sessions; Nifty over those days +36.1% in total)
+    Opus      exit T1: trades  65 (1.8/day) reach-T1 33.8% stop 21.5% | net   +91471 ( +2541/session) options est   +80479 ( +2236/session) | at T1   +91471 at T3  +163889 | longs  57   +71535 shorts   8   +19937 | days +15/-12
+    Opus v2   exit T1: trades  57 (1.6/day) reach-T1 56.1% stop 28.1% | net  +111479 ( +3097/session) options est  +110174 ( +3060/session) | at T1  +111479 at T3  +231892 | longs  49   +91542 shorts   8   +19937 | days +16/-12
+    Opus v3   exit T1: trades  54 (1.5/day) reach-T1 59.3% stop 25.9% | net  +138244 ( +3840/session) options est  +120232 ( +3340/session) | at T1  +138244 at T3  +257077 | longs  46  +118307 shorts   8   +19937 | days +15/-11
+    Fable     exit T3: trades 129 (3.6/day) reach-T1 40.3% stop 31.0% | net  +253551 ( +7043/session) options est  +245014 ( +6806/session) | at T1   +36994 at T3  +253551 | longs 119  +297936 shorts  10   -44385 | days +18/-14
+    Fable-OP  exit T3: trades  55 (1.5/day) reach-T1 58.2% stop 29.1% | net  +247961 ( +6888/session) options est  +195206 ( +5422/session) | at T1  +113005 at T3  +247961 | longs  49  +213232 shorts   6   +34729 | days +18/-10
+  Flat day (57 sessions; Nifty over those days -1.3% in total)
+    Opus      exit T1: trades 165 (2.9/day) reach-T1 34.5% stop 23.6% | net   +56946 (  +999/session) options est  +124853 ( +2190/session) | at T1   +56946 at T3   +83455 | longs 104   +78094 shorts  61   -21148 | days +25/-24
+    Opus v2   exit T1: trades 166 (2.9/day) reach-T1 47.0% stop 28.3% | net  +225161 ( +3950/session) options est  +243499 ( +4272/session) | at T1  +225161 at T3  +190237 | longs 103  +229415 shorts  63    -4254 | days +31/-20
+    Opus v3   exit T1: trades 153 (2.7/day) reach-T1 48.4% stop 28.1% | net  +237149 ( +4161/session) options est  +240822 ( +4225/session) | at T1  +237149 at T3  +228911 | longs  90  +241403 shorts  63    -4254 | days +33/-18
+    Fable     exit T3: trades 213 (3.7/day) reach-T1 39.4% stop 42.7% | net  -334654 ( -5871/session) options est   +39970 (  +701/session) | at T1  -331582 at T3  -334654 | longs 158   +35250 shorts  55  -369904 | days +24/-31
+    Fable-OP  exit T3: trades 120 (2.1/day) reach-T1 53.3% stop 30.0% | net  +251464 ( +4412/session) options est  +240721 ( +4223/session) | at T1  +189561 at T3  +251464 | longs 103  +302775 shorts  17   -51311 | days +28/-18
+  Down day (33 sessions; Nifty over those days -28.4% in total)
+    Opus      exit T1: trades 139 (4.2/day) reach-T1 38.8% stop 25.9% | net  +101942 ( +3089/session) options est  +144542 ( +4380/session) | at T1  +101942 at T3   +96067 | longs  48  -181609 shorts  91  +283550 | days +16/-15
+    Opus v2   exit T1: trades 130 (3.9/day) reach-T1 44.6% stop 23.1% | net  +191644 ( +5807/session) options est  +184475 ( +5590/session) | at T1  +191644 at T3  +337573 | longs  46   -37726 shorts  84  +229369 | days +21/-10
+    Opus v3   exit T1: trades 128 (3.9/day) reach-T1 45.3% stop 21.9% | net  +213646 ( +6474/session) options est  +192209 ( +5825/session) | at T1  +213646 at T3  +346446 | longs  41   -34726 shorts  87  +248372 | days +21/-10
+    Fable     exit T3: trades 133 (4.0/day) reach-T1 48.1% stop 33.1% | net  +554642 (+16807/session) options est  +414752 (+12568/session) | at T1  +132629 at T3  +554642 | longs  60    -3165 shorts  73  +557807 | days +18/-14
+    Fable-OP  exit T3: trades  58 (1.8/day) reach-T1 55.2% stop 36.2% | net  +202865 ( +6147/session) options est  +176263 ( +5341/session) | at T1   +58721 at T3  +202865 | longs  46   +65290 shorts  12  +137576 | days +18/-6
+
+== STAND-IN (cash), 3 Nov 2025 - 11 May 2026 (label A) | sessions by label: {'Sideways': 53, 'Downtrend': 38, 'Uptrend': 36}
+  Uptrend (36 sessions; Nifty over those days -3.8% in total)
+    Opus      exit T1: trades  74 (2.1/day) reach-T1 31.1% stop 23.0% | net   -59979 ( -1666/session) | at T1   -59979 at T3   -94696 | longs  36   -77407 shorts  38   +17428 | days +10/-17
+    Opus v2   exit T1: trades 105 (2.9/day) reach-T1 40.0% stop 36.2% | net  -148952 ( -4138/session) | at T1  -148952 at T3   -81467 | longs  77  -126122 shorts  28   -22831 | days +12/-19
+    Opus v3   exit T1: trades 103 (2.9/day) reach-T1 39.8% stop 35.9% | net  -144246 ( -4007/session) | at T1  -144246 at T3   -76123 | longs  74  -131851 shorts  29   -12395 | days +12/-19
+    Fable     exit T3: trades 159 (4.4/day) reach-T1 39.0% stop 42.1% | net  -274095 ( -7614/session) | at T1  -258222 at T3  -274095 | longs 151  -280685 shorts   8    +6590 | days +16/-19
+    Fable-OP  exit T3: trades  81 (2.2/day) reach-T1 43.2% stop 38.3% | net   -24598 (  -683/session) | at T1  -118257 at T3   -24598 | longs  77   -37829 shorts   4   +13231 | days +13/-17
+  Sideways (53 sessions; Nifty over those days -0.3% in total)
+    Opus      exit T1: trades 174 (3.3/day) reach-T1 24.1% stop 25.9% | net  -102096 ( -1926/session) | at T1  -102096 at T3  -117573 | longs 106    +2808 shorts  68  -104904 | days +24/-25
+    Opus v2   exit T1: trades 147 (2.8/day) reach-T1 36.7% stop 34.7% | net   -97681 ( -1843/session) | at T1   -97681 at T3   -72469 | longs  82   +22043 shorts  65  -119723 | days +21/-22
+    Opus v3   exit T1: trades 140 (2.6/day) reach-T1 38.6% stop 33.6% | net   -35337 (  -667/session) | at T1   -35337 at T3   -13365 | longs  75   +84386 shorts  65  -119723 | days +21/-20
+    Fable     exit T3: trades 221 (4.2/day) reach-T1 42.1% stop 38.9% | net   -77639 ( -1465/session) | at T1  -164618 at T3   -77639 | longs 179   -19256 shorts  42   -58383 | days +28/-23
+    Fable-OP  exit T3: trades  94 (1.8/day) reach-T1 48.9% stop 35.1% | net  +151884 ( +2866/session) | at T1   +29341 at T3  +151884 | longs  82   +99782 shorts  12   +52102 | days +21/-19
+  Downtrend (38 sessions; Nifty over those days -2.9% in total)
+    Opus      exit T1: trades 140 (3.7/day) reach-T1 33.6% stop 25.7% | net   -17842 (  -470/session) | at T1   -17842 at T3   -84410 | longs  50    -2483 shorts  90   -15359 | days +18/-15
+    Opus v2   exit T1: trades 123 (3.2/day) reach-T1 36.6% stop 26.0% | net   +43541 ( +1146/session) | at T1   +43541 at T3   -83337 | longs  37   +73438 shorts  86   -29898 | days +19/-13
+    Opus v3   exit T1: trades 123 (3.2/day) reach-T1 36.6% stop 26.0% | net   +50986 ( +1342/session) | at T1   +50986 at T3   -58120 | longs  35   +69128 shorts  88   -18141 | days +20/-12
+    Fable     exit T3: trades 123 (3.2/day) reach-T1 39.0% stop 38.2% | net  -174788 ( -4600/session) | at T1   -82645 at T3  -174788 | longs  66  -163495 shorts  57   -11293 | days +12/-18
+    Fable-OP  exit T3: trades  57 (1.5/day) reach-T1 47.4% stop 28.1% | net   -48437 ( -1275/session) | at T1   +90459 at T3   -48437 | longs  35   +13147 shorts  22   -61584 | days +9/-17
+
+== STAND-IN (cash), same period (label B) | sessions by label: {'Sideways': 68, 'Downtrend': 32, 'Uptrend': 27}
+  Uptrend (27 sessions; Nifty over those days -2.7% in total)
+    Opus      exit T1: trades  89 (3.3/day) reach-T1 23.6% stop 22.5% | net   -29638 ( -1098/session) | at T1   -29638 at T3   -85926 | longs  54   -65040 shorts  35   +35401 | days +13/-12
+    Opus v2   exit T1: trades  78 (2.9/day) reach-T1 37.2% stop 28.2% | net   -23659 (  -876/session) | at T1   -23659 at T3   -61630 | longs  50   -25075 shorts  28    +1415 | days +11/-13
+    Opus v3   exit T1: trades  75 (2.8/day) reach-T1 36.0% stop 29.3% | net   -41382 ( -1533/session) | at T1   -41382 at T3   -95031 | longs  47   -42797 shorts  28    +1415 | days +9/-14
+    Fable     exit T3: trades 116 (4.3/day) reach-T1 37.1% stop 43.1% | net  -258466 ( -9573/session) | at T1  -227867 at T3  -258466 | longs 108  -284767 shorts   8   +26301 | days +11/-15
+    Fable-OP  exit T3: trades  52 (1.9/day) reach-T1 46.2% stop 30.8% | net   +33364 ( +1236/session) | at T1     -727 at T3   +33364 | longs  50   -14260 shorts   2   +47623 | days +10/-11
+  Sideways (68 sessions; Nifty over those days -4.7% in total)
+    Opus      exit T1: trades 176 (2.6/day) reach-T1 27.3% stop 25.0% | net  -148037 ( -2177/session) | at T1  -148037 at T3  -166365 | longs  97   -15988 shorts  79  -132049 | days +24/-33
+    Opus v2   exit T1: trades 190 (2.8/day) reach-T1 37.9% stop 36.3% | net  -205669 ( -3025/session) | at T1  -205669 at T3  -112925 | longs 116   -46744 shorts  74  -158926 | days +26/-30
+    Opus v3   exit T1: trades 184 (2.7/day) reach-T1 39.7% stop 34.8% | net  -120897 ( -1778/session) | at T1  -120897 at T3   -15077 | longs 109   +27593 shorts  75  -148490 | days +28/-27
+    Fable     exit T3: trades 291 (4.3/day) reach-T1 41.9% stop 38.5% | net  -125528 ( -1846/session) | at T1  -201349 at T3  -125528 | longs 237   -85923 shorts  54   -39605 | days +36/-30
+    Fable-OP  exit T3: trades 136 (2.0/day) reach-T1 47.1% stop 38.2% | net   +62843 (  +924/session) | at T1   -45114 at T3   +62843 | longs 114   +74965 shorts  22   -12122 | days +25/-28
+  Downtrend (32 sessions; Nifty over those days +0.4% in total)
+    Opus      exit T1: trades 123 (3.8/day) reach-T1 35.0% stop 27.6% | net    -2243 (   -70/session) | at T1    -2243 at T3   -44389 | longs  41    +3945 shorts  82    -6188 | days +15/-12
+    Opus v2   exit T1: trades 107 (3.3/day) reach-T1 37.4% stop 28.0% | net   +26236 (  +820/session) | at T1   +26236 at T3   -62718 | longs  30   +41178 shorts  77   -14941 | days +15/-11
+    Opus v3   exit T1: trades 107 (3.3/day) reach-T1 37.4% stop 28.0% | net   +33682 ( +1053/session) | at T1   +33682 at T3   -37502 | longs  28   +36867 shorts  79    -3185 | days +16/-10
+    Fable     exit T3: trades  96 (3.0/day) reach-T1 39.6% stop 39.6% | net  -142527 ( -4454/session) | at T1   -76269 at T3  -142527 | longs  51   -92747 shorts  45   -49780 | days +9/-15
+    Fable-OP  exit T3: trades  44 (1.4/day) reach-T1 45.5% stop 27.3% | net   -17358 (  -542/session) | at T1   +47384 at T3   -17358 | longs  30   +14393 shorts  14   -31751 | days +8/-14
+
+== STAND-IN (cash), same period, by what Nifty did on the day | sessions by label: {'Flat day': 46, 'Up day': 42, 'Down day': 39}
+  Up day (42 sessions; Nifty over those days +39.8% in total)
+    Opus      exit T1: trades 100 (2.4/day) reach-T1 21.0% stop 30.0% | net  -191263 ( -4554/session) | at T1  -191263 at T3  -172094 | longs  72   -26350 shorts  28  -164913 | days +16/-17
+    Opus v2   exit T1: trades  88 (2.1/day) reach-T1 37.5% stop 42.0% | net  -158925 ( -3784/session) | at T1  -158925 at T3  -137673 | longs  60    +5987 shorts  28  -164913 | days +16/-16
+    Opus v3   exit T1: trades  84 (2.0/day) reach-T1 38.1% stop 41.7% | net  -131848 ( -3139/session) | at T1  -131848 at T3  -114204 | longs  56   +33065 shorts  28  -164913 | days +16/-15
+    Fable     exit T3: trades 144 (3.4/day) reach-T1 47.9% stop 32.6% | net  +209150 ( +4980/session) | at T1  +118557 at T3  +209150 | longs 132  +320248 shorts  12  -111099 | days +19/-14
+    Fable-OP  exit T3: trades  60 (1.4/day) reach-T1 48.3% stop 33.3% | net   +42368 ( +1009/session) | at T1    +5987 at T3   +42368 | longs  60   +42368 shorts   0       +0 | days +11/-18
+  Flat day (46 sessions; Nifty over those days -1.8% in total)
+    Opus      exit T1: trades 136 (3.0/day) reach-T1 31.6% stop 22.8% | net   -40643 (  -884/session) | at T1   -40643 at T3   -73558 | longs  65   +31079 shorts  71   -71723 | days +19/-21
+    Opus v2   exit T1: trades 142 (3.1/day) reach-T1 36.6% stop 32.4% | net  -153846 ( -3344/session) | at T1  -153846 at T3  -107755 | longs  84   -60138 shorts  58   -93708 | days +17/-21
+    Opus v3   exit T1: trades 138 (3.0/day) reach-T1 37.7% stop 31.9% | net  -129261 ( -2810/session) | at T1  -129261 at T3   -82165 | longs  79   -45989 shorts  59   -83272 | days +17/-21
+    Fable     exit T3: trades 196 (4.3/day) reach-T1 31.6% stop 44.9% | net  -421210 ( -9157/session) | at T1  -516589 at T3  -421210 | longs 173  -334068 shorts  23   -87142 | days +20/-26
+    Fable-OP  exit T3: trades  95 (2.1/day) reach-T1 44.2% stop 34.7% | net   +47926 ( +1042/session) | at T1   -54737 at T3   +47926 | longs  84   +77896 shorts  11   -29970 | days +19/-15
+  Down day (39 sessions; Nifty over those days -45.1% in total)
+    Opus      exit T1: trades 152 (3.9/day) reach-T1 31.6% stop 24.3% | net   +51988 ( +1333/session) | at T1   +51988 at T3   -51027 | longs  55   -81811 shorts  97  +133800 | days +17/-19
+    Opus v2   exit T1: trades 145 (3.7/day) reach-T1 38.6% stop 26.2% | net  +109679 ( +2812/session) | at T1  +109679 at T3    +8155 | longs  52   +23510 shorts  93   +86169 | days +19/-17
+    Opus v3   exit T1: trades 144 (3.7/day) reach-T1 38.9% stop 25.7% | net  +132513 ( +3398/session) | at T1  +132513 at T3   +48760 | longs  49   +34588 shorts  95   +97925 | days +20/-15
+    Fable     exit T3: trades 163 (4.2/day) reach-T1 44.2% stop 39.9% | net  -314461 ( -8063/session) | at T1  -107453 at T3  -314461 | longs  91  -449617 shorts  72  +135156 | days +17/-20
+    Fable-OP  exit T3: trades  77 (2.0/day) reach-T1 48.1% stop 35.1% | net   -11445 (  -293/session) | at T1   +50293 at T3   -11445 | longs  50   -45165 shorts  27   +33720 | days +13/-20
+
+== STAND-IN (cash), 12 May - 19 Oct 2026 (label A) | sessions by label: {'Sideways': 57, 'Downtrend': 31, 'Uptrend': 23}
+  Uptrend (23 sessions; Nifty over those days -6.1% in total)
+    Opus      exit T1: trades  65 (2.8/day) reach-T1 35.4% stop 20.0% | net   +24725 ( +1075/session) | at T1   +24725 at T3     +199 | longs  42    -9576 shorts  23   +34301 | days +12/-9
+    Opus v2   exit T1: trades  72 (3.1/day) reach-T1 44.4% stop 26.4% | net   +45809 ( +1992/session) | at T1   +45809 at T3  +193465 | longs  51   +26433 shorts  21   +19375 | days +12/-8
+    Opus v3   exit T1: trades  69 (3.0/day) reach-T1 46.4% stop 24.6% | net   +58144 ( +2528/session) | at T1   +58144 at T3  +205801 | longs  47   +39155 shorts  22   +18989 | days +12/-8
+    Fable     exit T3: trades  93 (4.0/day) reach-T1 46.2% stop 36.6% | net  +271004 (+11783/session) | at T1   -15274 at T3  +271004 | longs  77  +229766 shorts  16   +41238 | days +11/-11
+    Fable-OP  exit T3: trades  56 (2.4/day) reach-T1 44.6% stop 35.7% | net  +116142 ( +5050/session) | at T1   -10684 at T3  +116142 | longs  51  +173844 shorts   5   -57702 | days +12/-9
+  Sideways (57 sessions; Nifty over those days +4.6% in total)
+    Opus      exit T1: trades 177 (3.1/day) reach-T1 30.5% stop 22.6% | net   +51847 (  +910/session) | at T1   +51847 at T3   +83071 | longs 106   +58563 shorts  71    -6716 | days +28/-21
+    Opus v2   exit T1: trades 170 (3.0/day) reach-T1 38.2% stop 32.9% | net   +18893 (  +331/session) | at T1   +18893 at T3   -88403 | longs 103   +69115 shorts  67   -50221 | days +27/-26
+    Opus v3   exit T1: trades 161 (2.8/day) reach-T1 38.5% stop 32.9% | net   +18003 (  +316/session) | at T1   +18003 at T3   -87532 | longs  92   +64785 shorts  69   -46783 | days +24/-26
+    Fable     exit T3: trades 213 (3.7/day) reach-T1 39.4% stop 38.5% | net  -337762 ( -5926/session) | at T1  -225646 at T3  -337762 | longs 171  -227875 shorts  42  -109886 | days +17/-36
+    Fable-OP  exit T3: trades 125 (2.2/day) reach-T1 45.6% stop 37.6% | net  -123157 ( -2161/session) | at T1    -7387 at T3  -123157 | longs 103   +24423 shorts  22  -147580 | days +20/-29
+  Downtrend (31 sessions; Nifty over those days -2.1% in total)
+    Opus      exit T1: trades  73 (2.4/day) reach-T1 34.2% stop 26.0% | net   +28887 (  +932/session) | at T1   +28887 at T3   +23062 | longs  36   -70970 shorts  37   +99857 | days +10/-11
+    Opus v2   exit T1: trades  71 (2.3/day) reach-T1 39.4% stop 18.3% | net   +87962 ( +2837/session) | at T1   +87962 at T3  +127267 | longs  32   -14053 shorts  39  +102015 | days +12/-9
+    Opus v3   exit T1: trades  69 (2.2/day) reach-T1 39.1% stop 18.8% | net   +76582 ( +2470/session) | at T1   +76582 at T3  +112380 | longs  30   -25433 shorts  39  +102015 | days +11/-10
+    Fable     exit T3: trades  96 (3.1/day) reach-T1 41.7% stop 38.5% | net   +20858 (  +673/session) | at T1   -83786 at T3   +20858 | longs  44  -167484 shorts  52  +188343 | days +13/-14
+    Fable-OP  exit T3: trades  47 (1.5/day) reach-T1 44.7% stop 31.9% | net   +49670 ( +1602/session) | at T1   -14474 at T3   +49670 | longs  31    +8299 shorts  16   +41370 | days +10/-8

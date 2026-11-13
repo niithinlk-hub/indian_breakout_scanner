@@ -1,0 +1,34 @@
+     30s loading history 48/218 | reads 148 | source errors 0
+     60s loading history 97/218 | reads 297 | source errors 0
+     90s loading history 147/218 | reads 447 | source errors 0
+    120s loading history 196/218 | reads 596 | source errors 0
+    150s scanning 40/218 | reads 736 | source errors 0
+    180s scanning 113/218 | reads 885 | source errors 0
+    210s scanning 188/218 | reads 1034 | source errors 0
+    240s done | reads 1112 | source errors 0
+replayed 2026-11-12: stocks scanned 218 of 218, signals 47 {'A': 45, 'B': 0, 'C': 2}, reads 1112, engine errors 0, source errors 0
+  Opus      exit T1: 6 trades, futures   +33098, options   +19632 (6 priced) ABCAPITAL(L) SBILIFE(L) AUBANK(L) CAMS(L) OBEROIRLTY(L) GODREJPROP(L)
+  Fable     exit T3: 1 trades, futures    -9965, options    -6489 (1 priced) LICI(L)
+  Fable-OP  exit T3: 1 trades, futures    +2821, options    -1487 (1 priced) ICICILIFE(L)
+  Opus v2   exit T1: 1 trades, futures   +11695, options    +7814 (1 priced) ICICILIFE(L)
+  Opus v3   exit T1: 1 trades, futures   +11695, options    +7814 (1 priced) ICICILIFE(L)
+
+# Forward test: 1 session from 2026-11-12 to 2026-11-12
+
+Real futures and option candles, same-day exit. Opus, Opus v2 and Opus v3 are judged at T1; Fable and Fable-OP at T3.
+
+| Model | Exit | Trades | Reached T1 | Stopped | Futures net (Rs) | Options net (Rs) | Options priced |
+|---|---|---|---|---|---|---|---|
+| Opus | T1 | 6 | 3 | 0 | +33098 | +19632 | 6 |
+| Fable | T3 | 1 | 0 | 1 | -9965 | -6489 | 1 |
+| Fable-OP | T3 | 1 | 1 | 0 | +2821 | -1487 | 1 |
+| Opus v2 | T1 | 1 | 1 | 0 | +11695 | +7814 | 1 |
+| Opus v3 | T1 | 1 | 1 | 0 | +11695 | +7814 | 1 |
+
+Latest session, 2026-11-12:
+
+- Opus: 6 trades, futures +33098, options +19632 (ABCAPITAL L, SBILIFE L, AUBANK L, CAMS L, OBEROIRLTY L, GODREJPROP L)
+- Fable: 1 trade, futures -9965, options -6489 (LICI L)
+- Fable-OP: 1 trade, futures +2821, options -1487 (ICICILIFE L)
+- Opus v2: 1 trade, futures +11695, options +7814 (ICICILIFE L)
+- Opus v3: 1 trade, futures +11695, options +7814 (ICICILIFE L)

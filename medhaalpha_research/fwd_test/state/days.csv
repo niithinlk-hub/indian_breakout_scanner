@@ -1,0 +1,6 @@
+day,model,exit,trades,reached_t1,stopped,futures_net,options_net,options_priced
+2026-11-12,Opus,T1,6,3,0,33098,19632,6
+2026-11-12,Fable,T3,1,0,1,-9965,-6489,1
+2026-11-12,Fable-OP,T3,1,1,0,2821,-1487,1
+2026-11-12,Opus v2,T1,1,1,0,11695,7814,1
+2026-11-12,Opus v3,T1,1,1,0,11695,7814,1
