@@ -1,0 +1,10 @@
+opus      T1 n=65 hitT1=26 stop=14 fut=69391 opt_same=75984 opt_held=95503 unpriced=5 futT1=69391 futT3=36576 up=8 dn=8 worst=-28863
+   13Nov: [('09:47', 'GVT&D', 'LONG', 'target', 7215, 5242), ('09:54', 'BLUESTARCO', 'LONG', 'target', 8542, 4819), ('10:08', 'INDUSTOWER', 'LONG', 'close', -6649, -4035), ('10:16', 'BHEL', 'LONG', 'close', -8240, -5462), ('10:17', 'VMM', 'LONG', 'target', 10001, 5504), ('10:37', 'SIEMENS', 'LONG', 'stopped', -13796, -6235)] fut -2927 opt -167
+opus_v2   T1 n=54 hitT1=22 stop=12 fut=62553 opt_same=67670 opt_held=60867 unpriced=4 futT1=62553 futT3=102333 up=10 dn=5 worst=-21140
+   13Nov: [] fut 0 opt 0
+opus_v3   T1 n=52 hitT1=23 stop=11 fut=96394 opt_same=80078 opt_held=86601 unpriced=4 futT1=96394 futT3=154581 up=11 dn=4 worst=-20319
+   13Nov: [] fut 0 opt 0
+fable     T3 n=58 hitT1=27 stop=20 fut=163078 opt_same=152097 opt_held=221495 unpriced=2 futT1=9189 futT3=163078 up=9 dn=6 worst=-40531
+   13Nov: [] fut 0 opt 0
+fable_op  T3 n=33 hitT1=16 stop=7 fut=201015 opt_same=102661 opt_held=161731 unpriced=1 futT1=63710 futT3=201015 up=11 dn=4 worst=-20112
+   13Nov: [] fut 0 opt 0
