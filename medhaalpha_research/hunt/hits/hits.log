@@ -1,0 +1,45 @@
+== Summary per model (picks held until target or stop)
+opus      n= 65 | T1 hit  42 (65%) same day  26, median 0 days, max 2 | T2 hit  27 (42%) same day   9, median 1 days, max 2 | T3 hit  19 (29%) same day   3, median 2 days, max 5 | stopped before T1 21, open 2
+opus_v2   n= 54 | T1 hit  32 (59%) same day  22, median 0 days, max 2 | T2 hit  24 (44%) same day  12, median 0 days, max 4 | T3 hit  19 (35%) same day   8, median 1 days, max 5 | stopped before T1 22, open 0
+opus_v3   n= 52 | T1 hit  33 (63%) same day  23, median 0 days, max 2 | T2 hit  25 (48%) same day  13, median 0 days, max 4 | T3 hit  20 (38%) same day   9, median 1 days, max 5 | stopped before T1 19, open 0
+fable     n= 58 | T1 hit  35 (60%) same day  27, median 0 days, max 1 | T2 hit  31 (53%) same day  16, median 0 days, max 3 | T3 hit  26 (45%) same day  13, median 0 days, max 3 | stopped before T1 23, open 0
+fable_op  n= 33 | T1 hit  20 (61%) same day  16, median 0 days, max 1 | T2 hit  18 (55%) same day  12, median 0 days, max 4 | T3 hit  17 (52%) same day   9, median 0 days, max 5 | stopped before T1 13, open 0
+switch1   n= 36 | T1 hit  22 (61%) same day  18, median 0 days, max 1 | T2 hit  19 (53%) same day  11, median 0 days, max 4 | T3 hit  17 (47%) same day   8, median 1 days, max 5 | stopped before T1 14, open 0
+
+== Switch-1 (MedhaSuryan) trades, one per line
+2026-10-21 09:21 INFY        LONG  exit T3 | reached stopped before T1  | T1 stop +1 day, 22 Oct 12:00 | T2 stop +1 day, 22 Oct 12:00 | T3 stop +1 day, 22 Oct 12:00
+2026-10-22 09:47 INDHOTEL    LONG  exit T3 | reached T3                 | T1 same day, 22 Oct 10:14 | T2 same day, 22 Oct 10:40 | T3 same day, 22 Oct 11:00
+2026-10-23 09:17 INFY        LONG  exit T1 | reached stopped before T1  | T1 stop same day, 23 Oct 09:55 | T2 stop same day, 23 Oct 09:55 | T3 stop same day, 23 Oct 09:55
+2026-10-23 09:19 COFORGE     LONG  exit T1 | reached stopped before T1  | T1 stop same day, 23 Oct 09:22 | T2 stop same day, 23 Oct 09:22 | T3 stop same day, 23 Oct 09:22
+2026-10-23 09:59 COLPAL      SHORT exit T1 | reached stopped before T1  | T1 stop +8 days, 04 Nov 09:17 | T2 stop +8 days, 04 Nov 09:17 | T3 stop +8 days, 04 Nov 09:17
+2026-10-23 09:59 KFINTECH    SHORT exit T1 | reached T2                 | T1 same day, 23 Oct 12:41 | T2 +1 day, 26 Oct 09:21 | T3 stop +1 day, 26 Oct 10:50
+2026-10-23 09:59 PNBHOUSING  SHORT exit T1 | reached T2                 | T1 same day, 23 Oct 12:51 | T2 +1 day, 26 Oct 09:21 | T3 stop +3 days, 28 Oct 10:58
+2026-10-23 09:59 UJJIVANSFB  SHORT exit T1 | reached T3                 | T1 +1 day, 26 Oct 09:17 | T2 +1 day, 26 Oct 09:22 | T3 +5 days, 30 Oct 14:47
+2026-10-26 09:17 KOTAKBANK   LONG  exit T1 | reached stopped before T1  | T1 stop same day, 26 Oct 09:24 | T2 stop same day, 26 Oct 09:24 | T3 stop same day, 26 Oct 09:24
+2026-10-26 09:18 AUBANK      SHORT exit T1 | reached stopped before T1  | T1 stop same day, 26 Oct 09:42 | T2 stop same day, 26 Oct 09:42 | T3 stop same day, 26 Oct 09:42
+2026-10-26 09:18 UJJIVANSFB  SHORT exit T1 | reached T1                 | T1 same day, 26 Oct 09:27 | T2 stop same day, 26 Oct 09:58 | T3 stop same day, 26 Oct 09:58
+2026-10-26 09:21 DRREDDY     LONG  exit T1 | reached T3                 | T1 same day, 26 Oct 09:24 | T2 same day, 26 Oct 11:24 | T3 same day, 26 Oct 11:58
+2026-10-27 09:17 ATHERENERG  LONG  exit T3 | reached T3                 | T1 same day, 27 Oct 10:00 | T2 same day, 27 Oct 11:01 | T3 +3 days, 30 Oct 11:45
+2026-10-27 09:25 RECLTD      SHORT exit T3 | reached stopped before T1  | T1 stop +1 day, 28 Oct 12:46 | T2 stop +1 day, 28 Oct 12:46 | T3 stop +1 day, 28 Oct 12:46
+2026-10-28 13:01 HEROMOTOCO  LONG  exit T3 | reached stopped before T1  | T1 stop +1 day, 29 Oct 09:24 | T2 stop +1 day, 29 Oct 09:24 | T3 stop +1 day, 29 Oct 09:24
+2026-10-29 09:17 ADANIPORTS  LONG  exit T3 | reached T3                 | T1 same day, 29 Oct 10:30 | T2 same day, 29 Oct 11:59 | T3 same day, 29 Oct 14:26
+2026-10-30 09:17 TRENT       LONG  exit T3 | reached stopped before T1  | T1 stop +1 day, 02 Nov 09:37 | T2 stop +1 day, 02 Nov 09:37 | T3 stop +1 day, 02 Nov 09:37
+2026-11-03 09:17 IOC         LONG  exit T3 | reached T3                 | T1 +1 day, 04 Nov 09:32 | T2 +1 day, 04 Nov 10:12 | T3 +2 days, 05 Nov 09:15
+2026-11-03 09:18 MARICO      LONG  exit T3 | reached T3                 | T1 same day, 03 Nov 09:56 | T2 same day, 03 Nov 10:19 | T3 same day, 03 Nov 14:54
+2026-11-04 09:17 ITC         LONG  exit T3 | reached T3                 | T1 same day, 04 Nov 09:20 | T2 +4 days, 11 Nov 11:47 | T3 +5 days, 12 Nov 09:15
+2026-11-04 09:17 UNOMINDA    LONG  exit T3 | reached T3                 | T1 same day, 04 Nov 10:27 | T2 same day, 04 Nov 10:59 | T3 +1 day, 05 Nov 09:15
+2026-11-05 09:17 AMBUJACEM   LONG  exit T3 | reached stopped before T1  | T1 stop +1 day, 06 Nov 09:15 | T2 stop +1 day, 06 Nov 09:15 | T3 stop +1 day, 06 Nov 09:15
+2026-11-05 09:17 ASHOKLEY    LONG  exit T3 | reached T3                 | T1 same day, 05 Nov 09:27 | T2 same day, 05 Nov 10:16 | T3 same day, 05 Nov 10:31
+2026-11-05 09:17 BSE         LONG  exit T3 | reached T3                 | T1 same day, 05 Nov 09:27 | T2 same day, 05 Nov 11:05 | T3 same day, 05 Nov 11:33
+2026-11-05 09:17 EICHERMOT   LONG  exit T3 | reached T3                 | T1 same day, 05 Nov 09:46 | T2 +3 days, 11 Nov 09:15 | T3 +3 days, 11 Nov 12:23
+2026-11-05 09:17 HYUNDAI     LONG  exit T3 | reached stopped before T1  | T1 stop same day, 05 Nov 09:21 | T2 stop same day, 05 Nov 09:21 | T3 stop same day, 05 Nov 09:21
+2026-11-05 09:17 MARUTI      LONG  exit T3 | reached T3                 | T1 +1 day, 06 Nov 09:51 | T2 +3 days, 11 Nov 09:15 | T3 +3 days, 11 Nov 09:15
+2026-11-06 09:17 CGPOWER     SHORT exit T3 | reached T3                 | T1 same day, 06 Nov 09:25 | T2 same day, 06 Nov 09:42 | T3 same day, 06 Nov 10:01
+2026-11-06 09:17 MPHASIS     LONG  exit T3 | reached stopped before T1  | T1 stop same day, 06 Nov 09:19 | T2 stop same day, 06 Nov 09:19 | T3 stop same day, 06 Nov 09:19
+2026-11-09 09:17 BIOCON      LONG  exit T3 | reached stopped before T1  | T1 stop +2 days, 12 Nov 11:42 | T2 stop +2 days, 12 Nov 11:42 | T3 stop +2 days, 12 Nov 11:42
+2026-11-09 09:17 MANKIND     LONG  exit T3 | reached T3                 | T1 same day, 09 Nov 09:24 | T2 same day, 09 Nov 09:30 | T3 same day, 09 Nov 10:16
+2026-11-09 09:17 SBIN        LONG  exit T3 | reached T3                 | T1 same day, 09 Nov 09:37 | T2 +1 day, 11 Nov 09:15 | T3 +1 day, 11 Nov 09:15
+2026-11-09 09:38 SIEMENS     LONG  exit T3 | reached stopped before T1  | T1 stop same day, 09 Nov 12:31 | T2 stop same day, 09 Nov 12:31 | T3 stop same day, 09 Nov 12:31
+2026-11-11 09:17 WAAREEENER  LONG  exit T3 | reached T3                 | T1 same day, 11 Nov 09:26 | T2 same day, 11 Nov 09:40 | T3 +2 days, 13 Nov 11:09
+2026-11-11 09:24 MAHABANK    LONG  exit T3 | reached T1                 | T1 +1 day, 12 Nov 09:15 | T2 open | T3 open
+2026-11-12 09:18 ICICILIFE   LONG  exit T3 | reached T1                 | T1 same day, 12 Nov 09:25 | T2 stop +1 day, 13 Nov 11:15 | T3 stop +1 day, 13 Nov 11:15
