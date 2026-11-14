@@ -8,6 +8,7 @@ This folder is separate from the breakout scanner app in the rest of the reposit
 
 | File | What it answers |
 |---|---|
+| `six_month_comparison.md` | All models over 12 May-11 Nov 2026 and the six months before, options and futures, month by month |
 | `better_algo_for_options.md` | Internet search for a better method, tested on options profit (14 Nov 2026) |
 | `which_model_in_which_market.md` | Which model to use in an uptrend, sideways market and downtrend |
 | `options_five_scenarios.md` | Options profit for the five model and exit combinations |

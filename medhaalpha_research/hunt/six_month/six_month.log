@@ -1,0 +1,116 @@
+
+==== REAL  2026-05-12 to 2026-11-11, 126 sessions {'2026-05': 13, '2026-06': 21, '2026-07': 23, '2026-08': 21, '2026-09': 21, '2026-10': 20, '2026-11': 7}
+
+-- Opus (T1), live model
+   trades 369 (2.93/day, 209 long, 160 short)  OPTION net +2,45,027  futures net +2,50,359  won 53.1%  stopped 24.1%
+   option: long +49,117 short +1,95,910 | avg win +4,386 loss -3,553 | days up/down 59/48 | worst day -21,222 best +32,187 | max DD -28,983 | months up 7/7
+   premium: avg +21,533/trade, total +79,45,752, most open at once +1,37,543, return on premium 3.1% | futures worst day -38,733 max DD -83,253
+   month option: 2026-05 +20,223 (43)  2026-06 +60,993 (67)  2026-07 +17,835 (58)  2026-08 +31,163 (45)  2026-09 +36,062 (64)  2026-10 +29,843 (72)  2026-11 +48,908 (20)
+   month futures: 2026-05 +14,731  2026-06 +91,531  2026-07 +727  2026-08 +35,089  2026-09 +37,963  2026-10 +4,489  2026-11 +65,829
+
+-- Opus v2 (T1)
+   trades 353 (2.80/day, 198 long, 155 short)  OPTION net +3,99,885  futures net +5,28,284  won 59.2%  stopped 26.3%
+   option: long +2,26,785 short +1,73,100 | avg win +4,649 loss -3,971 | days up/down 73/37 | worst day -22,812 best +31,610 | max DD -37,123 | months up 7/7
+   premium: avg +21,877/trade, total +77,22,571, most open at once +1,51,972, return on premium 5.2% | futures worst day -45,315 max DD -98,957
+   month option: 2026-05 +50,724 (34)  2026-06 +68,853 (63)  2026-07 +88,635 (57)  2026-08 +26,753 (58)  2026-09 +1,14,030 (54)  2026-10 +13,344 (69)  2026-11 +37,545 (18)
+   month futures: 2026-05 +79,446  2026-06 +93,020  2026-07 +1,11,580  2026-08 +8,708  2026-09 +2,00,858  2026-10 -18,926  2026-11 +53,598
+
+-- Opus v3 (T1)
+   trades 335 (2.66/day, 177 long, 158 short)  OPTION net +4,23,981  futures net +5,89,038  won 60.3%  stopped 25.4%
+   option: long +2,40,456 short +1,83,525 | avg win +4,691 loss -3,937 | days up/down 74/34 | worst day -18,863 best +32,063 | max DD -36,768 | months up 7/7
+   premium: avg +21,901/trade, total +73,36,864, most open at once +1,51,972, return on premium 5.8% | futures worst day -41,636 max DD -98,136
+   month option: 2026-05 +45,167 (33)  2026-06 +77,820 (60)  2026-07 +88,848 (52)  2026-08 +27,453 (54)  2026-09 +1,08,300 (51)  2026-10 +21,877 (68)  2026-11 +54,516 (17)
+   month futures: 2026-05 +68,915  2026-06 +1,07,734  2026-07 +1,16,793  2026-08 +15,555  2026-09 +1,93,158  2026-10 +266  2026-11 +86,618
+
+-- Fable (T3)
+   trades 475 (3.77/day, 337 long, 138 short)  OPTION net +5,70,293  futures net +4,73,539  won 44.2%  stopped 40.4%
+   option: long +4,04,228 short +1,66,065 | avg win +8,080 loss -4,251 | days up/down 64/55 | worst day -35,551 best +66,147 | max DD -72,788 | months up 7/7
+   premium: avg +23,459/trade, total +1,11,43,206, most open at once +2,33,986, return on premium 5.1% | futures worst day -65,932 max DD -1,82,156
+   month option: 2026-05 +11,182 (48)  2026-06 +28,178 (93)  2026-07 +88,852 (93)  2026-08 +77,121 (82)  2026-09 +1,31,269 (76)  2026-10 +72,926 (53)  2026-11 +1,60,764 (30)
+   month futures: 2026-05 -25,297  2026-06 -47,995  2026-07 +38,839  2026-08 +40,120  2026-09 +1,62,967  2026-10 +60,007  2026-11 +2,44,898
+
+-- Fable-OP (T3)
+   trades 233 (1.85/day, 198 long, 35 short)  OPTION net +5,45,031  futures net +7,02,290  won 47.2%  stopped 37.3%
+   option: long +4,40,733 short +1,04,298 | avg win +9,630 loss -4,181 | days up/down 62/36 | worst day -26,335 best +45,499 | max DD -37,024 | months up 7/7
+   premium: avg +22,390/trade, total +52,16,912, most open at once +1,64,145, return on premium 10.4% | futures worst day -56,275 max DD -80,919
+   month option: 2026-05 +31,038 (20)  2026-06 +30,956 (45)  2026-07 +1,78,826 (44)  2026-08 +1,06,522 (51)  2026-09 +78,844 (25)  2026-10 +31,702 (30)  2026-11 +87,142 (18)
+   month futures: 2026-05 +56,567  2026-06 +19,065  2026-07 +2,42,901  2026-08 +1,15,175  2026-09 +96,500  2026-10 +44,718  2026-11 +1,27,365
+
+-- Switch-1
+   trades 272 (2.16/day, 195 long, 77 short)  OPTION net +5,82,910  futures net +8,11,393  won 52.9%  stopped 29.8%
+   option: long +4,39,449 short +1,43,461 | avg win +7,547 loss -3,936 | days up/down 67/35 | worst day -23,143 best +45,499 | max DD -28,584 | months up 7/7
+   premium: avg +22,156/trade, total +60,26,554, most open at once +1,57,276, return on premium 9.7% | futures worst day -42,241 max DD -70,497
+   month option: 2026-05 +31,038 (20)  2026-06 +23,481 (45)  2026-07 +1,78,826 (44)  2026-08 +1,06,522 (51)  2026-09 +99,118 (47)  2026-10 +56,782 (47)  2026-11 +87,142 (18)
+   month futures: 2026-05 +56,567  2026-06 +6,323  2026-07 +2,42,901  2026-08 +1,15,175  2026-09 +1,87,449  2026-10 +75,613  2026-11 +1,27,365
+
+-- Opus v3, trailing stop to close (CLOSE_TR)
+   trades 335 (2.66/day, 177 long, 158 short)  OPTION net +5,56,102  futures net +7,66,300  won 47.2%  stopped 25.4%
+   option: long +3,79,906 short +1,76,195 | avg win +6,953 loss -3,065 | days up/down 68/40 | worst day -18,867 best +55,432 | max DD -53,487 | months up 7/7
+   premium: avg +21,901/trade, total +73,36,864, most open at once +2,08,402, return on premium 7.6% | futures worst day -41,636 max DD -1,21,007
+   month option: 2026-05 +20,874 (33)  2026-06 +70,402 (60)  2026-07 +1,46,697 (52)  2026-08 +77,620 (54)  2026-09 +1,74,999 (51)  2026-10 +8,373 (68)  2026-11 +57,136 (17)
+   month futures: 2026-05 +18,084  2026-06 +70,150  2026-07 +2,13,509  2026-08 +1,00,464  2026-09 +2,88,204  2026-10 -17,489  2026-11 +93,378
+
+   model x exit, six-month OPTION net (futures in brackets):
+   Opus      T1 +2,45,027 (+2,50,359) T2 +3,33,894 (+3,25,980) T3 +3,66,654 (+3,43,411) CLOSE +3,36,708 (+2,69,951) T2_TR +3,39,973 (+3,44,782) T3_TR +3,67,336 (+3,64,105) CLOSE_TR +3,42,972 (+3,24,786)
+   Opus v2   T1 +3,99,885 (+5,28,284) T2 +5,50,726 (+7,08,460) T3 +6,11,230 (+7,59,703) CLOSE +5,83,667 (+6,58,948) T2_TR +5,68,087 (+7,44,244) T3_TR +5,96,407 (+7,89,298) CLOSE_TR +5,81,671 (+7,67,787)
+   Opus v3   T1 +4,23,981 (+5,89,038) T2 +5,87,206 (+7,95,436) T3 +6,39,136 (+8,32,435) CLOSE +5,80,775 (+6,91,697) T2_TR +5,83,939 (+7,99,683) T3_TR +5,97,083 (+8,22,458) CLOSE_TR +5,56,102 (+7,66,300)
+   Fable     T1 +1,15,514 (-1,61,959) T2 +3,77,264 (+2,29,669) T3 +5,70,293 (+4,73,539) CLOSE +8,03,949 (+6,11,850) T2_TR +3,68,176 (+2,32,097) T3_TR +4,78,974 (+3,60,396) CLOSE_TR +6,42,214 (+4,95,498)
+   Fable-OP  T1 +2,83,610 (+3,61,287) T2 +4,53,431 (+5,94,981) T3 +5,45,031 (+7,02,290) CLOSE +4,63,075 (+5,69,348) T2_TR +4,63,085 (+6,22,996) T3_TR +5,09,773 (+6,91,063) CLOSE_TR +4,93,673 (+6,82,431)
+
+==== UNSEEN  2025-11-03 to 2026-05-11, 127 sessions {'2025-11': 19, '2025-12': 22, '2026-01': 20, '2026-02': 21, '2026-03': 19, '2026-04': 20, '2026-05': 6}
+
+-- Opus (T1), live model
+   trades 388 (3.06/day, 192 long, 196 short)  OPTION net +22,835  futures net -1,79,918  won 50.3%  stopped 25.3%
+   option: long +18,401 short +4,434 | avg win +3,689 loss -3,609 | days up/down 53/56 | worst day -25,651 best +25,389 | max DD -65,258 | months up 3/7
+   premium: avg +21,594/trade, total +83,78,449, most open at once +1,88,976, return on premium 0.3% | futures worst day -57,143 max DD -2,41,373
+   month option: 2025-11 +12,009 (35)  2025-12 -10,850 (49)  2026-01 +34,576 (79)  2026-02 -3,487 (67)  2026-03 +41,470 (67)  2026-04 -24,212 (69)  2026-05 -26,672 (22)
+   month futures: 2025-11 -1,071  2025-12 -52,128  2026-01 +12,299  2026-02 -43,838  2026-03 +52,542  2026-04 -75,562  2026-05 -72,160
+
+-- Opus v2 (T1)
+   trades 375 (2.95/day, 196 long, 179 short)  OPTION net +51,160  futures net -2,03,092  won 48.5%  stopped 32.3%
+   option: long +86,413 short -35,253 | avg win +4,386 loss -3,871 | days up/down 58/48 | worst day -25,651 best +25,389 | max DD -81,697 | months up 3/7
+   premium: avg +22,138/trade, total +83,01,658, most open at once +1,88,976, return on premium 0.6% | futures worst day -57,143 max DD -3,17,798
+   month option: 2025-11 +11,605 (54)  2025-12 -1,119 (56)  2026-01 -34,017 (90)  2026-02 -13,632 (49)  2026-03 +66,617 (57)  2026-04 +24,956 (50)  2026-05 -3,251 (19)
+   month futures: 2025-11 -34,827  2025-12 -52,163  2026-01 -1,47,311  2026-02 -67,389  2026-03 +1,05,572  2026-04 +18,245  2026-05 -25,220
+
+-- Opus v3 (T1)
+   trades 366 (2.88/day, 184 long, 182 short)  OPTION net +84,362  futures net -1,28,597  won 49.2%  stopped 31.7%
+   option: long +1,07,950 short -23,588 | avg win +4,431 loss -3,835 | days up/down 57/47 | worst day -25,651 best +25,389 | max DD -63,667 | months up 4/7
+   premium: avg +22,223/trade, total +81,33,526, most open at once +1,88,976, return on premium 1.0% | futures worst day -57,143 max DD -2,65,310
+   month option: 2025-11 +13,453 (50)  2025-12 +5,722 (55)  2026-01 -22,630 (88)  2026-02 -13,632 (49)  2026-03 +70,033 (57)  2026-04 +35,214 (49)  2026-05 -3,798 (18)
+   month futures: 2025-11 -25,979  2025-12 -36,775  2026-01 -1,24,721  2026-02 -67,389  2026-03 +1,13,018  2026-04 +39,662  2026-05 -26,413
+
+-- Fable (T3)
+   trades 503 (3.96/day, 396 long, 107 short)  OPTION net +7,603  futures net -5,26,521  won 40.0%  stopped 44.7%
+   option: long -16,265 short +23,867 | avg win +6,517 loss -4,312 | days up/down 58/58 | worst day -29,675 best +41,786 | max DD -1,53,041 | months up 4/7
+   premium: avg +23,839/trade, total +1,19,90,809, most open at once +2,10,899, return on premium 0.1% | futures worst day -69,079 max DD -5,73,634
+   month option: 2025-11 +52,401 (77)  2025-12 -99,948 (107)  2026-01 -26,331 (97)  2026-02 +76,062 (73)  2026-03 +15,528 (66)  2026-04 +1,970 (56)  2026-05 -12,077 (27)
+   month futures: 2025-11 +13,075  2025-12 -3,38,918  2026-01 -1,91,430  2026-02 +1,06,586  2026-03 -9,106  2026-04 -43,040  2026-05 -63,689
+
+-- Fable-OP (T3)
+   trades 232 (1.83/day, 194 long, 38 short)  OPTION net +2,02,948  futures net +78,849  won 41.8%  stopped 40.9%
+   option: long +1,80,254 short +22,693 | avg win +8,007 loss -4,250 | days up/down 45/51 | worst day -16,461 best +36,235 | max DD -48,875 | months up 5/7
+   premium: avg +22,580/trade, total +52,38,539, most open at once +1,44,599, return on premium 3.9% | futures worst day -36,437 max DD -1,38,938
+   month option: 2025-11 +77,896 (49)  2025-12 -3,462 (33)  2026-01 +14,046 (44)  2026-02 +55,422 (24)  2026-03 -915 (31)  2026-04 +42,957 (36)  2026-05 +17,005 (15)
+   month futures: 2025-11 +68,728  2025-12 -53,435  2026-01 -42,192  2026-02 +74,336  2026-03 -22,867  2026-04 +45,611  2026-05 +8,666
+
+-- Switch-1
+   trades 298 (2.35/day, 194 long, 104 short)  OPTION net +2,67,606  futures net +1,78,272  won 47.7%  stopped 35.6%
+   option: long +2,06,807 short +60,799 | avg win +6,474 loss -4,178 | days up/down 57/45 | worst day -25,651 best +29,466 | max DD -48,875 | months up 6/7
+   premium: avg +22,509/trade, total +67,07,744, most open at once +1,88,976, return on premium 4.0% | futures worst day -57,143 max DD -1,62,215
+   month option: 2025-11 +77,896 (49)  2025-12 -3,462 (33)  2026-01 +30,823 (62)  2026-02 +44,996 (42)  2026-03 +70,033 (57)  2026-04 +30,316 (40)  2026-05 +17,005 (15)
+   month futures: 2025-11 +68,728  2025-12 -53,435  2026-01 -21,983  2026-02 +38,422  2026-03 +1,13,018  2026-04 +24,855  2026-05 +8,666
+
+-- Opus v3, trailing stop to close (CLOSE_TR)
+   trades 366 (2.88/day, 184 long, 182 short)  OPTION net +2,49,060  futures net +54,081  won 38.0%  stopped 31.7%
+   option: long +2,94,755 short -45,695 | avg win +7,026 loss -3,205 | days up/down 51/53 | worst day -25,651 best +66,719 | max DD -56,841 | months up 5/7
+   premium: avg +22,223/trade, total +81,33,526, most open at once +1,88,976, return on premium 3.1% | futures worst day -57,143 max DD -2,09,372
+   month option: 2025-11 +98,770 (50)  2025-12 +54,866 (55)  2026-01 +55,427 (88)  2026-02 -14,791 (49)  2026-03 +46,492 (57)  2026-04 +20,384 (49)  2026-05 -12,089 (18)
+   month futures: 2025-11 +1,04,753  2025-12 +21,141  2026-01 -30,359  2026-02 -71,471  2026-03 +68,077  2026-04 +7,409  2026-05 -45,468
+
+   model x exit, six-month OPTION net (futures in brackets):
+   Opus      T1 +22,835 (-1,79,918) T2 -4,470 (-2,70,339) T3 -13,047 (-2,96,679) CLOSE +1,09,054 (-1,32,017) T2_TR +17,425 (-2,17,914) T3_TR +17,949 (-2,25,940) CLOSE_TR +1,14,443 (-97,496)
+   Opus v2   T1 +51,160 (-2,03,092) T2 +55,412 (-2,55,429) T3 +77,819 (-2,37,273) CLOSE +2,40,210 (-26,086) T2_TR +74,350 (-1,98,766) T3_TR +90,364 (-1,85,700) CLOSE_TR +2,14,437 (-22,391)
+   Opus v3   T1 +84,362 (-1,28,597) T2 +1,05,097 (-1,52,978) T3 +1,19,319 (-1,47,609) CLOSE +2,79,708 (+60,476) T2_TR +1,20,003 (-1,04,889) T3_TR +1,26,989 (-1,06,125) CLOSE_TR +2,49,060 (+54,081)
+   Fable     T1 -36,380 (-5,05,485) T2 -55,670 (-6,03,352) T3 +7,603 (-5,26,521) CLOSE +1,33,525 (-3,77,959) T2_TR +16,182 (-4,49,139) T3_TR +46,139 (-4,19,010) CLOSE_TR +72,146 (-3,84,389)
+   Fable-OP  T1 +1,17,100 (+1,543) T2 +1,68,841 (+45,086) T3 +2,02,948 (+78,849) CLOSE +2,97,208 (+1,87,059) T2_TR +1,84,554 (+90,474) T3_TR +2,09,691 (+1,16,336) CLOSE_TR +2,93,548 (+2,25,660)
