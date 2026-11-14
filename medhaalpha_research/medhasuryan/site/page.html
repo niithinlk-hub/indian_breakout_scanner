@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MedhaAlpha 4-model backtest</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#1d1d1b;--mute:#6b6b66;--line:#e3e2dd;--acc:#2e5aac;--pos:#1f7a3f;--neg:#b3261e;--chip:#eceae4}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1e1e1c;--ink:#ecebe6;--mute:#a09f98;--line:#33322f;--acc:#8fb0ff;--pos:#5fc27f;--neg:#ff8a80;--chip:#2a2a27}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:4px 0 2px}h2{font-size:16px;margin:22px 0 8px}
+.sub{color:var(--mute);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.seg button{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:13px}
+.seg button.on{background:var(--acc);border-color:var(--acc);color:var(--card)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--card);white-space:normal;min-width:84px;max-width:118px}
+th{color:var(--mute);font-weight:600;font-size:12px}
+td.l,th.l{text-align:left}
+.pos{color:var(--pos)}.neg{color:var(--neg)}.mute{color:var(--mute)}
+.best{font-weight:700}
+input[type=search]{width:100%;max-width:280px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:14px;margin-top:8px}
+.note{font-size:12px;color:var(--mute);margin-top:6px}
+ul.notes{padding-left:18px;color:var(--mute);font-size:13px}
+</style></head><body><main>
+<h1>MedhaAlpha: backtest of the four app models</h1>
+<div class="sub">Opus (T1), Opus v3 (T1), Fable-OP (T3) and MedhaSuryan (T3, T1 on Nifty downtrend days). First 6 signals a day scoring 75 or more.</div>
+<div class="seg" id="periods"></div>
+<div id="app"><div class="card">Loading…</div></div>
+</main>
+<script>
+var D=null,P=0,M=3,F='all',Q='';
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function rs(x){if(x===null||x===undefined)return '-';var n=Math.round(Math.abs(x)),s=String(n);if(s.length>3){var h=s.slice(0,-3),t=s.slice(-3),p=[];while(h.length>2){p.unshift(h.slice(-2));h=h.slice(0,-2)}if(h)p.unshift(h);s=p.join(',')+','+t}return (x<0?'-':'+')+s}
+function cls(x){return x>0?'pos':x<0?'neg':''}
+function plan(m,t){return m==='Opus'||m==='Opus v3'?10:m==='Fable-OP'?12:(t[4]==='D'?10:12)}
+function cell(c){if(!c)return '<span class="mute">no data</span>';var s=c[0],d=c[1];
+ if(s==='H')return d===0?'same day '+c[2]:'+'+d+'d · '+c[3];
+ if(s==='S')return '<span class="neg">stop '+(d===0?'same day':'+'+d+'d')+'</span>';
+ if(s==='E')return '<span class="mute">sold before expiry</span>';return '-'}
+function render(){
+ var p=D.periods[P],names=D.models,h='';
+ var seg='';D.periods.forEach(function(x,i){seg+='<button class="'+(i===P?'on':'')+'" onclick="P='+i+';render()">'+esc(x.short)+'</button>'});
+ document.getElementById('periods').innerHTML=seg;
+ h+='<h2>Summary</h2><div class="card scroll"><table><tr><th>Model</th><th>Trades</th><th>T1 hit</th><th>T2 hit</th><th>T3 hit</th><th>Stopped before T1</th><th>Held to target or stop (Rs)</th><th>Same day, options (Rs)</th><th>Same day, futures (Rs)</th></tr>';
+ var bestHeld=Math.max.apply(null,names.map(function(m){return p.summary[m].own_exit.net})),bestOpt=Math.max.apply(null,names.map(function(m){return p.same_day[m].opt}));
+ names.forEach(function(m){var s=p.summary[m],sd=p.same_day[m];
+  h+='<tr><td>'+esc(m)+'<div class="note">exit '+esc(D.plans[m])+'</div></td><td>'+s.trades+'</td>';
+  ['T1','T2','T3'].forEach(function(q){h+='<td>'+s[q].pct+'%<div class="note">'+s[q].hit+' ('+s[q].same_day+' same day)</div></td>'});
+  h+='<td>'+Math.round(100*s.stopped_before_T1/s.priced)+'%</td>';
+  h+='<td class="'+cls(s.own_exit.net)+(s.own_exit.net===bestHeld?' best':'')+'">'+rs(s.own_exit.net)+'</td>';
+  h+='<td class="'+cls(sd.opt)+(sd.opt===bestOpt?' best':'')+'">'+rs(sd.opt)+'</td><td class="'+cls(sd.fut)+'">'+rs(sd.fut)+'</td></tr>'});
+ h+='</table><div class="note">Held: each trade carried overnight until its exit target or its stop (sold at 15:15 the session before expiry), futures-equivalent on cash one-minute prices, after costs. Same day: every trade squared off at 15:29; options modelled (Black-76 fitted on 1,960 real option exits).</div></div>';
+ var mo=Object.keys(p.same_day[names[0]].months);
+ h+='<h2>Same-day option profit by month (Rs)</h2><div class="card scroll"><table><tr><th>Month</th>'+names.map(function(m){return '<th>'+esc(m)+'</th>'}).join('')+'</tr>';
+ mo.forEach(function(k){h+='<tr><td>'+k+'</td>'+names.map(function(m){var v=p.same_day[m].months[k];return '<td class="'+cls(v)+'">'+rs(v)+'</td>'}).join('')+'</tr>'});
+ h+='<tr><td><b>Total</b></td>'+names.map(function(m){var v=p.same_day[m].opt;return '<td class="'+cls(v)+'"><b>'+rs(v)+'</b></td>'}).join('')+'</tr></table></div>';
+ h+='<h2>Trading days taken to reach each target</h2><div class="seg">'+names.map(function(m,i){return '<button class="'+(i===M?'on':'')+'" onclick="M='+i+';render()">'+esc(m)+'</button>'}).join('')+'</div>';
+ var s=p.summary[names[M]];
+ h+='<div class="card scroll"><table><tr><th>Target</th><th>Same day</th><th>+1 day</th><th>+2</th><th>+3</th><th>+4</th><th>+5 or more</th><th>Not reached</th></tr>';
+ ['T1','T2','T3'].forEach(function(q){var b=s[q].by_days,c=[0,0,0,0,0,0];Object.keys(b).forEach(function(k){var i=Math.min(5,+k);c[i]+=b[k]});
+  h+='<tr><td>'+q+'</td>'+c.map(function(v){return '<td>'+v+'</td>'}).join('')+'<td class="mute">'+(s.priced-s[q].hit)+'</td></tr>'});
+ h+='</table><div class="note">Slowest: T1 '+(s.T1.max_days===null?'-':s.T1.max_days+' days')+', T2 '+(s.T2.max_days===null?'-':s.T2.max_days+' days')+', T3 '+(s.T3.max_days===null?'-':s.T3.max_days+' days')+'.</div></div>';
+ var bit=1<<M,rows=p.trades.filter(function(t){return t[13]&bit});
+ var fl={all:'All',t3:'Reached T3',stop:'Stopped before T1',down:'Nifty downtrend days'};
+ h+='<h2>Trades: '+esc(names[M])+' ('+rows.length+')</h2><div class="seg">'+Object.keys(fl).map(function(k){return '<button class="'+(F===k?'on':'')+'" onclick="F=\''+k+'\';render()">'+fl[k]+'</button>'}).join('')+'</div>';
+ h+='<input type="search" placeholder="Stock" value="'+esc(Q)+'" oninput="Q=this.value.toUpperCase();renderTrades()">';
+ h+='<div class="card scroll" id="trades"></div>';
+ h+='<h2>How to read this</h2><ul class="notes"><li>12 May - 11 Nov 2026: the scanner\'s six-month backtest (real futures for the same-day tables). 3 Nov 2025 - 11 May 2026: cash share prices stand in for futures; no model was built on these dates.</li><li>T1, T2, T3 = 1.0R, 1.9R and 2.6R from the signal price; the stop is fixed. "+2d" = reached two trading sessions after the entry day. A stop shown under T2 or T3 means the stop came first.</li><li>MedhaSuryan uses the Fable-OP score, and the Opus v3 score on days Nifty opens in a downtrend (last close below its 20-day average, and that below its 50-day average).</li><li>Fable-OP, Opus v3 and MedhaSuryan were built or chosen on the 12 May - 11 Nov months; the earlier six months are the fairer test.</li></ul><div class="note">Data generated '+esc(D.generated)+'.</div>';
+ document.getElementById('app').innerHTML=h;renderTrades()}
+function renderTrades(){var p=D.periods[P],m=D.models[M],bit=1<<M;
+ var rows=p.trades.filter(function(t){if(!(t[13]&bit))return false;if(Q&&t[2].indexOf(Q)<0)return false;
+  if(F==='t3')return t[12]&&t[12][0]==='H';if(F==='stop')return t[10]&&t[10][0]==='S';if(F==='down')return t[4]==='D';return true});
+ var h='<table><tr><th>Date</th><th class="l">Stock</th><th class="l">Side</th><th class="l">Nifty</th><th class="l">T1</th><th class="l">T2</th><th class="l">T3</th><th>Exit</th><th>Result (Rs)</th></tr>';
+ var tot=0;rows.slice().reverse().forEach(function(t){var pi=plan(m,t),c=t[pi],net=c?c[4]:null;tot+=net||0;
+  h+='<tr><td>'+t[0].slice(5)+' '+t[1]+'</td><td class="l">'+esc(t[2])+'</td><td class="l">'+(t[3]==='L'?'long':'short')+'</td><td class="l">'+({U:'up',D:'down',S:'flat'}[t[4]]||'-')+'</td>';
+  h+='<td class="l">'+cell(t[10])+'</td><td class="l">'+cell(t[11])+'</td><td class="l">'+cell(t[12])+'</td><td>'+(pi===10?'T1':'T3')+'</td><td class="'+cls(net)+'">'+rs(net)+'</td></tr>'});
+ h+='</table><div class="note">'+rows.length+' trades shown, held result '+rs(tot)+'. Newest first.</div>';
+ document.getElementById('trades').innerHTML=h}
+fetch('/data.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()}).then(function(d){D=d;render()}).catch(function(e){document.getElementById('app').innerHTML='<div class="card">Could not load the data ('+esc(e.message)+'). Refresh in a minute.</div>'});
+</script></body></html>
