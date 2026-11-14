@@ -1,6 +1,6 @@
 
 --- a/engine/tests/test_scanner.py	2026-11-14 19:09:34.733545573 +0000
-+++ b/engine/tests/test_scanner.py	2026-11-14 19:48:41.557761716 +0000
++++ b/engine/tests/test_scanner.py	2026-11-14 21:35:47.711864650 +0000
 @@ -119,27 +119,36 @@
  def test_scanner_settings_follow_the_settings_page():
      client, angel, runtime, _ = link()
@@ -62,7 +62,17 @@
      fop = client.get("/scanner", follow_redirects=True)                    # unchanged page when the scanner trades on it
      assert fop.status_code == 200
      assert "a_pos_min" in text and "rsi14 &lt; 50" in text and "10:05" in text
-@@ -314,14 +324,16 @@
+@@ -289,7 +299,8 @@
+     rules = client.get("/scanner?tab=rules").text
+     assert "A · Trend breakout" in rules and "rsi14 &gt;= 50" in rules and "Oversold bounce" in rules
+     assert "1.0 / 1.9 / 2.6 R" in rules and "Angel One" in rules and "₹15,000.00" in rules
+-    assert "<h2>Fable-OP score</h2>" in rules and "All three scores are logged on every signal." in rules
++    assert "<h2>Fable-OP score</h2>" in rules and "All four scores are logged on every signal." in rules
++    assert "<h2>MedhaSuryan score</h2>" in rules and "<h2>Opus v3 score</h2>" in rules and "<h2>Fable score</h2>" not in rules
+ 
+ 
+ def test_scanner_page_says_plainly_when_the_scanner_cannot_be_read(scan_dash):
+@@ -314,14 +325,16 @@
      csrf = login(client, bot)
      page = client.get("/settings").text
      assert 'id="scanner"' in page and "Score the scanner trades on" in page
@@ -89,7 +99,7 @@
      assert "Saved: scanner_score_model = fable_op, scanner_min_score_fable_op = 78" in client.get(resp.headers["location"]).text
 
 --- a/engine/tests/test_scanner_trade.py	2026-11-14 19:09:34.733567357 +0000
-+++ b/engine/tests/test_scanner_trade.py	2026-11-14 19:48:07.753851016 +0000
++++ b/engine/tests/test_scanner_trade.py	2026-11-14 21:35:47.696714984 +0000
 @@ -376,3 +376,22 @@
      assert answer["result"] == "dry_run" and "MOTHERSON24NOV26162.5CE" in answer["detail"]
      far = run(intake.handle(signal(key="2026-11-03:MOTHERSON:B", expiry="2026-11-17"), T))
@@ -115,7 +125,7 @@
 +    assert not any("sent targets up to" in t for t in sink.texts())
 
 --- a/engine/vitezza/config.py	2026-11-14 19:09:34.728342057 +0000
-+++ b/engine/vitezza/config.py	2026-11-14 19:47:45.266992678 +0000
++++ b/engine/vitezza/config.py	2026-11-14 21:35:47.695325406 +0000
 @@ -77,13 +77,12 @@
      oi_enabled: bool = True  # read open interest around each held option's strike
      score_enabled: bool = True  # the position score on every open card: Buy more / Hold / Reduce / Exit
@@ -134,7 +144,7 @@
      scanner_max_open: int = 6  # scanner trades open at once; a new signal is skipped at the limit
 
 --- a/engine/vitezza/internal.py	2026-11-14 19:09:34.728873956 +0000
-+++ b/engine/vitezza/internal.py	2026-11-14 19:47:45.267961413 +0000
++++ b/engine/vitezza/internal.py	2026-11-14 21:35:47.695413984 +0000
 @@ -103,10 +103,9 @@
          authorize(request)
          s = runtime.current()
@@ -150,7 +160,7 @@
      async def signal(request: Request):
 
 --- a/engine/vitezza/runtime.py	2026-11-14 19:09:34.729850748 +0000
-+++ b/engine/vitezza/runtime.py	2026-11-14 19:47:45.267777096 +0000
++++ b/engine/vitezza/runtime.py	2026-11-14 21:35:47.695569425 +0000
 @@ -101,23 +101,25 @@
      Editable("score_horizon_days", "Option score looks ahead", "int", "Sessions; today counts while the market "
               "is open. Shares are scored over 1 week, 1 month, 6 months and 1 year.",
@@ -198,7 +208,7 @@
      Editable("scanner_max_spread_pct", "Skip when the option's bid-ask gap is wider than", "decimal",
 
 --- a/engine/vitezza/scanner_trade.py	2026-11-14 19:09:34.729938651 +0000
-+++ b/engine/vitezza/scanner_trade.py	2026-11-14 19:47:51.234052661 +0000
++++ b/engine/vitezza/scanner_trade.py	2026-11-14 21:35:47.695581079 +0000
 @@ -16,7 +16,7 @@
  import math
  import re
@@ -220,8 +230,8 @@
              name=signal.symbol, symbol=signal.symbol, segment=Segment.OPTION, direction=direction,
 
 --- a/engine/vitezza/scanner_view.py	2026-11-14 19:09:34.729999301 +0000
-+++ b/engine/vitezza/scanner_view.py	2026-11-14 19:47:45.268433985 +0000
-@@ -24,8 +24,18 @@
++++ b/engine/vitezza/scanner_view.py	2026-11-14 21:35:47.710433413 +0000
+@@ -24,8 +24,21 @@
  # The five exits recorded side by side on every paper trade (scanner/equity/fills.py LIVE_POLICIES).
  POLICIES = (("T1", "Exit T1"), ("T2", "Hold T2"), ("T3", "Hold T3"), ("T2_TR", "T2, trailing SL"), ("T3_TR", "T3, trailing SL"))
  SETUP_NAMES = {"A": "Trend breakout", "B": "Breakdown", "C": "Oversold bounce"}
@@ -234,15 +244,18 @@
 +
 +def regime_text(regime, model: str) -> str:
 +    """The day's Nifty trend as the Scanner page words it; what it means for MedhaSuryan only while it is live."""
-+    text = REGIMES.get(regime, "not known yet")
++    if regime not in REGIMES:
++        return "not known yet (read before the open, and again until shortly before the scan starts)" + (
++            "; until it is known MedhaSuryan takes the Fable-OP score" if model == "medhasuryan" else "")
++    text = REGIMES[regime]
 +    if model == "medhasuryan":
-+        text += (": MedhaSuryan takes the Opus v3 score today and exits at T1" if regime == "Downtrend" else
-+                 ": MedhaSuryan takes the Fable-OP score today and exits at T3")
++        text += (": MedhaSuryan takes the Opus v3 score today and hands over T1 only" if regime == "Downtrend" else
++                 ": MedhaSuryan takes the Fable-OP score today and hands over T1, T2 and T3")
 +    return text
  ACTIONS = {"fired": "Taken", "below_score": "Score too low", "over_budget": "Over the risk budget",
             "capped_out": "Daily cap reached"}
  OUTCOMES = {"target": "target", "stopped": "stopped", "trail": "trail stop", "open": "open", "no_data": "no data"}
-@@ -89,8 +99,8 @@
+@@ -89,8 +102,8 @@
          "day": row.get("day"), "time": _hm(row.get("ts")), "symbol": row.get("symbol"), "setup": row.get("setup"),
          "setup_name": SETUP_NAMES.get(row.get("setup"), ""), "side": row.get("side"),
          "action": row.get("action"), "action_label": ACTIONS.get(row.get("action"), row.get("action") or "-"),
@@ -253,7 +266,7 @@
          "lots": features.get("lots"), "levels": levels, "features": features,
          "fut_symbol": row.get("fut_symbol"), "opt_symbol": row.get("opt_symbol"),
          "fut": legs.get("FUT"), "opt": legs.get("OPT"),
-@@ -148,6 +158,7 @@
+@@ -148,6 +161,7 @@
          "scan_window": bool(state.get("scan_window")), "last_scan": _hm(status.get("last_scan")),
          "prepared_for": status.get("prepared_for"), "errors": errors[-12:],
          "model": model, "model_name": MODEL_NAMES.get(model, model), "min_score": state.get("live_min_score"),
@@ -263,7 +276,7 @@
          "signals": signals,
 
 --- a/engine/vitezza/templates/scanner.html	2026-11-14 19:09:34.732268034 +0000
-+++ b/engine/vitezza/templates/scanner.html	2026-11-14 19:47:51.233578884 +0000
++++ b/engine/vitezza/templates/scanner.html	2026-11-14 21:35:47.710330584 +0000
 @@ -99,7 +99,8 @@
  {% if tab == "signals" %}
  <div class="kpis">
@@ -314,9 +327,43 @@
      {% endfor %}
      </tbody>
    </table>
+@@ -260,7 +261,7 @@
+ {% set c = view.config %}
+ <div class="card note" style="margin-bottom:18px">
+   <span class="small">Score in use: <strong style="color:var(--ink)">{{ view.model_name }}</strong>, {{ view.min_score | num(0) }} or more, at most {{ view.top_n }} signals a day.
+-  <a href="/settings#scanner">Change in Settings</a>. All three scores are logged on every signal.</span>
++  <a href="/settings#scanner">Change in Settings</a>. All four scores are logged on every signal.</span>
+ </div>
+ <div class="columns">
+   {% for s in view.setups %}
+@@ -292,12 +293,19 @@
+     </div>
+   </div>
+   <div class="card side-card" style="flex:1 1 320px">
+-    <h2>Fable score</h2>
++    <h2>Opus v3 score</h2>
+     <div class="dial-legend" style="margin-top:12px">
+-      <div><span>Tight stop, % of price</span><strong>full at {{ c.fable_risk_full }}%, none at {{ c.fable_risk_zero }}%</strong></div>
+-      <div><span>Early in the session</span><strong>full in {{ c.fable_early_full | num(0) }} min, none after {{ c.fable_early_zero | num(0) }}</strong></div>
+-      <div><span>Near the 52-week high (longs) or low (shorts)</span><strong>none at {{ c.fable_extreme_range | num(0) }}% away</strong></div>
+-      <div><span>Weights</span><strong>equal thirds</strong></div>
++      <div><span>Long signals</span><strong>the Fable-OP score</strong></div>
++      <div><span>Short signals</span><strong>the Opus score</strong></div>
++      <div><span>Long on volume below normal for the time of day</span><strong>0 (rel_vol under {{ c.opus_v3_min_rel_vol }})</strong></div>
++    </div>
++  </div>
++  <div class="card side-card" style="flex:1 1 320px">
++    <h2>MedhaSuryan score</h2>
++    <div class="dial-legend" style="margin-top:12px">
++      <div><span>Nifty not in a downtrend before the open</span><strong>the Fable-OP score; all three targets sent</strong></div>
++      <div><span>Nifty in a downtrend (last close below its 20-day average, and that below its 50-day)</span><strong>the Opus v3 score; T1 only sent</strong></div>
++      <div><span>Exit plan to use with it</span><strong>Hold for T3</strong></div>
+     </div>
+   </div>
+   <div class="card side-card" style="flex:1 1 320px">
 
 --- a/scanner/scanner/equity/backtest.py	2026-11-14 19:09:34.734107326 +0000
-+++ b/scanner/scanner/equity/backtest.py	2026-11-14 19:47:16.210520683 +0000
++++ b/scanner/scanner/equity/backtest.py	2026-11-14 21:35:47.696938805 +0000
 @@ -24,7 +24,7 @@
  from .fills import DAY_POLICIES
  from .rules import SETUPS, enabled
@@ -424,7 +471,7 @@
  
 
 --- a/scanner/scanner/equity/config.py	2026-11-14 19:09:34.734196100 +0000
-+++ b/scanner/scanner/equity/config.py	2026-11-14 19:47:16.212489214 +0000
++++ b/scanner/scanner/equity/config.py	2026-11-14 21:35:47.696962081 +0000
 @@ -97,8 +97,8 @@
      score_w_structure: float = 15.0     # stop sits at a real level, not the ATR fallback
  
@@ -451,8 +498,8 @@
      stop_atr_min: float = 0.3           # keep proposals between these multiples of daily ATR
 
 --- a/scanner/scanner/equity/engine.py	2026-11-14 19:09:34.734322177 +0000
-+++ b/scanner/scanner/equity/engine.py	2026-11-14 19:47:16.212197106 +0000
-@@ -37,19 +37,23 @@
++++ b/scanner/scanner/equity/engine.py	2026-11-14 21:35:47.711713642 +0000
+@@ -37,19 +37,24 @@
  from . import store
  from .config import EqConfig, eq_settings
  from .data import Throttle, fetch_range
@@ -476,10 +523,11 @@
 +NIFTY_REGIME_KEY = "eq_nifty_regime"     # {"day": ISO date, "regime": ...}: today's Nifty trend, kept across a restart
 +REGIME_TRIES = 3                           # reads of Nifty's daily candles before giving up for now
 +REGIME_RETRY_EVERY = timedelta(minutes=5)  # an unknown trend is read again this often until the scan window opens
++REGIME_RETRY_STOP = timedelta(minutes=3)   # ... but not this close to the scan start, so the first scan is never delayed
  LIVE_THRESHOLDS_KEY = "eq_min_scores"      # {"opus": 75, "fable": 85, "fable_op": 75}: in-app thresholds; a missing model uses config
  
  log = logging.getLogger("equity")
-@@ -82,6 +86,8 @@
+@@ -82,6 +87,8 @@
          self.daily: dict[str, pd.DataFrame] = {}
          self.sessions: list[date] = []
          self.skip: set[date] = set()
@@ -488,7 +536,7 @@
          self.nifty_key = ""
          self.fut_of: dict[str, object] = {}
          self.shortlist: list[dict] = []
-@@ -125,7 +131,7 @@
+@@ -125,7 +132,7 @@
  
      def live_min_score(self, model: str | None = None) -> float:
          """Score a signal needs to be paper-traded live. The dashboard's Settings page decides; without it, a
@@ -497,7 +545,7 @@
          config values."""
          set_by_owner = self.owner.get(f"min_score_{model or self.live_model()}")
          if isinstance(set_by_owner, (int, float)) and 0 <= set_by_owner <= 100:
-@@ -183,6 +189,7 @@
+@@ -183,6 +190,7 @@
          nifty_hist = hist.get(nkey)
          sessions = session_days(nifty_hist, self.cfg) if nifty_hist is not None else []
          skip = non_sessions(nifty_hist, self.cfg) if nifty_hist is not None else set()
@@ -505,7 +553,7 @@
          sem = asyncio.Semaphore(4)
          done = 0
  
-@@ -211,9 +218,80 @@
+@@ -211,9 +219,82 @@
              if cm is None or cm.empty or s not in daily:
                  continue
              ctx[s] = build_context(s, day, daily[s], cm, hist.get(f.key) if f else None,
@@ -515,7 +563,7 @@
 -                "sessions": sessions, "skip": skip}
 +                "sessions": sessions, "skip": skip, "nifty_regime": regime}
 +
-+    async def _nifty_regime(self, day: date, sessions: list[date] | None = None) -> str | None:
++    async def _nifty_regime(self, day: date, sessions: list[date] | None = None, tries: int = REGIME_TRIES) -> str | None:
 +        """Nifty 50's trend before the open of `day` (features.nifty_regime), from its daily candles before `day`.
 +        Read up to REGIME_TRIES times; a read whose last close is older than the previous session (from the Nifty
 +        minute sessions) counts as failed. A trend saved earlier the same day is used when every read fails. Never
@@ -527,7 +575,7 @@
 +            key = (u.cash_key if u is not None and u.kind == "INDEX" else "") or (
 +                NIFTY_INDEX_KEY if getattr(self.src, "vendor", "") == "angel" else "")
 +            want = prev_session(day, sessions) if sessions else None
-+            for attempt in range(REGIME_TRIES if key else 0):
++            for attempt in range(tries if key else 0):
 +                try:
 +                    nd = await fetch_range(self.src, self.thr, key, "days", day - timedelta(days=self.cfg.regime_days),
 +                                           day - timedelta(days=1))
@@ -545,7 +593,7 @@
 +                        why = f"{len(before)} daily closes, too few for the 50-day average"
 +                except Exception as e:  # noqa: BLE001 - a missing trend must not stop the pre-open load
 +                    why = f"read failed ({type(e).__name__})"
-+                if attempt + 1 < REGIME_TRIES:
++                if attempt + 1 < tries:
 +                    await asyncio.sleep(self.cfg.regime_retry_s * (attempt + 1))
 +        except Exception as e:  # noqa: BLE001
 +            why = f"{type(e).__name__}"
@@ -572,14 +620,16 @@
 +        return v.get("regime") if isinstance(v, dict) and v.get("day") == day.isoformat() else None
 +
 +    async def _retry_regime(self, now: datetime) -> None:
-+        """Before the scan window opens, read an unknown trend again (every REGIME_RETRY_EVERY) and give it to every
-+        stock's context. Once the window is open the day keeps what it has, so the day's signals are scored alike."""
-+        if self.nifty_regime is not None or self.day != now.date() or _hm(now) >= _parse_hm(self.cfg.scan_start):
++        """Before the scan window opens, read an unknown trend again (one read, every REGIME_RETRY_EVERY, stopping
++        REGIME_RETRY_STOP before the scan start so the first scan is never held up) and give it to every stock's
++        context. Once the window is open the day keeps what it has, so the day's signals are scored alike."""
++        stop_at = datetime.combine(now.date(), datetime.strptime(self.cfg.scan_start, "%H:%M").time(), tzinfo=now.tzinfo) - REGIME_RETRY_STOP
++        if self.nifty_regime is not None or self.day != now.date() or now >= stop_at:
 +            return
 +        if self._regime_retry_at is not None and now < self._regime_retry_at:
 +            return
 +        self._regime_retry_at = now + REGIME_RETRY_EVERY
-+        regime = await self._nifty_regime(self.day, self.sessions)
++        regime = await self._nifty_regime(self.day, self.sessions, tries=1)
 +        if regime is not None:
 +            self.nifty_regime = regime
 +            for c in self.ctx.values():
@@ -588,7 +638,7 @@
  
      async def prepare(self, today: date) -> None:
          """Load the live context for `today` (instrument file refreshed once a day)."""
-@@ -223,8 +301,11 @@
+@@ -223,8 +304,11 @@
          b = await self._load_contexts(today, progress=lambda m: self.status.update(phase="pre-open " + m))
          self.ctx, self.fut_of, self.nifty_key = b["ctx"], b["fut_of"], b["nifty_key"]
          self.hist, self.daily, self.sessions, self.skip = b["hist"], b["daily"], b["sessions"], b["skip"]
@@ -600,7 +650,7 @@
          self.status["phase"] = f"ready: {len(self.ctx)} stocks"
  
      # ------------------------------------------------------------------ stage 1
-@@ -388,7 +469,9 @@
+@@ -388,7 +472,9 @@
                                     opt_symbol=opt.trading_symbol if opt else None, levels=lv.to_dict(),
                                     features=snap,
                                     note=f"{SETUPS[f['setup']].name}; {model} score {f['score']:g}; stop at {lv.chosen}; "
@@ -611,7 +661,7 @@
              if sid is None:
                  continue
              events.append({"symbol": s, "setup": f["setup"], "action": action, "score": f["score"]})
-@@ -408,7 +491,7 @@
+@@ -408,7 +494,7 @@
                      "key": f"{day}:{s}:{f['setup']}", "ts": f["ts"].isoformat(), "symbol": s, "side": side,
                      "setup": f["setup"], "model": model, "score": f["score"], "expiry": opt.expiry.isoformat(),
                      "strike": opt.strike, "kind": opt.kind, "entry_ref": lv.entry_ref, "stop": lv.stop,
@@ -620,7 +670,7 @@
          return events
  
      async def hand_over(self, events: list[dict], now: datetime) -> None:
-@@ -506,6 +589,7 @@
+@@ -506,6 +592,7 @@
              elif now.weekday() < 5:
                  if self.day != now.date() and _hm(now) >= _parse_hm(self.cfg.prepare_at):
                      await self.prepare(now.date())
@@ -630,7 +680,7 @@
                      found = await self.stage2(self.shortlist, now) if self.shortlist else []
 
 --- a/scanner/scanner/equity/features.py	2026-11-14 19:09:34.734375529 +0000
-+++ b/scanner/scanner/equity/features.py	2026-11-14 19:45:06.577564069 +0000
++++ b/scanner/scanner/equity/features.py	2026-11-14 21:35:47.697008487 +0000
 @@ -105,6 +105,7 @@
      nifty_prev_close: float | None
      vol_profile: np.ndarray | None  # mean cumulative cash volume by minute offset over previous sessions
@@ -695,7 +745,7 @@
      return snap
 
 --- a/scanner/scanner/equity/score.py	2026-11-14 19:09:34.734584971 +0000
-+++ b/scanner/scanner/equity/score.py	2026-11-14 19:47:16.209366190 +0000
++++ b/scanner/scanner/equity/score.py	2026-11-14 21:35:47.697059777 +0000
 @@ -1,6 +1,10 @@
  """Strength scores (0-100) used to rank signals and keep only the strongest few per day.
  
@@ -805,7 +855,7 @@
  strength = opus_score    # earlier name, kept for callers and tests
 
 --- a/scanner/tests/test_equity.py	2026-11-14 19:09:34.734978978 +0000
-+++ b/scanner/tests/test_equity.py	2026-11-14 19:50:19.095446341 +0000
++++ b/scanner/tests/test_equity.py	2026-11-14 21:35:47.712050609 +0000
 @@ -260,8 +260,8 @@
      assert fable_score(worst, SHORT, 2.5, CFG)[1]["extreme"] == pytest.approx(33.3 * 0.8, abs=0.1)
      assert fable_score({"minutes_since_open": 30}, LONG, 1.5, CFG)[1]["extreme"] == pytest.approx(16.7, abs=0.1)  # unknown = neutral
@@ -1004,7 +1054,7 @@
      for bad in (-1, 101):
          with pytest.raises(ValueError):
              eng.set_live_min_score("opus", bad)
-@@ -648,3 +652,104 @@
+@@ -648,3 +652,105 @@
      assert CFG.scan_end == "14:15"
      assert list(in_window(idx, CFG)) == [False, True, True, False, False]
  
@@ -1106,12 +1156,13 @@
 +    eng.day, eng.sessions, eng.nifty_regime = day, sessions, None
 +    eng.ctx = {"AAA": DayContext("AAA", day, None, None, None, None, None, None, None)}
 +    asyncio.run(eng._retry_regime(datetime(2026, 11, 16, 9, 30, tzinfo=IST)))       # window open: left alone
++    asyncio.run(eng._retry_regime(datetime(2026, 11, 16, 9, 15, tzinfo=IST)))       # within 3 minutes of 09:17: too late
 +    assert eng.nifty_regime is None and eng.src.calls == 0
 +    asyncio.run(eng._retry_regime(datetime(2026, 11, 16, 9, 0, tzinfo=IST)))
 +    assert eng.nifty_regime == "Downtrend" == eng.ctx["AAA"].nifty_regime == eng.status["nifty_regime"]
 
 --- a/scanner/tests/test_service.py	2026-11-14 19:09:34.735002012 +0000
-+++ b/scanner/tests/test_service.py	2026-11-14 19:49:59.878481056 +0000
++++ b/scanner/tests/test_service.py	2026-11-14 21:35:47.699402386 +0000
 @@ -102,7 +102,7 @@
  def test_the_settings_page_decides_the_score_and_threshold():
      class Src:
