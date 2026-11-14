@@ -12,7 +12,9 @@
   - Switch-1: Fable-OP at T3, except on downtrend days, when Opus v3 at T1 is used
   - Opus v3 with a trailing stop held to the close, the exit suggested in `better_algo_for_options.md`
 - **Live rule:** every model takes the first 6 signals a day that score 75 or more (Fable 80). Each trade risks Rs 15,000 in futures terms.
-- **Options:** each trade buys the at-the-money call (long) or put (short) of the scanner's monthly contract, the same number of lots, and sells one minute after the futures trade exits. Option prices for May to October cannot be read any more, so they are modelled. The model was fitted on 1,960 real option exits from 21 Oct to 13 Nov 2026, and is good to about ±10%. Costs and 0.25% slippage a side are included.
+- **Options:** each trade buys the at-the-money call (long) or put (short) of the scanner's monthly contract and sells one minute after the futures trade exits.
+  - **Lots:** sized to risk Rs 15,000 at the stop on the stock's cash price, with one lot when even one lot risks more.
+  - **Mismatch with futures:** on 12 May to 11 Nov the scanner sized its futures trades on the futures price and stop, so the lot count is the same on about 4 trades in 5. "How firm these figures are" below shows this barely changes the totals. Option prices for May to October cannot be read any more, so they are modelled. The model was fitted on 1,960 real option exits from 21 Oct to 13 Nov 2026, and is good to about ±10%. Costs and 0.25% slippage a side are included.
 
 ## Six months, 12 May to 11 Nov 2026
 
@@ -70,12 +72,79 @@ Twelve months together, option profit: Switch-1 +8,50,516; Opus v3 trailing +8,0
 
 ## What the comparison shows
 
-1. **Switch-1 made the most, in options and futures, with the smallest fall from a peak.** It also came first over the six months before.
+1. **Switch-1 made the most, in options and futures, with the smallest fall from a peak.** It also came first over the six months before. It is the most consistent model, though its lead over the next three is too small to prove (see "How firm these figures are").
 2. **In the last six months every model made money in options in every month.** The six months before were much harder: Opus, Opus v2 and Fable barely broke even in options, and all three Opus models and Fable lost money in futures.
-3. **Fable looks good on the last six months but is not reliable.** It made +5.70 lakh in options, but its fall from a peak (-72,788) is twice the others', and it made only +7,603 in the six months before.
+3. **Fable looks good on the last six months but is not reliable.** It made +5.70 lakh in options, but:
+   - its largest fall from a peak (-72,788) is about twice the others';
+   - 47% of its profit came from its 5 best days;
+   - it made only +7,603 in the six months before;
+   - it drops to fourth when the option lots and moves are corrected (see "How firm these figures are").
 4. **The live model, Opus at T1, made the least.** It made +2.45 lakh in options against +5.83 lakh for Switch-1, and only +22,835 in the six months before.
 5. **Options suit the models that hold for bigger targets.** Fable-OP and Switch-1 return about 10% of the premium paid against 3-6% for the T1 models. A bought option loses less than the future when stopped but keeps most of a big win.
 6. **No single model leads every month.** Opus v2 or v3 led in May and June, Fable-OP in July and August, Opus v3 trailing in September, and Fable in October and November.
+
+## How firm these figures are
+
+**Checked twice.** Every figure in this report was recomputed by a separate script written from scratch, with no differences above Rs 1. The trades and futures profits match the scanner's own six-month backtest file day by day. On the six months before, the trades picked match the scanner's own picks exactly for all five models.
+
+**If option prices behave differently.** Six-month option profit, 12 May to 11 Nov 2026 (Rs):
+
+| Assumption | Opus | Opus v2 | Opus v3 | Fable | Fable-OP | Switch-1 | v3 trailing |
+|---|---|---|---|---|---|---|---|
+| As in this report | +2,45,027 | +3,99,885 | +4,23,981 | +5,70,293 | +5,45,031 | **+5,82,910** | +5,56,102 |
+| Options 20% cheaper (volatility x0.8) | +2,96,118 | +4,50,112 | +4,71,465 | **+6,85,605** | +6,08,190 | +6,44,592 | +6,22,064 |
+| Options 20% dearer (volatility x1.2) | +2,03,195 | +3,59,606 | +3,85,985 | +4,79,071 | +4,96,661 | **+5,35,074** | +5,03,995 |
+| Slippage 1% a side, not 0.25% | +1,23,422 | +2,80,479 | +3,10,208 | +3,98,061 | +4,62,299 | **+4,87,689** | +4,41,333 |
+| Faster time decay, 1% slippage, 3 minutes late out | +96,861 | +2,58,171 | +2,89,954 | +3,36,273 | +4,37,552 | **+4,61,738** | +4,11,016 |
+
+- **The top four swap places.** Switch-1, Fable, Opus v3 trailing and Fable-OP are within about 7% of each other and change order as the assumptions change.
+- **Switch-1 holds up best.** It was first or second in every case tried on these months, and first in every case on the six months before.
+- **Fable ranges from first to fourth.** It trades most, so it gains most when options are cheap and loses most when they are dear.
+- **Opus is last in every case.**
+
+**If option lots followed the futures exactly.** For 1,173 of the 4,996 signals, the actual futures lots and move can be recovered from the backtest. These are mostly signals whose trade reached at least T1. Using them in place of the cash-price sizing changes the six-month option profit as follows:
+
+| Model | Six-month option profit, before → after |
+|---|---|
+| Opus | +2,45,027 → +2,38,091 (-2.8%) |
+| Opus v2 | +3,99,885 → +4,08,882 (+2.2%) |
+| Opus v3 | +4,23,981 → +4,29,467 (+1.3%) |
+| Fable | +5,70,293 → +5,11,223 (-10.4%) |
+| Fable-OP | +5,45,031 → +5,43,807 (-0.2%) |
+| Switch-1 | +5,82,910 → +5,90,521 (+1.3%) |
+| Opus v3 trailing | +5,56,102 → +5,69,141 (+2.3%) |
+
+The lot difference and the move difference mostly cancel out, since both sizings aim at the same Rs 15,000 risk. As a separate check, 872 trades from 1 Sep to 11 Nov match exactly in the scanner's day-by-day replays on real futures prices. Re-pricing those with the replays' exact futures lots, prices and exit minutes:
+- Switch-1 moves by Rs 124 and Fable-OP by +2%.
+- The other models move by -19% (Opus) to +15% (Opus v3 trailing) on those trades. On the six-month totals that is under Rs 20,000.
+
+**Chance that one model really beats another,** from re-sampling the trading days 10,000 times:
+
+| Comparison | 12 May-11 Nov 2026 | 3 Nov 2025-11 May 2026 |
+|---|---|---|
+| Switch-1 beats Fable-OP | 70% | 82% |
+| Switch-1 beats Opus v3 trailing | 61% | 58% |
+| Switch-1 beats Fable | 52% | 95% |
+| Switch-1 beats Opus v3 (T1) | 95% | 99% |
+| Switch-1 beats Opus, live | 99.5% | 98% |
+| Opus v3 trailing beats Opus v3 (T1) | 95% | 96% |
+
+So, judged on option profit:
+- **Switch-1 and Opus v3 trailing** are clearly better (95% or more, in both periods) than the live Opus model and than Opus v3 at T1.
+- **Fable-OP** is clearly better than Opus (91-98%), and probably better than Opus v3 at T1 (84-87%).
+- **Among the top four** the differences are not yet proven.
+
+**How much rests on a few days.** Six-month option profit without each model's 5 best days, 12 May to 11 Nov 2026:
+
+| Model | Without its 5 best days (Rs) | Share from those 5 days |
+|---|---|---|
+| Switch-1 | +3,91,720 | 33% |
+| Fable-OP | +3,46,014 | 37% |
+| Opus v3 trailing | +3,39,553 | 39% |
+| Fable | +3,01,104 | 47% |
+| Opus v3 | +2,77,993 | 34% |
+| Opus v2 | +2,69,493 | 33% |
+| Opus, live | +1,11,054 | 55% |
 
 ## Exit choice per model, six-month option profit (Rs)
 
@@ -120,4 +189,10 @@ Average premium is Rs 21,500 to 23,500 a trade. The most premium open at one mom
 
 ## Files
 
-`hunt/six_month/six_month.py` builds every number here; `six_month.json` and `six_month.log` hold the output.
+| Path | Contents |
+|---|---|
+| `hunt/six_month/six_month.py` | Builds every number in the main tables; output in `six_month.json` and `six_month.log` |
+| `hunt/six_month/recompute/` | The independent recomputation |
+| `hunt/six_month/sources/` | The match against the scanner's own backtest files, and the lot check |
+| `hunt/six_month/stress/` | The option-assumption scenarios, re-sampling and concentration figures |
+| `hunt/six_month/lots_fix/` | Re-pricing with the futures lots, the exact Sep-Nov replay check, and the rebuild of the option inputs |

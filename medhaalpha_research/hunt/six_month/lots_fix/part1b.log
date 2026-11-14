@@ -1,0 +1,10 @@
+rows that are the same futures trade in the replay and the six-month record: 872 of 2250
+  model                  n  exact      current        exact   diff %  lots eq % exit min eq %
+  Opus (T1)            156     53       +43447       +35206   -19.0%      84.9%      47.2%  corr 0.958
+  Opus v2 (T1)         141     53       +40032       +42908    +7.2%      83.0%      45.3%  corr 0.979
+  Opus v3 (T1)         136     51       +57359       +60115    +4.8%      84.3%      45.1%  corr 0.979
+  Fable (T3)           159     57      +149242      +130781   -12.4%      78.9%      50.9%  corr 0.936
+  Fable-OP (T3)         73     32      +125716      +128602    +2.3%      75.0%      56.2%  corr 0.986
+  Switch-1             112     35      +118187      +118063    -0.1%      77.1%      51.4%  corr 0.985
+  Opus v3 CLOSE_TR     136     51       +69851       +80297   +15.0%      84.3%      51.0%  corr 0.980
+all exact rows x 7 exits: current +1142920, exact +417640 (-63.5%), corr 0.959

@@ -1,0 +1,15 @@
+{
+ "n_checks": 950,
+ "mismatches": [
+  {
+   "item": "internal.unseen.Fable (T3).sum(month_opt)==opt_net",
+   "json_value": 7603,
+   "my_value": 7605
+  },
+  {
+   "item": "internal.unseen.Fable-OP (T3).sum(month_fut)==fut_net",
+   "json_value": 78849,
+   "my_value": 78847
+  }
+ ]
+}

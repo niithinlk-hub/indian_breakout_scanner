@@ -1,0 +1,38 @@
+pull.json A/B signals 4996 days 126 null T1 net 0
+feat.pkl A/B rows 4996 null T1 net 0
+pull duplicate keys 0
+feat duplicate keys 0
+pull vs feat join: {'both': 4996, 'left_only': 0, 'right_only': 0}
+  pull opus           vs feat: max |diff| 0.0000, rows > tol 0
+  pull fable          vs feat: max |diff| 0.0000, rows > tol 0
+  pull fable_op       vs feat: max |diff| 0.0000, rows > tol 0
+  pull net_T1         vs feat: max |diff| 0.0000, rows > tol 0
+  pull net_T2         vs feat: max |diff| 0.0000, rows > tol 0
+  pull net_T3         vs feat: max |diff| 0.0000, rows > tol 0
+  pull net_CLOSE      vs feat: max |diff| 0.0000, rows > tol 0
+  pull net_T2_TR      vs feat: max |diff| 0.0000, rows > tol 0
+  pull net_T3_TR      vs feat: max |diff| 0.0000, rows > tol 0
+  pull net_CLOSE_TR   vs feat: max |diff| 0.0000, rows > tol 0
+D[real] rows 4996 days 126
+raw vs D[real] join: {'both': 4996, 'left_only': 0, 'right_only': 0}
+  D[real].s_opus        vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].s_fable       vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].s_fable_op    vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].net_T1        vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].net_T3        vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].net_CLOSE_TR  vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].net_T2        vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].net_CLOSE     vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].net_T2_TR     vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].net_T3_TR     vs raw: max |diff| 0.000000, rows over tol 0
+  D[real].s_opus_v2     vs derivation: max |diff| 0.000000, rows over 0.05 0
+  D[real].s_opus_v3     vs derivation: max |diff| 0.000000, rows over 0.05 0
+  longs with rel_vol NaN in feat: 0 (NaN < 1 is False -> keeps fable_op score)
+  D[real].rel_vol vs feat rel_vol max diff 0.0
+  status_T1 mismatches 0 feat out values {'close': 1939, 'hit': 1532, 'stop': 1525}
+  r_T1 of target rows min 0.2952  stopped rows max -1.0
+  p_opus range 13.0..99.4, NaN 0
+  p_fable range 0.0..100.0, NaN 0
+  p_fable_op range 2.2..100.0, NaN 0
+  true fable>=80: 665  s_fable>=75: 665
+  setup C signals excluded from real: 408

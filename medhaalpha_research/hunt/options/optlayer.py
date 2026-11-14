@@ -105,7 +105,8 @@ def real_inputs():
                 F0 = float(dm.open.iloc[0])
                 L, tick = lot.get(r.symbol, (np.nan, 0.05))
                 n = lots_for(r.side, e0, stop, int(L), cfg) if L == L else 0
-                rec.update({'F0': F0, 'qty': n * L if n else np.nan, 'risk_abs': abs(F0 - stop)})
+                # 0 lots = one lot already loses more than Rs 15,000 at the stop; the futures leg still traded, so take 1 lot
+                rec.update({'F0': F0, 'qty': (n if n else 1) * L, 'risk_abs': abs(F0 - stop)})
                 for q in POL:
                     o = res.get(q)
                     rr = getattr(r, 'r_' + q)
@@ -130,5 +131,6 @@ if __name__ == '__main__':
         rv = df.atr_pct * np.sqrt(252) / 100 / 1.25
         X['iv'] = np.exp(c[0] + c[1] * np.log(rv) + c[2] * (X.kind == 'PE'))
         print(s, len(X), 'rows; missing F0 %d, qty %d; expiries %s' % (X.F0.isna().sum(), X.qty.isna().sum(), sorted(X.expiry.unique())[:3]))
-    pickle.dump(I, open(SP + '/hunt/opt_inputs.pkl', 'wb'))
-    print('saved', SP + '/hunt/opt_inputs.pkl')
+    out = sys.argv[2] if len(sys.argv) > 2 else SP + '/hunt/opt_inputs.pkl'
+    pickle.dump(I, open(out, 'wb'))
+    print('saved', out)

@@ -1,0 +1,25 @@
+real 1 Sep-11 Nov: 2250 rows, 48 sessions; replay sessions available: 50 (2026-09-01 .. 2026-11-13)
+sessions with no replay file: []
+rows found in replays: 1425 of 2250; futures net equal to the six-month record on all 7 exits: 872; differ: 553
+rows usable for exact re-pricing: 1417
+
+PART 1. 1 Sep - 11 Nov, OPTION net: current pricing vs exact futures lots/prices from the replays
+  model                  n exact      current        exact   diff % | cur (same rows)      fut net
+  Opus (T1)            156   109      +114813      +119101    +3.7% |       +59656      +108281 | lots equal on 92.7% of exact rows
+  Opus v2 (T1)         141   103      +164919      +170107    +3.1% |       +96020      +235530 | lots equal on 91.3% of exact rows
+  Opus v3 (T1)         136   100      +184693      +190658    +3.2% |      +114099      +280042 | lots equal on 92.0% of exact rows
+  Fable (T3)           159   101      +364959      +356139    -2.4% |      +166893      +467872 | lots equal on 88.1% of exact rows
+  Fable-OP (T3)         73    56      +197688      +239183   +21.0% |      +124130      +268584 | lots equal on 85.7% of exact rows
+  Switch-1             112    77      +243042      +272868   +12.3% |      +168798      +390428 | lots equal on 89.6% of exact rows
+  Opus v3 CLOSE_TR     136   100      +240509      +266719   +10.9% |      +139589      +364093 | lots equal on 92.0% of exact rows
+
+PART 2. rows with inferred futures lots: 1173 of 4996
+  futures risk per unit / cash-stop risk per unit: quantiles [0.685, 0.869, 0.98, 1.085, 1.307]
+  model                  n  rows      current fut lots+move    lots only
+  Opus (T1)            369    99      +553503      +546567      +571228 | six-month total +245027 -> +238091 (-2.8%)
+  Opus v2 (T1)         353   139      +747518      +756516      +798000 | six-month total +399885 -> +408882 (+2.2%)
+  Opus v3 (T1)         335   135      +725993      +731479      +776475 | six-month total +423981 -> +429467 (+1.3%)
+  Fable (T3)           475   168     +1370794     +1311724     +1491366 | six-month total +570293 -> +511223 (-10.4%)
+  Fable-OP (T3)        233   113      +854597      +853373      +959696 | six-month total +545031 -> +543807 (-0.2%)
+  Switch-1             272   126      +850839      +858450      +945296 | six-month total +582910 -> +590521 (+1.3%)
+  Opus v3 CLOSE_TR     335   135      +861709      +874749      +954053 | six-month total +556102 -> +569141 (+2.3%)

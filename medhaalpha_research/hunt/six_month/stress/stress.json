@@ -1,0 +1,1165 @@
+{
+ "scenarios": {
+  "real": {
+   "base": {
+    "Opus (T1), live model": 245027,
+    "Opus v2 (T1)": 399885,
+    "Opus v3 (T1)": 423981,
+    "Fable (T3)": 570293,
+    "Fable-OP (T3)": 545031,
+    "Switch-1": 582910,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 556102
+   },
+   "decay1.5": {
+    "Opus (T1), live model": 262441,
+    "Opus v2 (T1)": 414412,
+    "Opus v3 (T1)": 437150,
+    "Fable (T3)": 611375,
+    "Fable-OP (T3)": 561414,
+    "Switch-1": 600051,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 576130
+   },
+   "decay3.5": {
+    "Opus (T1), live model": 219290,
+    "Opus v2 (T1)": 378400,
+    "Opus v3 (T1)": 404511,
+    "Fable (T3)": 509455,
+    "Fable-OP (T3)": 520777,
+    "Switch-1": 557541,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 526487
+   },
+   "iv0.8": {
+    "Opus (T1), live model": 296118,
+    "Opus v2 (T1)": 450112,
+    "Opus v3 (T1)": 471465,
+    "Fable (T3)": 685605,
+    "Fable-OP (T3)": 608190,
+    "Switch-1": 644592,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 622064
+   },
+   "iv1.2": {
+    "Opus (T1), live model": 203195,
+    "Opus v2 (T1)": 359606,
+    "Opus v3 (T1)": 385985,
+    "Fable (T3)": 479071,
+    "Fable-OP (T3)": 496661,
+    "Switch-1": 535074,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 503995
+   },
+   "slip0.5": {
+    "Opus (T1), live model": 204492,
+    "Opus v2 (T1)": 360083,
+    "Opus v3 (T1)": 386057,
+    "Fable (T3)": 512882,
+    "Fable-OP (T3)": 517453,
+    "Switch-1": 551170,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 517845
+   },
+   "slip1.0": {
+    "Opus (T1), live model": 123422,
+    "Opus v2 (T1)": 280479,
+    "Opus v3 (T1)": 310208,
+    "Fable (T3)": 398061,
+    "Fable-OP (T3)": 462299,
+    "Switch-1": 487689,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 441333
+   },
+   "lag3": {
+    "Opus (T1), live model": 244353,
+    "Opus v2 (T1)": 399232,
+    "Opus v3 (T1)": 423365,
+    "Fable (T3)": 569364,
+    "Fable-OP (T3)": 544584,
+    "Switch-1": 582399,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 555489
+   },
+   "worst(decay3.5+slip1.0+lag3)": {
+    "Opus (T1), live model": 96861,
+    "Opus v2 (T1)": 258171,
+    "Opus v3 (T1)": 289954,
+    "Fable (T3)": 336273,
+    "Fable-OP (T3)": 437552,
+    "Switch-1": 461738,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 411016
+   }
+  },
+  "unseen": {
+   "base": {
+    "Opus (T1), live model": 22835,
+    "Opus v2 (T1)": 51160,
+    "Opus v3 (T1)": 84362,
+    "Fable (T3)": 7603,
+    "Fable-OP (T3)": 202948,
+    "Switch-1": 267606,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 249060
+   },
+   "decay1.5": {
+    "Opus (T1), live model": 41232,
+    "Opus v2 (T1)": 66637,
+    "Opus v3 (T1)": 99340,
+    "Fable (T3)": 49166,
+    "Fable-OP (T3)": 219246,
+    "Switch-1": 284985,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 271269
+   },
+   "decay3.5": {
+    "Opus (T1), live model": -4331,
+    "Opus v2 (T1)": 28292,
+    "Opus v3 (T1)": 62231,
+    "Fable (T3)": -53940,
+    "Fable-OP (T3)": 178827,
+    "Switch-1": 241895,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 216214
+   },
+   "iv0.8": {
+    "Opus (T1), live model": 71019,
+    "Opus v2 (T1)": 100062,
+    "Opus v3 (T1)": 132130,
+    "Fable (T3)": 109318,
+    "Fable-OP (T3)": 254750,
+    "Switch-1": 325371,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 319858
+   },
+   "iv1.2": {
+    "Opus (T1), live model": -16969,
+    "Opus v2 (T1)": 11622,
+    "Opus v3 (T1)": 45770,
+    "Fable (T3)": -74875,
+    "Fable-OP (T3)": 162383,
+    "Switch-1": 222134,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 192690
+   },
+   "slip0.5": {
+    "Opus (T1), live model": -19316,
+    "Opus v2 (T1)": 9326,
+    "Opus v3 (T1)": 43289,
+    "Fable (T3)": -52652,
+    "Fable-OP (T3)": 176121,
+    "Switch-1": 233236,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 207573
+   },
+   "slip1.0": {
+    "Opus (T1), live model": -103617,
+    "Opus v2 (T1)": -74344,
+    "Opus v3 (T1)": -38858,
+    "Fable (T3)": -173161,
+    "Fable-OP (T3)": 122467,
+    "Switch-1": 164496,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 124599
+   },
+   "lag3": {
+    "Opus (T1), live model": 22144,
+    "Opus v2 (T1)": 50472,
+    "Opus v3 (T1)": 83693,
+    "Fable (T3)": 6613,
+    "Fable-OP (T3)": 202504,
+    "Switch-1": 267056,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 248396
+   },
+   "worst(decay3.5+slip1.0+lag3)": {
+    "Opus (T1), live model": -131622,
+    "Opus v2 (T1)": -98079,
+    "Opus v3 (T1)": -61832,
+    "Fable (T3)": -235739,
+    "Fable-OP (T3)": 97857,
+    "Switch-1": 138147,
+    "Opus v3, trailing stop to close (CLOSE_TR)": 90999
+   }
+  }
+ },
+ "order": {
+  "real": {
+   "base": {
+    "order": "Sw1 > Fable > v3CTR > FOP > v3 > v2 > Opus",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "decay1.5": {
+    "order": "Fable > Sw1 > v3CTR > FOP > v3 > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Sw1",
+      "Fable"
+     ]
+    ]
+   },
+   "decay3.5": {
+    "order": "Sw1 > v3CTR > FOP > Fable > v3 > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Fable",
+      "v3CTR"
+     ],
+     [
+      "Fable",
+      "FOP"
+     ]
+    ]
+   },
+   "iv0.8": {
+    "order": "Fable > Sw1 > v3CTR > FOP > v3 > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Sw1",
+      "Fable"
+     ]
+    ]
+   },
+   "iv1.2": {
+    "order": "Sw1 > v3CTR > FOP > Fable > v3 > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Fable",
+      "v3CTR"
+     ],
+     [
+      "Fable",
+      "FOP"
+     ]
+    ]
+   },
+   "slip0.5": {
+    "order": "Sw1 > v3CTR > FOP > Fable > v3 > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Fable",
+      "v3CTR"
+     ],
+     [
+      "Fable",
+      "FOP"
+     ]
+    ]
+   },
+   "slip1.0": {
+    "order": "Sw1 > FOP > v3CTR > Fable > v3 > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Fable",
+      "v3CTR"
+     ],
+     [
+      "Fable",
+      "FOP"
+     ],
+     [
+      "v3CTR",
+      "FOP"
+     ]
+    ]
+   },
+   "lag3": {
+    "order": "Sw1 > Fable > v3CTR > FOP > v3 > v2 > Opus",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "worst(decay3.5+slip1.0+lag3)": {
+    "order": "Sw1 > FOP > v3CTR > Fable > v3 > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Fable",
+      "v3CTR"
+     ],
+     [
+      "Fable",
+      "FOP"
+     ],
+     [
+      "v3CTR",
+      "FOP"
+     ]
+    ]
+   }
+  },
+  "unseen": {
+   "base": {
+    "order": "Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "decay1.5": {
+    "order": "Sw1 > v3CTR > FOP > v3 > v2 > Fable > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "Opus",
+      "Fable"
+     ]
+    ]
+   },
+   "decay3.5": {
+    "order": "Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "iv0.8": {
+    "order": "Sw1 > v3CTR > FOP > v3 > Fable > v2 > Opus",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "v2",
+      "Fable"
+     ],
+     [
+      "Opus",
+      "Fable"
+     ]
+    ]
+   },
+   "iv1.2": {
+    "order": "Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "slip0.5": {
+    "order": "Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "slip1.0": {
+    "order": "Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "lag3": {
+    "order": "Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable",
+    "changed": false,
+    "swapped_pairs": []
+   },
+   "worst(decay3.5+slip1.0+lag3)": {
+    "order": "Sw1 > FOP > v3CTR > v3 > v2 > Opus > Fable",
+    "changed": true,
+    "swapped_pairs": [
+     [
+      "v3CTR",
+      "FOP"
+     ]
+    ]
+   }
+  }
+ },
+ "boot": {
+  "real": {
+   "pairs": {
+    "FOP > Sw1": {
+     "p": 0.2989,
+     "ties": 0,
+     "diff_obs": -37879
+    },
+    "FOP > Fable": {
+     "p": 0.4482,
+     "ties": 0,
+     "diff_obs": -25262
+    },
+    "FOP > v3": {
+     "p": 0.8413,
+     "ties": 0,
+     "diff_obs": 121049
+    },
+    "FOP > v3CTR": {
+     "p": 0.4677,
+     "ties": 0,
+     "diff_obs": -11071
+    },
+    "FOP > Opus": {
+     "p": 0.9751,
+     "ties": 0,
+     "diff_obs": 300004
+    },
+    "Sw1 > Fable": {
+     "p": 0.5209,
+     "ties": 0,
+     "diff_obs": 12617
+    },
+    "Sw1 > v3": {
+     "p": 0.947,
+     "ties": 0,
+     "diff_obs": 158929
+    },
+    "Sw1 > v3CTR": {
+     "p": 0.6055,
+     "ties": 0,
+     "diff_obs": 26808
+    },
+    "Sw1 > Opus": {
+     "p": 0.9947,
+     "ties": 0,
+     "diff_obs": 337883
+    },
+    "Fable > v3": {
+     "p": 0.7751,
+     "ties": 0,
+     "diff_obs": 146312
+    },
+    "Fable > v3CTR": {
+     "p": 0.5298,
+     "ties": 0,
+     "diff_obs": 14191
+    },
+    "Fable > Opus": {
+     "p": 0.9498,
+     "ties": 0,
+     "diff_obs": 325266
+    },
+    "v3 > v3CTR": {
+     "p": 0.0479,
+     "ties": 0,
+     "diff_obs": -132120
+    },
+    "v3 > Opus": {
+     "p": 0.9634,
+     "ties": 0,
+     "diff_obs": 178955
+    },
+    "v3CTR > Opus": {
+     "p": 0.9933,
+     "ties": 0,
+     "diff_obs": 311075
+    }
+   },
+   "p5_p95_Ppos": {
+    "FOP": [
+     335263,
+     762990,
+     1.0
+    ],
+    "Sw1": [
+     383906,
+     792443,
+     1.0
+    ],
+    "Fable": [
+     239877,
+     905054,
+     0.998
+    ],
+    "v3": [
+     260165,
+     592031,
+     1.0
+    ],
+    "v3CTR": [
+     328870,
+     792414,
+     1.0
+    ],
+    "Opus": [
+     87009,
+     410122,
+     0.9944
+    ]
+   },
+   "P_best_of_6": {
+    "FOP": 0.1354,
+    "Sw1": 0.2563,
+    "Fable": 0.3954,
+    "v3": 0.0036,
+    "v3CTR": 0.2088,
+    "Opus": 0.0005
+   }
+  },
+  "unseen": {
+   "pairs": {
+    "FOP > Sw1": {
+     "p": 0.1805,
+     "ties": 0,
+     "diff_obs": -64659
+    },
+    "FOP > Fable": {
+     "p": 0.8987,
+     "ties": 0,
+     "diff_obs": 195345
+    },
+    "FOP > v3": {
+     "p": 0.868,
+     "ties": 0,
+     "diff_obs": 118586
+    },
+    "FOP > v3CTR": {
+     "p": 0.3654,
+     "ties": 0,
+     "diff_obs": -46112
+    },
+    "FOP > Opus": {
+     "p": 0.9066,
+     "ties": 0,
+     "diff_obs": 180113
+    },
+    "Sw1 > Fable": {
+     "p": 0.9461,
+     "ties": 0,
+     "diff_obs": 260004
+    },
+    "Sw1 > v3": {
+     "p": 0.9923,
+     "ties": 0,
+     "diff_obs": 183244
+    },
+    "Sw1 > v3CTR": {
+     "p": 0.5808,
+     "ties": 0,
+     "diff_obs": 18547
+    },
+    "Sw1 > Opus": {
+     "p": 0.9789,
+     "ties": 0,
+     "diff_obs": 244771
+    },
+    "Fable > v3": {
+     "p": 0.3331,
+     "ties": 0,
+     "diff_obs": -76759
+    },
+    "Fable > v3CTR": {
+     "p": 0.1048,
+     "ties": 0,
+     "diff_obs": -241457
+    },
+    "Fable > Opus": {
+     "p": 0.4706,
+     "ties": 0,
+     "diff_obs": -15232
+    },
+    "v3 > v3CTR": {
+     "p": 0.0415,
+     "ties": 0,
+     "diff_obs": -164698
+    },
+    "v3 > Opus": {
+     "p": 0.7328,
+     "ties": 0,
+     "diff_obs": 61527
+    },
+    "v3CTR > Opus": {
+     "p": 0.9564,
+     "ties": 0,
+     "diff_obs": 226225
+    }
+   },
+   "p5_p95_Ppos": {
+    "FOP": [
+     24141,
+     385078,
+     0.9704
+    ],
+    "Sw1": [
+     77108,
+     458102,
+     0.9896
+    ],
+    "Fable": [
+     -259637,
+     275158,
+     0.5194
+    ],
+    "v3": [
+     -76493,
+     242791,
+     0.8062
+    ],
+    "v3CTR": [
+     6040,
+     497408,
+     0.9536
+    ],
+    "Opus": [
+     -120332,
+     169842,
+     0.6015
+    ]
+   },
+   "P_best_of_6": {
+    "FOP": 0.1219,
+    "Sw1": 0.4467,
+    "Fable": 0.0359,
+    "v3": 0.0017,
+    "v3CTR": 0.3846,
+    "Opus": 0.0092
+   }
+  }
+ },
+ "months": {
+  "real": {
+   "table": {
+    "2026-05": {
+     "Opus": 20223,
+     "v2": 50724,
+     "v3": 45167,
+     "Fable": 11182,
+     "FOP": 31038,
+     "Sw1": 31038,
+     "v3CTR": 20874
+    },
+    "2026-06": {
+     "Opus": 60993,
+     "v2": 68853,
+     "v3": 77820,
+     "Fable": 28178,
+     "FOP": 30956,
+     "Sw1": 23481,
+     "v3CTR": 70402
+    },
+    "2026-07": {
+     "Opus": 17835,
+     "v2": 88635,
+     "v3": 88848,
+     "Fable": 88852,
+     "FOP": 178826,
+     "Sw1": 178826,
+     "v3CTR": 146697
+    },
+    "2026-08": {
+     "Opus": 31163,
+     "v2": 26753,
+     "v3": 27453,
+     "Fable": 77121,
+     "FOP": 106522,
+     "Sw1": 106522,
+     "v3CTR": 77620
+    },
+    "2026-09": {
+     "Opus": 36062,
+     "v2": 114030,
+     "v3": 108300,
+     "Fable": 131269,
+     "FOP": 78844,
+     "Sw1": 99118,
+     "v3CTR": 174999
+    },
+    "2026-10": {
+     "Opus": 29843,
+     "v2": 13344,
+     "v3": 21877,
+     "Fable": 72926,
+     "FOP": 31702,
+     "Sw1": 56782,
+     "v3CTR": 8373
+    },
+    "2026-11": {
+     "Opus": 48908,
+     "v2": 37545,
+     "v3": 54516,
+     "Fable": 160764,
+     "FOP": 87142,
+     "Sw1": 87142,
+     "v3CTR": 57136
+    }
+   },
+   "leader": {
+    "2026-05": "v2",
+    "2026-06": "v3",
+    "2026-07": "FOP",
+    "2026-08": "FOP",
+    "2026-09": "v3CTR",
+    "2026-10": "Fable",
+    "2026-11": "Fable"
+   },
+   "beats_Opus": {
+    "v2": 4,
+    "v3": 5,
+    "Fable": 5,
+    "FOP": 6,
+    "Sw1": 6,
+    "v3CTR": 6
+   },
+   "beats_Opus_excl_partial": {
+    "v2": 3,
+    "v3": 3,
+    "Fable": 4,
+    "FOP": 4,
+    "Sw1": 4,
+    "v3CTR": 4
+   }
+  },
+  "unseen": {
+   "table": {
+    "2025-11": {
+     "Opus": 12009,
+     "v2": 11605,
+     "v3": 13453,
+     "Fable": 52401,
+     "FOP": 77896,
+     "Sw1": 77896,
+     "v3CTR": 98770
+    },
+    "2025-12": {
+     "Opus": -10850,
+     "v2": -1119,
+     "v3": 5722,
+     "Fable": -99948,
+     "FOP": -3462,
+     "Sw1": -3462,
+     "v3CTR": 54866
+    },
+    "2026-01": {
+     "Opus": 34576,
+     "v2": -34017,
+     "v3": -22630,
+     "Fable": -26331,
+     "FOP": 14046,
+     "Sw1": 30823,
+     "v3CTR": 55427
+    },
+    "2026-02": {
+     "Opus": -3487,
+     "v2": -13632,
+     "v3": -13632,
+     "Fable": 76062,
+     "FOP": 55422,
+     "Sw1": 44996,
+     "v3CTR": -14791
+    },
+    "2026-03": {
+     "Opus": 41470,
+     "v2": 66617,
+     "v3": 70033,
+     "Fable": 15528,
+     "FOP": -915,
+     "Sw1": 70033,
+     "v3CTR": 46492
+    },
+    "2026-04": {
+     "Opus": -24212,
+     "v2": 24956,
+     "v3": 35214,
+     "Fable": 1970,
+     "FOP": 42957,
+     "Sw1": 30316,
+     "v3CTR": 20384
+    },
+    "2026-05": {
+     "Opus": -26672,
+     "v2": -3251,
+     "v3": -3798,
+     "Fable": -12077,
+     "FOP": 17005,
+     "Sw1": 17005,
+     "v3CTR": -12089
+    }
+   },
+   "leader": {
+    "2025-11": "v3CTR",
+    "2025-12": "v3CTR",
+    "2026-01": "v3CTR",
+    "2026-02": "Fable",
+    "2026-03": "v3",
+    "2026-04": "FOP",
+    "2026-05": "FOP"
+   },
+   "beats_Opus": {
+    "v2": 4,
+    "v3": 5,
+    "Fable": 4,
+    "FOP": 5,
+    "Sw1": 6,
+    "v3CTR": 6
+   },
+   "beats_Opus_excl_partial": {
+    "v2": 3,
+    "v3": 3,
+    "Fable": 2,
+    "FOP": 3,
+    "Sw1": 4,
+    "v3CTR": 4
+   }
+  }
+ },
+ "conc": {
+  "real": {
+   "Opus": {
+    "net": 245027,
+    "best5": 133973,
+    "best5_share%": 54.7,
+    "best5_days": [
+     "2026-07-13",
+     "2026-06-05",
+     "2026-09-28",
+     "2026-10-08",
+     "2026-09-15"
+    ],
+    "best_month": "2026-06",
+    "best_month_net": 60993,
+    "best_month_share%": 24.9,
+    "net_ex_best5": 111054,
+    "net_ex_best_month": 184033
+   },
+   "v2": {
+    "net": 399885,
+    "best5": 130392,
+    "best5_share%": 32.6,
+    "best5_days": [
+     "2026-06-05",
+     "2026-09-28",
+     "2026-08-03",
+     "2026-09-15",
+     "2026-06-01"
+    ],
+    "best_month": "2026-09",
+    "best_month_net": 114030,
+    "best_month_share%": 28.5,
+    "net_ex_best5": 269493,
+    "net_ex_best_month": 285855
+   },
+   "v3": {
+    "net": 423981,
+    "best5": 145989,
+    "best5_share%": 34.4,
+    "best5_days": [
+     "2026-06-01",
+     "2026-06-05",
+     "2026-11-05",
+     "2026-09-28",
+     "2026-10-08"
+    ],
+    "best_month": "2026-09",
+    "best_month_net": 108300,
+    "best_month_share%": 25.5,
+    "net_ex_best5": 277993,
+    "net_ex_best_month": 315682
+   },
+   "Fable": {
+    "net": 570293,
+    "best5": 269189,
+    "best5_share%": 47.2,
+    "best5_days": [
+     "2026-09-28",
+     "2026-10-08",
+     "2026-09-07",
+     "2026-07-31",
+     "2026-11-09"
+    ],
+    "best_month": "2026-11",
+    "best_month_net": 160764,
+    "best_month_share%": 28.2,
+    "net_ex_best5": 301104,
+    "net_ex_best_month": 409529
+   },
+   "FOP": {
+    "net": 545031,
+    "best5": 199016,
+    "best5_share%": 36.5,
+    "best5_days": [
+     "2026-11-05",
+     "2026-08-03",
+     "2026-07-09",
+     "2026-09-29",
+     "2026-07-31"
+    ],
+    "best_month": "2026-07",
+    "best_month_net": 178826,
+    "best_month_share%": 32.8,
+    "net_ex_best5": 346014,
+    "net_ex_best_month": 366204
+   },
+   "Sw1": {
+    "net": 582910,
+    "best5": 191190,
+    "best5_share%": 32.8,
+    "best5_days": [
+     "2026-11-05",
+     "2026-08-03",
+     "2026-07-09",
+     "2026-07-31",
+     "2026-09-28"
+    ],
+    "best_month": "2026-07",
+    "best_month_net": 178826,
+    "best_month_share%": 30.7,
+    "net_ex_best5": 391720,
+    "net_ex_best_month": 404084
+   },
+   "v3CTR": {
+    "net": 556102,
+    "best5": 216549,
+    "best5_share%": 38.9,
+    "best5_days": [
+     "2026-09-15",
+     "2026-07-31",
+     "2026-06-01",
+     "2026-09-28",
+     "2026-09-30"
+    ],
+    "best_month": "2026-09",
+    "best_month_net": 174999,
+    "best_month_share%": 31.5,
+    "net_ex_best5": 339553,
+    "net_ex_best_month": 381102
+   }
+  },
+  "unseen": {
+   "Opus": {
+    "net": 22835,
+    "best5": 105939,
+    "best5_share%": 463.9,
+    "best5_days": [
+     "2026-03-23",
+     "2025-12-08",
+     "2026-01-13",
+     "2026-01-23",
+     "2025-11-06"
+    ],
+    "best_month": "2026-03",
+    "best_month_net": 41470,
+    "best_month_share%": 181.6,
+    "net_ex_best5": -83104,
+    "net_ex_best_month": -18635
+   },
+   "v2": {
+    "net": 51160,
+    "best5": 108912,
+    "best5_share%": 212.9,
+    "best5_days": [
+     "2026-03-23",
+     "2026-04-08",
+     "2025-12-08",
+     "2026-01-23",
+     "2026-03-30"
+    ],
+    "best_month": "2026-03",
+    "best_month_net": 66617,
+    "best_month_share%": 130.2,
+    "net_ex_best5": -57752,
+    "net_ex_best_month": -15457
+   },
+   "v3": {
+    "net": 84362,
+    "best5": 109967,
+    "best5_share%": 130.4,
+    "best5_days": [
+     "2026-03-23",
+     "2026-04-08",
+     "2025-12-08",
+     "2026-01-23",
+     "2026-04-15"
+    ],
+    "best_month": "2026-03",
+    "best_month_net": 70033,
+    "best_month_share%": 83.0,
+    "net_ex_best5": -25605,
+    "net_ex_best_month": 14329
+   },
+   "Fable": {
+    "net": 7603,
+    "best5": 166139,
+    "best5_share%": 2185.3,
+    "best5_days": [
+     "2026-01-28",
+     "2026-02-06",
+     "2025-11-10",
+     "2025-12-12",
+     "2026-02-12"
+    ],
+    "best_month": "2026-02",
+    "best_month_net": 76062,
+    "best_month_share%": 1000.5,
+    "net_ex_best5": -158537,
+    "net_ex_best_month": -68459
+   },
+   "FOP": {
+    "net": 202948,
+    "best5": 149112,
+    "best5_share%": 73.5,
+    "best5_days": [
+     "2026-04-08",
+     "2025-11-10",
+     "2026-02-06",
+     "2026-01-07",
+     "2026-03-12"
+    ],
+    "best_month": "2025-11",
+    "best_month_net": 77896,
+    "best_month_share%": 38.4,
+    "net_ex_best5": 53836,
+    "net_ex_best_month": 125051
+   },
+   "Sw1": {
+    "net": 267606,
+    "best5": 135564,
+    "best5_share%": 50.7,
+    "best5_days": [
+     "2025-11-10",
+     "2026-02-06",
+     "2026-01-07",
+     "2026-03-23",
+     "2026-02-11"
+    ],
+    "best_month": "2025-11",
+    "best_month_net": 77896,
+    "best_month_share%": 29.1,
+    "net_ex_best5": 132043,
+    "net_ex_best_month": 189710
+   },
+   "v3CTR": {
+    "net": 249060,
+    "best5": 233094,
+    "best5_share%": 93.6,
+    "best5_days": [
+     "2026-01-07",
+     "2026-01-23",
+     "2025-11-10",
+     "2025-12-23",
+     "2026-03-23"
+    ],
+    "best_month": "2025-11",
+    "best_month_net": 98770,
+    "best_month_share%": 39.7,
+    "net_ex_best5": 15966,
+    "net_ex_best_month": 150289
+   }
+  }
+ },
+ "capital": {
+  "real": {
+   "Opus": {
+    "max_open": 137543,
+    "at": "2026-06-01 11:57:00+05:30",
+    "max_open_iv1.2": 165025,
+    "at_iv1.2": "2026-06-01 11:57:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 48320,
+    "median_day_peak": 46911
+   },
+   "v2": {
+    "max_open": 151972,
+    "at": "2026-08-26 09:18:00+05:30",
+    "max_open_iv1.2": 182352,
+    "at_iv1.2": "2026-08-26 09:18:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 48598,
+    "median_day_peak": 47271
+   },
+   "v3": {
+    "max_open": 151972,
+    "at": "2026-08-26 09:18:00+05:30",
+    "max_open_iv1.2": 182352,
+    "at_iv1.2": "2026-08-26 09:18:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 48598,
+    "median_day_peak": 45675
+   },
+   "Fable": {
+    "max_open": 233986,
+    "at": "2026-08-20 09:19:00+05:30",
+    "max_open_iv1.2": 280747,
+    "at_iv1.2": "2026-08-20 09:19:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 57081,
+    "median_day_peak": 84557
+   },
+   "FOP": {
+    "max_open": 164145,
+    "at": "2026-09-11 09:19:00+05:30",
+    "max_open_iv1.2": 196964,
+    "at_iv1.2": "2026-09-11 09:19:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 48598,
+    "median_day_peak": 40372
+   },
+   "Sw1": {
+    "max_open": 157276,
+    "at": "2026-09-03 09:27:00+05:30",
+    "max_open_iv1.2": 188717,
+    "at_iv1.2": "2026-09-03 09:27:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 48598,
+    "median_day_peak": 42884
+   },
+   "v3CTR": {
+    "max_open": 208402,
+    "at": "2026-09-28 11:43:00+05:30",
+    "max_open_iv1.2": 250041,
+    "at_iv1.2": "2026-09-28 11:43:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 48598,
+    "median_day_peak": 48185
+   }
+  },
+  "unseen": {
+   "Opus": {
+    "max_open": 188976,
+    "at": "2026-01-21 10:00:00+05:30",
+    "max_open_iv1.2": 226719,
+    "at_iv1.2": "2026-01-21 10:00:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 52067,
+    "median_day_peak": 57114
+   },
+   "v2": {
+    "max_open": 188976,
+    "at": "2026-01-21 10:00:00+05:30",
+    "max_open_iv1.2": 226719,
+    "at_iv1.2": "2026-01-21 10:00:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 55660,
+    "median_day_peak": 59571
+   },
+   "v3": {
+    "max_open": 188976,
+    "at": "2026-01-21 10:00:00+05:30",
+    "max_open_iv1.2": 226719,
+    "at_iv1.2": "2026-01-21 10:00:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 55660,
+    "median_day_peak": 60542
+   },
+   "Fable": {
+    "max_open": 210899,
+    "at": "2025-11-27 09:19:00+05:30",
+    "max_open_iv1.2": 253050,
+    "at_iv1.2": "2025-11-27 09:19:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 55660,
+    "median_day_peak": 102110
+   },
+   "FOP": {
+    "max_open": 144599,
+    "at": "2026-03-04 09:18:00+05:30",
+    "max_open_iv1.2": 173499,
+    "at_iv1.2": "2026-03-04 09:18:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 55660,
+    "median_day_peak": 44767
+   },
+   "Sw1": {
+    "max_open": 188976,
+    "at": "2026-01-21 10:00:00+05:30",
+    "max_open_iv1.2": 226719,
+    "at_iv1.2": "2026-01-21 10:00:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 55660,
+    "median_day_peak": 56163
+   },
+   "v3CTR": {
+    "max_open": 188976,
+    "at": "2026-01-21 10:00:00+05:30",
+    "max_open_iv1.2": 226719,
+    "at_iv1.2": "2026-01-21 10:00:00+05:30",
+    "days_over_3L": 0,
+    "days_over_2.5L": 0,
+    "max_single_outlay": 55660,
+    "median_day_peak": 63792
+   }
+  }
+ },
+ "json_check": []
+}

@@ -1,0 +1,114 @@
+
+======== REAL
+-- 1. six-month option net by scenario (Rs)
+scenario                            Opus        v2        v3     Fable       FOP       Sw1     v3CTR
+base                              245027    399885    423981    570293    545031    582910    556102   Sw1 > Fable > v3CTR > FOP > v3 > v2 > Opus
+decay1.5                          262441    414412    437150    611375    561414    600051    576130   Fable > Sw1 > v3CTR > FOP > v3 > v2 > Opus   CHANGED [('Sw1', 'Fable')]
+decay3.5                          219290    378400    404511    509455    520777    557541    526487   Sw1 > v3CTR > FOP > Fable > v3 > v2 > Opus   CHANGED [('Fable', 'v3CTR'), ('Fable', 'FOP')]
+iv0.8                             296118    450112    471465    685605    608190    644592    622064   Fable > Sw1 > v3CTR > FOP > v3 > v2 > Opus   CHANGED [('Sw1', 'Fable')]
+iv1.2                             203195    359606    385985    479071    496661    535074    503995   Sw1 > v3CTR > FOP > Fable > v3 > v2 > Opus   CHANGED [('Fable', 'v3CTR'), ('Fable', 'FOP')]
+slip0.5                           204492    360083    386057    512882    517453    551170    517845   Sw1 > v3CTR > FOP > Fable > v3 > v2 > Opus   CHANGED [('Fable', 'v3CTR'), ('Fable', 'FOP')]
+slip1.0                           123422    280479    310208    398061    462299    487689    441333   Sw1 > FOP > v3CTR > Fable > v3 > v2 > Opus   CHANGED [('Fable', 'v3CTR'), ('Fable', 'FOP'), ('v3CTR', 'FOP')]
+lag3                              244353    399232    423365    569364    544584    582399    555489   Sw1 > Fable > v3CTR > FOP > v3 > v2 > Opus
+worst(decay3.5+slip1.0+lag3)       96861    258171    289954    336273    437552    461738    411016   Sw1 > FOP > v3CTR > Fable > v3 > v2 > Opus   CHANGED [('Fable', 'v3CTR'), ('Fable', 'FOP'), ('v3CTR', 'FOP')]
+-- 2. bootstrap P(first > second), 10,000 day resamples
+   FOP > Sw1      0.299  (observed diff -37879, ties 0)
+   FOP > Fable    0.448  (observed diff -25262, ties 0)
+   FOP > v3       0.841  (observed diff +121049, ties 0)
+   FOP > v3CTR    0.468  (observed diff -11071, ties 0)
+   FOP > Opus     0.975  (observed diff +300004, ties 0)
+   Sw1 > Fable    0.521  (observed diff +12617, ties 0)
+   Sw1 > v3       0.947  (observed diff +158929, ties 0)
+   Sw1 > v3CTR    0.606  (observed diff +26808, ties 0)
+   Sw1 > Opus     0.995  (observed diff +337883, ties 0)
+   Fable > v3     0.775  (observed diff +146312, ties 0)
+   Fable > v3CTR  0.530  (observed diff +14191, ties 0)
+   Fable > Opus   0.950  (observed diff +325266, ties 0)
+   v3 > v3CTR     0.048  (observed diff -132120, ties 0)
+   v3 > Opus      0.963  (observed diff +178955, ties 0)
+   v3CTR > Opus   0.993  (observed diff +311075, ties 0)
+   5th/95th pct, P(>0): {'FOP': [335263, 762990, 1.0], 'Sw1': [383906, 792443, 1.0], 'Fable': [239877, 905054, 0.998], 'v3': [260165, 592031, 1.0], 'v3CTR': [328870, 792414, 1.0], 'Opus': [87009, 410122, 0.9944]}
+   P(best of the 6): {'FOP': 0.1354, 'Sw1': 0.2563, 'Fable': 0.3954, 'v3': 0.0036, 'v3CTR': 0.2088, 'Opus': 0.0005}
+-- 3. months
+   2026-05 Opus +20223 v2 +50724 v3 +45167 Fable +11182 FOP +31038 Sw1 +31038 v3CTR +20874  leader v2
+   2026-06 Opus +60993 v2 +68853 v3 +77820 Fable +28178 FOP +30956 Sw1 +23481 v3CTR +70402  leader v3
+   2026-07 Opus +17835 v2 +88635 v3 +88848 Fable +88852 FOP +178826 Sw1 +178826 v3CTR +146697  leader FOP
+   2026-08 Opus +31163 v2 +26753 v3 +27453 Fable +77121 FOP +106522 Sw1 +106522 v3CTR +77620  leader FOP
+   2026-09 Opus +36062 v2 +114030 v3 +108300 Fable +131269 FOP +78844 Sw1 +99118 v3CTR +174999  leader v3CTR
+   2026-10 Opus +29843 v2 +13344 v3 +21877 Fable +72926 FOP +31702 Sw1 +56782 v3CTR +8373  leader Fable
+   2026-11 Opus +48908 v2 +37545 v3 +54516 Fable +160764 FOP +87142 Sw1 +87142 v3CTR +57136  leader Fable
+   months beating Opus: {'v2': 4, 'v3': 5, 'Fable': 5, 'FOP': 6, 'Sw1': 6, 'v3CTR': 6}  excl. partial first/last month: {'v2': 3, 'v3': 3, 'Fable': 4, 'FOP': 4, 'Sw1': 4, 'v3CTR': 4}
+-- 4. concentration
+   Opus   net   +245027 best5  +133973 (54.7%) best month 2026-06   +60993 (24.9%) ex-best5   +111054 ex-best-month   +184033
+   v2     net   +399885 best5  +130392 (32.6%) best month 2026-09  +114030 (28.5%) ex-best5   +269493 ex-best-month   +285855
+   v3     net   +423981 best5  +145989 (34.4%) best month 2026-09  +108300 (25.5%) ex-best5   +277993 ex-best-month   +315682
+   Fable  net   +570293 best5  +269189 (47.2%) best month 2026-11  +160764 (28.2%) ex-best5   +301104 ex-best-month   +409529
+   FOP    net   +545031 best5  +199016 (36.5%) best month 2026-07  +178826 (32.8%) ex-best5   +346014 ex-best-month   +366204
+   Sw1    net   +582910 best5  +191190 (32.8%) best month 2026-07  +178826 (30.7%) ex-best5   +391720 ex-best-month   +404084
+   v3CTR  net   +556102 best5  +216549 (38.9%) best month 2026-09  +174999 (31.5%) ex-best5   +339553 ex-best-month   +381102
+-- 5. capital
+   Opus   max open   137543 at 2026-06-01 11:57:00+05:30 | iv x1.2:   165025 | days >3L 0, >2.5L 0 | largest single outlay 48320 | median day peak 46911
+   v2     max open   151972 at 2026-08-26 09:18:00+05:30 | iv x1.2:   182352 | days >3L 0, >2.5L 0 | largest single outlay 48598 | median day peak 47271
+   v3     max open   151972 at 2026-08-26 09:18:00+05:30 | iv x1.2:   182352 | days >3L 0, >2.5L 0 | largest single outlay 48598 | median day peak 45675
+   Fable  max open   233986 at 2026-08-20 09:19:00+05:30 | iv x1.2:   280747 | days >3L 0, >2.5L 0 | largest single outlay 57081 | median day peak 84557
+   FOP    max open   164145 at 2026-09-11 09:19:00+05:30 | iv x1.2:   196964 | days >3L 0, >2.5L 0 | largest single outlay 48598 | median day peak 40372
+   Sw1    max open   157276 at 2026-09-03 09:27:00+05:30 | iv x1.2:   188717 | days >3L 0, >2.5L 0 | largest single outlay 48598 | median day peak 42884
+   v3CTR  max open   208402 at 2026-09-28 11:43:00+05:30 | iv x1.2:   250041 | days >3L 0, >2.5L 0 | largest single outlay 48598 | median day peak 48185
+
+======== UNSEEN
+-- 1. six-month option net by scenario (Rs)
+scenario                            Opus        v2        v3     Fable       FOP       Sw1     v3CTR
+base                               22835     51160     84362      7603    202948    267606    249060   Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable
+decay1.5                           41232     66637     99340     49166    219246    284985    271269   Sw1 > v3CTR > FOP > v3 > v2 > Fable > Opus   CHANGED [('Opus', 'Fable')]
+decay3.5                           -4331     28292     62231    -53940    178827    241895    216214   Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable
+iv0.8                              71019    100062    132130    109318    254750    325371    319858   Sw1 > v3CTR > FOP > v3 > Fable > v2 > Opus   CHANGED [('v2', 'Fable'), ('Opus', 'Fable')]
+iv1.2                             -16969     11622     45770    -74875    162383    222134    192690   Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable
+slip0.5                           -19316      9326     43289    -52652    176121    233236    207573   Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable
+slip1.0                          -103617    -74344    -38858   -173161    122467    164496    124599   Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable
+lag3                               22144     50472     83693      6613    202504    267056    248396   Sw1 > v3CTR > FOP > v3 > v2 > Opus > Fable
+worst(decay3.5+slip1.0+lag3)     -131622    -98079    -61832   -235739     97857    138147     90999   Sw1 > FOP > v3CTR > v3 > v2 > Opus > Fable   CHANGED [('v3CTR', 'FOP')]
+-- 2. bootstrap P(first > second), 10,000 day resamples
+   FOP > Sw1      0.180  (observed diff -64659, ties 0)
+   FOP > Fable    0.899  (observed diff +195345, ties 0)
+   FOP > v3       0.868  (observed diff +118586, ties 0)
+   FOP > v3CTR    0.365  (observed diff -46112, ties 0)
+   FOP > Opus     0.907  (observed diff +180113, ties 0)
+   Sw1 > Fable    0.946  (observed diff +260004, ties 0)
+   Sw1 > v3       0.992  (observed diff +183244, ties 0)
+   Sw1 > v3CTR    0.581  (observed diff +18547, ties 0)
+   Sw1 > Opus     0.979  (observed diff +244771, ties 0)
+   Fable > v3     0.333  (observed diff -76759, ties 0)
+   Fable > v3CTR  0.105  (observed diff -241457, ties 0)
+   Fable > Opus   0.471  (observed diff -15232, ties 0)
+   v3 > v3CTR     0.042  (observed diff -164698, ties 0)
+   v3 > Opus      0.733  (observed diff +61527, ties 0)
+   v3CTR > Opus   0.956  (observed diff +226225, ties 0)
+   5th/95th pct, P(>0): {'FOP': [24141, 385078, 0.9704], 'Sw1': [77108, 458102, 0.9896], 'Fable': [-259637, 275158, 0.5194], 'v3': [-76493, 242791, 0.8062], 'v3CTR': [6040, 497408, 0.9536], 'Opus': [-120332, 169842, 0.6015]}
+   P(best of the 6): {'FOP': 0.1219, 'Sw1': 0.4467, 'Fable': 0.0359, 'v3': 0.0017, 'v3CTR': 0.3846, 'Opus': 0.0092}
+-- 3. months
+   2025-11 Opus +12009 v2 +11605 v3 +13453 Fable +52401 FOP +77896 Sw1 +77896 v3CTR +98770  leader v3CTR
+   2025-12 Opus -10850 v2 -1119 v3 +5722 Fable -99948 FOP -3462 Sw1 -3462 v3CTR +54866  leader v3CTR
+   2026-01 Opus +34576 v2 -34017 v3 -22630 Fable -26331 FOP +14046 Sw1 +30823 v3CTR +55427  leader v3CTR
+   2026-02 Opus -3487 v2 -13632 v3 -13632 Fable +76062 FOP +55422 Sw1 +44996 v3CTR -14791  leader Fable
+   2026-03 Opus +41470 v2 +66617 v3 +70033 Fable +15528 FOP -915 Sw1 +70033 v3CTR +46492  leader v3
+   2026-04 Opus -24212 v2 +24956 v3 +35214 Fable +1970 FOP +42957 Sw1 +30316 v3CTR +20384  leader FOP
+   2026-05 Opus -26672 v2 -3251 v3 -3798 Fable -12077 FOP +17005 Sw1 +17005 v3CTR -12089  leader FOP
+   months beating Opus: {'v2': 4, 'v3': 5, 'Fable': 4, 'FOP': 5, 'Sw1': 6, 'v3CTR': 6}  excl. partial first/last month: {'v2': 3, 'v3': 3, 'Fable': 2, 'FOP': 3, 'Sw1': 4, 'v3CTR': 4}
+-- 4. concentration
+   Opus   net    +22835 best5  +105939 (463.9%) best month 2026-03   +41470 (181.6%) ex-best5    -83104 ex-best-month    -18635
+   v2     net    +51160 best5  +108912 (212.9%) best month 2026-03   +66617 (130.2%) ex-best5    -57752 ex-best-month    -15457
+   v3     net    +84362 best5  +109967 (130.4%) best month 2026-03   +70033 (83.0%) ex-best5    -25605 ex-best-month    +14329
+   Fable  net     +7603 best5  +166139 (2185.3%) best month 2026-02   +76062 (1000.5%) ex-best5   -158537 ex-best-month    -68459
+   FOP    net   +202948 best5  +149112 (73.5%) best month 2025-11   +77896 (38.4%) ex-best5    +53836 ex-best-month   +125051
+   Sw1    net   +267606 best5  +135564 (50.7%) best month 2025-11   +77896 (29.1%) ex-best5   +132043 ex-best-month   +189710
+   v3CTR  net   +249060 best5  +233094 (93.6%) best month 2025-11   +98770 (39.7%) ex-best5    +15966 ex-best-month   +150289
+-- 5. capital
+   Opus   max open   188976 at 2026-01-21 10:00:00+05:30 | iv x1.2:   226719 | days >3L 0, >2.5L 0 | largest single outlay 52067 | median day peak 57114
+   v2     max open   188976 at 2026-01-21 10:00:00+05:30 | iv x1.2:   226719 | days >3L 0, >2.5L 0 | largest single outlay 55660 | median day peak 59571
+   v3     max open   188976 at 2026-01-21 10:00:00+05:30 | iv x1.2:   226719 | days >3L 0, >2.5L 0 | largest single outlay 55660 | median day peak 60542
+   Fable  max open   210899 at 2025-11-27 09:19:00+05:30 | iv x1.2:   253050 | days >3L 0, >2.5L 0 | largest single outlay 55660 | median day peak 102110
+   FOP    max open   144599 at 2026-03-04 09:18:00+05:30 | iv x1.2:   173499 | days >3L 0, >2.5L 0 | largest single outlay 55660 | median day peak 44767
+   Sw1    max open   188976 at 2026-01-21 10:00:00+05:30 | iv x1.2:   226719 | days >3L 0, >2.5L 0 | largest single outlay 55660 | median day peak 56163
+   v3CTR  max open   188976 at 2026-01-21 10:00:00+05:30 | iv x1.2:   226719 | days >3L 0, >2.5L 0 | largest single outlay 55660 | median day peak 63792
+
+-- json cross-check mismatches (> Rs 1): none

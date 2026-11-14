@@ -1,0 +1,24 @@
+regime NaN rows 0 days by regime {'Downtrend': 33, 'Sideways': 69, 'Uptrend': 24}
+regime label mismatches vs H.regime on real days: 0 []
+D[real].regime vs my regime, row mismatches: 0
+same-day leakage by construction: 0 (labels use cl[:i] only); harness uses c.shift(1) and rolling(..).mean().shift(1)
+
+model                                            n  json |    fut mine        json |     worst      json |     maxDD      json
+Opus (T1), live model                          369   369 |      250359      250359 |    -38733    -38733 |    -83253    -83253
+Opus v2 (T1)                                   353   353 |      528284      528284 |    -45315    -45315 |    -98957    -98957
+Opus v3 (T1)                                   335   335 |      589038      589038 |    -41636    -41636 |    -98136    -98136
+Fable (T3)                                     475   475 |      473539      473539 |    -65932    -65932 |   -182156   -182156
+Fable-OP (T3)                                  233   233 |      702290      702290 |    -56275    -56275 |    -80919    -80919
+Opus v3, trailing stop to close (CLOSE_TR)     335   335 |      766300      766300 |    -41636    -41636 |   -121007   -121007
+Switch-1                                       272   272 |      811393      811393 |    -42241    -42241 |    -70497    -70497
+
+monthly futures (mine):
+  Opus (T1), live model                        05 +14731 06 +91531 07 +727 08 +35089 09 +37963 10 +4489 11 +65829
+  Opus v2 (T1)                                 05 +79446 06 +93020 07 +111580 08 +8708 09 +200858 10 -18926 11 +53598
+  Opus v3 (T1)                                 05 +68915 06 +107734 07 +116793 08 +15555 09 +193158 10 +266 11 +86618
+  Fable (T3)                                   05 -25297 06 -47995 07 +38839 08 +40120 09 +162967 10 +60007 11 +244898
+  Fable-OP (T3)                                05 +56567 06 +19065 07 +242901 08 +115175 09 +96500 10 +44718 11 +127365
+  Opus v3, trailing stop to close (CLOSE_TR)   05 +18084 06 +70150 07 +213509 08 +100464 09 +288204 10 -17489 11 +93378
+  Switch-1                                     05 +56567 06 +6323 07 +242901 08 +115175 09 +187449 10 +75613 11 +127365
+
+MISMATCHES (> Rs 1 or count): 0

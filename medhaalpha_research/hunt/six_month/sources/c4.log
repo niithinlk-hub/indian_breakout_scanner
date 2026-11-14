@@ -1,0 +1,43 @@
+
+real window 2026-05-12..2026-11-11: nifty trading days 127, source files/days 126, sessions in D 126, json n 126
+  per month nifty : {'2026-05': 13, '2026-06': 21, '2026-07': 23, '2026-08': 21, '2026-09': 21, '2026-10': 20, '2026-11': 8}
+  per month D     : {'2026-05': 13, '2026-06': 21, '2026-07': 23, '2026-08': 21, '2026-09': 21, '2026-10': 20, '2026-11': 7}
+  per month json  : {'2026-05': 13, '2026-06': 21, '2026-07': 23, '2026-08': 21, '2026-09': 21, '2026-10': 20, '2026-11': 7}
+  nifty days with no source day/file: ['2026-11-08']
+  source days with no A/B signal kept (no signal at all): []
+  D days that are not nifty trading days: []
+  => sessions with no signal in D (counted as absent, not flat): ['2026-11-08']
+  nifty days on weekends: ['2026-11-08']
+
+unseen window 2025-11-03..2026-05-11: nifty trading days 127, source files/days 127, sessions in D 127, json n 127
+  per month nifty : {'2025-11': 19, '2025-12': 22, '2026-01': 20, '2026-02': 21, '2026-03': 19, '2026-04': 20, '2026-05': 6}
+  per month D     : {'2025-11': 19, '2025-12': 22, '2026-01': 20, '2026-02': 21, '2026-03': 19, '2026-04': 20, '2026-05': 6}
+  per month json  : {'2025-11': 19, '2025-12': 22, '2026-01': 20, '2026-02': 21, '2026-03': 19, '2026-04': 20, '2026-05': 6}
+  nifty days with no source day/file: []
+  source days with no A/B signal kept (no signal at all): []
+  D days that are not nifty trading days: []
+  => sessions with no signal in D (counted as absent, not flat): []
+  nifty days on weekends: ['2026-02-01']
+
+real: effect of using all 127 nifty days instead of 126 sessions
+  Opus (T1), live model                        fut worst/DD (-38733, -83253) -> (-38733, -83253) | opt worst/DD (-21222, -28983) -> (-21222, -28983) | json fut -38733/-83253 opt -21222/-28983 | tpd 2.93 -> 2.91
+  Opus v2 (T1)                                 fut worst/DD (-45315, -98957) -> (-45315, -98957) | opt worst/DD (-22812, -37123) -> (-22812, -37123) | json fut -45315/-98957 opt -22812/-37123 | tpd 2.80 -> 2.78
+  Opus v3 (T1)                                 fut worst/DD (-41636, -98136) -> (-41636, -98136) | opt worst/DD (-18863, -36768) -> (-18863, -36768) | json fut -41636/-98136 opt -18863/-36768 | tpd 2.66 -> 2.64
+  Fable (T3)                                   fut worst/DD (-65932, -182156) -> (-65932, -182156) | opt worst/DD (-35551, -72788) -> (-35551, -72788) | json fut -65932/-182156 opt -35551/-72788 | tpd 3.77 -> 3.74
+  Fable-OP (T3)                                fut worst/DD (-56275, -80919) -> (-56275, -80919) | opt worst/DD (-26335, -37024) -> (-26335, -37024) | json fut -56275/-80919 opt -26335/-37024 | tpd 1.85 -> 1.83
+  Switch-1                                     fut worst/DD (-42241, -70497) -> (-42241, -70497) | opt worst/DD (-23143, -28584) -> (-23143, -28584) | json fut -42241/-70497 opt -23143/-28584 | tpd 2.16 -> 2.14
+  Opus v3, trailing stop to close (CLOSE_TR)   fut worst/DD (-41636, -121007) -> (-41636, -121007) | opt worst/DD (-18867, -53487) -> (-18867, -53487) | json fut -41636/-121007 opt -18867/-53487 | tpd 2.66 -> 2.64
+
+unseen: effect of using all 127 nifty days instead of 127 sessions
+  Opus (T1), live model                        fut worst/DD (-57143, -241373) -> (-57143, -241373) | opt worst/DD (-25651, -65258) -> (-25651, -65258) | json fut -57143/-241373 opt -25651/-65258 | tpd 3.06 -> 3.06
+  Opus v2 (T1)                                 fut worst/DD (-57143, -317798) -> (-57143, -317798) | opt worst/DD (-25651, -81697) -> (-25651, -81697) | json fut -57143/-317798 opt -25651/-81697 | tpd 2.95 -> 2.95
+  Opus v3 (T1)                                 fut worst/DD (-57143, -265310) -> (-57143, -265310) | opt worst/DD (-25651, -63667) -> (-25651, -63667) | json fut -57143/-265310 opt -25651/-63667 | tpd 2.88 -> 2.88
+  Fable (T3)                                   fut worst/DD (-69079, -573634) -> (-69079, -573634) | opt worst/DD (-29675, -153041) -> (-29675, -153041) | json fut -69079/-573634 opt -29675/-153041 | tpd 3.96 -> 3.96
+  Fable-OP (T3)                                fut worst/DD (-36437, -138938) -> (-36437, -138938) | opt worst/DD (-16461, -48875) -> (-16461, -48875) | json fut -36437/-138938 opt -16461/-48875 | tpd 1.83 -> 1.83
+  Switch-1                                     fut worst/DD (-57143, -162215) -> (-57143, -162215) | opt worst/DD (-25651, -48875) -> (-25651, -48875) | json fut -57143/-162215 opt -25651/-48875 | tpd 2.35 -> 2.35
+  Opus v3, trailing stop to close (CLOSE_TR)   fut worst/DD (-57143, -209372) -> (-57143, -209372) | opt worst/DD (-25651, -56841) -> (-25651, -56841) | json fut -57143/-209372 opt -25651/-56841 | tpd 2.88 -> 2.88
+regime NaN rows in real 0
+regime NaN rows in unseen 0
+regime NaN rows in known 0
+no-leak probe: labels changed by perturbing the same-day close: 0
+weekdays absent from nifty_daily (should be NSE holidays only): ['2025-10-02', '2025-10-22', '2025-11-05', '2025-12-25', '2026-01-15', '2026-01-26', '2026-03-03', '2026-03-26', '2026-03-31', '2026-04-03', '2026-04-14', '2026-05-01', '2026-05-28', '2026-06-26', '2026-09-14', '2026-10-02', '2026-10-20', '2026-11-10']

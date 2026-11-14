@@ -4,9 +4,9 @@ Signal sets (each row = one scanner signal of setup A (long, trend breakout) or 
 features known at the signal minute and the result of every exit policy, sized to risk Rs 15,000 a trade,
 after charges and 0.02 % slippage a side):
   real    12 May - 11 Nov 2026, 126 sessions, REAL futures prices (the scanner's own six-month backtest).
-  unseen  3 Nov 2025 - 11 May 2026, 131 sessions, cash-share stand-in prices (the scanner replayed on cash
+  unseen  3 Nov 2025 - 11 May 2026, 127 sessions, cash-share stand-in prices (the scanner replayed on cash
           candles). No model here was built on these dates -> the fairest test.
-  known   12 May - 19 Oct 2026, 115 sessions, cash-share stand-in for the same dates as `real` (cross-check).
+  known   12 May - 19 Oct 2026, 111 sessions, cash-share stand-in for the same dates as `real` (cross-check).
 Exit policies (columns net_<P>, r_<P>):  T1 (book all at 1.0R), T2 (1.9R), T3 (2.6R), CLOSE (stop only, square off
   at the close), T2_TR / T3_TR / CLOSE_TR (same, stop trails: to entry after T1, to T1 after T2, to T2 after T3).
   Stop is unchanged in T1/T2/T3/CLOSE. Positions that are still open at 15:29 are squared off.

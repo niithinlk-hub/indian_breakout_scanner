@@ -1,0 +1,61 @@
+proxy A/B usable signals 5051 dropped no_data 471 missing policy nets 0 days 127
+duplicate keys in proxy 0
+raw vs D[unseen] join {'both': 5051, 'left_only': 0, 'right_only': 0}
+  s_opus        max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  s_fable       max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  s_fable_op    max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  s_opus_v2     max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  s_opus_v3     max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  net_T1        max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  net_T2        max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  net_T3        max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  net_CLOSE     max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  net_T2_TR     max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  net_T3_TR     max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  net_CLOSE_TR  max |diff| 0.000000  rows over tol 0  NaN mismatch 0  NaN in D 0
+  scanner opus_v2 vs harness s_opus_v2: rows differ 0 (of 5051), NaN scanner 0
+  scanner opus_v3 vs harness s_opus_v3: rows differ 0 (of 5051), NaN scanner 0
+  snapshot rel_vol vs top-level rel_vol max diff 0.0005000000000006111
+
+live rule on raw unseen rows vs six_month.json (mine/json):
+  Opus (T1), live model                        n 388/388 fut -179918/-179918 worst -57143/-57143 dd -241373/-241373
+  Opus v2 (T1)                                 n 375/375 fut -203092/-203092 worst -57143/-57143 dd -317798/-317798
+  Opus v3 (T1)                                 n 366/366 fut -128597/-128597 worst -57143/-57143 dd -265310/-265310
+  Fable (T3)                                   n 503/503 fut -526521/-526521 worst -69079/-69079 dd -573634/-573634
+  Fable-OP (T3)                                n 232/232 fut 78849/78849 worst -36437/-36437 dd -138938/-138938
+  Opus v3, trailing stop to close (CLOSE_TR)   n 366/366 fut 54081/54081 worst -57143/-57143 dd -209372/-209372
+  Switch-1                                     n 298/298 fut 178272/178272 worst -57143/-57143 dd -162215/-162215
+unseen mismatches: 0
+  using scanner opus_v2 score: n 375, T1 fut -203092 (json harness-derived: n 375, fut -203092)
+  using scanner opus_v3 score: n 366, T1 fut -128597 (json harness-derived: n 366, fut -128597)
+  2025-11-14 09:20 BDL         A  opus  39.4/ 39.4 fable-5  41.8/ 41.8 fop  86.3/ 86.3 v3  86.3/ 86.3  T1  10654.72/ 10654.72 T3   1842.34/  1842.34 CLTR   -705.81/  -705.81 ok
+  2026-04-23 12:23 BDL         A  opus  76.0/ 76.0 fable-5  -1.1/ -1.1 fop  50.5/ 50.5 v3   0.0/  0.0  T1  10867.00/ 10867.00 T3  10803.30/ 10803.30 CLTR  10803.30/ 10803.30 ok
+  2025-12-08 09:33 HINDALCO    A  opus  49.9/ 49.9 fable-5  76.9/ 76.9 fop  73.1/ 73.1 v3  73.1/ 73.1  T1 -13134.17/-13134.17 T3 -13134.17/-13134.17 CLTR -13134.17/-13134.17 ok
+  2026-03-18 09:26 LUPIN       A  opus  52.4/ 52.4 fable-5  82.0/ 82.0 fop  34.5/ 34.5 v3   0.0/  0.0  T1  -4181.94/ -4181.94 T3  -4181.94/ -4181.94 CLTR  -4181.94/ -4181.94 ok
+  2026-02-26 09:17 BAJAJ-AUTO  A  opus  37.3/ 37.3 fable-5  95.0/ 95.0 fop  55.9/ 55.9 v3   0.0/  0.0  T1  -7941.25/ -7941.25 T3  -7941.25/ -7941.25 CLTR  -7941.25/ -7941.25 ok
+  2026-03-10 09:17 TORNTPHARM  A  opus  43.4/ 43.4 fable-5  87.5/ 87.5 fop  42.8/ 42.8 v3   0.0/  0.0  T1    584.57/   584.57 T3    584.57/   584.57 CLTR    584.57/   584.57 ok
+  2026-03-30 09:17 ONGC        A  opus  47.2/ 47.2 fable-5  77.7/ 77.7 fop  83.2/ 83.2 v3  83.2/ 83.2  T1  -2016.47/ -2016.47 T3  -2016.47/ -2016.47 CLTR  -2016.47/ -2016.47 ok
+  2025-11-07 09:19 WIPRO       B  opus  45.4/ 45.4 fable-5  89.7/ 89.7 fop  63.0/ 63.0 v3  45.4/ 45.4  T1     20.19/    20.19 T3     20.19/    20.19 CLTR     20.19/    20.19 ok
+  2025-11-20 12:19 PGEL        A  opus  80.4/ 80.4 fable-5   1.9/  1.9 fop  40.7/ 40.7 v3   0.0/  0.0  T1  -2869.86/ -2869.86 T3  -2869.86/ -2869.86 CLTR  -2869.86/ -2869.86 ok
+  2026-02-03 09:17 JSWSTEEL    A  opus  31.1/ 31.1 fable-5  84.1/ 84.1 fop  77.3/ 77.3 v3  77.3/ 77.3  T1   9406.21/  9406.21 T3   2188.93/  2188.93 CLTR   -846.38/  -846.38 ok
+  2025-12-11 12:12 BHARATFORG  A  opus  85.5/ 85.5 fable-5  56.1/ 56.1 fop  55.8/ 55.8 v3  55.8/ 55.8  T1  -1377.09/ -1377.09 T3  -1377.09/ -1377.09 CLTR  -1377.09/ -1377.09 ok
+  2025-11-28 12:51 IEX         A  opus  77.3/ 77.3 fable-5  28.3/ 28.3 fop  63.8/ 63.8 v3  63.8/ 63.8  T1  -9765.74/ -9765.74 T3  -9765.74/ -9765.74 CLTR  -9765.74/ -9765.74 ok
+  2026-02-17 12:31 ADANIGREEN  A  opus  91.4/ 91.4 fable-5   9.1/  9.1 fop  38.2/ 38.2 v3  38.2/ 38.2  T1   3356.18/  3356.18 T3   3356.18/  3356.18 CLTR   3356.18/  3356.18 ok
+  2025-12-09 09:17 PIIND       B  opus  30.9/ 30.9 fable-5  79.6/ 79.6 fop  58.8/ 58.8 v3  30.9/ 30.9  T1   9701.04/  9701.04 T3 -13544.60/-13544.60 CLTR  -2271.85/ -2271.85 ok
+  2025-12-24 09:17 MANAPPURAM  A  opus  38.1/ 38.1 fable-5  92.3/ 92.3 fop  63.8/ 63.8 v3  63.8/ 63.8  T1   8683.83/  8683.83 T3  23972.76/ 23972.76 CLTR  17377.54/ 17377.54 ok
+  2026-02-01 12:20 JIOFIN      B  opus  75.7/ 75.7 fable-5  -2.0/ -2.0 fop  38.1/ 38.1 v3  75.7/ 75.7  T1  10318.54/ 10318.54 T3  14314.51/ 14314.51 CLTR  10318.54/ 10318.54 ok
+  2025-11-04 09:17 BHARTIARTL  A  opus  36.3/ 36.3 fable-5  95.0/ 95.0 fop  91.3/ 91.3 v3  91.3/ 91.3  T1  -7096.40/ -7096.40 T3  -7096.40/ -7096.40 CLTR  -7096.40/ -7096.40 ok
+  2026-04-21 09:18 GRASIM      A  opus  34.8/ 34.8 fable-5  85.8/ 85.8 fop  53.7/ 53.7 v3   0.0/  0.0  T1  -1166.45/ -1166.45 T3  -1166.45/ -1166.45 CLTR  -1166.45/ -1166.45 ok
+  2025-11-12 09:17 ADANIPORTS  A  opus  41.0/ 41.0 fable-5  94.2/ 94.2 fop  58.4/ 58.4 v3  58.4/ 58.4  T1  11881.60/ 11881.60 T3  18147.05/ 18147.05 CLTR  11881.60/ 11881.60 ok
+  2026-01-06 09:26 POLYCAB     A  opus  62.1/ 62.1 fable-5  86.2/ 86.2 fop  68.7/ 68.7 v3   0.0/  0.0  T1  -9490.06/ -9490.06 T3  -9490.06/ -9490.06 CLTR  -9490.06/ -9490.06 ok
+  2026-01-07 09:22 AUROPHARMA  A  opus  49.6/ 49.6 fable-5  82.1/ 82.1 fop  61.2/ 61.2 v3  61.2/ 61.2  T1   6162.85/  6162.85 T3  -5543.69/ -5543.69 CLTR   6162.85/  6162.85 ok
+  2026-01-14 11:27 SHREECEM    A  opus  75.4/ 75.4 fable-5  36.4/ 36.4 fop  53.5/ 53.5 v3  53.5/ 53.5  T1   3662.62/  3662.62 T3   3662.62/  3662.62 CLTR   3662.62/  3662.62 ok
+  2025-12-24 09:23 MFSL        A  opus  32.4/ 32.4 fable-5  86.1/ 86.1 fop  60.8/ 60.8 v3  60.8/ 60.8  T1 -13996.22/-13996.22 T3 -13996.22/-13996.22 CLTR -13996.22/-13996.22 ok
+  2026-01-12 09:23 COCHINSHIP  B  opus  78.5/ 78.5 fable-5  48.0/ 48.0 fop  49.3/ 49.3 v3  78.5/ 78.5  T1  -8121.48/ -8121.48 T3  -8121.48/ -8121.48 CLTR  -8121.48/ -8121.48 ok
+  2026-04-02 09:19 HINDUNILVR  B  opus  45.6/ 45.6 fable-5  85.4/ 85.4 fop  56.8/ 56.8 v3  45.6/ 45.6  T1  -8318.10/ -8318.10 T3  -8318.10/ -8318.10 CLTR  -8318.10/ -8318.10 ok
+  2025-11-14 09:26 PGEL        A  opus  99.5/ 99.5 fable-5  44.8/ 44.8 fop  80.0/ 80.0 v3  80.0/ 80.0  T1 -14770.26/-14770.26 T3 -14770.26/-14770.26 CLTR -14770.26/-14770.26 ok
+  2025-12-09 09:19 NHPC        B  opus  39.4/ 39.4 fable-5  86.1/ 86.1 fop  65.0/ 65.0 v3  39.4/ 39.4  T1  10941.66/ 10941.66 T3 -14918.61/-14918.61 CLTR  -1571.37/ -1571.37 ok
+  2026-04-28 09:20 TATASTEEL   A  opus  55.2/ 55.2 fable-5  89.5/ 89.5 fop  63.5/ 63.5 v3  63.5/ 63.5  T1  11175.50/ 11175.50 T3    348.33/   348.33 CLTR  -1190.54/ -1190.54 ok
+  2026-04-13 10:06 SUPREMEIND  A  opus  75.9/ 75.9 fable-5  22.4/ 22.4 fop  40.2/ 40.2 v3  40.2/ 40.2  T1  -9036.66/ -9036.66 T3  -9036.66/ -9036.66 CLTR  -9036.66/ -9036.66 ok
+  2026-03-05 09:17 DRREDDY     A  opus  50.8/ 50.8 fable-5  84.1/ 84.1 fop  57.0/ 57.0 v3   0.0/  0.0  T1   8097.40/  8097.40 T3   2788.74/  2788.74 CLTR   2788.74/  2788.74 ok
+random-30 rows with any mismatch: 0

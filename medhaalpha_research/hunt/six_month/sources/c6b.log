@@ -1,0 +1,18 @@
+cfg risk_budget_rs 15000.0 lots_per_trade 1 slippage 0.02
+scanner lots_for==0 rows: 108 | agrees with my reimplementation: True
+o_lots on those rows: {1.0: 108}
+o_lots == sc_lots on the other rows: True
+per-lot risk at stop on fallback rows (Rs): min 15010 median 15864 max 23125 (budget 15000)
+fallback rows by symbol (top): {'NYKAA': 6, 'MUTHOOTFIN': 5, 'ANGELONE': 4, 'SHRIRAMFIN': 4, 'BOSCHLTD': 4, 'PRESTIGE': 3, 'BHARATFORG': 3, 'TECHM': 3, 'POWERINDIA': 3, 'CGPOWER': 3, 'IDEA': 3, 'SAIL': 3}
+
+REAL picked trades with the 1-lot fallback (scanner sizing on cash price/stop = 0 lots, o_qty = 1 lot):
+  model                                           n    fb     opt fb     fut fb  opt total   opt ex-fb  qty NaN
+  Opus (T1), live model                         369    13      +4359      -4547    +245027     +240668        0
+  Opus v2 (T1)                                  353    15     -13152     -26264    +399885     +413036        0
+  Opus v3 (T1)                                  335    14      -8156     -17824    +423981     +432137        0
+  Fable (T3)                                    475    10     +56691     +80182    +570293     +513602        0
+  Fable-OP (T3)                                 233     6     -12925     -22131    +545031     +557956        0
+  Switch-1                                      272     9     -17958     -27520    +582910     +600868        0
+  Opus v3, trailing stop to close (CLOSE_TR)    335    14     -14791     -32361    +556102     +570892        0
+
+UNSEEN: o_qty == lot*lots for all rows: True | lots min 1

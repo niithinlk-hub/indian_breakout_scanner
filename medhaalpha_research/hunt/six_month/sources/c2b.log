@@ -1,0 +1,6 @@
+opus days 126 | day count mismatches 0 [] | day net mismatches > Rs 1: 0 []
+   sum of scanner daily (rupee-rounded) vs my unrounded totals: {'T1': (250362.0, 250359.08), 'T3': (343410.0, 343411.33), 'CLOSE_TR': (324787.0, 324785.75)}
+fable days 126 | day count mismatches 0 [] | day net mismatches > Rs 1: 0 []
+   sum of scanner daily (rupee-rounded) vs my unrounded totals: {'T1': (-161958.0, -161958.6), 'T3': (473541.0, 473539.33), 'CLOSE_TR': (495494.0, 495497.78)}
+fable_op days 126 | day count mismatches 0 [] | day net mismatches > Rs 1: 0 []
+   sum of scanner daily (rupee-rounded) vs my unrounded totals: {'T1': (361285.0, 361287.43), 'T3': (702294.0, 702290.4), 'CLOSE_TR': (682427.0, 682431.07)}

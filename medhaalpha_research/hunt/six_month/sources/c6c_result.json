@@ -1,0 +1,65 @@
+{
+ "Opus (T1), live model": {
+  "n": 369,
+  "clean": 99,
+  "equal": 83,
+  "opt_more_lots": 6,
+  "opt_fewer_lots": 10,
+  "opt_net_mismatched_rows": 76935,
+  "opt_change_if_fut_lots": 17725
+ },
+ "Opus v2 (T1)": {
+  "n": 353,
+  "clean": 139,
+  "equal": 115,
+  "opt_more_lots": 8,
+  "opt_fewer_lots": 16,
+  "opt_net_mismatched_rows": 114857,
+  "opt_change_if_fut_lots": 50482
+ },
+ "Opus v3 (T1)": {
+  "n": 335,
+  "clean": 135,
+  "equal": 111,
+  "opt_more_lots": 8,
+  "opt_fewer_lots": 16,
+  "opt_net_mismatched_rows": 114857,
+  "opt_change_if_fut_lots": 50482
+ },
+ "Fable (T3)": {
+  "n": 475,
+  "clean": 168,
+  "equal": 129,
+  "opt_more_lots": 10,
+  "opt_fewer_lots": 29,
+  "opt_net_mismatched_rows": 343467,
+  "opt_change_if_fut_lots": 120573
+ },
+ "Fable-OP (T3)": {
+  "n": 233,
+  "clean": 113,
+  "equal": 93,
+  "opt_more_lots": 7,
+  "opt_fewer_lots": 13,
+  "opt_net_mismatched_rows": 151143,
+  "opt_change_if_fut_lots": 105099
+ },
+ "Switch-1": {
+  "n": 272,
+  "clean": 126,
+  "equal": 104,
+  "opt_more_lots": 8,
+  "opt_fewer_lots": 14,
+  "opt_net_mismatched_rows": 134468,
+  "opt_change_if_fut_lots": 94457
+ },
+ "Opus v3, trailing stop to close (CLOSE_TR)": {
+  "n": 335,
+  "clean": 135,
+  "equal": 111,
+  "opt_more_lots": 8,
+  "opt_fewer_lots": 16,
+  "opt_net_mismatched_rows": 126791,
+  "opt_change_if_fut_lots": 92344
+ }
+}

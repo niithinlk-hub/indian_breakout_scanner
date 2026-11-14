@@ -1,0 +1,34 @@
+lot table (optlayer) symbols 218 | proxy lot sizes symbols 199 with >1 lot size across proxy days 0
+symbols whose optlayer lot is not among proxy lot sizes: 0 []
+
+REAL all rows: 4996; o_qty NaN 0, o_qty 0 0, lot unknown 0; my lots_for==0 108; o_qty != my_qty (both finite) 0
+o_qty vs futures qty implied by pull.json (|r|>=0.5 rows 3559): median rel diff 0.012, |rel|>0.25 in 960 rows, o_lots/imp_lots ratio quantiles [0.524, 0.651, 0.882, 1.012, 1.171, 1.577, 1.975]
+implied lots for o_qty-NaN rows (does the futures leg trade them?): [0.0, nan, nan, nan]
+implied lots < 0.5 (futures leg effectively 0 lots) rows: 8
+  rows with o_exit_ts_T1 missing: 0, o_F1 NaN 0, o_F0 NaN 0
+  rows with o_exit_ts_T3 missing: 0, o_F1 NaN 0, o_F0 NaN 0
+  rows with o_exit_ts_CLOSE_TR missing: 0, o_F1 NaN 0, o_F0 NaN 0
+
+REAL picked trades: per model
+  model                                            n qtyNaN fut(NaN)   qty=1lot opt1lot   fut(1lot)  noExitTs    opt(nf) !=lotsfor     opt(!=)
+  Opus (T1), live model                          369      0        0        289 +155667     +157588         0         +0         0          +0   opt total 245027 (json 245027)
+  Opus v2 (T1)                                   353      0        0        252 +285199     +417061         0         +0         0          +0   opt total 399885 (json 399885)
+  Opus v3 (T1)                                   335      0        0        241 +297436     +445984         0         +0         0          +0   opt total 423981 (json 423981)
+  Fable (T3)                                     475      0        0        286 +244736      +97919         0         +0         0          +0   opt total 570293 (json 570293)
+  Fable-OP (T3)                                  233      0        0        146 +324002     +446671         0         +0         0          +0   opt total 545031 (json 545031)
+  Switch-1                                       272      0        0        181 +397785     +573316         0         +0         0          +0   opt total 582910 (json 582910)
+  Opus v3, trailing stop to close (CLOSE_TR)     335      0        0        241 +394848     +572036         0         +0         0          +0   opt total 556102 (json 556102)
+
+UNSEEN picked trades: per model
+  model                                            n qtyNaN fut(NaN)   qty=1lot opt1lot   fut(1lot)  noExitTs    opt(nf) !=lotsfor     opt(!=)
+  Opus (T1), live model                          388      0        0        325  +27339     -114096         0         +0         0          +0   opt total 22835 (json 22835)
+  Opus v2 (T1)                                   375      0        0        277  +26404     -126731         0         +0         0          +0   opt total 51160 (json 51160)
+  Opus v3 (T1)                                   366      0        0        271  +51587      -73010         0         +0         0          +0   opt total 84362 (json 84362)
+  Fable (T3)                                     503      0        0        298 -114900     -456741         0         +0         0          +0   opt total 7603 (json 7603)
+  Fable-OP (T3)                                  232      0        0        147  +76286       -3822         0         +0         0          +0   opt total 202948 (json 202948)
+  Switch-1                                       298      0        0        209 +109131      +33785         0         +0         0          +0   opt total 267606 (json 267606)
+  Opus v3, trailing stop to close (CLOSE_TR)     366      0        0        271  +85919      -64005         0         +0         0          +0   opt total 249060 (json 249060)
+  unseen o_qty vs proxy lot*lots: mismatches 0 lots==0 0
+
+REAL picked rows with o_qty NaN (any model):
+  none

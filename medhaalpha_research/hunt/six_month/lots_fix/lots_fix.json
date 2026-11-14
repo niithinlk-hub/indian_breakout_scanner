@@ -1,0 +1,202 @@
+{
+ "part1_sep_nov_exact": {
+  "Opus (T1)": {
+   "n": 156,
+   "n_exact": 109,
+   "current": 114813,
+   "exact": 119101,
+   "current_same_rows": 59656,
+   "exact_same_rows": 63944,
+   "fut": 108281,
+   "months_current": {
+    "2026-09": 36062,
+    "2026-10": 29843,
+    "2026-11": 48908
+   },
+   "months_exact": {
+    "2026-09": 50168,
+    "2026-10": 27793,
+    "2026-11": 41141
+   },
+   "lots_equal_pct": 92.7
+  },
+  "Opus v2 (T1)": {
+   "n": 141,
+   "n_exact": 103,
+   "current": 164919,
+   "exact": 170107,
+   "current_same_rows": 96020,
+   "exact_same_rows": 101208,
+   "fut": 235530,
+   "months_current": {
+    "2026-09": 114030,
+    "2026-10": 13344,
+    "2026-11": 37545
+   },
+   "months_exact": {
+    "2026-09": 117156,
+    "2026-10": 16924,
+    "2026-11": 36027
+   },
+   "lots_equal_pct": 91.3
+  },
+  "Opus v3 (T1)": {
+   "n": 136,
+   "n_exact": 100,
+   "current": 184693,
+   "exact": 190658,
+   "current_same_rows": 114099,
+   "exact_same_rows": 120064,
+   "fut": 280042,
+   "months_current": {
+    "2026-09": 108300,
+    "2026-10": 21877,
+    "2026-11": 54516
+   },
+   "months_exact": {
+    "2026-09": 112033,
+    "2026-10": 25748,
+    "2026-11": 52878
+   },
+   "lots_equal_pct": 92.0
+  },
+  "Fable (T3)": {
+   "n": 159,
+   "n_exact": 101,
+   "current": 364959,
+   "exact": 356139,
+   "current_same_rows": 166893,
+   "exact_same_rows": 158072,
+   "fut": 467872,
+   "months_current": {
+    "2026-09": 131269,
+    "2026-10": 72926,
+    "2026-11": 160764
+   },
+   "months_exact": {
+    "2026-09": 156686,
+    "2026-10": 49679,
+    "2026-11": 149774
+   },
+   "lots_equal_pct": 88.1
+  },
+  "Fable-OP (T3)": {
+   "n": 73,
+   "n_exact": 56,
+   "current": 197688,
+   "exact": 239183,
+   "current_same_rows": 124130,
+   "exact_same_rows": 165625,
+   "fut": 268584,
+   "months_current": {
+    "2026-09": 78844,
+    "2026-10": 31702,
+    "2026-11": 87142
+   },
+   "months_exact": {
+    "2026-09": 112593,
+    "2026-10": 43820,
+    "2026-11": 82770
+   },
+   "lots_equal_pct": 85.7
+  },
+  "Switch-1": {
+   "n": 112,
+   "n_exact": 77,
+   "current": 243042,
+   "exact": 272868,
+   "current_same_rows": 168798,
+   "exact_same_rows": 198624,
+   "fut": 390428,
+   "months_current": {
+    "2026-09": 99118,
+    "2026-10": 56782,
+    "2026-11": 87142
+   },
+   "months_exact": {
+    "2026-09": 126815,
+    "2026-10": 63284,
+    "2026-11": 82770
+   },
+   "lots_equal_pct": 89.6
+  },
+  "Opus v3 CLOSE_TR": {
+   "n": 136,
+   "n_exact": 100,
+   "current": 240509,
+   "exact": 266719,
+   "current_same_rows": 139589,
+   "exact_same_rows": 165800,
+   "fut": 364093,
+   "months_current": {
+    "2026-09": 174999,
+    "2026-10": 8373,
+    "2026-11": 57136
+   },
+   "months_exact": {
+    "2026-09": 187735,
+    "2026-10": 20668,
+    "2026-11": 58316
+   },
+   "lots_equal_pct": 92.0
+  }
+ },
+ "part2_inferred": {
+  "Opus (T1)": {
+   "rows": 99,
+   "current": 553503,
+   "fut_lots_and_move": 546567,
+   "lots_only": 571228,
+   "total_current": 245027,
+   "total_with_fix": 238091
+  },
+  "Opus v2 (T1)": {
+   "rows": 139,
+   "current": 747518,
+   "fut_lots_and_move": 756516,
+   "lots_only": 798000,
+   "total_current": 399885,
+   "total_with_fix": 408882
+  },
+  "Opus v3 (T1)": {
+   "rows": 135,
+   "current": 725993,
+   "fut_lots_and_move": 731479,
+   "lots_only": 776475,
+   "total_current": 423981,
+   "total_with_fix": 429467
+  },
+  "Fable (T3)": {
+   "rows": 168,
+   "current": 1370794,
+   "fut_lots_and_move": 1311724,
+   "lots_only": 1491366,
+   "total_current": 570293,
+   "total_with_fix": 511223
+  },
+  "Fable-OP (T3)": {
+   "rows": 113,
+   "current": 854597,
+   "fut_lots_and_move": 853373,
+   "lots_only": 959696,
+   "total_current": 545031,
+   "total_with_fix": 543807
+  },
+  "Switch-1": {
+   "rows": 126,
+   "current": 850839,
+   "fut_lots_and_move": 858450,
+   "lots_only": 945296,
+   "total_current": 582910,
+   "total_with_fix": 590521
+  },
+  "Opus v3 CLOSE_TR": {
+   "rows": 135,
+   "current": 861709,
+   "fut_lots_and_move": 874749,
+   "lots_only": 954053,
+   "total_current": 556102,
+   "total_with_fix": 569141
+  }
+ }
+}

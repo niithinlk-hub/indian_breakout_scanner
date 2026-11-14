@@ -1,0 +1,65 @@
+{
+ "Opus (T1)": {
+  "n": 156,
+  "n_exact": 53,
+  "current": 43447,
+  "exact": 35206,
+  "corr": 0.958,
+  "lots_equal_pct": 84.9,
+  "exit_minute_equal_pct": 47.2
+ },
+ "Opus v2 (T1)": {
+  "n": 141,
+  "n_exact": 53,
+  "current": 40032,
+  "exact": 42908,
+  "corr": 0.979,
+  "lots_equal_pct": 83.0,
+  "exit_minute_equal_pct": 45.3
+ },
+ "Opus v3 (T1)": {
+  "n": 136,
+  "n_exact": 51,
+  "current": 57359,
+  "exact": 60115,
+  "corr": 0.979,
+  "lots_equal_pct": 84.3,
+  "exit_minute_equal_pct": 45.1
+ },
+ "Fable (T3)": {
+  "n": 159,
+  "n_exact": 57,
+  "current": 149242,
+  "exact": 130781,
+  "corr": 0.936,
+  "lots_equal_pct": 78.9,
+  "exit_minute_equal_pct": 50.9
+ },
+ "Fable-OP (T3)": {
+  "n": 73,
+  "n_exact": 32,
+  "current": 125716,
+  "exact": 128602,
+  "corr": 0.986,
+  "lots_equal_pct": 75.0,
+  "exit_minute_equal_pct": 56.2
+ },
+ "Switch-1": {
+  "n": 112,
+  "n_exact": 35,
+  "current": 118187,
+  "exact": 118063,
+  "corr": 0.985,
+  "lots_equal_pct": 77.1,
+  "exit_minute_equal_pct": 51.4
+ },
+ "Opus v3 CLOSE_TR": {
+  "n": 136,
+  "n_exact": 51,
+  "current": 69851,
+  "exact": 80297,
+  "corr": 0.98,
+  "lots_equal_pct": 84.3,
+  "exit_minute_equal_pct": 51.0
+ }
+}

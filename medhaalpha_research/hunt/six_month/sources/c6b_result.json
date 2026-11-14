@@ -1,0 +1,72 @@
+{
+ "Opus (T1), live model": {
+  "n": 369,
+  "fallback_rows": 13,
+  "opt_fallback": 4359,
+  "fut_fallback": -4547,
+  "opt_total": 245027,
+  "opt_excl_fallback": 240668,
+  "qty_nan_or_0": 0,
+  "premium_fallback": 368731
+ },
+ "Opus v2 (T1)": {
+  "n": 353,
+  "fallback_rows": 15,
+  "opt_fallback": -13152,
+  "fut_fallback": -26264,
+  "opt_total": 399885,
+  "opt_excl_fallback": 413036,
+  "qty_nan_or_0": 0,
+  "premium_fallback": 384923
+ },
+ "Opus v3 (T1)": {
+  "n": 335,
+  "fallback_rows": 14,
+  "opt_fallback": -8156,
+  "fut_fallback": -17824,
+  "opt_total": 423981,
+  "opt_excl_fallback": 432137,
+  "qty_nan_or_0": 0,
+  "premium_fallback": 362679
+ },
+ "Fable (T3)": {
+  "n": 475,
+  "fallback_rows": 10,
+  "opt_fallback": 56691,
+  "fut_fallback": 80182,
+  "opt_total": 570293,
+  "opt_excl_fallback": 513602,
+  "qty_nan_or_0": 0,
+  "premium_fallback": 245811
+ },
+ "Fable-OP (T3)": {
+  "n": 233,
+  "fallback_rows": 6,
+  "opt_fallback": -12925,
+  "fut_fallback": -22131,
+  "opt_total": 545031,
+  "opt_excl_fallback": 557956,
+  "qty_nan_or_0": 0,
+  "premium_fallback": 116854
+ },
+ "Switch-1": {
+  "n": 272,
+  "fallback_rows": 9,
+  "opt_fallback": -17958,
+  "fut_fallback": -27520,
+  "opt_total": 582910,
+  "opt_excl_fallback": 600868,
+  "qty_nan_or_0": 0,
+  "premium_fallback": 236927
+ },
+ "Opus v3, trailing stop to close (CLOSE_TR)": {
+  "n": 335,
+  "fallback_rows": 14,
+  "opt_fallback": -14791,
+  "fut_fallback": -32361,
+  "opt_total": 556102,
+  "opt_excl_fallback": 570892,
+  "qty_nan_or_0": 0,
+  "premium_fallback": 362679
+ }
+}
