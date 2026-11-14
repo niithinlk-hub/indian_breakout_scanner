@@ -1,0 +1,39 @@
+time dtype / sample: object ['09:17', '09:17', '09:17']
+option check real   T1 max |opt_col - option_net| = 0.000000
+option check real   T3 max |opt_col - option_net| = 0.000000
+option check unseen T1 max |opt_col - option_net| = 0.000000
+option check unseen T3 max |opt_col - option_net| = 0.000000
+option check known  T1 max |opt_col - option_net| = 0.000000
+option check known  T3 max |opt_col - option_net| = 0.000000
+design rows 2746 days 78 label rate 0.3816
+Platt LONG a -0.4318 b +0.2397
+Platt SHORT a +0.2750 b +0.7468
+k 164 thr 0.42171
+real_h2    META c: n 52 opt net +36647 worst -18788 maxDD -48452 fut +16789 | gate rate 2.31%
+           Opus v3 (T1)  n 136 opt net +184693 worst -15030 maxDD -36768
+           Fable-OP (T3) n 73 opt net +197688 worst -26335 maxDD -37024
+           diff vs Fable-OP (T3): total -161040, per-day sd 11350, iid bootstrap P(diff>0) 0.014, 95% CI [-314037, -14477]; 5-day block P(diff>0) 0.035
+unseen     META c: n 171 opt net +43126 worst -22402 maxDD -49097 fut -119425 | gate rate 3.39%
+           Opus v3 (T1)  n 366 opt net +84362 worst -25651 maxDD -63667
+           Fable-OP (T3) n 232 opt net +202948 worst -16461 maxDD -48875
+           diff vs Fable-OP (T3): total -159821, per-day sd 10572, iid bootstrap P(diff>0) 0.087, 95% CI [-391922, +70990]; 5-day block P(diff>0) 0.060
+unseen_h1  META c: n 91 opt net +13991 worst -22402 maxDD -35563 fut -97732 | gate rate 3.52%
+           Opus v3 (T1)  n 210 opt net -16425 worst -25651 maxDD -63667
+           Fable-OP (T3) n 131 opt net +83843 worst -16461 maxDD -48875
+           diff vs Fable-OP (T3): total -69851, per-day sd 10795, iid bootstrap P(diff>0) 0.208, 95% CI [-241882, +98862]; 5-day block P(diff>0) 0.163
+unseen_h2  META c: n 80 opt net +29134 worst -17836 maxDD -49097 fut -21693 | gate rate 3.25%
+           Opus v3 (T1)  n 156 opt net +100787 worst -14491 maxDD -23841
+           Fable-OP (T3) n 101 opt net +119104 worst -14880 maxDD -41970
+           diff vs Fable-OP (T3): total -89969, per-day sd 10412, iid bootstrap P(diff>0) 0.129, 95% CI [-251247, +70429]; 5-day block P(diff>0) 0.156
+design     META c: n 159 opt net +274853 worst -21872 maxDD -38134 fut +339626 | gate rate 5.97%
+           Opus v3 (T1)  n 199 opt net +239288 worst -18863 maxDD -28827
+           Fable-OP (T3) n 160 opt net +347343 worst -23143 maxDD -28552
+           diff vs Fable-OP (T3): total -72490, per-day sd 10973, iid bootstrap P(diff>0) 0.227, 95% CI [-253336, +114193]; 5-day block P(diff>0) 0.191
+known      META c: n 203 opt net +149718 worst -22003 maxDD -89657 fut +14379 | gate rate 5.12%
+           Opus v3 (T1)  n 299 opt net +199051 worst -15701 maxDD -35009
+           Fable-OP (T3) n 228 opt net +183848 worst -26065 maxDD -80209
+           diff vs Opus v3 (T1): total -49333, per-day sd 10921, iid bootstrap P(diff>0) 0.334, 95% CI [-271091, +169257]; 5-day block P(diff>0) 0.351
+SENS k=131 thr 0.42553 real_h2  n 44 opt net +27903 worst -17326 maxDD -37398
+SENS k=131 thr 0.42553 unseen   n 137 opt net +41820 worst -22402 maxDD -33986
+SENS k=196 thr 0.41845 real_h2  n 64 opt net +1142 worst -18788 maxDD -71540
+SENS k=196 thr 0.41845 unseen   n 215 opt net -5107 worst -23486 maxDD -64278

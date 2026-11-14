@@ -1,0 +1,401 @@
+{
+ "engine_check": {
+  "real | all rows": {
+   "rows": 4996,
+   "CLOSE": {
+    "exit_ts_match_pct": 99.88,
+    "F1_maxabs_diff": 1893.45,
+    "opt_sum_engine": 515769,
+    "opt_sum_harness": 155450,
+    "opt_maxabs_diff": 26636.37,
+    "fut_sum_engine": -3348561,
+    "fut_sum_harness": -4261430,
+    "fut_maxabs_diff": 47886.66
+   },
+   "T1": {
+    "exit_ts_match_pct": 99.88,
+    "F1_maxabs_diff": 1376.9,
+    "opt_sum_engine": -472020,
+    "opt_sum_harness": -564386,
+    "opt_maxabs_diff": 26636.37,
+    "fut_sum_engine": -4265494,
+    "fut_sum_harness": -4570550,
+    "fut_maxabs_diff": 44974.48
+   },
+   "T3": {
+    "exit_ts_match_pct": 99.88,
+    "F1_maxabs_diff": 1893.45,
+    "opt_sum_engine": 277615,
+    "opt_sum_harness": 66145,
+    "opt_maxabs_diff": 29498.21,
+    "fut_sum_engine": -3539991,
+    "fut_sum_harness": -4169059,
+    "fut_maxabs_diff": 47310.47
+   }
+  },
+  "real | picked rows (fable_op/opus_v3)": {
+   "rows": 384,
+   "CLOSE": {
+    "exit_ts_match_pct": 99.74,
+    "F1_maxabs_diff": 1893.45,
+    "opt_sum_engine": 666433,
+    "opt_sum_harness": 624753,
+    "opt_maxabs_diff": 26389.31,
+    "fut_sum_engine": 785916,
+    "fut_sum_harness": 727073,
+    "fut_maxabs_diff": 37349.91
+   },
+   "T1": {
+    "exit_ts_match_pct": 99.74,
+    "F1_maxabs_diff": 1376.9,
+    "opt_sum_engine": 467147,
+    "opt_sum_harness": 465677,
+    "opt_maxabs_diff": 17593.8,
+    "fut_sum_engine": 594480,
+    "fut_sum_harness": 627565,
+    "fut_maxabs_diff": 24623.87
+   },
+   "T3": {
+    "exit_ts_match_pct": 99.74,
+    "F1_maxabs_diff": 1893.45,
+    "opt_sum_engine": 671181,
+    "opt_sum_harness": 737401,
+    "opt_maxabs_diff": 26389.31,
+    "fut_sum_engine": 826407,
+    "fut_sum_harness": 929903,
+    "fut_maxabs_diff": 45367.36
+   }
+  },
+  "unseen | all rows": {
+   "rows": 5051,
+   "CLOSE": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": 111131,
+    "opt_sum_harness": 111131,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -3927039,
+    "fut_sum_harness": -3927039,
+    "fut_maxabs_diff": 0.0
+   },
+   "T1": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": -554366,
+    "opt_sum_harness": -554366,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -4370938,
+    "fut_sum_harness": -4370938,
+    "fut_maxabs_diff": 0.0
+   },
+   "T3": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": -84138,
+    "opt_sum_harness": -84138,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -4111647,
+    "fut_sum_harness": -4111647,
+    "fut_maxabs_diff": 0.0
+   }
+  },
+  "unseen | picked rows (fable_op/opus_v3)": {
+   "rows": 413,
+   "CLOSE": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": 254301,
+    "opt_sum_harness": 254301,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -32906,
+    "fut_sum_harness": -32906,
+    "fut_maxabs_diff": 0.0
+   },
+   "T1": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": 88127,
+    "opt_sum_harness": 88127,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -157355,
+    "fut_sum_harness": -157355,
+    "fut_maxabs_diff": 0.0
+   },
+   "T3": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": 122382,
+    "opt_sum_harness": 122382,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -191551,
+    "fut_sum_harness": -191551,
+    "fut_maxabs_diff": 0.0
+   }
+  },
+  "known | all rows": {
+   "rows": 4082,
+   "CLOSE": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": -25318,
+    "opt_sum_harness": -25318,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -3492141,
+    "fut_sum_harness": -3492141,
+    "fut_maxabs_diff": 0.0
+   },
+   "T1": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": -588623,
+    "opt_sum_harness": -588623,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -3892198,
+    "fut_sum_harness": -3892198,
+    "fut_maxabs_diff": 0.0
+   },
+   "T3": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": -257569,
+    "opt_sum_harness": -257569,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": -3699625,
+    "fut_sum_harness": -3699625,
+    "fut_maxabs_diff": 0.0
+   }
+  },
+  "known | picked rows (fable_op/opus_v3)": {
+   "rows": 354,
+   "CLOSE": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": 279537,
+    "opt_sum_harness": 279537,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": 109265,
+    "fut_sum_harness": 109265,
+    "fut_maxabs_diff": 0.0
+   },
+   "T1": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": 188766,
+    "opt_sum_harness": 188766,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": 75546,
+    "fut_sum_harness": 75546,
+    "fut_maxabs_diff": 0.0
+   },
+   "T3": {
+    "exit_ts_match_pct": 100.0,
+    "F1_maxabs_diff": 0.0,
+    "opt_sum_engine": 255155,
+    "opt_sum_harness": 255155,
+    "opt_maxabs_diff": 0.0,
+    "fut_sum_engine": 106533,
+    "fut_sum_harness": 106533,
+    "fut_maxabs_diff": 0.0
+   }
+  },
+  "vs_fills_simulate": {
+   "real": [
+    0,
+    768
+   ],
+   "unseen": [
+    0,
+    826
+   ],
+   "known": [
+    0,
+    708
+   ]
+  }
+ },
+ "design": {
+  "limits": {
+   "worst_day": -23578.75,
+   "maxdd": -35690.0
+  },
+  "qualifies": {
+   "S1": false,
+   "S2": true,
+   "S3": true,
+   "S4": false
+  },
+  "chosen": "S3",
+  "flag_no_qualifier": false,
+  "stats": {
+   "S1": {
+    "n": 160,
+    "net": 362530,
+    "fut": 443677,
+    "per_trade": 2266,
+    "hit_T1%": 56.9,
+    "stop%": 16.9,
+    "days_up": 37,
+    "days_dn": 28,
+    "worst_day": -14886,
+    "maxdd": -47176,
+    "longs": 143
+   },
+   "S2": {
+    "n": 160,
+    "net": 187768,
+    "fut": 179129,
+    "per_trade": 1174,
+    "hit_T1%": 56.9,
+    "stop%": 3.1,
+    "days_up": 32,
+    "days_dn": 33,
+    "worst_day": -10427,
+    "maxdd": -25242,
+    "longs": 143
+   },
+   "S3": {
+    "n": 160,
+    "net": 371599,
+    "fut": 471805,
+    "per_trade": 2322,
+    "hit_T1%": 56.9,
+    "stop%": 21.2,
+    "days_up": 41,
+    "days_dn": 24,
+    "worst_day": -12539,
+    "maxdd": -27076,
+    "longs": 143
+   },
+   "S4": {
+    "n": 199,
+    "net": 296766,
+    "fut": 340389,
+    "per_trade": 1491,
+    "hit_T1%": 50.8,
+    "stop%": 15.1,
+    "days_up": 39,
+    "days_dn": 28,
+    "worst_day": -14886,
+    "maxdd": -47429,
+    "longs": 128
+   }
+  },
+  "baselines": {
+   "Opus v3 (T1)": {
+    "n": 199,
+    "net": 239288,
+    "fut": 308996,
+    "per_trade": 1202,
+    "hit_T1%": 50.8,
+    "stop%": 29.1,
+    "days_up": 46,
+    "days_dn": 21,
+    "worst_day": -18863,
+    "maxdd": -28827,
+    "longs": 128
+   },
+   "Fable-OP (T3)": {
+    "n": 160,
+    "net": 347343,
+    "fut": 433707,
+    "per_trade": 2171,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -28552,
+    "longs": 143
+   },
+   "Switch-1": {
+    "n": 160,
+    "net": 339868,
+    "fut": 420965,
+    "per_trade": 2124,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -27877,
+    "longs": 143
+   }
+  },
+  "engine_resims": {
+   "ENG re-sim Opus v3 T1": {
+    "n": 199,
+    "net": 279205,
+    "fut": 358162,
+    "per_trade": 1403,
+    "hit_T1%": 50.8,
+    "stop%": 27.1,
+    "days_up": 50,
+    "days_dn": 17,
+    "worst_day": -14886,
+    "maxdd": -21344,
+    "longs": 128
+   },
+   "ENG re-sim Fable-OP T3": {
+    "n": 160,
+    "net": 351461,
+    "fut": 427643,
+    "per_trade": 2197,
+    "hit_T1%": 56.9,
+    "stop%": 33.8,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -20347,
+    "maxdd": -36751,
+    "longs": 143
+   },
+   "ENG re-sim Fable-OP CLOSE": {
+    "n": 160,
+    "net": 385712,
+    "fut": 451848,
+    "per_trade": 2411,
+    "hit_T1%": 56.9,
+    "stop%": 34.4,
+    "days_up": 40,
+    "days_dn": 25,
+    "worst_day": -20347,
+    "maxdd": -36751,
+    "longs": 143
+   },
+   "ENG re-sim Opus v3 CLOSE": {
+    "n": 199,
+    "net": 335834,
+    "fut": 373857,
+    "per_trade": 1688,
+    "hit_T1%": 50.8,
+    "stop%": 31.7,
+    "days_up": 41,
+    "days_dn": 26,
+    "worst_day": -24696,
+    "maxdd": -30907,
+    "longs": 128
+   }
+  }
+ },
+ "chosen": "S3",
+ "candidate_name": "VW trail S3 (chosen)",
+ "beats_both_unseen": true,
+ "beats_both_real_h2": false,
+ "beats_switch1_both": false,
+ "risk": {
+  "unseen_all": {
+   "worst_day": -16461,
+   "limit_wd": -20576.25,
+   "maxdd": -22488,
+   "limit_dd": -61093.75,
+   "ok": true
+  },
+  "real_h2": {
+   "worst_day": -14865,
+   "limit_wd": -18787.5,
+   "maxdd": -29254,
+   "limit_dd": -45960.0,
+   "ok": true
+  }
+ },
+ "risk_ok": true
+}

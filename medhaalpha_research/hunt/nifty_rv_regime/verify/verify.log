@@ -1,0 +1,79 @@
+sessions 267 full 265 dropped ['2025-10-21', '2026-11-08']
+real   my rv NaN 0, max |diff| vs tester rv 1.33e-12, pd 3.34e-13
+unseen my rv NaN 0, max |diff| vs tester rv 1.17e-12, pd 4.27e-13
+known  my rv NaN 0, max |diff| vs tester rv 1.33e-12, pd 3.34e-13
+nifty_chg vs close@time: median abs err 0.0000 ; vs close@time+1: 0.0161
+real: entry minute == time+1 for 1.000 of rows
+real   T1       max |fresh option_net - cached opt_| = 0
+real   T3       max |fresh option_net - cached opt_| = 0
+real   CLOSE_TR max |fresh option_net - cached opt_| = 0
+unseen T1       max |fresh option_net - cached opt_| = 0
+unseen T3       max |fresh option_net - cached opt_| = 0
+unseen CLOSE_TR max |fresh option_net - cached opt_| = 0
+known  T1       max |fresh option_net - cached opt_| = 0
+known  T3       max |fresh option_net - cached opt_| = 0
+known  CLOSE_TR max |fresh option_net - cached opt_| = 0
+own pick == H.pick on all sets
+
+part             mdl      n   opt net     worst     maxDD       fut max/day
+unseen           V3     366    +84362    -25651    -63667   -128597 6
+unseen           FOP    232   +202948    -16461    -48875    +78849 6
+unseen           SW1    298   +267606    -25651    -48875   +178272 6
+unseen           S1     232   +144174    -16461    -52109    +21807 6
+unseen           S3     366   +209242    -25651    -53824    +12433 6
+unseen_h1        V3     210    -16425    -25651    -63667   -231133 6
+unseen_h1        FOP    131    +83843    -16461    -48875    -39330 6
+unseen_h1        SW1    160    +85713    -25651    -48875    -61285 6
+unseen_h1        S1     131    +52457    -16461    -52109    -70775 6
+unseen_h1        S3     210   +137669    -25651    -50400    -33544 6
+unseen_h2        V3     156   +100787    -14491    -23841   +102536 6
+unseen_h2        FOP    101   +119104    -14880    -41970   +118179 6
+unseen_h2        SW1    138   +181893    -14491    -30373   +239557 6
+unseen_h2        S1     101    +91717    -14880    -25798    +92582 6
+unseen_h2        S3     156    +71573    -18900    -28702    +45978 6
+real_h1(design)  V3     199   +239288    -18863    -28827   +308996 6
+real_h1(design)  FOP    160   +347343    -23143    -28552   +433707 6
+real_h1(design)  SW1    160   +339868    -23143    -27877   +420965 6
+real_h1(design)  S1     160   +319278    -22812    -22812   +443086 6
+real_h1(design)  S3     199   +299634    -18867    -28022   +386755 6
+real_h2          V3     136   +184693    -15030    -36768   +280042 6
+real_h2          FOP     73   +197688    -26335    -37024   +268584 6
+real_h2          SW1    112   +243042    -15030    -28584   +390428 6
+real_h2          S1      73   +158272    -15085    -25887   +226930 6
+real_h2          S3     136   +241642    -15030    -47516   +380901 6
+real             V3     335   +423981    -18863    -36768   +589038 6
+real             FOP    233   +545031    -26335    -37024   +702290 6
+real             SW1    272   +582910    -23143    -28584   +811393 6
+real             S1     233   +477550    -22812    -25887   +670015 6
+real             S3     335   +541277    -18867    -47516   +767656 6
+known            V3     299   +199051    -15701    -35009   +152729 6
+known            FOP    228   +183848    -26065    -80209    +42654 6
+known            SW1    250   +184194    -26065    -80209    +69567 6
+known            S1     228   +170257    -26065    -88550    +49513 6
+known            S3     299   +334160    -15701    -34707   +342448 6
+known_h1         V3     149   +132368    -14103    -23840   +141717 6
+known_h1         FOP    114   +153182    -14696    -57807   +153765 6
+known_h1         SW1    115   +140755    -14696    -70234   +126330 6
+known_h1         S1     114   +203245    -14696    -29152   +248771 6
+known_h1         S3     149   +228558    -14103    -28662   +278284 6
+known_h2         V3     150    +66683    -15701    -35009    +11012 6
+known_h2         FOP    114    +30666    -26065    -80209   -111111 6
+known_h2         SW1    135    +43438    -26065    -80209    -56763 6
+known_h2         S1     114    -32988    -26065    -88550   -199258 6
+known_h2         S3     150   +105602    -15701    -34707    +64164 6
+
+per-day difference S1 - baseline: mean/day, total, day-bootstrap 95% CI of total, P(total>0); also block bootstrap (5-day blocks)
+  unseen           S1-FOP days 127 total    -58773  sd/day    5286  iid CI [  -176595,    +56740] P>0 0.168 | block CI [  -168016,    +54358] P>0 0.190
+  unseen           S1-V3  days 127 total    +59811  sd/day    7838  iid CI [  -117261,   +235371] P>0 0.747 | block CI [  -121505,   +211776] P>0 0.719
+  unseen           S1-SW1 days 127 total   -123432  sd/day    7460  iid CI [  -289352,    +39645] P>0 0.069 | block CI [  -251782,    +13143] P>0 0.042
+  real_h2          S1-FOP days  48 total    -39415  sd/day    6262  iid CI [  -130696,    +39776] P>0 0.185 | block CI [  -125177,    +25737] P>0 0.109
+  real_h2          S1-V3  days  48 total    -26421  sd/day    9307  iid CI [  -154519,    +96968] P>0 0.354 | block CI [  -160108,    +89700] P>0 0.330
+  real_h2          S1-SW1 days  48 total    -84770  sd/day    9378  iid CI [  -211896,    +35696] P>0 0.090 | block CI [  -210728,    +16793] P>0 0.051
+  real_h1(design)  S1-FOP days  78 total    -28064  sd/day    6453  iid CI [  -144901,    +81693] P>0 0.316 | block CI [  -149396,    +81158] P>0 0.352
+  real_h1(design)  S1-V3  days  78 total    +79990  sd/day    7739  iid CI [   -55647,   +209965] P>0 0.881 | block CI [   -60899,   +190628] P>0 0.859
+  real_h1(design)  S1-SW1 days  78 total    -20589  sd/day    6368  iid CI [  -132629,    +86949] P>0 0.356 | block CI [  -142905,    +90384] P>0 0.397
+  known            S1-FOP days 111 total    -13591  sd/day    5295  iid CI [  -122238,    +94374] P>0 0.404 | block CI [  -126020,   +126622] P>0 0.483
+  known            S1-V3  days 111 total    -28793  sd/day    8550  iid CI [  -210968,   +146121] P>0 0.378 | block CI [  -222334,   +148179] P>0 0.365
+  known            S1-SW1 days 111 total    -13936  sd/day    6965  iid CI [  -161293,   +127299] P>0 0.430 | block CI [  -170740,   +155700] P>0 0.467
+unseen: days S1 differs from FOP: 43; 5 most negative days sum -75564, 5 most positive +57950
+real_h2: days S1 differs from FOP: 13; 5 most negative days sum -77256, 5 most positive +42575

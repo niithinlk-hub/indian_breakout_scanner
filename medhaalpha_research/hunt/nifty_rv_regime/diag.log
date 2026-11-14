@@ -1,0 +1,49 @@
+Mean option net per trade (Rs), by rv_ratio state at the signal bar; n in brackets
+
+s_fable_op picks: T3 vs T1
+  real_h1(design)  | rv>=1 n= 67 T3  +2841 T1  +1144 diff  +1697 | rv<1 n= 93 T3  +1688 T1  +1386 diff   +302
+  real_h2          | rv>=1 n= 29 T3  +3651 T1   +884 diff  +2767 | rv<1 n= 44 T3  +2086 T1  +1191 diff   +896
+  unseen           | rv>=1 n= 86 T3   +653 T1   +338 diff   +315 | rv<1 n=146 T3  +1006 T1   +603 diff   +403
+  known            | rv>=1 n= 84 T3  +1525 T1   +689 diff   +836 | rv<1 n=144 T3   +387 T1   +293 diff    +94
+
+s_opus_v3 picks: CLOSE_TR vs T1
+  real_h1(design)  | rv>=1 n=103 CLOSE_TR  +1209 T1   +623 diff   +586 | rv<1 n= 96 CLOSE_TR  +1991 T1  +1824 diff   +166
+  real_h2          | rv>=1 n= 89 CLOSE_TR  +2033 T1  +1393 diff   +640 | rv<1 n= 47 CLOSE_TR  +1268 T1  +1293 diff    -24
+  unseen           | rv>=1 n=185 CLOSE_TR   +695 T1    +20 diff   +675 | rv<1 n=181 CLOSE_TR   +666 T1   +446 diff   +220
+  known            | rv>=1 n=155 CLOSE_TR  +1882 T1  +1010 diff   +872 | rv<1 n=144 CLOSE_TR   +372 T1   +295 diff    +77
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  [ref] S3 v3 CLOSE_TR|T1 by rv        335    +541277    +1616   49.0   25.4  73/35      -18867     -47516 |    +299634    +241642 |    +767656
+  [ctl] v3 CLOSE_TR all rows           335    +556102    +1660   49.0   25.4  68/40      -18867     -53487 |    +315593    +240509 |    +766300
+  [ctl] v3 inverted switch             335    +438806    +1310   49.0   25.4  68/40      -18863     -43037 |    +255247    +183560 |    +587682
+  [ctl] FOP T1 all rows                233    +283610    +1217   54.9   31.3  62/36      -22812     -30460 |    +205581     +78029 |    +361287
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  [ref] S3 v3 CLOSE_TR|T1 by rv        366    +209242     +572   38.3   31.7  53/51      -25651     -53824 |    +137669     +71573 |     +12433
+  [ctl] v3 CLOSE_TR all rows           366    +249060     +680   38.3   31.7  51/53      -25651     -56841 |    +181290     +67770 |     +54081
+  [ctl] v3 inverted switch             366    +124179     +339   38.3   31.7  55/49      -25651     -58716 |     +27195     +96984 |     -86949
+  [ctl] FOP T1 all rows                232    +117100     +505   46.6   34.5  56/40      -16461     -43206 |     +18613     +98488 |      +1543
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  [ref] S3 v3 CLOSE_TR|T1 by rv        299    +334160    +1118   40.5   27.8  51/40      -15701     -34707 |    +228558    +105602 |    +342448
+  [ctl] v3 CLOSE_TR all rows           299    +345302    +1155   40.5   27.8  45/46      -16405     -38067 |    +199075    +146226 |    +337970
+  [ctl] v3 inverted switch             299    +210193     +703   40.5   27.8  46/45      -16405     -39089 |    +102885    +107307 |    +148251
+  [ctl] FOP T1 all rows                228    +100022     +439   45.2   36.0  52/36      -18141     -88112 |    +144862     -44840 |     -32544
+
+real 2nd half / unseen risk detail (worst day, max DD) for the reference rows:
+  Opus v3 (T1)                     real_h2 net +184693 wd -15030 dd -36768 | unseen net +84362 wd -25651 dd -63667
+  Fable-OP (T3)                    real_h2 net +197688 wd -26335 dd -37024 | unseen net +202948 wd -16461 dd -48875
+  [ref] S3 v3 CLOSE_TR|T1 by rv    real_h2 net +241642 wd -15030 dd -47516 | unseen net +209242 wd -25651 dd -53824
+  [ctl] v3 CLOSE_TR all rows       real_h2 net +240509 wd -15030 dd -53487 | unseen net +249060 wd -25651 dd -56841

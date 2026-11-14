@@ -1,0 +1,1091 @@
+{
+ "settings": {
+  "a": {
+   "score": "s_fable_op",
+   "pol": "T3",
+   "cap": 2,
+   "B": 7881.65283203125,
+   "target_outlay": 3494175.705323753,
+   "design_outlay": 3496718.5587479277,
+   "note": ""
+  },
+  "b": {
+   "score": "s_fable_op",
+   "pol": "T3",
+   "cap": 3,
+   "B": 7881.65283203125,
+   "target_outlay": 3494175.705323753,
+   "design_outlay": 3496718.5587479277,
+   "note": ""
+  },
+  "c": {
+   "score": "s_opus_v3",
+   "pol": "T1",
+   "cap": 3,
+   "B": 7773.62060546875,
+   "target_outlay": 4358164.879882017,
+   "design_outlay": 4350547.758846333,
+   "note": ""
+  },
+  "d": {
+   "score": "s_fable_op",
+   "pol": "T3",
+   "cap": 3,
+   "B": 15000.0,
+   "target_outlay": NaN,
+   "design_outlay": NaN,
+   "note": "leverage variant"
+  }
+ },
+ "chosen": "a",
+ "candidate_name": "EQRISK (a) FableOP T3 cap2x B=7882",
+ "leverage_name": "LEVERAGE (d) FableOP T3 cap3x B=15000",
+ "design": {
+  "Opus v3 (T1)": {
+   "all": {
+    "n": 199,
+    "net": 239288,
+    "fut": 308996,
+    "per_trade": 1202,
+    "hit_T1%": 50.8,
+    "stop%": 29.1,
+    "days_up": 46,
+    "days_dn": 21,
+    "worst_day": -18863,
+    "maxdd": -28827,
+    "longs": 128
+   },
+   "h1": {
+    "n": 199,
+    "net": 239288,
+    "fut": 308996,
+    "per_trade": 1202,
+    "hit_T1%": 50.8,
+    "stop%": 29.1,
+    "days_up": 46,
+    "days_dn": 21,
+    "worst_day": -18863,
+    "maxdd": -28827,
+    "longs": 128
+   },
+   "h2": {
+    "net": 0
+   }
+  },
+  "Fable-OP (T3)": {
+   "all": {
+    "n": 160,
+    "net": 347343,
+    "fut": 433707,
+    "per_trade": 2171,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -28552,
+    "longs": 143
+   },
+   "h1": {
+    "n": 160,
+    "net": 347343,
+    "fut": 433707,
+    "per_trade": 2171,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -28552,
+    "longs": 143
+   },
+   "h2": {
+    "net": 0
+   }
+  },
+  "Switch-1": {
+   "all": {
+    "n": 160,
+    "net": 339868,
+    "fut": 420965,
+    "per_trade": 2124,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -27877,
+    "longs": 143
+   },
+   "h1": {
+    "n": 160,
+    "net": 339868,
+    "fut": 420965,
+    "per_trade": 2124,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -27877,
+    "longs": 143
+   },
+   "h2": {
+    "net": 0
+   }
+  },
+  "(a) FableOP T3 cap2x B=7882": {
+   "all": {
+    "n": 160,
+    "net": 326939,
+    "fut": 388336,
+    "per_trade": 2043,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -28552,
+    "longs": 143
+   },
+   "h1": {
+    "n": 160,
+    "net": 326939,
+    "fut": 388336,
+    "per_trade": 2043,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -28552,
+    "longs": 143
+   },
+   "h2": {
+    "net": 0
+   }
+  },
+  "(b) FableOP T3 cap3x B=7882": {
+   "all": {
+    "n": 160,
+    "net": 326939,
+    "fut": 388336,
+    "per_trade": 2043,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -28552,
+    "longs": 143
+   },
+   "h1": {
+    "n": 160,
+    "net": 326939,
+    "fut": 388336,
+    "per_trade": 2043,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 42,
+    "days_dn": 23,
+    "worst_day": -23143,
+    "maxdd": -28552,
+    "longs": 143
+   },
+   "h2": {
+    "net": 0
+   }
+  },
+  "(c) OpusV3 T1 cap3x B=7774": {
+   "all": {
+    "n": 199,
+    "net": 233067,
+    "fut": 304531,
+    "per_trade": 1171,
+    "hit_T1%": 50.8,
+    "stop%": 29.1,
+    "days_up": 46,
+    "days_dn": 21,
+    "worst_day": -18863,
+    "maxdd": -28827,
+    "longs": 128
+   },
+   "h1": {
+    "n": 199,
+    "net": 233067,
+    "fut": 304531,
+    "per_trade": 1171,
+    "hit_T1%": 50.8,
+    "stop%": 29.1,
+    "days_up": 46,
+    "days_dn": 21,
+    "worst_day": -18863,
+    "maxdd": -28827,
+    "longs": 128
+   },
+   "h2": {
+    "net": 0
+   }
+  },
+  "(d) FableOP T3 cap3x B=15000": {
+   "all": {
+    "n": 160,
+    "net": 742931,
+    "fut": 946711,
+    "per_trade": 4643,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 44,
+    "days_dn": 21,
+    "worst_day": -41957,
+    "maxdd": -60774,
+    "longs": 143
+   },
+   "h1": {
+    "n": 160,
+    "net": 742931,
+    "fut": 946711,
+    "per_trade": 4643,
+    "hit_T1%": 56.9,
+    "stop%": 36.9,
+    "days_up": 44,
+    "days_dn": 21,
+    "worst_day": -41957,
+    "maxdd": -60774,
+    "longs": 143
+   },
+   "h2": {
+    "net": 0
+   }
+  }
+ },
+ "design_limits": {
+  "worst_day": -23578.75,
+  "maxdd": -35690.0
+ },
+ "eligible": [
+  "a",
+  "b",
+  "c"
+ ],
+ "all_grid": {
+  "real": {
+   "(a) FableOP T3 cap2x B=7882": {
+    "all": {
+     "n": 233,
+     "net": 522020,
+     "fut": 654236,
+     "per_trade": 2240,
+     "hit_T1%": 54.9,
+     "stop%": 37.3,
+     "days_up": 63,
+     "days_dn": 35,
+     "worst_day": -28518,
+     "maxdd": -37024,
+     "longs": 198
+    },
+    "h1": {
+     "n": 160,
+     "net": 326939,
+     "fut": 388336,
+     "per_trade": 2043,
+     "hit_T1%": 56.9,
+     "stop%": 36.9,
+     "days_up": 42,
+     "days_dn": 23,
+     "worst_day": -23143,
+     "maxdd": -28552,
+     "longs": 143
+    },
+    "h2": {
+     "n": 73,
+     "net": 195081,
+     "fut": 265900,
+     "per_trade": 2672,
+     "hit_T1%": 50.7,
+     "stop%": 38.4,
+     "days_up": 21,
+     "days_dn": 12,
+     "worst_day": -28518,
+     "maxdd": -37024,
+     "longs": 55
+    },
+    "months": {
+     "2026-05": 31038,
+     "2026-06": 22262,
+     "2026-07": 172170,
+     "2026-08": 101469,
+     "2026-09": 78370,
+     "2026-10": 29569,
+     "2026-11": 87142
+    }
+   },
+   "(b) FableOP T3 cap3x B=7882": {
+    "all": {
+     "n": 233,
+     "net": 522020,
+     "fut": 654236,
+     "per_trade": 2240,
+     "hit_T1%": 54.9,
+     "stop%": 37.3,
+     "days_up": 63,
+     "days_dn": 35,
+     "worst_day": -28518,
+     "maxdd": -37024,
+     "longs": 198
+    },
+    "h1": {
+     "n": 160,
+     "net": 326939,
+     "fut": 388336,
+     "per_trade": 2043,
+     "hit_T1%": 56.9,
+     "stop%": 36.9,
+     "days_up": 42,
+     "days_dn": 23,
+     "worst_day": -23143,
+     "maxdd": -28552,
+     "longs": 143
+    },
+    "h2": {
+     "n": 73,
+     "net": 195081,
+     "fut": 265900,
+     "per_trade": 2672,
+     "hit_T1%": 50.7,
+     "stop%": 38.4,
+     "days_up": 21,
+     "days_dn": 12,
+     "worst_day": -28518,
+     "maxdd": -37024,
+     "longs": 55
+    },
+    "months": {
+     "2026-05": 31038,
+     "2026-06": 22262,
+     "2026-07": 172170,
+     "2026-08": 101469,
+     "2026-09": 78370,
+     "2026-10": 29569,
+     "2026-11": 87142
+    }
+   },
+   "(c) OpusV3 T1 cap3x B=7774": {
+    "all": {
+     "n": 335,
+     "net": 414389,
+     "fut": 582138,
+     "per_trade": 1237,
+     "hit_T1%": 49.0,
+     "stop%": 25.4,
+     "days_up": 75,
+     "days_dn": 33,
+     "worst_day": -18863,
+     "maxdd": -32264,
+     "longs": 177
+    },
+    "h1": {
+     "n": 199,
+     "net": 233067,
+     "fut": 304531,
+     "per_trade": 1171,
+     "hit_T1%": 50.8,
+     "stop%": 29.1,
+     "days_up": 46,
+     "days_dn": 21,
+     "worst_day": -18863,
+     "maxdd": -28827,
+     "longs": 128
+    },
+    "h2": {
+     "n": 136,
+     "net": 181322,
+     "fut": 277608,
+     "per_trade": 1333,
+     "hit_T1%": 46.3,
+     "stop%": 19.9,
+     "days_up": 29,
+     "days_dn": 12,
+     "worst_day": -15030,
+     "maxdd": -32264,
+     "longs": 49
+    },
+    "months": {
+     "2026-05": 45167,
+     "2026-06": 70528,
+     "2026-07": 87414,
+     "2026-08": 29958,
+     "2026-09": 106698,
+     "2026-10": 26381,
+     "2026-11": 48242
+    }
+   },
+   "(d) FableOP T3 cap3x B=15000": {
+    "all": {
+     "n": 233,
+     "net": 1117083,
+     "fut": 1455575,
+     "per_trade": 4794,
+     "hit_T1%": 54.9,
+     "stop%": 37.3,
+     "days_up": 65,
+     "days_dn": 33,
+     "worst_day": -56247,
+     "maxdd": -77874,
+     "longs": 198
+    },
+    "h1": {
+     "n": 160,
+     "net": 742931,
+     "fut": 946711,
+     "per_trade": 4643,
+     "hit_T1%": 56.9,
+     "stop%": 36.9,
+     "days_up": 44,
+     "days_dn": 21,
+     "worst_day": -41957,
+     "maxdd": -60774,
+     "longs": 143
+    },
+    "h2": {
+     "n": 73,
+     "net": 374151,
+     "fut": 508864,
+     "per_trade": 5125,
+     "hit_T1%": 50.7,
+     "stop%": 38.4,
+     "days_up": 21,
+     "days_dn": 12,
+     "worst_day": -56247,
+     "maxdd": -77874,
+     "longs": 55
+    },
+    "months": {
+     "2026-05": 70367,
+     "2026-06": 76994,
+     "2026-07": 357919,
+     "2026-08": 237651,
+     "2026-09": 152955,
+     "2026-10": 46871,
+     "2026-11": 174326
+    }
+   }
+  },
+  "unseen": {
+   "(a) FableOP T3 cap2x B=7882": {
+    "all": {
+     "n": 232,
+     "net": 192723,
+     "fut": 66499,
+     "per_trade": 831,
+     "hit_T1%": 46.6,
+     "stop%": 40.9,
+     "days_up": 44,
+     "days_dn": 52,
+     "worst_day": -16461,
+     "maxdd": -44633,
+     "longs": 194
+    },
+    "h1": {
+     "n": 131,
+     "net": 81375,
+     "fut": -40888,
+     "per_trade": 621,
+     "hit_T1%": 45.8,
+     "stop%": 43.5,
+     "days_up": 24,
+     "days_dn": 29,
+     "worst_day": -16461,
+     "maxdd": -44633,
+     "longs": 120
+    },
+    "h2": {
+     "n": 101,
+     "net": 111348,
+     "fut": 107387,
+     "per_trade": 1102,
+     "hit_T1%": 47.5,
+     "stop%": 37.6,
+     "days_up": 20,
+     "days_dn": 23,
+     "worst_day": -14880,
+     "maxdd": -35238,
+     "longs": 74
+    },
+    "months": {
+     "2025-11": 73838,
+     "2025-12": 780,
+     "2026-01": 11393,
+     "2026-02": 45094,
+     "2026-03": 2369,
+     "2026-04": 42244,
+     "2026-05": 17005
+    }
+   },
+   "(b) FableOP T3 cap3x B=7882": {
+    "all": {
+     "n": 232,
+     "net": 192723,
+     "fut": 66499,
+     "per_trade": 831,
+     "hit_T1%": 46.6,
+     "stop%": 40.9,
+     "days_up": 44,
+     "days_dn": 52,
+     "worst_day": -16461,
+     "maxdd": -44633,
+     "longs": 194
+    },
+    "h1": {
+     "n": 131,
+     "net": 81375,
+     "fut": -40888,
+     "per_trade": 621,
+     "hit_T1%": 45.8,
+     "stop%": 43.5,
+     "days_up": 24,
+     "days_dn": 29,
+     "worst_day": -16461,
+     "maxdd": -44633,
+     "longs": 120
+    },
+    "h2": {
+     "n": 101,
+     "net": 111348,
+     "fut": 107387,
+     "per_trade": 1102,
+     "hit_T1%": 47.5,
+     "stop%": 37.6,
+     "days_up": 20,
+     "days_dn": 23,
+     "worst_day": -14880,
+     "maxdd": -35238,
+     "longs": 74
+    },
+    "months": {
+     "2025-11": 73838,
+     "2025-12": 780,
+     "2026-01": 11393,
+     "2026-02": 45094,
+     "2026-03": 2369,
+     "2026-04": 42244,
+     "2026-05": 17005
+    }
+   },
+   "(c) OpusV3 T1 cap3x B=7774": {
+    "all": {
+     "n": 366,
+     "net": 79335,
+     "fut": -130441,
+     "per_trade": 217,
+     "hit_T1%": 38.3,
+     "stop%": 31.7,
+     "days_up": 57,
+     "days_dn": 47,
+     "worst_day": -25651,
+     "maxdd": -68500,
+     "longs": 184
+    },
+    "h1": {
+     "n": 210,
+     "net": -18190,
+     "fut": -229908,
+     "per_trade": -87,
+     "hit_T1%": 40.0,
+     "stop%": 37.6,
+     "days_up": 31,
+     "days_dn": 25,
+     "worst_day": -25651,
+     "maxdd": -68500,
+     "longs": 112
+    },
+    "h2": {
+     "n": 156,
+     "net": 97525,
+     "fut": 99467,
+     "per_trade": 625,
+     "hit_T1%": 35.9,
+     "stop%": 23.7,
+     "days_up": 26,
+     "days_dn": 22,
+     "worst_day": -14491,
+     "maxdd": -23841,
+     "longs": 72
+    },
+    "months": {
+     "2025-11": 16522,
+     "2025-12": 5722,
+     "2026-01": -27463,
+     "2026-02": -16978,
+     "2026-03": 76294,
+     "2026-04": 32473,
+     "2026-05": -7235
+    }
+   },
+   "(d) FableOP T3 cap3x B=15000": {
+    "all": {
+     "n": 232,
+     "net": 428568,
+     "fut": 129639,
+     "per_trade": 1847,
+     "hit_T1%": 46.6,
+     "stop%": 40.9,
+     "days_up": 44,
+     "days_dn": 52,
+     "worst_day": -34068,
+     "maxdd": -99736,
+     "longs": 194
+    },
+    "h1": {
+     "n": 131,
+     "net": 219862,
+     "fut": -20505,
+     "per_trade": 1678,
+     "hit_T1%": 45.8,
+     "stop%": 43.5,
+     "days_up": 25,
+     "days_dn": 28,
+     "worst_day": -34068,
+     "maxdd": -76817,
+     "longs": 120
+    },
+    "h2": {
+     "n": 101,
+     "net": 208706,
+     "fut": 150144,
+     "per_trade": 2066,
+     "hit_T1%": 47.5,
+     "stop%": 37.6,
+     "days_up": 19,
+     "days_dn": 24,
+     "worst_day": -33862,
+     "maxdd": -99736,
+     "longs": 74
+    },
+    "months": {
+     "2025-11": 198127,
+     "2025-12": 6076,
+     "2026-01": 32277,
+     "2026-02": 72100,
+     "2026-03": 8236,
+     "2026-04": 60192,
+     "2026-05": 51559
+    }
+   }
+  },
+  "known": {
+   "(a) FableOP T3 cap2x B=7882": {
+    "all": {
+     "n": 228,
+     "net": 197827,
+     "fut": 68079,
+     "per_trade": 868,
+     "hit_T1%": 45.2,
+     "stop%": 40.8,
+     "days_up": 44,
+     "days_dn": 44,
+     "worst_day": -26065,
+     "maxdd": -79016,
+     "longs": 185
+    },
+    "h1": {
+     "n": 114,
+     "net": 150301,
+     "fut": 151745,
+     "per_trade": 1318,
+     "hit_T1%": 51.8,
+     "stop%": 33.3,
+     "days_up": 26,
+     "days_dn": 19,
+     "worst_day": -14696,
+     "maxdd": -55933,
+     "longs": 102
+    },
+    "h2": {
+     "n": 114,
+     "net": 47526,
+     "fut": -83666,
+     "per_trade": 417,
+     "hit_T1%": 38.6,
+     "stop%": 48.2,
+     "days_up": 18,
+     "days_dn": 25,
+     "worst_day": -26065,
+     "maxdd": -79016,
+     "longs": 83
+    },
+    "months": {
+     "2026-05": 25669,
+     "2026-06": -35761,
+     "2026-07": 160393,
+     "2026-08": -43085,
+     "2026-09": 46790,
+     "2026-10": 43821
+    }
+   },
+   "(b) FableOP T3 cap3x B=7882": {
+    "all": {
+     "n": 228,
+     "net": 197827,
+     "fut": 68079,
+     "per_trade": 868,
+     "hit_T1%": 45.2,
+     "stop%": 40.8,
+     "days_up": 44,
+     "days_dn": 44,
+     "worst_day": -26065,
+     "maxdd": -79016,
+     "longs": 185
+    },
+    "h1": {
+     "n": 114,
+     "net": 150301,
+     "fut": 151745,
+     "per_trade": 1318,
+     "hit_T1%": 51.8,
+     "stop%": 33.3,
+     "days_up": 26,
+     "days_dn": 19,
+     "worst_day": -14696,
+     "maxdd": -55933,
+     "longs": 102
+    },
+    "h2": {
+     "n": 114,
+     "net": 47526,
+     "fut": -83666,
+     "per_trade": 417,
+     "hit_T1%": 38.6,
+     "stop%": 48.2,
+     "days_up": 18,
+     "days_dn": 25,
+     "worst_day": -26065,
+     "maxdd": -79016,
+     "longs": 83
+    },
+    "months": {
+     "2026-05": 25669,
+     "2026-06": -35761,
+     "2026-07": 160393,
+     "2026-08": -43085,
+     "2026-09": 46790,
+     "2026-10": 43821
+    }
+   },
+   "(c) OpusV3 T1 cap3x B=7774": {
+    "all": {
+     "n": 299,
+     "net": 192708,
+     "fut": 144824,
+     "per_trade": 645,
+     "hit_T1%": 40.5,
+     "stop%": 27.8,
+     "days_up": 52,
+     "days_dn": 39,
+     "worst_day": -15701,
+     "maxdd": -31616,
+     "longs": 169
+    },
+    "h1": {
+     "n": 149,
+     "net": 122694,
+     "fut": 126942,
+     "per_trade": 823,
+     "hit_T1%": 43.6,
+     "stop%": 26.2,
+     "days_up": 27,
+     "days_dn": 19,
+     "worst_day": -14103,
+     "maxdd": -22542,
+     "longs": 90
+    },
+    "h2": {
+     "n": 150,
+     "net": 70014,
+     "fut": 17882,
+     "per_trade": 467,
+     "hit_T1%": 37.3,
+     "stop%": 29.3,
+     "days_up": 25,
+     "days_dn": 20,
+     "worst_day": -15701,
+     "maxdd": -31616,
+     "longs": 79
+    },
+    "months": {
+     "2026-05": 28385,
+     "2026-06": 30865,
+     "2026-07": 63444,
+     "2026-08": -2302,
+     "2026-09": 44289,
+     "2026-10": 28026
+    }
+   },
+   "(d) FableOP T3 cap3x B=15000": {
+    "all": {
+     "n": 228,
+     "net": 387168,
+     "fut": 74626,
+     "per_trade": 1698,
+     "hit_T1%": 45.2,
+     "stop%": 40.8,
+     "days_up": 44,
+     "days_dn": 44,
+     "worst_day": -59074,
+     "maxdd": -176234,
+     "longs": 185
+    },
+    "h1": {
+     "n": 114,
+     "net": 327649,
+     "fut": 328774,
+     "per_trade": 2874,
+     "hit_T1%": 51.8,
+     "stop%": 33.3,
+     "days_up": 26,
+     "days_dn": 19,
+     "worst_day": -32762,
+     "maxdd": -114741,
+     "longs": 102
+    },
+    "h2": {
+     "n": 114,
+     "net": 59519,
+     "fut": -254148,
+     "per_trade": 522,
+     "hit_T1%": 38.6,
+     "stop%": 48.2,
+     "days_up": 18,
+     "days_dn": 25,
+     "worst_day": -59074,
+     "maxdd": -176234,
+     "longs": 83
+    },
+    "months": {
+     "2026-05": 55807,
+     "2026-06": -61956,
+     "2026-07": 333798,
+     "2026-08": -101642,
+     "2026-09": 95295,
+     "2026-10": 65866
+    }
+   }
+  }
+ },
+ "outlay": {
+  "real": {
+   "Opus v3 (T1)": {
+    "n": 335,
+    "mean": 21901.087282130084,
+    "median": 20304.21415167575,
+    "max": 48598.070766871984,
+    "max_day": 208401.52960794594,
+    "max_concurrent": 151972.43756838172,
+    "total": 7336864.239513578,
+    "x_base": 1.0,
+    "lots_ratio_mean": 1.0,
+    "pct_at_1lot": 73.43283582089552,
+    "pct_at_cap": 0.0,
+    "fut_new": 589038.19,
+    "fut_base": 589038.19
+   },
+   "Fable-OP (T3)": {
+    "n": 233,
+    "mean": 22390.17828307836,
+    "median": 21225.22962092478,
+    "max": 48598.070766871984,
+    "max_day": 164144.84428199966,
+    "max_concurrent": 164144.84428199966,
+    "total": 5216911.539957258,
+    "x_base": 1.0,
+    "lots_ratio_mean": 1.0,
+    "pct_at_1lot": 64.8068669527897,
+    "pct_at_cap": 0.0,
+    "fut_new": 702290.4000000001,
+    "fut_base": 702290.4000000001
+   },
+   "EQRISK (a) FableOP T3 cap2x B=7882": {
+    "n": 233,
+    "mean": 22594.877436593215,
+    "median": 21244.030753197876,
+    "max": 48598.070766871984,
+    "max_day": 178535.4227153932,
+    "max_concurrent": 178535.4227153932,
+    "total": 5264606.442726219,
+    "x_base": 1.009142363715324,
+    "lots_ratio_mean": 1.0110872675250357,
+    "pct_at_1lot": 64.8068669527897,
+    "pct_at_cap": 0.4291845493562232,
+    "fut_new": 654235.9716666667,
+    "fut_base": 702290.4000000001,
+    "lot_flags": {
+     "absent": 14
+    }
+   },
+   "LEVERAGE (d) FableOP T3 cap3x B=15000": {
+    "n": 233,
+    "mean": 47110.8846698492,
+    "median": 46240.51408267219,
+    "max": 94274.95266075585,
+    "max_day": 382394.9051699674,
+    "max_concurrent": 382394.90516996745,
+    "total": 10976836.128074864,
+    "x_base": 2.10408707220763,
+    "lots_ratio_mean": 2.1895565092989986,
+    "pct_at_1lot": 4.721030042918455,
+    "pct_at_cap": 24.034334763948497,
+    "fut_new": 1455575.2158333333,
+    "fut_base": 702290.4000000001,
+    "lot_flags": {
+     "absent": 14
+    }
+   }
+  },
+  "unseen": {
+   "Opus v3 (T1)": {
+    "n": 366,
+    "mean": 22222.747743985914,
+    "median": 21003.84489495054,
+    "max": 55659.93981793042,
+    "max_day": 191143.6786501609,
+    "max_concurrent": 188975.55736598046,
+    "total": 8133525.674298844,
+    "x_base": 1.0,
+    "lots_ratio_mean": 1.0,
+    "pct_at_1lot": 74.04371584699454,
+    "pct_at_cap": 0.0,
+    "fut_new": -128596.76000000007,
+    "fut_base": -128596.76000000007
+   },
+   "Fable-OP (T3)": {
+    "n": 232,
+    "mean": 22579.911360303413,
+    "median": 21302.241873241514,
+    "max": 55659.93981793042,
+    "max_day": 144598.90139784865,
+    "max_concurrent": 144598.90139784868,
+    "total": 5238539.435590392,
+    "x_base": 1.0,
+    "lots_ratio_mean": 1.0,
+    "pct_at_1lot": 63.36206896551724,
+    "pct_at_cap": 0.0,
+    "fut_new": 78848.55999999998,
+    "fut_base": 78848.55999999998
+   },
+   "EQRISK (a) FableOP T3 cap2x B=7882": {
+    "n": 232,
+    "mean": 21849.09291617364,
+    "median": 20741.965423343307,
+    "max": 51160.68787646583,
+    "max_day": 144598.90139784865,
+    "max_concurrent": 144598.90139784868,
+    "total": 5068989.556552284,
+    "x_base": 0.9676341313981157,
+    "lots_ratio_mean": 0.9838362068965517,
+    "pct_at_1lot": 67.67241379310344,
+    "pct_at_cap": 0.43103448275862066,
+    "fut_new": 66498.54249999998,
+    "fut_base": 78848.55999999998,
+    "lot_flags": {}
+   },
+   "LEVERAGE (d) FableOP T3 cap3x B=15000": {
+    "n": 232,
+    "mean": 47766.04531082649,
+    "median": 45288.61512284924,
+    "max": 116633.50403113312,
+    "max_day": 331373.9245754932,
+    "max_concurrent": 331373.9245754932,
+    "total": 11081722.512111746,
+    "x_base": 2.115422179858577,
+    "lots_ratio_mean": 2.2223419540229887,
+    "pct_at_1lot": 3.0172413793103448,
+    "pct_at_cap": 27.155172413793103,
+    "fut_new": 129639.04583333332,
+    "fut_base": 78848.55999999998,
+    "lot_flags": {}
+   }
+  },
+  "known": {
+   "Opus v3 (T1)": {
+    "n": 299,
+    "mean": 21883.320274106874,
+    "median": 20301.90008699492,
+    "max": 56286.346919394586,
+    "max_day": 222034.4796471649,
+    "max_concurrent": 159022.43970982698,
+    "total": 6543112.761957956,
+    "x_base": 1.0,
+    "lots_ratio_mean": 1.0,
+    "pct_at_1lot": 71.57190635451505,
+    "pct_at_cap": 0.0,
+    "fut_new": 152728.87999999995,
+    "fut_base": 152728.87999999995
+   },
+   "Fable-OP (T3)": {
+    "n": 228,
+    "mean": 23020.90324393389,
+    "median": 21621.033336834567,
+    "max": 56286.346919394586,
+    "max_day": 222034.4796471649,
+    "max_concurrent": 169953.8431412573,
+    "total": 5248765.939616927,
+    "x_base": 1.0,
+    "lots_ratio_mean": 1.0,
+    "pct_at_1lot": 63.59649122807017,
+    "pct_at_cap": 0.0,
+    "fut_new": 42654.43999999997,
+    "fut_base": 42654.43999999997
+   },
+   "EQRISK (a) FableOP T3 cap2x B=7882": {
+    "n": 228,
+    "mean": 22586.606798717185,
+    "median": 21310.942129299117,
+    "max": 50102.47922907556,
+    "max_day": 193891.30618746762,
+    "max_concurrent": 169953.8431412573,
+    "total": 5149746.350107518,
+    "x_base": 0.9811346913448696,
+    "lots_ratio_mean": 0.9923245614035088,
+    "pct_at_1lot": 65.78947368421053,
+    "pct_at_cap": 0.43859649122807015,
+    "fut_new": 68078.63249999995,
+    "fut_base": 42654.43999999997,
+    "lot_flags": {}
+   },
+   "LEVERAGE (d) FableOP T3 cap3x B=15000": {
+    "n": 228,
+    "mean": 47256.12487533396,
+    "median": 44944.44382068634,
+    "max": 108546.82320631035,
+    "max_day": 398354.09589224285,
+    "max_concurrent": 341400.073246256,
+    "total": 10774396.471576143,
+    "x_base": 2.0527485118459095,
+    "lots_ratio_mean": 2.1472953216374266,
+    "pct_at_1lot": 5.701754385964912,
+    "pct_at_cap": 22.36842105263158,
+    "fut_new": 74625.83999999991,
+    "fut_base": 42654.43999999997,
+    "lot_flags": {}
+   }
+  }
+ },
+ "deviations": [
+  "Real-set lot fallback for symbols absent from the known set (no known lot on any date): the rule has no case for this; lot = o_qty (treated as one lot), the rule's own fallback for an unverifiable lot.",
+  "Harness run() always recomputes 'fut' from net_<pol>; to show futures at the new lots in the harness 'futures' column, the trade function returns a copy whose net_<pol> = net_<pol> * L / fut_lots (the original column in D is untouched)."
+ ],
+ "bar": {
+  "beats_both": {
+   "unseen_all": false,
+   "real_h2": false
+  },
+  "beats_switch1": {
+   "unseen_all": false,
+   "real_h2": false
+  },
+  "risk_ok": {
+   "unseen_all": true,
+   "real_h2": false
+  }
+ }
+}

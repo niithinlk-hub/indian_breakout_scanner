@@ -1,0 +1,143 @@
+opt_eqrisk_lots -- equal option-risk lot sizing at the baseline premium outlay
+metric: harness METRIC = 'opt' (option net, modelled); futures net shown for reference at the NEW lots
+
+Deviations:
+  - Real-set lot fallback for symbols absent from the known set (no known lot on any date): the rule has no case for this; lot = o_qty (treated as one lot), the rule's own fallback for an unverifiable lot.
+  - Harness run() always recomputes 'fut' from net_<pol>; to show futures at the new lots in the harness 'futures' column, the trade function returns a copy whose net_<pol> = net_<pol> * L / fut_lots (the original column in D is untouched).
+
+== B_eq (design window real 2026-05-12..2026-08-31, that setting's picks only) ==
+  (a) s_fable_op T3 cap 2x  B_eq = Rs   7881.7   design outlay target Rs      3494176  achieved Rs      3496719 (1.0007) 
+  (b) s_fable_op T3 cap 3x  B_eq = Rs   7881.7   design outlay target Rs      3494176  achieved Rs      3496719 (1.0007) 
+  (c) s_opus_v3  T1 cap 3x  B_eq = Rs   7773.6   design outlay target Rs      4358165  achieved Rs      4350548 (0.9983) 
+
+== DESIGN WINDOW ONLY (real 2026-05-12..2026-08-31), option net == (table header below shows the harness span; every row here is the design window only, 2nd half column empty by construction)
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         199    +239288    +1202   50.8   29.1  46/21      -18863     -28827 |    +239288         +0 |    +308996
+  Fable-OP (T3)                        160    +347343    +2171   56.9   36.9  42/23      -23143     -28552 |    +347343         +0 |    +433707
+  Switch-1                             160    +339868    +2124   56.9   36.9  42/23      -23143     -27877 |    +339868         +0 |    +420965
+  (a) FableOP T3 cap2x B=7882          160    +326939    +2043   56.9   36.9  42/23      -23143     -28552 |    +326939         +0 |    +388336
+  (b) FableOP T3 cap3x B=7882          160    +326939    +2043   56.9   36.9  42/23      -23143     -28552 |    +326939         +0 |    +388336
+  (c) OpusV3 T1 cap3x B=7774           199    +233067    +1171   50.8   29.1  46/21      -18863     -28827 |    +233067         +0 |    +304531
+  (d) FableOP T3 cap3x B=15000         160    +742931    +4643   56.9   36.9  44/21      -41957     -60774 |    +742931         +0 |    +946711
+  limits: worst day >= -23578, max DD >= -35690 (1.25x the better design baseline)
+  (a) FableOP T3 cap2x B=7882        net   +326939  worst day   -23143  max DD   -28552  eligible=True
+  (b) FableOP T3 cap3x B=7882        net   +326939  worst day   -23143  max DD   -28552  eligible=True
+  (c) OpusV3 T1 cap3x B=7774         net   +233067  worst day   -18863  max DD   -28827  eligible=True
+  (d) FableOP T3 cap3x B=15000       net   +742931  worst day   -41957  max DD   -60774  eligible=n/a (leverage variant)
+  CHOSEN: (a) FableOP T3 cap2x B=7882
+  (if (d) had been eligible on net alone, the highest design net would be: (d) FableOP T3 cap3x B=15000)
+
+
+######## CANDIDATE vs BASELINES on every set (option net, modelled; futures column = futures at the new lots) ########
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  EQRISK (a) FableOP T3 cap2x B=7882   233    +522020    +2240   54.9   37.3  63/35      -28518     -37024 |    +326939    +195081 |    +654236
+  LEVERAGE (d) FableOP T3 cap3x B=15   233   +1117083    +4794   54.9   37.3  65/33      -56247     -77874 |    +742931    +374151 |   +1455575
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  EQRISK (a) FableOP T3 cap2x B=7882   232    +192723     +831   46.6   40.9  44/52      -16461     -44633 |     +81375    +111348 |     +66499
+  LEVERAGE (d) FableOP T3 cap3x B=15   232    +428568    +1847   46.6   40.9  44/52      -34068     -99736 |    +219862    +208706 |    +129639
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  EQRISK (a) FableOP T3 cap2x B=7882   228    +197827     +868   45.2   40.8  44/44      -26065     -79016 |    +150301     +47526 |     +68079
+  LEVERAGE (d) FableOP T3 cap3x B=15   228    +387168    +1698   45.2   40.8  44/44      -59074    -176234 |    +327649     +59519 |     +74626
+
+
+######## all four grid settings on every set (reference only; the choice above used the design window) ########
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  (a) FableOP T3 cap2x B=7882          233    +522020    +2240   54.9   37.3  63/35      -28518     -37024 |    +326939    +195081 |    +654236
+  (b) FableOP T3 cap3x B=7882          233    +522020    +2240   54.9   37.3  63/35      -28518     -37024 |    +326939    +195081 |    +654236
+  (c) OpusV3 T1 cap3x B=7774           335    +414389    +1237   49.0   25.4  75/33      -18863     -32264 |    +233067    +181322 |    +582138
+  (d) FableOP T3 cap3x B=15000         233   +1117083    +4794   54.9   37.3  65/33      -56247     -77874 |    +742931    +374151 |   +1455575
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  (a) FableOP T3 cap2x B=7882          232    +192723     +831   46.6   40.9  44/52      -16461     -44633 |     +81375    +111348 |     +66499
+  (b) FableOP T3 cap3x B=7882          232    +192723     +831   46.6   40.9  44/52      -16461     -44633 |     +81375    +111348 |     +66499
+  (c) OpusV3 T1 cap3x B=7774           366     +79335     +217   38.3   31.7  57/47      -25651     -68500 |     -18190     +97525 |    -130441
+  (d) FableOP T3 cap3x B=15000         232    +428568    +1847   46.6   40.9  44/52      -34068     -99736 |    +219862    +208706 |    +129639
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  (a) FableOP T3 cap2x B=7882          228    +197827     +868   45.2   40.8  44/44      -26065     -79016 |    +150301     +47526 |     +68079
+  (b) FableOP T3 cap3x B=7882          228    +197827     +868   45.2   40.8  44/44      -26065     -79016 |    +150301     +47526 |     +68079
+  (c) OpusV3 T1 cap3x B=7774           299    +192708     +645   40.5   27.8  52/39      -15701     -31616 |    +122694     +70014 |    +144824
+  (d) FableOP T3 cap3x B=15000         228    +387168    +1698   45.2   40.8  44/44      -59074    -176234 |    +327649     +59519 |     +74626
+
+
+######## premium outlay and size (Rs; outlay = entry premium x quantity) ########
+  model                                        n      mean    median        max     max day  max concur          total  x base |   L/fl  @1lot   @cap |    fut new   fut base
+ -- real
+  Opus v3 (T1)                               335     21901     20304      48598      208401      151972        7336864   1.000 |   1.00   73.4    0.0 |    +589038    +589038
+  Fable-OP (T3)                              233     22390     21225      48598      164144      164144        5216911   1.000 |   1.00   64.8    0.0 |    +702290    +702290
+  EQRISK (a) FableOP T3 cap2x B=7882         233     22594     21244      48598      178535      178535        5264606   1.009 |   1.01   64.8    0.4 |    +654235    +702290
+  LEVERAGE (d) FableOP T3 cap3x B=15000      233     47110     46240      94274      382394      382394       10976836   2.104 |   2.19    4.7   24.0 |   +1455575    +702290
+     EQRISK (a) FableOP T3 cap2x B=7882: lot fallback rows {'absent': 14}
+     LEVERAGE (d) FableOP T3 cap3x B=15000: lot fallback rows {'absent': 14}
+ -- unseen
+  Opus v3 (T1)                               366     22222     21003      55659      191143      188975        8133525   1.000 |   1.00   74.0    0.0 |    -128596    -128596
+  Fable-OP (T3)                              232     22579     21302      55659      144598      144598        5238539   1.000 |   1.00   63.4    0.0 |     +78848     +78848
+  EQRISK (a) FableOP T3 cap2x B=7882         232     21849     20741      51160      144598      144598        5068989   0.968 |   0.98   67.7    0.4 |     +66498     +78848
+  LEVERAGE (d) FableOP T3 cap3x B=15000      232     47766     45288     116633      331373      331373       11081722   2.115 |   2.22    3.0   27.2 |    +129639     +78848
+ -- known
+  Opus v3 (T1)                               299     21883     20301      56286      222034      159022        6543112   1.000 |   1.00   71.6    0.0 |    +152728    +152728
+  Fable-OP (T3)                              228     23020     21621      56286      222034      169953        5248765   1.000 |   1.00   63.6    0.0 |     +42654     +42654
+  EQRISK (a) FableOP T3 cap2x B=7882         228     22586     21310      50102      193891      169953        5149746   0.981 |   0.99   65.8    0.4 |     +68078     +42654
+  LEVERAGE (d) FableOP T3 cap3x B=15000      228     47256     44944     108546      398354      341400       10774396   2.053 |   2.15    5.7   22.4 |     +74625     +42654
+  (L/fl = mean new lots / futures lots; @1lot = % of trades at the 1-lot floor; @cap = % at the cap; fut new = futures net at the new lots, fut base = at the futures lots)
+
+
+######## verdict for EQRISK (a) FableOP T3 cap2x B=7882 ########
+  unseen all option net   +192723 | Opus v3    +84362 | Fable-OP   +202948 | Switch-1   +267606 | beats both: False, beats Switch-1: False | risk ok: True (worst -16461 vs limit -20576, DD -44633 vs limit -61093)
+  real   h2  option net   +195081 | Opus v3   +184693 | Fable-OP   +197688 | Switch-1   +243042 | beats both: False, beats Switch-1: False | risk ok: False (worst -28518 vs limit -18787, DD -37024 vs limit -45960)
+  PASSES THE BAR: False
+
+  the two test periods in detail (option net):
+  set    per model                                      n        net  worst day     max DD    futures
+  unseen all Opus v3 (T1)                             366     +84362     -25651     -63667    -128597
+  unseen all Fable-OP (T3)                            232    +202948     -16461     -48875     +78849
+  unseen all Switch-1                                 298    +267606     -25651     -48875    +178272
+  unseen all EQRISK (a) FableOP T3 cap2x B=7882       232    +192723     -16461     -44633     +66499
+  unseen all LEVERAGE (d) FableOP T3 cap3x B=15000    232    +428568     -34068     -99736    +129639
+  real   h2  Opus v3 (T1)                             136    +184693     -15030     -36768    +280042
+  real   h2  Fable-OP (T3)                             73    +197688     -26335     -37024    +268584
+  real   h2  Switch-1                                 112    +243042     -15030     -28584    +390428
+  real   h2  EQRISK (a) FableOP T3 cap2x B=7882        73    +195081     -28518     -37024    +265900
+  real   h2  LEVERAGE (d) FableOP T3 cap3x B=15000     73    +374151     -56247     -77874    +508864
+
+  how often the new sizing differs from the futures lots (candidate / leverage variant):
+  real   EQRISK (a) FableOP T3 cap2x B=7882       more lots   6 (option net change     -9566) | fewer lots   2 (   -13444) | same 225
+  real   LEVERAGE (d) FableOP T3 cap3x B=15000    more lots 222 (option net change   +572052) | fewer lots   0 (       +0) | same  11
+  unseen EQRISK (a) FableOP T3 cap2x B=7882       more lots   3 (option net change     +8211) | fewer lots  11 (   -18436) | same 218
+  unseen LEVERAGE (d) FableOP T3 cap3x B=15000    more lots 225 (option net change   +225620) | fewer lots   0 (       +0) | same   7
+  known  EQRISK (a) FableOP T3 cap2x B=7882       more lots   2 (option net change    +10134) | fewer lots   7 (    +3844) | same 219
+  known  LEVERAGE (d) FableOP T3 cap3x B=15000    more lots 215 (option net change   +203319) | fewer lots   0 (       +0) | same  13
+
+
+######## EXPLORATORY (not pre-registered): real-set lots for the symbols absent from the known set taken from the scanner lot table ########
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  EQRISK (a) FableOP T3 cap2x B=7882   233    +524228    +2250   54.9   37.3  63/35      -28518     -37024 |    +329147    +195081 |    +659076
+  LEVERAGE (d) FableOP T3 cap3x B=15   233   +1112666    +4775   54.9   37.3  65/33      -56247     -77874 |    +738514    +374151 |   +1445895
+
+saved /tmp/claude-0/-home-user-indian-breakout-scanner/f54e4084-33bd-532c-b38a-bd64a5b4292e/scratchpad/hunt/opt_eqrisk_lots/verify/results.json and /tmp/claude-0/-home-user-indian-breakout-scanner/f54e4084-33bd-532c-b38a-bd64a5b4292e/scratchpad/hunt/opt_eqrisk_lots/verify/extras.json

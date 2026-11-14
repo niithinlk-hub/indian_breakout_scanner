@@ -1,0 +1,81 @@
+Nifty minutes: 267 sessions, 265 full (>=300 bars); dropped: 2025-10-21 (60 bars), 2026-11-08 (70 bars)
+missing bars inside full sessions (forward-filled): 0
+real   rows  4996  rv_ratio NaN 0  median 1.008  >=1: 51.1%  | pd_ratio NaN 0  median 0.994
+unseen rows  5051  rv_ratio NaN 0  median 0.975  >=1: 48.2%  | pd_ratio NaN 0  median 1.030
+known  rows  4082  rv_ratio NaN 0  median 0.977  >=1: 47.6%  | pd_ratio NaN 0  median 0.949
+q33 (33rd pct of rv_ratio over all 2746 A/B rows of real 2026-05-12..2026-08-31, 2746 non-NaN) = 0.8084  (frozen)
+
+== DESIGN WINDOW: real 2026-05-12..2026-08-31, OPTION net (modelled). Risk limits: worst day >= -23578, max DD >= -35690 (1.25x the better baseline per metric)
+  model                              n    opt net   /trade    T1%  worst day     max DD    futures risk ok
+  Opus v3 (T1)                     199    +239288    +1202   50.8     -18863     -28827    +308996 (baseline)
+  Fable-OP (T3)                    160    +347343    +2171   56.9     -23143     -28552    +433707 (baseline)
+  Switch-1                         160    +339868    +2124   56.9     -23143     -27877    +420965 (baseline)
+  S1 FOP T3|T1 by rv_ratio         160    +319278    +1995   56.9     -22812     -22812    +443086 yes
+  S2 FOP skip rv<q33 T3             97    +287980    +2969   60.8     -10338     -23253    +421619 yes
+  S3 v3 CLOSE_TR|T1 by rv          199    +299634    +1506   50.8     -18867     -28022    +386755 yes
+  S4 FOP T3|T1 by pd_ratio         160    +277287    +1733   56.9     -22812     -22812    +367557 yes
+CHOSEN on design window: S1 FOP T3|T1 by rv_ratio (opt net +319278)
+  real   chosen picks  233, pol mix {'T1': np.int64(137), 'T3': np.int64(96)}, NaN ratio rows 0
+  unseen chosen picks  232, pol mix {'T1': np.int64(146), 'T3': np.int64(86)}, NaN ratio rows 0
+  known  chosen picks  228, pol mix {'T1': np.int64(144), 'T3': np.int64(84)}, NaN ratio rows 0
+
+######## CANDIDATE (chosen on design window) vs baselines, all sets ########
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  RV S1 FOP T3|T1 by rv_ratio          233    +477550    +2050   54.9   33.0  67/31      -22812     -25887 |    +319278    +158272 |    +670015
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  RV S1 FOP T3|T1 by rv_ratio          232    +144174     +621   46.6   36.6  51/45      -16461     -52109 |     +52457     +91717 |     +21807
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  RV S1 FOP T3|T1 by rv_ratio          228    +170257     +747   45.2   38.2  50/38      -26065     -88550 |    +203245     -32988 |     +49513
+
+######## all four pre-registered grid settings (reference only; the choice above used the design window) ########
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  S1 FOP T3|T1 by rv_ratio             233    +477550    +2050   54.9   33.0  67/31      -22812     -25887 |    +319278    +158272 |    +670015
+  S2 FOP skip rv<q33 T3                142    +417669    +2941   59.2   35.2  42/22      -14734     -25646 |    +287980    +129689 |    +619372
+  S3 v3 CLOSE_TR|T1 by rv              335    +541277    +1616   49.0   25.4  73/35      -18867     -47516 |    +299634    +241642 |    +767656
+  S4 FOP T3|T1 by pd_ratio             233    +406720    +1746   54.9   34.8  62/36      -26335     -35551 |    +277287    +129434 |    +530874
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  S1 FOP T3|T1 by rv_ratio             232    +144174     +621   46.6   36.6  51/45      -16461     -52109 |     +52457     +91717 |     +21807
+  S2 FOP skip rv<q33 T3                116     +58388     +503   45.7   40.5  22/30      -14880     -44323 |     +73247     -14859 |     -30563
+  S3 v3 CLOSE_TR|T1 by rv              366    +209242     +572   38.3   31.7  53/51      -25651     -53824 |    +137669     +71573 |     +12433
+  S4 FOP T3|T1 by pd_ratio             232    +118419     +510   46.6   38.8  50/46      -16461     -63838 |     +66852     +51567 |     -47212
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  S1 FOP T3|T1 by rv_ratio             228    +170257     +747   45.2   38.2  50/38      -26065     -88550 |    +203245     -32988 |     +49513
+  S2 FOP skip rv<q33 T3                131    +245959    +1878   50.4   35.9  34/21      -26065     -76386 |    +190957     +55002 |    +271653
+  S3 v3 CLOSE_TR|T1 by rv              299    +334160    +1118   40.5   27.8  51/40      -15701     -34707 |    +228558    +105602 |    +342448
+  S4 FOP T3|T1 by pd_ratio             228    +185349     +813   45.2   39.0  50/38      -20595     -76498 |    +169724     +15625 |     +69755
+
+== BAR (option net): beats both on unseen: False | beats both on real 2nd half: False | beats Switch-1 on both: False | risk ok: True
+   unseen_all   worst day -16461 (limit -20576)  max DD -52109 (limit -61093)  ok=True
+   real_h2      worst day -15085 (limit -18787)  max DD -25887 (limit -45960)  ok=True
+
+saved /tmp/claude-0/-home-user-indian-breakout-scanner/f54e4084-33bd-532c-b38a-bd64a5b4292e/scratchpad/hunt/nifty_rv_regime/verify/results.json

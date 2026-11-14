@@ -1,0 +1,33 @@
+real   noise_x mine vs tester: max abs diff 6.22e-14, NaN mine 0 | rows with |O/Cprev-1|>8%: 1
+       opt_T3 column vs fresh H.option_net(T3): max abs diff 0.0000
+   all  S2 net   +509626 wd  -21196 dd   -35310 | FOP net   +545031 wd  -26335 dd   -37024 | V3 net   +423981 wd  -18863 dd   -36768
+   h1   S2 net   +341611 wd  -14972 dd   -25566 | FOP net   +347343 wd  -23143 dd   -28552 | V3 net   +239288 wd  -18863 dd   -28827
+   h2   S2 net   +168015 wd  -21196 dd   -35310 | FOP net   +197688 wd  -26335 dd   -37024 | V3 net   +184693 wd  -15030 dd   -36768
+   real   all  S2-FOP sum    -35405  sd(day diff)    4592  iid 90%CI [  -122037,    +48744] P(>0) 0.25 | block5 P(>0) 0.27 | days differ 43
+   real   all  S2-V3  sum    +85645  sd(day diff)   10565  iid 90%CI [  -110697,   +280400] P(>0) 0.76 | block5 P(>0) 0.75 | days differ 105
+   real   h1   S2-FOP sum     -5732  sd(day diff)    4555  iid 90%CI [   -70780,    +61606] P(>0) 0.46 | block5 P(>0) 0.36 | days differ 28
+   real   h1   S2-V3  sum   +102323  sd(day diff)   10578  iid 90%CI [   -51245,   +255985] P(>0) 0.87 | block5 P(>0) 0.78 | days differ 66
+   real   h2   S2-FOP sum    -29673  sd(day diff)    4632  iid 90%CI [   -84536,    +19958] P(>0) 0.18 | block5 P(>0) 0.18 | days differ 15
+   real   h2   S2-V3  sum    -16678  sd(day diff)   10463  iid 90%CI [  -139719,   +103176] P(>0) 0.40 | block5 P(>0) 0.45 | days differ 39
+unseen noise_x mine vs tester: max abs diff 1.60e-14, NaN mine 0 | rows with |O/Cprev-1|>8%: 5
+       opt_T3 column vs fresh H.option_net(T3): max abs diff 0.0000
+   all  S2 net   +209911 wd  -16461 dd   -34359 | FOP net   +202948 wd  -16461 dd   -48875 | V3 net    +84362 wd  -25651 dd   -63667
+   h1   S2 net    +92140 wd  -16461 dd   -34359 | FOP net    +83843 wd  -16461 dd   -48875 | V3 net    -16425 wd  -25651 dd   -63667
+   h2   S2 net   +117771 wd  -14880 dd   -32350 | FOP net   +119104 wd  -14880 dd   -41970 | V3 net   +100787 wd  -14491 dd   -23841
+   unseen all  S2-FOP sum     +6963  sd(day diff)    4565  iid 90%CI [   -79038,    +88281] P(>0) 0.57 | block5 P(>0) 0.64 | days differ 38
+   unseen all  S2-V3  sum   +125549  sd(day diff)    9386  iid 90%CI [   -52058,   +302667] P(>0) 0.88 | block5 P(>0) 0.86 | days differ 97
+   unseen h1   S2-FOP sum     +8297  sd(day diff)    4456  iid 90%CI [   -53482,    +66398] P(>0) 0.61 | block5 P(>0) 0.79 | days differ 21
+   unseen h1   S2-V3  sum   +108565  sd(day diff)    9678  iid 90%CI [   -16034,   +233789] P(>0) 0.92 | block5 P(>0) 0.95 | days differ 53
+   unseen h2   S2-FOP sum     -1333  sd(day diff)    4678  iid 90%CI [   -65511,    +56953] P(>0) 0.49 | block5 P(>0) 0.63 | days differ 17
+   unseen h2   S2-V3  sum    +16984  sd(day diff)    9005  iid 90%CI [   -95795,   +131926] P(>0) 0.58 | block5 P(>0) 0.45 | days differ 44
+known  noise_x mine vs tester: max abs diff 6.48e-14, NaN mine 0 | rows with |O/Cprev-1|>8%: 1
+       opt_T3 column vs fresh H.option_net(T3): max abs diff 0.0000
+   all  S2 net   +139944 wd  -26065 dd   -68924 | FOP net   +183848 wd  -26065 dd   -80209 | V3 net   +199051 wd  -15701 dd   -35009
+   h1   S2 net   +112459 wd  -14696 dd   -47552 | FOP net   +153182 wd  -14696 dd   -57807 | V3 net   +132368 wd  -14103 dd   -23840
+   h2   S2 net    +27484 wd  -26065 dd   -68924 | FOP net    +30666 wd  -26065 dd   -80209 | V3 net    +66683 wd  -15701 dd   -35009
+   known  all  S2-FOP sum    -43905  sd(day diff)    4478  iid 90%CI [  -125864,    +30566] P(>0) 0.17 | block5 P(>0) 0.20 | days differ 35
+   known  all  S2-V3  sum    -59108  sd(day diff)    9904  iid 90%CI [  -234772,   +107492] P(>0) 0.29 | block5 P(>0) 0.27 | days differ 88
+   known  h1   S2-FOP sum    -40723  sd(day diff)    5092  iid 90%CI [  -107319,    +19542] P(>0) 0.15 | block5 P(>0) 0.14 | days differ 20
+   known  h1   S2-V3  sum    -19909  sd(day diff)    8565  iid 90%CI [  -125652,    +84672] P(>0) 0.38 | block5 P(>0) 0.25 | days differ 46
+   known  h2   S2-FOP sum     -3182  sd(day diff)    3693  iid 90%CI [   -51307,    +38076] P(>0) 0.49 | block5 P(>0) 0.73 | days differ 15
+   known  h2   S2-V3  sum    -39198  sd(day diff)   11140  iid 90%CI [  -176895,    +90041] P(>0) 0.32 | block5 P(>0) 0.33 | days differ 42

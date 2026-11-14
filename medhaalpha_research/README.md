@@ -8,6 +8,7 @@ This folder is separate from the breakout scanner app in the rest of the reposit
 
 | File | What it answers |
 |---|---|
+| `better_algo_for_options.md` | Internet search for a better method, tested on options profit (14 Nov 2026) |
 | `which_model_in_which_market.md` | Which model to use in an uptrend, sideways market and downtrend |
 | `options_five_scenarios.md` | Options profit for the five model and exit combinations |
 | `opus_v3_backtest_report.md` | Opus v3: six-month backtest against the other models |
@@ -36,6 +37,7 @@ This folder is separate from the breakout scanner app in the rest of the reposit
 | `cap_sim.json`, `cap_boot.json`, `hold_sep.json`, `t3_hold.json` | Results behind the capital and holding reports |
 | `forward/` | Daily forward-test job (`forward_run.py`), its rules (`protocol.md`), how to run it (`RUNBOOK.md`) and its results page |
 | `raw_market_data/` | The one-minute and daily price data all of the above was built from, compressed |
+| `hunt/` | Options model, test bench and the six tested internet methods behind `better_algo_for_options.md` |
 
 ## Raw market data
 

@@ -1,0 +1,129 @@
+design rows 2746, days 78 (expected 2,746 / 78)
+features (31): ['day_chg', 'gap', 'from_open', 'pos', 'beyond_pd', 'beyond_vwap', 'rel_vol', 'n_break', 'rsi14', 'vs20', 'ret5', 'ret20', 'nifty_chg', 'mins_since_extreme', 'minutes_since_open', 'atr_pct', 'from_52w_high', 'from_52w_low', 'risk_pct', 'stop_atr', 'side_long', 's_opus', 's_fable_op', 'reg_Uptrend', 'reg_Downtrend', 'reg_Sideways', 'r20', 'n_same_so_far', 'n_opp_so_far', 'n_same_minute', 'dte']
+design corr(s_opus, s_fable_op) = 0.044
+baseline design selection rates (pre-cap): s_fable_op>=75 0.0597, s_opus_v3>=75 0.0823
+label base rates on design: opt_T3>0 0.382, opt_T1>0 0.433
+
+Platt calibration fitted on OOF raw output (p = expit(-(a*f+b)); a<0 keeps the ranking, a>0 INVERTS it):
+  gbdt_T3  a +1.0691 b +0.0738 | raw OOF AUC 0.4722 | per fold raw AUC 0.515 0.521 0.438 0.484 0.448 | INVERTED
+  gbdt_T1  a +0.0006 b +0.2694 | raw OOF AUC 0.5009 | per fold raw AUC 0.508 0.502 0.491 0.531 0.498 | INVERTED
+  lr_T3 LONG  a -0.4318 b +0.2397 | raw OOF AUC 0.5089 | kept
+  lr_T3 SHORT a +0.2750 b +0.7468 | raw OOF AUC 0.4734 | INVERTED
+
+OOF design AUC (calibrated p; label of the model):
+  gbdt_T3  all 0.5278 | longs 0.5079 | shorts 0.5796
+  gbdt_T1  all 0.4991 | longs 0.4966 | shorts 0.5372
+  lr_T3    all 0.5254 | longs 0.5089 | shorts 0.5266
+  ref s_opus     vs opt_T3>0 0.5368 | vs opt_T1>0 0.5229
+  ref s_fable_op vs opt_T3>0 0.5276 | vs opt_T1>0 0.5564
+  ref s_opus_v3  vs opt_T3>0 0.5203 | vs opt_T1>0 0.5300
+  logistic stacker final coefs [s_opus, s_fable_op, product, intercept] (standardised): {'LONG': [-0.1233, -0.1409, 0.3499, -0.4271], 'SHORT': [0.7247, 0.6676, -0.8968, -0.588]}
+  gbdt_T3 final-model gain importance (top 12): r20 880, dte 697, nifty_chg 474, from_52w_high 457, stop_atr 429, minutes_since_open 414, s_fable_op 393, n_same_so_far 378, ret20 370, from_open 334, vs20 321, n_opp_so_far 314
+  gbdt_T1 final-model gain importance (top 12): r20 667, s_fable_op 653, n_same_so_far 522, nifty_chg 478, minutes_since_open 462, dte 442, from_52w_high 441, ret20 418, from_open 389, rel_vol 337, vs20 333, ret5 320
+setting a: model gbdt_T3 exit T3 gate 5.97 % -> top 164 design rows, thr p >= 0.41583
+setting b: model gbdt_T1 exit T1 gate 8.23 % -> top 226 design rows, thr p >= 0.43301
+setting c: model lr_T3 exit T3 gate 5.97 % -> top 164 design rows, thr p >= 0.42171
+setting d: model gbdt_T3 exit T3 gate 9.00 % -> top 247 design rows, thr p >= 0.41236
+
+== DESIGN WINDOW (real 2026-05-12 to 2026-08-31, 78 days), OOF p | OPTION net (modelled)
+  model                        n    opt net   /trade   d+/d-  worst day     max DD |    futures
+  Opus v3 (T1)               199    +239288    +1202  46/21      -18863     -28827 |    +308996
+  Fable-OP (T3)              160    +347343    +2171  42/23      -23143     -28552 |    +433707
+  Switch-1                   160    +339868    +2124  42/23      -23143     -27877 |    +420965
+  meta a GBDT T3 g5.97       107     +72738     +680  17/16      -23540     -51787 |     +39966
+  meta b GBDT T1 g8.23       128     -21939     -171  19/21      -25695     -69995 |    -144588
+  meta c LR T3 g5.97         159    +274853    +1729  36/25      -21872     -38134 |    +339626
+  meta d GBDT T3 g9.0        154     +64466     +419  24/23      -28110     -56023 |     +15101
+  risk limits (1.25x the better design baseline, per metric): worst day >= -23578, max DD >= -35690
+  setting a: design opt net +72738, risk ok False
+  setting b: design opt net -21939, risk ok False
+  setting c: design opt net +274853, risk ok False
+  setting d: design opt net +64466, risk ok False
+  CHOICE: setting c (meta c LR T3 g5.97)  [FLAGGED: no setting met the design risk limits; highest net taken]
+
+######## Candidate vs baselines on every set (real h1 = design window scored with OOF p; known shares design dates = contaminated)
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  META c (chosen)                      211    +311500    +1476   45.0   34.1  50/39      -21872     -48452 |    +274853     +36647 |    +356415
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  META c (chosen)                      171     +43126     +252   34.5   38.0  34/45      -22402     -49097 |     +13991     +29134 |    -119425
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  META c (chosen)                      203    +149718     +738   39.9   40.4  38/48      -22003     -89657 |    +173760     -24042 |     +14379
+
+######## All four grid settings on every set (for transparency; the choice above used the design window only)
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  meta a GBDT T3 g5.97                 207      -3748      -18   38.6   33.3  26/35      -28434     -89844 |     +72738     -76487 |    -148602
+  meta b GBDT T1 g8.23                 248     -38918     -157   32.3   30.2  31/39      -29192     -99599 |     -21939     -16979 |    -215409
+  meta c LR T3 g5.97                   211    +311500    +1476   45.0   34.1  50/39      -21872     -48452 |    +274853     +36647 |    +356415
+  meta d GBDT T3 g9.0                  279     +23224      +83   37.6   33.7  37/43      -29465    -106463 |     +64466     -41242 |    -113452
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  meta a GBDT T3 g5.97                 159     -27294     -172   39.0   42.8  17/26      -32898     -85875 |     -44941     +17648 |    -180822
+  meta b GBDT T1 g8.23                 139      -7839      -56   35.3   37.4  21/15      -32577     -64877 |     +34469     -42309 |    -111850
+  meta c LR T3 g5.97                   171     +43126     +252   34.5   38.0  34/45      -22402     -49097 |     +13991     +29134 |    -119425
+  meta d GBDT T3 g9.0                  203     -37017     -182   39.4   40.4  24/39      -33484    -132888 |     -22350     -14667 |    -217152
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  meta a GBDT T3 g5.97                 158    -302670    -1916   25.3   53.2   7/41      -27487    -317346 |    -211422     -91248 |    -715154
+  meta b GBDT T1 g8.23                 151    -206009    -1364   21.2   41.1   7/35      -26460    -279931 |    -183733     -22276 |    -501799
+  meta c LR T3 g5.97                   203    +149718     +738   39.9   40.4  38/48      -22003     -89657 |    +173760     -24042 |     +14379
+  meta d GBDT T3 g9.0                  214    -386438    -1806   24.3   50.9  12/50      -38559    -444692 |    -277864    -108574 |    -920380
+
+Realised selection rate per set (rows with p >= thr / all rows; trades after 6/day cap / all rows):
+  a: design 5.97% / 3.90% | real_h2 14.18% / 4.44% | unseen 7.66% / 3.15% | known 9.82% / 3.87%
+  b: design 8.23% / 4.66% | real_h2 19.02% / 5.33% | unseen 8.37% / 2.75% | known 10.53% / 3.70%
+  c: design 5.97% / 5.79% | real_h2 2.31% / 2.31% | unseen 3.39% / 3.39% | known 5.12% / 4.97%
+  d: design 8.99% / 5.61% | real_h2 17.87% / 5.56% | unseen 9.98% / 4.02% | known 13.42% / 5.24%
+  baseline Fable-OP>=75 gate rate: design 5.97% | real_h2 3.51% | unseen 5.25% | known 5.90%
+  baseline Opus v3>=75 gate rate: design 8.23% | real_h2 13.11% | unseen 9.98% | known 9.41%
+
+Calibration check (mean calibrated p vs realised label rate; label = the model's own):
+  gbdt_T3  design OOF p 0.382 / y 0.382 | real_h2 p 0.391 / y 0.458 | unseen p 0.384 / y 0.420 | known p 0.385 / y 0.413
+  gbdt_T1  design OOF p 0.433 / y 0.433 | real_h2 p 0.433 / y 0.506 | unseen p 0.433 / y 0.468 | known p 0.433 / y 0.462
+  lr_T3    design OOF p 0.382 / y 0.382 | real_h2 p 0.369 / y 0.458 | unseen p 0.376 / y 0.420 | known p 0.376 / y 0.413
+Held-out AUC (diagnostic): gbdt_T3 real_h2 0.435 unseen 0.492 known 0.360 | gbdt_T1 real_h2 0.461 unseen 0.488 known 0.385 | lr_T3 real_h2 0.463 unseen 0.492 known 0.486
+
+VERDICT (option net): beats both on unseen False | beats both on real 2nd half False | beats Switch-1 on both False | risk ok (unseen & real h2) False
+
+######## EXPLORATORY, NOT PRE-REGISTERED: GBDT ranked by RAW probability (no Platt inversion); design rows = raw OOF
+  design EXPL raw a T3 g5.97      n 148 opt net    +28609 worst day   -14572 max DD    -46570 futures   -101051
+  design EXPL raw b T1 g8.23      n 193 opt net    -29555 worst day   -24361 max DD    -88374 futures   -215612
+  design EXPL raw d T3 g9.00      n 204 opt net    -60408 worst day   -18819 max DD    -98254 futures   -331883
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  EXPL raw a T3 g5.97                  191    +191402    +1002   29.3   19.9  38/32      -14572     -46570 |     +28609    +162793 |    +149678
+  EXPL raw b T1 g8.23                  266     +63614     +239   36.8   30.8  50/47      -24361     -88374 |     -29555     +93169 |     -83359
+  EXPL raw d T3 g9.00                  271    +131198     +484   29.5   26.2  47/43      -18819     -98254 |     -60408    +191606 |     -34455
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  EXPL raw a T3 g5.97                  170     -11064      -65   23.5   24.7  29/35      -20847     -70223 |     -44186     +33123 |    -152263
+  EXPL raw b T1 g8.23                  282     +23453      +83   37.6   32.3  49/52      -16815     -50017 |     -25890     +49342 |    -186183
+  EXPL raw d T3 g9.00                  251     +64830     +258   28.7   26.3  35/43      -19024     -68477 |      +6264     +58566 |     -79130
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  EXPL raw a T3 g5.97                  152    +364392    +2397   38.8    9.9  43/21       -9078     -19290 |    +303803     +60589 |    +593322
+  EXPL raw b T1 g8.23                  242    +292112    +1207   46.7   23.1  57/32      -18372     -59102 |    +269873     +22240 |    +378250
+  EXPL raw d T3 g9.00                  235    +572124    +2435   39.1    9.8  52/27      -12867     -21909 |    +436226    +135899 |    +912577
+
+wrote /tmp/claude-0/-home-user-indian-breakout-scanner/f54e4084-33bd-532c-b38a-bd64a5b4292e/scratchpad/hunt/meta_label_opt/verify/results.json

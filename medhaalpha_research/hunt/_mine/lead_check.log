@@ -1,0 +1,12 @@
+unseen       v3 CLOSE_TR  net   +249060 | Fable-OP T3    +46112 P(>0)=0.65 months won 4/7 | Opus v3 T1   +164698 P(>0)=0.96 months won 3/7 | Switch-1    -18547 P(>0)=0.41 months won 3/7
+unseen       v3 T3        net   +119319 | Fable-OP T3    -83629 P(>0)=0.17 months won 2/7 | Opus v3 T1    +34957 P(>0)=0.67 months won 3/7 | Switch-1   -148287 P(>0)=0.01 months won 2/7
+unseen       v3 CLOSE     net   +279708 | Fable-OP T3    +76761 P(>0)=0.72 months won 5/7 | Opus v3 T1   +195346 P(>0)=0.95 months won 5/7 | Switch-1    +12102 P(>0)=0.55 months won 4/7
+real h2      v3 CLOSE_TR  net   +240509 | Fable-OP T3    +42821 P(>0)=0.67 months won 1/3 | Opus v3 T1    +55816 P(>0)=0.85 months won 2/3 | Switch-1     -2533 P(>0)=0.48 months won 1/3
+real h2      v3 T3        net   +287840 | Fable-OP T3    +90153 P(>0)=0.82 months won 2/3 | Opus v3 T1   +103147 P(>0)=0.93 months won 2/3 | Switch-1    +44798 P(>0)=0.73 months won 2/3
+real h2      v3 CLOSE     net   +273791 | Fable-OP T3    +76103 P(>0)=0.77 months won 2/3 | Opus v3 T1    +89097 P(>0)=0.91 months won 2/3 | Switch-1    +30749 P(>0)=0.66 months won 2/3
+real h1      v3 CLOSE_TR  net   +315593 | Fable-OP T3    -31750 P(>0)=0.34 months won 1/4 | Opus v3 T1    +76305 P(>0)=0.89 months won 2/4 | Switch-1    -24275 P(>0)=0.38 months won 1/4
+real h1      v3 T3        net   +351296 | Fable-OP T3     +3953 P(>0)=0.50 months won 2/4 | Opus v3 T1   +112008 P(>0)=0.95 months won 3/4 | Switch-1    +11428 P(>0)=0.54 months won 2/4
+real h1      v3 CLOSE     net   +306984 | Fable-OP T3    -40359 P(>0)=0.33 months won 2/4 | Opus v3 T1    +67696 P(>0)=0.77 months won 2/4 | Switch-1    -32884 P(>0)=0.35 months won 2/4
+known        v3 CLOSE_TR  net   +345302 | Fable-OP T3   +161453 P(>0)=0.96 months won 5/6 | Opus v3 T1   +146250 P(>0)=0.98 months won 4/6 | Switch-1   +161108 P(>0)=0.98 months won 5/6
+known        v3 T3        net   +285564 | Fable-OP T3   +101716 P(>0)=0.90 months won 3/6 | Opus v3 T1    +86513 P(>0)=0.87 months won 4/6 | Switch-1   +101371 P(>0)=0.94 months won 3/6
+known        v3 CLOSE     net   +341831 | Fable-OP T3   +157982 P(>0)=0.94 months won 4/6 | Opus v3 T1   +142779 P(>0)=0.91 months won 3/6 | Switch-1   +157637 P(>0)=0.97 months won 4/6

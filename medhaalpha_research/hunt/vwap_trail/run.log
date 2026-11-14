@@ -1,0 +1,200 @@
+loaded data in 3s
+engine real: 4996 rows, 0 without minute data, 3s
+engine unseen: 5051 rows, 0 without minute data, 3s
+engine known: 4082 rows, 0 without minute data, 2s
+
+================ ENGINE CHECK (VWAP rule disabled) =================
+
+-- real, all rows: 4996 rows
+   CLOSE exit_ts match  99.88% | F1 max|diff| 1893.4500 | option sum engine     +515769 harness     +155450 (max row |diff| 26636.37) | futures sum engine    -3348561 harness    -4261430 (max row |diff| 47886.66)
+   T1    exit_ts match  99.88% | F1 max|diff| 1376.9000 | option sum engine     -472020 harness     -564386 (max row |diff| 26636.37) | futures sum engine    -4265494 harness    -4570550 (max row |diff| 44974.48)
+   T3    exit_ts match  99.88% | F1 max|diff| 1893.4500 | option sum engine     +277615 harness      +66145 (max row |diff| 29498.21) | futures sum engine    -3539991 harness    -4169059 (max row |diff| 47310.47)
+
+-- real, picked rows (fable_op/opus_v3): 384 rows
+   CLOSE exit_ts match  99.74% | F1 max|diff| 1893.4500 | option sum engine     +666433 harness     +624753 (max row |diff| 26389.31) | futures sum engine     +785916 harness     +727073 (max row |diff| 37349.91)
+   T1    exit_ts match  99.74% | F1 max|diff| 1376.9000 | option sum engine     +467147 harness     +465677 (max row |diff| 17593.80) | futures sum engine     +594480 harness     +627565 (max row |diff| 24623.87)
+   T3    exit_ts match  99.74% | F1 max|diff| 1893.4500 | option sum engine     +671181 harness     +737401 (max row |diff| 26389.31) | futures sum engine     +826407 harness     +929903 (max row |diff| 45367.36)
+
+-- unseen, all rows: 5051 rows
+   CLOSE exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     +111131 harness     +111131 (max row |diff|     0.00) | futures sum engine    -3927039 harness    -3927039 (max row |diff|     0.00)
+   T1    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     -554366 harness     -554366 (max row |diff|     0.00) | futures sum engine    -4370938 harness    -4370938 (max row |diff|     0.00)
+   T3    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine      -84138 harness      -84138 (max row |diff|     0.00) | futures sum engine    -4111647 harness    -4111647 (max row |diff|     0.00)
+
+-- unseen, picked rows (fable_op/opus_v3): 413 rows
+   CLOSE exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     +254301 harness     +254301 (max row |diff|     0.00) | futures sum engine      -32906 harness      -32906 (max row |diff|     0.00)
+   T1    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine      +88127 harness      +88127 (max row |diff|     0.00) | futures sum engine     -157355 harness     -157355 (max row |diff|     0.00)
+   T3    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     +122382 harness     +122382 (max row |diff|     0.00) | futures sum engine     -191551 harness     -191551 (max row |diff|     0.00)
+
+-- known, all rows: 4082 rows
+   CLOSE exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine      -25318 harness      -25318 (max row |diff|     0.00) | futures sum engine    -3492141 harness    -3492141 (max row |diff|     0.00)
+   T1    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     -588623 harness     -588623 (max row |diff|     0.00) | futures sum engine    -3892198 harness    -3892198 (max row |diff|     0.00)
+   T3    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     -257569 harness     -257569 (max row |diff|     0.00) | futures sum engine    -3699625 harness    -3699625 (max row |diff|     0.00)
+
+-- known, picked rows (fable_op/opus_v3): 354 rows
+   CLOSE exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     +279537 harness     +279537 (max row |diff|     0.00) | futures sum engine     +109265 harness     +109265 (max row |diff|     0.00)
+   T1    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     +188766 harness     +188766 (max row |diff|     0.00) | futures sum engine      +75546 harness      +75546 (max row |diff|     0.00)
+   T3    exit_ts match 100.00% | F1 max|diff|    0.0000 | option sum engine     +255155 harness     +255155 (max row |diff|     0.00) | futures sum engine     +106533 harness     +106533 (max row |diff|     0.00)
+engine vs scanner fills.simulate (CLOSE and T3, same stop), real picked rows: 0 mismatches of 768 row-rules
+engine vs scanner fills.simulate (CLOSE and T3, same stop), unseen picked rows: 0 mismatches of 826 row-rules
+engine vs scanner fills.simulate (CLOSE and T3, same stop), known picked rows: 0 mismatches of 708 row-rules
+
+================ DESIGN WINDOW (real 2026-05-12 to 2026-08-31, cash re-sim of the real picks) =================
+  model                                  n    opt net  worst day     max DD    futures
+  Opus v3 (T1)                         199    +239288     -18863     -28827    +308996
+  Fable-OP (T3)                        160    +347343     -23143     -28552    +433707
+  Switch-1                             160    +339868     -23143     -27877    +420965
+  S1 Fable-OP VW 30-min checks         160    +362530     -14886     -47176    +443677
+  S2 Fable-OP VW 1-min checks          160    +187768     -10427     -25242    +179129
+  S3 Fable-OP VW 1-min, MFE>=0.5R      160    +371599     -12539     -27076    +471805
+  S4 Opus v3 VW 30-min checks          199    +296766     -14886     -47429    +340389
+  ENG re-sim Opus v3 T1                199    +279205     -14886     -21344    +358162
+  ENG re-sim Fable-OP T3               160    +351461     -20347     -36751    +427643
+  ENG re-sim Fable-OP CLOSE            160    +385712     -20347     -36751    +451848
+  ENG re-sim Opus v3 CLOSE             199    +335834     -24696     -30907    +373857
+  limits: worst day >= -23578 (1.25 x better baseline -18863), max DD >= -35690 (1.25 x better baseline -28552)
+  S1: net +362530 worst -14886 maxDD -47176 -> fails risk limit
+  S2: net +187768 worst -10427 maxDD -25242 -> qualifies
+  S3: net +371599 worst -12539 maxDD -27076 -> qualifies
+  S4: net +296766 worst -14886 maxDD -47429 -> fails risk limit
+  CHOSEN: S3 (S3 Fable-OP VW 1-min, MFE>=0.5R)
+
+================ CANDIDATE vs BASELINES (OPTION net; harness.compare) =================
+candidate = S3: S3 Fable-OP VW 1-min, MFE>=0.5R
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  VW trail S3 (chosen)                 233    +504679    +2166   54.9   22.3  63/35      -14865     -29254 |    +371599    +133080 |    +627773
+  ENG re-sim Opus v3 T1                335    +432797    +1292   49.0   25.7  78/30      -14886     -44189 |    +279205    +153593 |    +569888
+  ENG re-sim Fable-OP T3               233    +543244    +2332   54.9   35.6  62/36      -26020     -36751 |    +351461    +191783 |    +677184
+  ENG re-sim Fable-OP CLOSE            233    +545378    +2341   54.9   36.1  59/39      -26020     -49791 |    +385712    +159666 |    +647891
+  ENG re-sim Opus v3 CLOSE             335    +616101    +1839   49.0   30.1  64/44      -24696     -65199 |    +335834    +280267 |    +763139
+  harness Fable-OP CLOSE               233    +463075    +1987   54.9   38.2  57/41      -26335     -43754 |    +363801     +99275 |    +569348
+  harness Opus v3 CLOSE                335    +580775    +1734   49.0   30.4  66/42      -25126     -68236 |    +306984    +273791 |    +691697
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  VW trail S3 (chosen)                 232    +309165    +1333   46.6   25.0  46/50      -16461     -22488 |    +202376    +106789 |    +279380
+  ENG re-sim Opus v3 T1                366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  ENG re-sim Fable-OP T3               232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  ENG re-sim Fable-OP CLOSE            232    +297208    +1281   46.6   41.8  42/54      -16461     -47634 |    +165287    +131921 |    +187059
+  ENG re-sim Opus v3 CLOSE             366    +279708     +764   38.3   37.2  50/54      -25820     -61775 |    +153993    +125715 |     +60476
+  harness Fable-OP CLOSE               232    +297208    +1281   46.6   41.8  42/54      -16461     -47634 |    +165287    +131921 |    +187059
+  harness Opus v3 CLOSE                366    +279708     +764   38.3   37.2  50/54      -25820     -61775 |    +153993    +125715 |     +60476
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  VW trail S3 (chosen)                 228     +85438     +375   45.2   32.0  44/44      -24063     -86606 |    +135397     -49959 |    -106241
+  ENG re-sim Opus v3 T1                299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  ENG re-sim Fable-OP T3               228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  ENG re-sim Fable-OP CLOSE            228    +209295     +918   45.2   41.2  44/44      -26065     -82971 |    +185787     +23509 |     +52383
+  ENG re-sim Opus v3 CLOSE             299    +341831    +1143   40.5   31.1  45/46      -17899     -58901 |    +190992    +150838 |    +287313
+  harness Fable-OP CLOSE               228    +209295     +918   45.2   41.2  44/44      -26065     -82971 |    +185787     +23509 |     +52383
+  harness Opus v3 CLOSE                299    +341831    +1143   40.5   31.1  45/46      -17899     -58901 |    +190992    +150838 |    +287313
+
+-- chosen candidate, baselines and engine re-sims: per half (option net / worst day / max DD / futures net)
+  REAL
+    Opus v3 (T1)                       all   +423981 wd   -18863 dd    -36768 fut   +589038 |  h1   +239288 wd   -18863 dd    -28827 fut   +308996 |  h2   +184693 wd   -15030 dd    -36768 fut   +280042
+    Fable-OP (T3)                      all   +545031 wd   -26335 dd    -37024 fut   +702290 |  h1   +347343 wd   -23143 dd    -28552 fut   +433707 |  h2   +197688 wd   -26335 dd    -37024 fut   +268584
+    Switch-1                           all   +582910 wd   -23143 dd    -28584 fut   +811393 |  h1   +339868 wd   -23143 dd    -27877 fut   +420965 |  h2   +243042 wd   -15030 dd    -28584 fut   +390428
+    VW trail S3 (chosen)               all   +504679 wd   -14865 dd    -29254 fut   +627773 |  h1   +371599 wd   -12539 dd    -27076 fut   +471805 |  h2   +133080 wd   -14865 dd    -29254 fut   +155968
+    ENG re-sim Opus v3 T1              all   +432797 wd   -14886 dd    -44189 fut   +569888 |  h1   +279205 wd   -14886 dd    -21344 fut   +358162 |  h2   +153593 wd   -14455 dd    -44189 fut   +211726
+    ENG re-sim Fable-OP T3             all   +543244 wd   -26020 dd    -36751 fut   +677184 |  h1   +351461 wd   -20347 dd    -36751 fut   +427643 |  h2   +191783 wd   -26020 dd    -35392 fut   +249541
+    ENG re-sim Fable-OP CLOSE          all   +545378 wd   -26020 dd    -49791 fut   +647891 |  h1   +385712 wd   -20347 dd    -36751 fut   +451848 |  h2   +159666 wd   -26020 dd    -49791 fut   +196043
+    ENG re-sim Opus v3 CLOSE           all   +616101 wd   -24696 dd    -65199 fut   +763139 |  h1   +335834 wd   -24696 dd    -30907 fut   +373857 |  h2   +280267 wd   -14455 dd    -65199 fut   +389282
+    harness Fable-OP CLOSE             all   +463075 wd   -26335 dd    -43754 fut   +569348 |  h1   +363801 wd   -23143 dd    -28904 fut   +427198 |  h2    +99275 wd   -26335 dd    -43754 fut   +142150
+    harness Opus v3 CLOSE              all   +580775 wd   -25126 dd    -68236 fut   +691697 |  h1   +306984 wd   -25126 dd    -33099 fut   +279218 |  h2   +273791 wd   -15043 dd    -68236 fut   +412479
+  UNSEEN
+    Opus v3 (T1)                       all    +84362 wd   -25651 dd    -63667 fut   -128597 |  h1    -16425 wd   -25651 dd    -63667 fut   -231133 |  h2   +100787 wd   -14491 dd    -23841 fut   +102536
+    Fable-OP (T3)                      all   +202948 wd   -16461 dd    -48875 fut    +78849 |  h1    +83843 wd   -16461 dd    -48875 fut    -39330 |  h2   +119104 wd   -14880 dd    -41970 fut   +118179
+    Switch-1                           all   +267606 wd   -25651 dd    -48875 fut   +178272 |  h1    +85713 wd   -25651 dd    -48875 fut    -61285 |  h2   +181893 wd   -14491 dd    -30373 fut   +239557
+    VW trail S3 (chosen)               all   +309165 wd   -16461 dd    -22488 fut   +279380 |  h1   +202376 wd   -16461 dd    -22488 fut   +165031 |  h2   +106789 wd   -13753 dd    -17084 fut   +114349
+    ENG re-sim Opus v3 T1              all    +84362 wd   -25651 dd    -63667 fut   -128597 |  h1    -16425 wd   -25651 dd    -63667 fut   -231133 |  h2   +100787 wd   -14491 dd    -23841 fut   +102536
+    ENG re-sim Fable-OP T3             all   +202948 wd   -16461 dd    -48875 fut    +78849 |  h1    +83843 wd   -16461 dd    -48875 fut    -39330 |  h2   +119104 wd   -14880 dd    -41970 fut   +118179
+    ENG re-sim Fable-OP CLOSE          all   +297208 wd   -16461 dd    -47634 fut   +187059 |  h1   +165287 wd   -16461 dd    -32870 fut    +53541 |  h2   +131921 wd   -14880 dd    -47634 fut   +133517
+    ENG re-sim Opus v3 CLOSE           all   +279708 wd   -25820 dd    -61775 fut    +60476 |  h1   +153993 wd   -25820 dd    -61775 fut    -47021 |  h2   +125715 wd   -22837 dd    -41106 fut   +107496
+    harness Fable-OP CLOSE             all   +297208 wd   -16461 dd    -47634 fut   +187059 |  h1   +165287 wd   -16461 dd    -32870 fut    +53541 |  h2   +131921 wd   -14880 dd    -47634 fut   +133517
+    harness Opus v3 CLOSE              all   +279708 wd   -25820 dd    -61775 fut    +60476 |  h1   +153993 wd   -25820 dd    -61775 fut    -47021 |  h2   +125715 wd   -22837 dd    -41106 fut   +107496
+  KNOWN
+    Opus v3 (T1)                       all   +199051 wd   -15701 dd    -35009 fut   +152729 |  h1   +132368 wd   -14103 dd    -23840 fut   +141717 |  h2    +66683 wd   -15701 dd    -35009 fut    +11012
+    Fable-OP (T3)                      all   +183848 wd   -26065 dd    -80209 fut    +42654 |  h1   +153182 wd   -14696 dd    -57807 fut   +153765 |  h2    +30666 wd   -26065 dd    -80209 fut   -111111
+    Switch-1                           all   +184194 wd   -26065 dd    -80209 fut    +69567 |  h1   +140755 wd   -14696 dd    -70234 fut   +126330 |  h2    +43438 wd   -26065 dd    -80209 fut    -56763
+    VW trail S3 (chosen)               all    +85438 wd   -24063 dd    -86606 fut   -106241 |  h1   +135397 wd   -12180 dd    -32241 fut   +132360 |  h2    -49959 wd   -24063 dd    -86606 fut   -238601
+    ENG re-sim Opus v3 T1              all   +199051 wd   -15701 dd    -35009 fut   +152729 |  h1   +132368 wd   -14103 dd    -23840 fut   +141717 |  h2    +66683 wd   -15701 dd    -35009 fut    +11012
+    ENG re-sim Fable-OP T3             all   +183848 wd   -26065 dd    -80209 fut    +42654 |  h1   +153182 wd   -14696 dd    -57807 fut   +153765 |  h2    +30666 wd   -26065 dd    -80209 fut   -111111
+    ENG re-sim Fable-OP CLOSE          all   +209295 wd   -26065 dd    -82971 fut    +52383 |  h1   +185787 wd   -14696 dd    -59582 fut   +182307 |  h2    +23509 wd   -26065 dd    -82971 fut   -129924
+    ENG re-sim Opus v3 CLOSE           all   +341831 wd   -17899 dd    -58901 fut   +287313 |  h1   +190992 wd   -17899 dd    -58901 fut   +176306 |  h2   +150838 wd   -15701 dd    -42888 fut   +111007
+    harness Fable-OP CLOSE             all   +209295 wd   -26065 dd    -82971 fut    +52383 |  h1   +185787 wd   -14696 dd    -59582 fut   +182307 |  h2    +23509 wd   -26065 dd    -82971 fut   -129924
+    harness Opus v3 CLOSE              all   +341831 wd   -17899 dd    -58901 fut   +287313 |  h1   +190992 wd   -17899 dd    -58901 fut   +176306 |  h2   +150838 wd   -15701 dd    -42888 fut   +111007
+
+================ the other declared settings (NOT chosen; for information only) =================
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  S1 Fable-OP VW 30-min checks         233    +544065    +2335   54.9   17.6  56/42      -14993     -47176 |    +362530    +181534 |    +682724
+  S2 Fable-OP VW 1-min checks          233    +269019    +1155   54.9    3.0  48/50      -10427     -25242 |    +187768     +81251 |    +260856
+  S3 Fable-OP VW 1-min, MFE>=0.5R [c   233    +504679    +2166   54.9   22.3  63/35      -14865     -29254 |    +371599    +133080 |    +627773
+  S4 Opus v3 VW 30-min checks          335    +545740    +1629   49.0   15.8  60/48      -15965     -54926 |    +296766    +248973 |    +674608
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  S1 Fable-OP VW 30-min checks         232    +299929    +1293   46.6   17.7  41/55      -16461     -49765 |    +184386    +115543 |    +228292
+  S2 Fable-OP VW 1-min checks          232    +252292    +1087   46.6    5.6  34/62      -14166     -44340 |    +192373     +59919 |    +197297
+  S3 Fable-OP VW 1-min, MFE>=0.5R [c   232    +309165    +1333   46.6   25.0  46/50      -16461     -22488 |    +202376    +106789 |    +279380
+  S4 Opus v3 VW 30-min checks          366    +280717     +767   38.3   16.7  47/57      -22889     -76281 |    +170867    +109851 |    +114360
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  S1 Fable-OP VW 30-min checks         228    +180053     +790   45.2   20.6  39/49      -16616     -59486 |    +172703      +7351 |     +50322
+  S2 Fable-OP VW 1-min checks          228     +23224     +102   45.2    2.6  29/59      -15947     -70778 |     +93051     -69828 |    -168525
+  S3 Fable-OP VW 1-min, MFE>=0.5R [c   228     +85438     +375   45.2   32.0  44/44      -24063     -86606 |    +135397     -49959 |    -106241
+  S4 Opus v3 VW 30-min checks          299    +286000     +957   40.5   19.4  39/52      -16619     -64670 |    +183188    +102812 |    +215556
+
+-- all four settings: per half (option net / worst day / max DD / futures net)
+  REAL
+    S1 Fable-OP VW 30-min checks       all   +544065 wd   -14993 dd    -47176 fut   +682724 |  h1   +362530 wd   -14886 dd    -47176 fut   +443677 |  h2   +181534 wd   -14993 dd    -27953 fut   +239047
+    S2 Fable-OP VW 1-min checks        all   +269019 wd   -10427 dd    -25242 fut   +260856 |  h1   +187768 wd   -10427 dd    -25242 fut   +179129 |  h2    +81251 wd    -8685 dd    -24406 fut    +81727
+    S3 Fable-OP VW 1-min, MFE>=0.5R [c all   +504679 wd   -14865 dd    -29254 fut   +627773 |  h1   +371599 wd   -12539 dd    -27076 fut   +471805 |  h2   +133080 wd   -14865 dd    -29254 fut   +155968
+    S4 Opus v3 VW 30-min checks        all   +545740 wd   -15965 dd    -54926 fut   +674608 |  h1   +296766 wd   -14886 dd    -47429 fut   +340389 |  h2   +248973 wd   -15965 dd    -54926 fut   +334219
+  UNSEEN
+    S1 Fable-OP VW 30-min checks       all   +299929 wd   -16461 dd    -49765 fut   +228292 |  h1   +184386 wd   -16461 dd    -49765 fut   +111073 |  h2   +115543 wd   -10194 dd    -33020 fut   +117218
+    S2 Fable-OP VW 1-min checks        all   +252292 wd   -14166 dd    -44340 fut   +197297 |  h1   +192373 wd   -14166 dd    -44340 fut   +166053 |  h2    +59919 wd    -9705 dd    -24803 fut    +31244
+    S3 Fable-OP VW 1-min, MFE>=0.5R [c all   +309165 wd   -16461 dd    -22488 fut   +279380 |  h1   +202376 wd   -16461 dd    -22488 fut   +165031 |  h2   +106789 wd   -13753 dd    -17084 fut   +114349
+    S4 Opus v3 VW 30-min checks        all   +280717 wd   -22889 dd    -76281 fut   +114360 |  h1   +170867 wd   -22889 dd    -76108 fut    +12730 |  h2   +109851 wd   -18315 dd    -39318 fut   +101630
+  KNOWN
+    S1 Fable-OP VW 30-min checks       all   +180053 wd   -16616 dd    -59486 fut    +50322 |  h1   +172703 wd   -11179 dd    -59486 fut   +171194 |  h2     +7351 wd   -16616 dd    -55144 fut   -120872
+    S2 Fable-OP VW 1-min checks        all    +23224 wd   -15947 dd    -70778 fut   -168525 |  h1    +93051 wd    -6462 dd    -50101 fut    +61115 |  h2    -69828 wd   -15947 dd    -70778 fut   -229640
+    S3 Fable-OP VW 1-min, MFE>=0.5R [c all    +85438 wd   -24063 dd    -86606 fut   -106241 |  h1   +135397 wd   -12180 dd    -32241 fut   +132360 |  h2    -49959 wd   -24063 dd    -86606 fut   -238601
+    S4 Opus v3 VW 30-min checks        all   +286000 wd   -16619 dd    -64670 fut   +215556 |  h1   +183188 wd   -16619 dd    -64670 fut   +174220 |  h2   +102812 wd   -15116 dd    -33718 fut    +41335
+
+================ VERDICT (bar: OPTION net, unseen and real 2nd half) =================
+  unseen all cand   +309165 | Opus v3 T1    +84362 | Fable-OP T3   +202948 | Switch-1   +267606 | engine re-sim ENG re-sim Fable-OP T3   +202948 | ENG Opus v3 T1    +84362
+  real   h2  cand   +133080 | Opus v3 T1   +184693 | Fable-OP T3   +197688 | Switch-1   +243042 | engine re-sim ENG re-sim Fable-OP T3   +191783 | ENG Opus v3 T1   +153593
+  real   h1  cand   +371599 | Opus v3 T1   +239288 | Fable-OP T3   +347343 | Switch-1   +339868 | engine re-sim ENG re-sim Fable-OP T3   +351461 | ENG Opus v3 T1   +279205
+  real   all cand   +504679 | Opus v3 T1   +423981 | Fable-OP T3   +545031 | Switch-1   +582910 | engine re-sim ENG re-sim Fable-OP T3   +543244 | ENG Opus v3 T1   +432797
+  known  all cand    +85438 | Opus v3 T1   +199051 | Fable-OP T3   +183848 | Switch-1   +184194 | engine re-sim ENG re-sim Fable-OP T3   +183848 | ENG Opus v3 T1   +199051
+  beats both baselines on unseen: True | on real 2nd half: False | beats Switch-1 on both: False
+  risk unseen_all worst day -16461 (limit -20576), max DD -22488 (limit -61093) -> ok
+  risk real_h2    worst day -14865 (limit -18787), max DD -29254 (limit -45960) -> ok
+  risk_ok: True
+
+-- exit reasons / holding minutes, chosen setting on its picks (engine T3 / CLOSE on the same picks for reference)
+  real   VW1M  n 233  {'vwap': 136, 'stop': 52, 'close': 45}  median hold    65 min  mean option net/trade   +2166
+  real   T3    n 233  {'close': 108, 'stop': 83, 'target': 42}  median hold   264 min  mean option net/trade   +2332
+  real   CLOSE n 233  {'close': 149, 'stop': 84}  median hold   367 min  mean option net/trade   +2341
+  unseen VW1M  n 232  {'vwap': 126, 'stop': 58, 'close': 48}  median hold    60 min  mean option net/trade   +1333
+  unseen T3    n 232  {'close': 108, 'stop': 95, 'target': 29}  median hold   310 min  mean option net/trade    +875
+  unseen CLOSE n 232  {'close': 135, 'stop': 97}  median hold   364 min  mean option net/trade   +1281
+  known  VW1M  n 228  {'vwap': 117, 'stop': 72, 'close': 38, 'stop_gap': 1}  median hold    66 min  mean option net/trade    +375
+  known  T3    n 228  {'close': 110, 'stop': 91, 'target': 25, 'stop_gap': 2}  median hold   289 min  mean option net/trade    +806
+  known  CLOSE n 228  {'close': 134, 'stop': 92, 'stop_gap': 2}  median hold   361 min  mean option net/trade    +918
+
+saved results.json (evaluate dict: chosen + baselines + engine re-sims), results_all_settings.json, design_and_checks.json; 26s

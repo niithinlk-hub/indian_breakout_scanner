@@ -1,0 +1,103 @@
+minute data: 218 symbols (0 empty); signal symbols 218, missing from minutes: []
+stock-days 58206, short sessions (<300 bars, excluded from histories) 436, by day (top): [('2025-10-21', 218), ('2026-11-08', 218)]
+bars outside 09:15-15:29 dropped 0, duplicate bars 0, full sessions without a 09:15 bar (first-bar open used) 2, signal days without a 09:15 bar 0
+
+== feature checks
+real   rows  4996 | noise_x NaN    0 (sigma NaN 0, P NaN 0) | |cash P - row price| median 0.000% p95 0.000% | gap vs harness gap: median abs diff 0.000 pp, >0.5pp 134 | hist sessions min 14
+        noise_x all rows: median 1.35, >=1.0 66.1%, >=1.5 43.8% | Fable-OP>=75 rows 243: median 2.30, >=1.0 86.0%, >=1.5 74.1%, NaN 0
+unseen rows  5051 | noise_x NaN    0 (sigma NaN 0, P NaN 0) | |cash P - row price| median 0.000% p95 0.000% | gap vs harness gap: median abs diff 0.130 pp, >0.5pp 237 | hist sessions min 11
+        noise_x all rows: median 1.31, >=1.0 64.6%, >=1.5 41.9% | Fable-OP>=75 rows 265: median 2.42, >=1.0 88.7%, >=1.5 77.7%, NaN 0
+known  rows  4082 | noise_x NaN    0 (sigma NaN 0, P NaN 0) | |cash P - row price| median 0.000% p95 0.000% | gap vs harness gap: median abs diff 0.008 pp, >0.5pp 113 | hist sessions min 14
+        noise_x all rows: median 1.37, >=1.0 68.8%, >=1.5 43.7% | Fable-OP>=75 rows 241: median 2.42, >=1.0 90.5%, >=1.5 78.8%, NaN 0
+brute-force recomputation from raw minutes (bars <= signal minute, 14 earlier full sessions) matches on 12 sampled rows
+
+== NaN noise_x among each setting's picks (passed the filter / unadjusted), and how many picks differ from the base model
+  real   S1: n 204, NaN 0, new 3, dropped 32 | S2: n 178, NaN 0, new 4, dropped 59 | S3: n 443, NaN 0, new 233, dropped 23 | S4: n 306, NaN 0, new 10, dropped 39
+  unseen S1: n 213, NaN 0, new 5, dropped 24 | S2: n 187, NaN 0, new 4, dropped 49 | S3: n 426, NaN 0, new 215, dropped 21 | S4: n 356, NaN 0, new 9, dropped 19
+  known  S1: n 209, NaN 0, new 3, dropped 22 | S2: n 185, NaN 0, new 4, dropped 47 | S3: n 429, NaN 0, new 229, dropped 28 | S4: n 282, NaN 0, new 8, dropped 25
+
+== DESIGN WINDOW: real 2026-05-12..2026-08-31, OPTION net (modelled). Risk limits: worst day >= -23578, max DD >= -35690 (1.25x the better baseline per metric)
+  model                              n    opt net   /trade    T1%  worst day     max DD    futures risk ok
+  Opus v3 (T1)                     199    +239288    +1202   50.8     -18863     -28827    +308996 (baseline)
+  Fable-OP (T3)                    160    +347343    +2171   56.9     -23143     -28552    +433707 (baseline)
+  Switch-1                         160    +339868    +2124   56.9     -23143     -27877    +420965 (baseline)
+  S1 FOP & nx>=1.0 T3              141    +317576    +2252   58.9     -18486     -28552    +394932 yes
+  S2 FOP & nx>=1.5 T3              123    +341611    +2777   59.3     -14972     -25566    +442744 yes
+  S3 FOP+10clip(nx-1) T3           289    +298278    +1032   47.1     -29851     -51280    +202127 NO
+  S4 v3 & nx>=1.0 T1               180    +246051    +1367   52.2     -18022     -21945    +326266 yes
+CHOSEN on design window: S2 FOP & nx>=1.5 T3 (opt net +341611)
+
+######## CANDIDATE (chosen on design window) vs baselines, all sets ########
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  NA S2 FOP & nx>=1.5 T3               178    +509626    +2863   56.7   36.0  53/34      -21196     -35310 |    +341611    +168015 |    +676743
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  NA S2 FOP & nx>=1.5 T3               187    +209911    +1123   48.1   38.5  42/48      -16461     -34359 |     +92140    +117771 |    +154122
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  NA S2 FOP & nx>=1.5 T3               185    +139944     +756   46.5   41.6  41/38      -26065     -68924 |    +112459     +27484 |      +7969
+
+######## all four pre-registered grid settings (reference only; the choice above used the design window) ########
+
+== REAL (2026-05-12 to 2026-11-11)  real futures path | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         335    +423981    +1266   49.0   25.4  74/34      -18863     -36768 |    +239288    +184693 |    +589038
+  Fable-OP (T3)                        233    +545031    +2339   54.9   37.3  62/36      -26335     -37024 |    +347343    +197688 |    +702290
+  Switch-1                             272    +582910    +2143   54.0   29.8  67/35      -23143     -28584 |    +339868    +243042 |    +811393
+  S1 FOP & nx>=1.0 T3                  204    +501182    +2457   55.4   36.8  57/36      -21196     -37024 |    +317576    +183607 |    +633730
+  S2 FOP & nx>=1.5 T3                  178    +509626    +2863   56.7   36.0  53/34      -21196     -35310 |    +341611    +168015 |    +676743
+  S3 FOP+10clip(nx-1) T3               443    +547974    +1237   46.3   37.9  69/48      -29851     -62257 |    +298278    +249697 |    +482437
+  S4 v3 & nx>=1.0 T1                   306    +408711    +1336   48.7   24.5  68/33      -18022     -37265 |    +246051    +162660 |    +567527
+
+== UNSEEN (2025-11-03 to 2026-05-11)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         366     +84362     +230   38.3   31.7  57/47      -25651     -63667 |     -16425    +100787 |    -128597
+  Fable-OP (T3)                        232    +202948     +875   46.6   40.9  45/51      -16461     -48875 |     +83843    +119104 |     +78849
+  Switch-1                             298    +267606     +898   42.3   35.6  57/45      -25651     -48875 |     +85713    +181893 |    +178272
+  S1 FOP & nx>=1.0 T3                  213    +234737    +1102   47.9   39.0  44/48      -16461     -35719 |     +70925    +163813 |    +162195
+  S2 FOP & nx>=1.5 T3                  187    +209911    +1123   48.1   38.5  42/48      -16461     -34359 |     +92140    +117771 |    +154122
+  S3 FOP+10clip(nx-1) T3               426    +390082     +916   43.9   43.4  58/55      -26864     -81501 |    +136831    +253251 |    +159967
+  S4 v3 & nx>=1.0 T1                   356     +86003     +242   38.8   31.2  56/47      -25651     -52076 |     -19789    +105792 |    -118616
+
+== KNOWN (2026-05-12 to 2026-10-19)  cash stand-in | money columns = OPTION net (modelled)
+  model                                  n     net Rs   /trade    T1%  stop%   d+/d-  worst day     max DD |   1st half   2nd half |    futures
+  Opus v3 (T1)                         299    +199051     +666   40.5   27.8  52/39      -15701     -35009 |    +132368     +66683 |    +152729
+  Fable-OP (T3)                        228    +183848     +806   45.2   40.8  44/44      -26065     -80209 |    +153182     +30666 |     +42654
+  Switch-1                             250    +184194     +737   43.6   35.2  45/46      -26065     -80209 |    +140755     +43438 |     +69567
+  S1 FOP & nx>=1.0 T3                  209    +124642     +596   45.5   42.1  43/42      -27570     -83790 |    +113406     +11236 |     -43460
+  S2 FOP & nx>=1.5 T3                  185    +139944     +756   46.5   41.6  41/38      -26065     -68924 |    +112459     +27484 |      +7969
+  S3 FOP+10clip(nx-1) T3               429     +41331      +96   41.7   44.1  45/60      -30588    -136782 |      +2549     +38782 |    -441590
+  S4 v3 & nx>=1.0 T1                   282    +193353     +686   40.8   28.0  52/36      -15701     -30951 |    +128890     +64463 |    +156865
+
+== diagnostic: Fable-OP (T3) baseline picks split by noise_x (option net / futures net)
+  real   nx<1.0       n   32  opt     +60842  (/trade  +1901)  fut     +87726  T1%  53.1
+  real   1.0<=nx<1.5  n   27  opt     -14487  (/trade   -536)  fut     -35733  T1%  48.1
+  real   nx>=1.5      n  174  opt    +498675  (/trade  +2865)  fut    +650297  T1%  56.3
+  real   nx NaN       n    0  opt         +0  (/trade     +0)  fut         +0  T1%   0.0
+  unseen nx<1.0       n   24  opt     -14632  (/trade   -609)  fut     -55342  T1%  33.3
+  unseen 1.0<=nx<1.5  n   25  opt     +18354  (/trade   +734)  fut      -4376  T1%  44.0
+  unseen nx>=1.5      n  183  opt    +199226  (/trade  +1088)  fut    +138567  T1%  48.6
+  unseen nx NaN       n    0  opt         +0  (/trade     +0)  fut         +0  T1%   0.0
+  known  nx<1.0       n   22  opt     +71614  (/trade  +3255)  fut    +106149  T1%  45.5
+  known  1.0<=nx<1.5  n   25  opt     -24823  (/trade   -992)  fut     -66496  T1%  40.0
+  known  nx>=1.5      n  181  opt    +137058  (/trade   +757)  fut      +3001  T1%  45.9
+  known  nx NaN       n    0  opt         +0  (/trade     +0)  fut         +0  T1%   0.0
+
+== BAR (option net): beats both on unseen: True | beats both on real 2nd half: False | beats Switch-1 on both: False | risk ok: False
+   unseen_all   worst day -16461 (limit -20576)  max DD -34359 (limit -61093)  ok=True
+   real_h2      worst day -21196 (limit -18787)  max DD -35310 (limit -45960)  ok=False
+
+saved /tmp/claude-0/-home-user-indian-breakout-scanner/f54e4084-33bd-532c-b38a-bd64a5b4292e/scratchpad/hunt/noise_area/verify/rerun/results.json

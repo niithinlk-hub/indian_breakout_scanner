@@ -1,0 +1,102 @@
+design picks 160 absent-lot rows 8 target outlay 3494176
+smallest B with outlay >= target: 7879.0 (outlay 3496719, ratio 1.0007); B just below: 7878.5 (outlay 3489549, ratio 0.9987)
+tester B=7881.7 outlay 3496719; this outlay holds for B in [7879.0, 7900.0]
+
+== unseen 2025-11-03..2026-05-11 (127 days)
+  candidate  n=232 net/worst/maxDD (192723, -16461, -44633)   own-repricing net 192723   |max diff option_net vs own| 0.00
+  Fable-OP   n=232 (202948, -16461, -48875)
+  Opus v3    n=366 (84362, -25651, -63667)
+  lots changed: up 3, down 11, same 218; floor binding (B/Ll<1 and fl>1) 0; fut_lots==1 147
+  diff vs Fable-OP: total -10225, sd of daily diff 1923, nonzero days 14, bootstrap 90% CI [-48333, +24524], P(>0)=0.328
+  candidate worst day 2026-01-05: -16461 (Fable-OP that day -16461)
+          symbol   time    L   fl          pnl         base
+    1542         PNB  09:17  2.0  2.0 -5840.715139 -5840.715139
+    1536  GMRAIRPORT  09:17  2.0  2.0 -5908.425649 -5908.425649
+    1539       IREDA  09:17  1.0  1.0 -4711.760169 -4711.760169
+
+== real 2026-09-01..2026-11-11 (48 days)
+  candidate  n=73 net/worst/maxDD (195081, -28518, -37024)   own-repricing net 195081   |max diff option_net vs own| 0.00
+  Fable-OP   n=73 (197688, -26335, -37024)
+  Opus v3    n=136 (184693, -15030, -36768)
+  lots changed: up 3, down 0, same 70; floor binding (B/Ll<1 and fl>1) 0; fut_lots==1 47
+  diff vs Fable-OP: total -2607, sd of daily diff 502, nonzero days 3, bootstrap 90% CI [-8634, +2943], P(>0)=0.177
+  candidate worst day 2026-09-11: -28518 (Fable-OP that day -26335)
+        symbol   time    L   fl          pnl         base
+    3086  HINDALCO  09:17  1.0  1.0 -5271.648558 -5271.648558
+    3098      NMDC  09:17  3.0  2.0 -6595.926004 -4413.017336
+    3088       IEX  09:17  3.0  3.0   442.287978   442.287978
+    3085  HDFCBANK  09:17  3.0  3.0 -5078.841860 -5078.841860
+    3114      ONGC  09:18  3.0  3.0 -5679.010817 -5679.010817
+    3113        LT  09:18  3.0  3.0 -6334.629654 -6334.629654
+
+== real 2026-05-12..2026-08-31 (78 days)
+  candidate  n=160 net/worst/maxDD (326939, -23143, -28552)   own-repricing net 326939   |max diff option_net vs own| 0.00
+  Fable-OP   n=160 (347343, -23143, -28552)
+  Opus v3    n=199 (239288, -18863, -28827)
+  lots changed: up 3, down 2, same 155; floor binding (B/Ll<1 and fl>1) 0; fut_lots==1 104
+  diff vs Fable-OP: total -20404, sd of daily diff 1192, nonzero days 5, bootstrap 90% CI [-39420, -5053], P(>0)=0.000
+  candidate worst day 2026-08-10: -23143 (Fable-OP that day -23143)
+          symbol   time    L   fl          pnl         base
+    2183      NAUKRI  09:17  1.0  1.0 -5604.933338 -5604.933338
+    2184  POWERINDIA  09:17  1.0  1.0 -8171.606427 -8171.606427
+    2185      FORTIS  09:18  1.0  1.0 -4031.488585 -4031.488585
+    2190        TMPV  09:27  2.0  2.0 -5335.130872 -5335.130872
+
+== unseen 2025-11-03..2026-02-05 (66 days)
+  candidate  n=131 net/worst/maxDD (81375, -16461, -44633)   own-repricing net 81375   |max diff option_net vs own| 0.00
+  Fable-OP   n=131 (83843, -16461, -48875)
+  Opus v3    n=210 (-16425, -25651, -63667)
+  lots changed: up 3, down 5, same 123; floor binding (B/Ll<1 and fl>1) 0; fut_lots==1 69
+  diff vs Fable-OP: total -2469, sd of daily diff 2250, nonzero days 8, bootstrap 90% CI [-34223, +25973], P(>0)=0.471
+  candidate worst day 2026-01-05: -16461 (Fable-OP that day -16461)
+          symbol   time    L   fl          pnl         base
+    1542         PNB  09:17  2.0  2.0 -5840.715139 -5840.715139
+    1536  GMRAIRPORT  09:17  2.0  2.0 -5908.425649 -5908.425649
+    1539       IREDA  09:17  1.0  1.0 -4711.760169 -4711.760169
+
+== unseen 2026-02-06..2026-05-11 (61 days)
+  candidate  n=101 net/worst/maxDD (111348, -14880, -35238)   own-repricing net 111348   |max diff option_net vs own| 0.00
+  Fable-OP   n=101 (119104, -14880, -41970)
+  Opus v3    n=156 (100787, -14491, -23841)
+  lots changed: up 0, down 6, same 95; floor binding (B/Ll<1 and fl>1) 0; fut_lots==1 78
+  diff vs Fable-OP: total -7756, sd of daily diff 1490, nonzero days 6, bootstrap 90% CI [-28265, +9304], P(>0)=0.268
+  candidate worst day 2026-04-02: -14880 (Fable-OP that day -14880)
+          symbol   time    L   fl          pnl         base
+    4032  SUPREMEIND  09:18  1.0  1.0 -4290.756016 -4290.756016
+    4035        BPCL  09:19  1.0  1.0 -5822.945204 -5822.945204
+    4053        NTPC  09:21  1.0  1.0 -4766.135215 -4766.135215
+
+== known 2026-05-12..2026-07-31 (57 days)
+  candidate  n=114 net/worst/maxDD (150301, -14696, -55933)   own-repricing net 150301   |max diff option_net vs own| 0.00
+  Fable-OP   n=114 (153182, -14696, -57807)
+  Opus v3    n=149 (132368, -14103, -23840)
+  lots changed: up 0, down 5, same 109; floor binding (B/Ll<1 and fl>1) 0; fut_lots==1 77
+  diff vs Fable-OP: total -2881, sd of daily diff 1100, nonzero days 4, bootstrap 90% CI [-17451, +9177], P(>0)=0.401
+  candidate worst day 2026-05-18: -14696 (Fable-OP that day -14696)
+         symbol   time    L   fl          pnl         base
+    155    HDFCLIFE  09:17  1.0  1.0 -3557.987087 -3557.987087
+    164  PREMIERENE  09:18  1.0  1.0 -4910.141061 -4910.141061
+    162  BAJAJFINSV  09:18  2.0  2.0 -6228.169602 -6228.169602
+
+== known 2026-08-01..2026-10-19 (54 days)
+  candidate  n=114 net/worst/maxDD (47526, -26065, -79016)   own-repricing net 47526   |max diff option_net vs own| 0.00
+  Fable-OP   n=114 (30666, -26065, -80209)
+  Opus v3    n=150 (66683, -15701, -35009)
+  lots changed: up 2, down 2, same 110; floor binding (B/Ll<1 and fl>1) 0; fut_lots==1 68
+  diff vs Fable-OP: total +16860, sd of daily diff 1797, nonzero days 4, bootstrap 90% CI [-1007, +41590], P(>0)=0.928
+  candidate worst day 2026-08-31: -26065 (Fable-OP that day -26065)
+          symbol   time    L   fl           pnl          base
+    2731   TATAELXSI  09:17  2.0  2.0   2449.634086   2449.634086
+    2729         IOC  09:17  2.0  2.0 -15316.953287 -15316.953287
+    2732   TATASTEEL  09:17  3.0  3.0  -5923.687234  -5923.687234
+    2735   NESTLEIND  09:18  1.0  1.0  -3628.745590  -3628.745590
+    2737  AUROPHARMA  09:19  1.0  1.0  -3645.461756  -3645.461756
+
+B sensitivity (option net): unseen all / real 2nd half / design
+  B= 6000  unseen   +152527  real h2   +163485  design   +306776
+  B= 7000  unseen   +187744  real h2   +159026  design   +309624
+  B= 7500  unseen   +188979  real h2   +174835  design   +306807
+  B= 7882  unseen   +192723  real h2   +195081  design   +326939
+  B= 8500  unseen   +220309  real h2   +204453  design   +393679
+  B= 9000  unseen   +250254  real h2   +203123  design   +396062
+  B=10000  unseen   +280785  real h2   +207865  design   +418805

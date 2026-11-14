@@ -1,0 +1,46 @@
+unseen sanity CLOSE: mine +297208 harness +297208 | exit ts match 100.0%
+unseen sanity T3:    mine +202947 harness +202947 | exit ts match 100.0%
+unseen exit mix VW1M: {'vwap': 126, 'stop': 58, 'close': 48}
+unseen VW1M S3 all: {'n': 232, 'net': 309165, 'worst_day': -16461, 'maxdd': -22488}
+   h1 {'n': 131, 'net': 202376, 'worst_day': -16461, 'maxdd': -22488}
+   h2 {'n': 101, 'net': 106789, 'worst_day': -13753, 'maxdd': -17084}
+real sanity CLOSE: mine +545378 harness +463075 | exit ts match 100.0%
+real sanity T3:    mine +543243 harness +545030 | exit ts match 100.0%
+real exit mix VW1M: {'vwap': 136, 'stop': 52, 'close': 45}
+real VW1M S3 all: {'n': 233, 'net': 504679, 'worst_day': -14865, 'maxdd': -29254}
+   h1 {'n': 160, 'net': 371599, 'worst_day': -12539, 'maxdd': -27076}
+   h2 {'n': 73, 'net': 133080, 'worst_day': -14865, 'maxdd': -29254}
+known sanity CLOSE: mine +209295 harness +209295 | exit ts match 100.0%
+known sanity T3:    mine +183848 harness +183848 | exit ts match 100.0%
+known exit mix VW1M: {'vwap': 117, 'stop': 72, 'close': 38, 'stop_gap': 1}
+known VW1M S3 all: {'n': 228, 'net': 85438, 'worst_day': -24063, 'maxdd': -86606}
+   h1 {'n': 114, 'net': 135397, 'worst_day': -12180, 'maxdd': -32241}
+   h2 {'n': 114, 'net': -49959, 'worst_day': -24063, 'maxdd': -86606}
+
+-- bootstrap (days resampled) of candidate minus baseline, option net
+  unseen all       vs Fable-OP T3 (harness)  diff   +106218  95% CI [   -46174,   +266865]  P(diff<=0) 0.089  days 127
+  unseen all       vs Opus v3 T1 (harness)   diff   +224803  95% CI [    +1997,   +459360]  P(diff<=0) 0.024  days 127
+  unseen all       vs my T3 re-sim (same pk) diff   +106218  95% CI [   -45369,   +263694]  P(diff<=0) 0.093
+  real   h2        vs Fable-OP T3 (harness)  diff    -64608  95% CI [  -201370,    +52299]  P(diff<=0) 0.842  days 48
+  real   h2        vs Opus v3 T1 (harness)   diff    -51614  95% CI [  -193383,    +84848]  P(diff<=0) 0.765  days 48
+  real   h2        vs my T3 re-sim (same pk) diff    -58703  95% CI [  -178770,    +43063]  P(diff<=0) 0.852
+  known  all       vs Fable-OP T3 (harness)  diff    -98410  95% CI [  -262990,    +54681]  P(diff<=0) 0.894  days 111
+  known  all       vs Opus v3 T1 (harness)   diff   -113613  95% CI [  -298582,    +74529]  P(diff<=0) 0.884  days 111
+  known  all       vs my T3 re-sim (same pk) diff    -98410  95% CI [  -260012,    +51889]  P(diff<=0) 0.893
+  real   all       vs Fable-OP T3 (harness)  diff    -40352  95% CI [  -223697,   +134320]  P(diff<=0) 0.661  days 126
+  real   all       vs Opus v3 T1 (harness)   diff    +80698  95% CI [  -155108,   +316936]  P(diff<=0) 0.256  days 126
+  real   all       vs my T3 re-sim (same pk) diff    -38565  95% CI [  -203892,   +120170]  P(diff<=0) 0.673
+
+-- option-model sensitivity, unseen, candidate minus Fable-OP T3 (harness T3 exits)
+  decay 1.00 iv x0.8: cand   +364785  FableT3   +275458  diff    +89327
+  decay 1.00 iv x1.0: cand   +325038  FableT3   +229259  diff    +95779
+  decay 1.00 iv x1.2: cand   +294729  FableT3   +194247  diff   +100482
+  decay 2.31 iv x0.8: cand   +352463  FableT3   +254750  diff    +97713
+  decay 2.31 iv x1.0: cand   +309165  FableT3   +202948  diff   +106218
+  decay 2.31 iv x1.2: cand   +275345  FableT3   +162383  diff   +112962
+  decay 3.50 iv x0.8: cand   +341194  FableT3   +235772  diff   +105422
+  decay 3.50 iv x1.0: cand   +294639  FableT3   +178827  diff   +115813
+  decay 3.50 iv x1.2: cand   +257598  FableT3   +133165  diff   +124434
+
+unseen per-day diff vs Fable-OP T3: total +106217, top5 days +114364, bottom5 days -77600, total excl top5 -8147
+{'2025-12-23': 16644.0, '2025-11-27': 19263.0, '2025-11-06': 21601.0, '2026-04-28': 22796.0, '2025-12-26': 34060.0}

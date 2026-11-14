@@ -1,0 +1,46 @@
+opt check real   T1 max abs diff vs fresh option_net: 0.000000
+opt check real   T3 max abs diff vs fresh option_net: 0.000000
+opt check unseen T1 max abs diff vs fresh option_net: 0.000000
+opt check unseen T3 max abs diff vs fresh option_net: 0.000000
+opt check known  T1 max abs diff vs fresh option_net: 0.000000
+opt check known  T3 max abs diff vs fresh option_net: 0.000000
+short sessions (Nifty bars < 300): {'2025-10-21': 60, '2026-11-08': 70}
+daily candles: 218 symbols, calendar 2024-01-01..2026-11-12, 710 sessions
+real   rows 4996  comp 25.7%  trend_same 9.5%  rows whose own last candle != calendar previous session: 0 []
+unseen rows 5051  comp 24.1%  trend_same 9.0%  rows whose own last candle != calendar previous session: 0 []
+known  rows 4082  comp 26.7%  trend_same 8.7%  rows whose own last candle != calendar previous session: 0 []
+real   V3   all n 335 net  +423981 wd  -18863 dd   -36768 fut  +589038 | h1 n 199 net  +239288 wd  -18863 dd   -28827 | h2 n 136 net  +184693 wd  -15030 dd   -36768
+real   FOP  all n 233 net  +545031 wd  -26335 dd   -37024 fut  +702290 | h1 n 160 net  +347343 wd  -23143 dd   -28552 | h2 n  73 net  +197688 wd  -26335 dd   -37024
+real   S1   all n 332 net  +637303 wd  -23662 dd   -33881 fut  +783838 | h1 n 223 net  +352197 wd  -23662 dd   -33881 | h2 n 109 net  +285105 wd  -18788 dd   -23059
+real   S2   all n 216 net  +578186 wd  -26335 dd   -28927 fut  +797711 | h1 n 149 net  +383810 wd  -23143 dd   -23143 | h2 n  67 net  +194376 wd  -26335 dd   -28927
+real   S3   all n 314 net  +676394 wd  -23662 dd   -32474 fut  +896727 | h1 n 211 net  +394602 wd  -23662 dd   -32474 | h2 n 103 net  +281793 wd  -13739 dd   -19230
+real   S4   all n 396 net  +365976 wd  -23110 dd   -39368 fut  +465435 | h1 n 238 net  +238354 wd  -23110 dd   -39368 | h2 n 158 net  +127622 wd  -14258 dd   -37648
+unseen V3   all n 366 net   +84362 wd  -25651 dd   -63667 fut  -128597 | h1 n 210 net   -16425 wd  -25651 dd   -63667 | h2 n 156 net  +100787 wd  -14491 dd   -23841
+unseen FOP  all n 232 net  +202948 wd  -16461 dd   -48875 fut   +78849 | h1 n 131 net   +83843 wd  -16461 dd   -48875 | h2 n 101 net  +119104 wd  -14880 dd   -41970
+unseen S1   all n 323 net  +190791 wd  -30505 dd   -87255 fut   -64872 | h1 n 183 net   +68613 wd  -26284 dd   -87255 | h2 n 140 net  +122179 wd  -30505 dd   -47527
+unseen S2   all n 214 net  +215436 wd  -15161 dd   -42207 fut  +124990 | h1 n 117 net   +89319 wd  -15161 dd   -42207 | h2 n  97 net  +126117 wd  -13753 dd   -27852
+unseen S3   all n 306 net  +199061 wd  -26284 dd   -88864 fut   -27562 | h1 n 170 net   +70530 wd  -26284 dd   -88864 | h2 n 136 net  +128531 wd  -24682 dd   -39389
+unseen S4   all n 414 net   +51409 wd  -25651 dd  -124298 fut  -229508 | h1 n 233 net    -5421 wd  -25651 dd   -84518 | h2 n 181 net   +56829 wd  -21001 dd   -58371
+known  V3   all n 299 net  +199051 wd  -15701 dd   -35009 fut  +152729 | h1 n 149 net  +132368 wd  -14103 dd   -23840 | h2 n 150 net   +66683 wd  -15701 dd   -35009
+known  FOP  all n 228 net  +183848 wd  -26065 dd   -80209 fut   +42654 | h1 n 114 net  +153182 wd  -14696 dd   -57807 | h2 n 114 net   +30666 wd  -26065 dd   -80209
+known  S1   all n 326 net  +164640 wd  -33693 dd  -115355 fut   -83301 | h1 n 169 net  +128633 wd  -21701 dd  -100228 | h2 n 157 net   +36007 wd  -33693 dd  -115355
+known  S2   all n 217 net  +214185 wd  -26065 dd   -80459 fut  +118304 | h1 n 111 net  +178134 wd  -14696 dd   -38876 | h2 n 106 net   +36051 wd  -26065 dd   -80459
+known  S3   all n 317 net  +197646 wd  -33693 dd  -124170 fut    -3756 | h1 n 167 net  +160041 wd  -21701 dd   -66198 | h2 n 150 net   +37605 wd  -33693 dd  -124170
+known  S4   all n 359 net  +225201 wd  -21308 dd   -60545 fut  +166118 | h1 n 175 net  +151595 wd  -15917 dd   -24347 | h2 n 184 net   +73605 wd  -21308 dd   -60545
+design limits wd -23579 dd -35690 ; ok {'S1': False, 'S2': True, 'S3': False, 'S4': False} ; chosen S2
+BAR unseen all: S2 +215436 vs V3 +84362 FOP +202948 -> beats both True | wd -15161 lim -20576 | dd -42207 lim -61094
+BAR real h2: S2 +194376 vs V3 +184693 FOP +197688 -> beats both False | wd -26335 lim -18788 | dd -28927 lim -45960
+unseen 2025-11-03..2026-05-11 diff S2-FOP   +12489 on 127 days (17 days differ); boot 90% CI [-32596, +55863], P(diff<=0) 0.315; removed n 19 opt -14873 (wins 7) ; added n 1 opt -2384
+    removed trades: [('2025-11-04', 'INDUSTOWER', 'LONG', -4637.0), ('2025-11-07', 'PGEL', 'SHORT', 1009.0), ('2025-11-07', 'DMART', 'SHORT', -6276.0), ('2025-11-11', 'HAL', 'LONG', 5512.0), ('2025-11-26', 'GODREJCP', 'LONG', -3829.0), ('2025-12-02', 'NAUKRI', 'LONG', 1135.0), ('2025-12-22', 'KEI', 'LONG', 4436.0), ('2025-12-31', 'JINDALSTEL', 'LONG', -6392.0), ('2026-01-05', 'IREDA', 'LONG', -4712.0), ('2026-01-07', 'LUPIN', 'LONG', 7600.0), ('2026-01-16', 'ANGELONE', 'LONG', 12562.0), ('2026-01-23', 'APLAPOLLO', 'LONG', -7157.0), ('2026-01-29', 'PETRONET', 'LONG', -828.0), ('2026-02-03', 'WAAREEENER', 'LONG', -3901.0), ('2026-02-13', 'TATAELXSI', 'SHORT', -4591.0), ('2026-02-13', 'COFORGE', 'SHORT', -6321.0), ('2026-03-09', 'BANKINDIA', 'SHORT', -3045.0), ('2026-04-02', 'BPCL', 'SHORT', -5823.0), ('2026-04-06', 'BOSCHLTD', 'LONG', 10383.0)]
+    FOP per-day P&L sd 9781, sd of total over 127 days 110226
+unseen 2025-11-03..2026-02-05 diff S2-FOP    +5476 on 66 days (13 days differ); boot 90% CI [-30516, +39621], P(diff<=0) 0.392; removed n 14 opt -5476 (wins 6) ; added n 0 opt +0
+unseen 2026-02-06..2026-05-11 diff S2-FOP    +7013 on 61 days (4 days differ); boot 90% CI [-20105, +34130], P(diff<=0) 0.310; removed n 5 opt -9397 (wins 1) ; added n 1 opt -2384
+real   2026-05-12..2026-08-31 diff S2-FOP   +36467 on 78 days (11 days differ); boot 90% CI [-8630, +85612], P(diff<=0) 0.097; removed n 13 opt -25620 (wins 3) ; added n 2 opt +10847
+real   2026-09-01..2026-11-11 diff S2-FOP    -3312 on 48 days (4 days differ); boot 90% CI [-54288, +41257], P(diff<=0) 0.502; removed n 6 opt +3312 (wins 1) ; added n 0 opt +0
+    removed trades: [('2026-09-18', 'ZYDUSLIFE', 'LONG', -1032.0), ('2026-09-21', 'PATANJALI', 'LONG', 24972.0), ('2026-10-14', 'HCLTECH', 'LONG', -5288.0), ('2026-10-14', 'TCS', 'LONG', -5195.0), ('2026-10-14', 'TATAELXSI', 'LONG', -4250.0), ('2026-10-15', 'TATACONSUM', 'LONG', -5894.0)]
+    FOP per-day P&L sd 11902, sd of total over 48 days 82461
+known  2026-05-12..2026-10-19 diff S2-FOP   +30337 on 111 days (10 days differ); boot 90% CI [-31244, +92985], P(diff<=0) 0.202; removed n 14 opt -11159 (wins 4) ; added n 3 opt +19177
+real   FOP picks after same-dir trend day: n 19 opt -22307, mean -1174, wins 4; other picks mean +2651
+unseen FOP picks after same-dir trend day: n 19 opt -14873, mean -783, wins 7; other picks mean +1023
+known  FOP picks after same-dir trend day: n 14 opt -11159, mean -797, wins 4; other picks mean +911
+unseen+real trend-same FOP picks pooled n 38 mean -978 t -0.85
