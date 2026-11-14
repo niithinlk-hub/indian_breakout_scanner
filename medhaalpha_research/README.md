@@ -25,6 +25,7 @@ This folder is separate from the breakout scanner app in the rest of the reposit
 - `opus_v2_v3_integration.patch` adds Opus v2 and Opus v3 to the scanner as selectable models. Apply with `git apply --ignore-whitespace` (one of the target files has Windows line endings).
 - `opus_v3_check.py` and `opus_v2_check.py` confirm a patched scanner gives the scores this research used.
 - `opus_v2_integration.patch` is the earlier v2-only patch, kept for reference.
+- `medhasuryan_integration.patch` adds MedhaSuryan (the research's Switch-1) as a selectable model; see `medhasuryan/README.md`.
 
 ## Data and code
 
