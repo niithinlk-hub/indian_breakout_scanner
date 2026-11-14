@@ -1,0 +1,33 @@
+regime per session: {'2026-10-21': 'Sideways', '2026-10-22': 'Sideways', '2026-10-23': 'Downtrend', '2026-10-26': 'Downtrend', '2026-10-27': 'Sideways', '2026-10-28': 'Sideways', '2026-10-29': 'Sideways', '2026-10-30': 'Sideways', '2026-11-02': 'Sideways', '2026-11-03': 'Sideways', '2026-11-04': 'Sideways', '2026-11-05': 'Sideways', '2026-11-06': 'Sideways', '2026-11-09': 'Sideways', '2026-11-11': 'Uptrend', '2026-11-12': 'Uptrend', '2026-11-13': None}
+nifty daily candles up to 2026-11-12
+opus      n=65 stop=14 (22%) fut=69391 opt_same=75984 opt_held=95503 unpriced=5/0 fut up/dn=8/8 worst=-28863 maxdd=-44153 | opt dn=6 worst=-13819 maxdd=-23770 | from {'opus': 65}
+   21-31 Oct fut -26607 opt +9774 | 2-13 Nov fut +95999 opt +66210 | 13 Nov [{'time': '09:47', 'symbol': 'GVT&D', 'side': 'LONG', 'pol': 'T1', 'fut_status': 'target', 'fut': 7215.0, 'opt_same': 5242.0}, {'time': '09:54', 'symbol': 'BLUESTARCO', 'side': 'LONG', 'pol': 'T1', 'fut_status': 'target', 'fut': 8542.0, 'opt_same': 4819.0}, {'time': '10:08', 'symbol': 'INDUSTOWER', 'side': 'LONG', 'pol': 'T1', 'fut_status': 'close', 'fut': -6649.0, 'opt_same': -4035.0}, {'time': '10:16', 'symbol': 'BHEL', 'side': 'LONG', 'pol': 'T1', 'fut_status': 'close', 'fut': -8240.0, 'opt_same': -5462.0}, {'time': '10:17', 'symbol': 'VMM', 'side': 'LONG', 'pol': 'T1', 'fut_status': 'target', 'fut': 10001.0, 'opt_same': 5504.0}, {'time': '10:37', 'symbol': 'SIEMENS', 'side': 'LONG', 'pol': 'T1', 'fut_status': 'stopped', 'fut': -13796.0, 'opt_same': -6235.0}]
+opus_v2   n=54 stop=12 (22%) fut=62553 opt_same=67670 opt_held=60867 unpriced=4/0 fut up/dn=10/5 worst=-21140 maxdd=-24061 | opt dn=2 worst=-8069 maxdd=-10836 | from {'opus_v2': 54}
+   21-31 Oct fut -2740 opt +19862 | 2-13 Nov fut +65292 opt +47808 | 13 Nov []
+opus_v3   n=52 stop=11 (21%) fut=96394 opt_same=80078 opt_held=86601 unpriced=4/0 fut up/dn=11/4 worst=-20319 maxdd=-23240 | opt dn=2 worst=-8213 maxdd=-10981 | from {'opus_v3': 52}
+   21-31 Oct fut -1918 opt +19718 | 2-13 Nov fut +98312 opt +60361 | 13 Nov []
+fable     n=58 stop=20 (34%) fut=163078 opt_same=152097 opt_held=221495 unpriced=2/1 fut up/dn=9/6 worst=-40531 maxdd=-101026 | opt dn=6 worst=-6489 maxdd=-18247 | from {'fable': 58}
+   21-31 Oct fut -71855 opt +2620 | 2-13 Nov fut +234933 opt +149478 | 13 Nov []
+fable_op  n=33 stop=7 (21%) fut=201015 opt_same=102661 opt_held=161731 unpriced=1/0 fut up/dn=11/4 worst=-20112 maxdd=-20112 | opt dn=5 worst=-8073 maxdd=-11281 | from {'fable_op': 33}
+   21-31 Oct fut +70828 opt +16165 | 2-13 Nov fut +130186 opt +86496 | 13 Nov []
+switch1   n=36 stop=7 (19%) fut=185898 opt_same=115240 opt_held=181973 unpriced=1/0 fut up/dn=11/4 worst=-5935 maxdd=-5935 | opt dn=4 worst=-7097 maxdd=-7097 | from {'fable_op': 26, 'opus_v3': 10}
+   21-31 Oct fut +55711 opt +28744 | 2-13 Nov fut +130186 opt +86496 | 13 Nov []
+
+per day (futures / options same day):
+  2026-10-21 Sideways   fable  -32883/  -2319 fable_    +528/   -188 opus_v   -3424/  +4904 switch    +528/   -188
+  2026-10-22 Sideways   fable  -40531/  -5262 fable_  +20337/  +9388 opus_v   +1467/ +10572 switch  +20337/  +9388
+  2026-10-23 Downtrend  fable  -12260/  -6082 fable_  -20112/  -8073 opus_v   +1143/  +8396 switch   +1143/  +8396
+  2026-10-26 Downtrend  fable  -14955/  -4583 fable_  +30437/  -3208 opus_v   -5935/  -7097 switch   -5935/  -7097
+  2026-10-27 Sideways   fable   +9430/  +6803 fable_  +14317/  +4078 opus_v   +3827/  +4330 switch  +14317/  +4078
+  2026-10-28 Sideways   fable   -9827/  -5530 fable_    -821/   +145 opus_v  -20319/  -8213 switch    -821/   +145
+  2026-10-29 Sideways   fable  +10586/  +7919 fable_  +31687/ +20934 opus_v  +11466/  +5612 switch  +31687/ +20934
+  2026-10-30 Sideways   fable  +18585/ +11675 fable_   -5545/  -6910 opus_v   +9855/  +1215 switch   -5545/  -6910
+  2026-11-02 Sideways   fable  +22737/  +8962 fable_      +0/     +0 opus_v      +0/     +0 switch      +0/     +0
+  2026-11-03 Sideways   fable  +47662/ +20312 fable_  +25623/ +10513 opus_v   +7216/   +418 switch  +25623/ +10513
+  2026-11-04 Sideways   fable  +27468/ +11349 fable_  +22548/  +9169 opus_v  +20619/ +11606 switch  +22548/  +9169
+  2026-11-05 Sideways   fable  +75107/ +48930 fable_  +66309/ +47070 opus_v  +51197/ +26654 switch  +66309/ +47070
+  2026-11-06 Sideways   fable      +0/     +0 fable_  +10526/ +10868 opus_v   -1057/  +2057 switch  +10526/ +10868
+  2026-11-09 Sideways   fable  +48403/ +40231 fable_   +5171/  +9783 opus_v   +1083/  +6746 switch   +5171/  +9783
+  2026-11-11 Uptrend    fable  +23521/ +26181 fable_   -2810/   +580 opus_v   +7560/  +5066 switch   -2810/   +580
+  2026-11-12 Uptrend    fable   -9965/  -6489 fable_   +2821/  -1487 opus_v  +11695/  +7814 switch   +2821/  -1487
+  2026-11-13 None       fable      +0/     +0 fable_      +0/     +0 opus_v      +0/     +0 switch      +0/     +0

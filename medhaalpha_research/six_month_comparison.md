@@ -28,6 +28,26 @@
 | **Switch-1** | 272 | **+5,82,910** | **+8,11,393** | -23,143 | **-28,584** | 7 of 7 | 22,156 | 9.7% |
 | Opus v3, trailing stop to close | 335 | +5,56,102 | +7,66,300 | -18,867 | -53,487 | 7 of 7 | 21,901 | 7.6% |
 
+### Switch-1 and Fable in the live-session table's format
+
+Same columns as `five_models_on_live_sessions.md`. There is no "options held" column for six months: the six-month backtest squares every trade off on the day.
+
+| Model (exit) | Trades | Stopped | Futures (Rs) | Options, same day (Rs) | Losing days, futures | Worst day, futures (Rs) | Worst day, options (Rs) |
+|---|---|---|---|---|---|---|---|
+| Switch-1 | 272 | 30% | **+8,11,393** | **+5,82,910** | **33** | **-42,241** | **-23,143** |
+| Fable (T3) | 475 | 40% | +4,73,539 | +5,70,293 | 59 | -65,932 | -35,551 |
+| Fable-OP (T3) | 233 | 37% | +7,02,290 | +5,45,031 | 34 | -56,275 | -26,335 |
+| Opus (T1), live | 369 | 24% | +2,50,359 | +2,45,027 | 51 | -38,733 | -21,222 |
+
+Out of 126 sessions. The six months before (3 Nov 2025 to 11 May 2026, 127 sessions, cash share prices):
+
+| Model (exit) | Trades | Stopped | Futures (Rs) | Options, same day (Rs) | Losing days, futures | Worst day, futures (Rs) | Worst day, options (Rs) |
+|---|---|---|---|---|---|---|---|
+| Switch-1 | 298 | 36% | **+1,78,272** | **+2,67,606** | **48** | -57,143 | -25,651 |
+| Fable (T3) | 503 | 45% | -5,26,521 | +7,603 | 60 | -69,079 | -29,675 |
+| Fable-OP (T3) | 232 | 41% | +78,849 | +2,02,948 | 53 | **-36,437** | **-16,461** |
+| Opus (T1), live | 388 | 25% | -1,79,918 | +22,835 | 57 | -57,143 | -25,651 |
+
 ### Option profit by month (Rs)
 
 | Month (sessions) | Opus | Opus v2 | Opus v3 | Fable | Fable-OP | Switch-1 | v3 trailing |
