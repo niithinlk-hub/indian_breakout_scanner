@@ -1,76 +1,132 @@
 
 --- a/engine/tests/test_scanner.py	2026-11-14 19:09:34.733545573 +0000
-+++ b/engine/tests/test_scanner.py	2026-11-14 19:25:23.800938651 +0000
-@@ -120,22 +120,28 @@
++++ b/engine/tests/test_scanner.py	2026-11-14 19:48:41.557761716 +0000
+@@ -119,27 +119,36 @@
+ def test_scanner_settings_follow_the_settings_page():
      client, angel, runtime, _ = link()
      assert client.get("/internal/settings", headers=AUTH).json() == {
-         "score_model": "opus_v3", "min_score_opus": 75.0, "min_score_fable": 80.0,
+-        "score_model": "opus_v3", "min_score_opus": 75.0, "min_score_fable": 80.0,
 -        "min_score_fable_op": 75.0, "min_score_opus_v2": 75.0, "min_score_opus_v3": 75.0}  # owner: opus_v3 is the default
-+        "min_score_fable_op": 75.0, "min_score_opus_v2": 75.0, "min_score_opus_v3": 75.0,
-+        "min_score_medhasuryan": 75.0}  # owner: opus_v3 is the default
-     runtime.set("scanner_score_model", "Fable")
-     runtime.set("scanner_min_score_fable", "85")
-     assert client.get("/internal/settings", headers=AUTH).json() == {
-         "score_model": "fable", "min_score_opus": 75.0, "min_score_fable": 85.0, "min_score_fable_op": 75.0,
+-    runtime.set("scanner_score_model", "Fable")
+-    runtime.set("scanner_min_score_fable", "85")
+-    assert client.get("/internal/settings", headers=AUTH).json() == {
+-        "score_model": "fable", "min_score_opus": 75.0, "min_score_fable": 85.0, "min_score_fable_op": 75.0,
 -        "min_score_opus_v2": 75.0, "min_score_opus_v3": 75.0}
-+        "min_score_opus_v2": 75.0, "min_score_opus_v3": 75.0, "min_score_medhasuryan": 75.0}
++        "score_model": "opus_v3", "min_score_opus": 75.0, "min_score_fable_op": 75.0, "min_score_opus_v3": 75.0,
++        "min_score_medhasuryan": 75.0}  # owner: opus_v3 is the default
      runtime.set("scanner_score_model", "Fable_OP")
      runtime.set("scanner_min_score_fable_op", "78")
      assert client.get("/internal/settings", headers=AUTH).json() == {
-         "score_model": "fable_op", "min_score_opus": 75.0, "min_score_fable": 85.0, "min_score_fable_op": 78.0,
+-        "score_model": "fable_op", "min_score_opus": 75.0, "min_score_fable": 85.0, "min_score_fable_op": 78.0,
 -        "min_score_opus_v2": 75.0, "min_score_opus_v3": 75.0}
-+        "min_score_opus_v2": 75.0, "min_score_opus_v3": 75.0, "min_score_medhasuryan": 75.0}
++        "score_model": "fable_op", "min_score_opus": 75.0, "min_score_fable_op": 78.0, "min_score_opus_v3": 75.0,
++        "min_score_medhasuryan": 75.0}
      runtime.set("scanner_score_model", "Opus_V3")
      runtime.set("scanner_min_score_opus_v3", "80")
      assert client.get("/internal/settings", headers=AUTH).json() == {
-         "score_model": "opus_v3", "min_score_opus": 75.0, "min_score_fable": 85.0, "min_score_fable_op": 78.0,
+-        "score_model": "opus_v3", "min_score_opus": 75.0, "min_score_fable": 85.0, "min_score_fable_op": 78.0,
 -        "min_score_opus_v2": 75.0, "min_score_opus_v3": 80.0}
-+        "min_score_opus_v2": 75.0, "min_score_opus_v3": 80.0, "min_score_medhasuryan": 75.0}
+-    with pytest.raises(ValueError):
+-        runtime.set("scanner_score_model", "gpt")
++        "score_model": "opus_v3", "min_score_opus": 75.0, "min_score_fable_op": 78.0, "min_score_opus_v3": 80.0,
++        "min_score_medhasuryan": 75.0}
 +    runtime.set("scanner_score_model", "MedhaSuryan")
 +    runtime.set("scanner_min_score_medhasuryan", "77")
 +    assert client.get("/internal/settings", headers=AUTH).json() == {
-+        "score_model": "medhasuryan", "min_score_opus": 75.0, "min_score_fable": 85.0, "min_score_fable_op": 78.0,
-+        "min_score_opus_v2": 75.0, "min_score_opus_v3": 80.0, "min_score_medhasuryan": 77.0}
++        "score_model": "medhasuryan", "min_score_opus": 75.0, "min_score_fable_op": 78.0, "min_score_opus_v3": 80.0,
++        "min_score_medhasuryan": 77.0}
++    for gone in ("fable", "opus_v2", "gpt"):                      # fable and opus_v2 were dropped (owner, 15 Nov 2026)
++        with pytest.raises(ValueError):
++            runtime.set("scanner_score_model", gone)
      with pytest.raises(ValueError):
-         runtime.set("scanner_score_model", "gpt")
-     with pytest.raises(ValueError):
-@@ -271,7 +277,7 @@
+-        runtime.set("scanner_min_score_opus", "101")
++        runtime.set("scanner_min_score_fable", "85")
++
++
++def test_a_saved_choice_of_a_dropped_score_falls_back_to_the_default():
++    store = Store(":memory:")
++    store.set_setting("scanner_score_model", "fable", T)          # saved before fable was dropped
++    store.set_setting("scanner_min_score_opus_v2", "70", T)
++    fresh = RuntimeSettings(SETTINGS, store, lambda: T)
++    assert fresh.current().scanner_score_model == "opus_v3"
+ 
+ 
+ def test_full_rows_are_angels_rows_in_batches_of_fifty():
+@@ -271,7 +280,8 @@
      assert "waiting" in text                       # the option leg has no result yet
      assert "GRASIM" in text and "Score too low" in text and "2,710.00" in text
      assert "Fable-OP <strong>77.3</strong>" in text and '<th class="num">Fable-OP</th>' in text    # all three scores shown
 -    assert text.count('<td class="num">77.3</td>') == 1 and "with all five scores" in text       # GRASIM was logged without it
-+    assert text.count('<td class="num">77.3</td>') == 1 and "with all six scores" in text        # GRASIM was logged without it
++    assert text.count('<td class="num">77.3</td>') == 1 and "with all four scores" in text       # GRASIM was logged without it
++    assert '<th class="num">Fable</th>' not in text and '<th class="num">Opus v2</th>' not in text   # dropped (owner, 15 Nov 2026)
      fop = client.get("/scanner", follow_redirects=True)                    # unchanged page when the scanner trades on it
      assert fop.status_code == 200
      assert "a_pos_min" in text and "rsi14 &lt; 50" in text and "10:05" in text
-@@ -316,11 +322,12 @@
+@@ -314,14 +324,16 @@
+     csrf = login(client, bot)
+     page = client.get("/settings").text
      assert 'id="scanner"' in page and "Score the scanner trades on" in page
-     assert '<option value="opus_v3" selected>' in page and "Fable score needed" in page  # opus_v3 is the default
-     assert '<option value="opus_v2"' in page and "Opus v3 score needed" in page
-+    assert '<option value="medhasuryan"' in page and "MedhaSuryan score needed" in page and "Hold for T3" in page
-     resp = client.post("/settings", data={"csrf": csrf, "scanner_score_model": "fable", "scanner_min_score_fable": "85"})
-     assert "Saved: scanner_score_model = fable, scanner_min_score_fable = 85" in client.get(resp.headers["location"]).text
-     assert runtime.current().scanner_score_model == "fable" and runtime.current().scanner_min_score_fable == D("85")
-     resp = client.post("/settings", data={"csrf": csrf, "scanner_score_model": "gpt"})
+-    assert '<option value="opus_v3" selected>' in page and "Fable score needed" in page  # opus_v3 is the default
+-    assert '<option value="opus_v2"' in page and "Opus v3 score needed" in page
+-    resp = client.post("/settings", data={"csrf": csrf, "scanner_score_model": "fable", "scanner_min_score_fable": "85"})
+-    assert "Saved: scanner_score_model = fable, scanner_min_score_fable = 85" in client.get(resp.headers["location"]).text
+-    assert runtime.current().scanner_score_model == "fable" and runtime.current().scanner_min_score_fable == D("85")
+-    resp = client.post("/settings", data={"csrf": csrf, "scanner_score_model": "gpt"})
 -    assert "choose opus or fable or fable_op or opus_v2 or opus_v3" in client.get(resp.headers["location"]).text
-+    assert "choose opus or fable or fable_op or opus_v2 or opus_v3 or medhasuryan" in client.get(resp.headers["location"]).text
-     assert runtime.current().scanner_score_model == "fable"
+-    assert runtime.current().scanner_score_model == "fable"
++    assert '<option value="opus_v3" selected>' in page and "Opus v3 score needed" in page  # opus_v3 is the default
++    assert '<option value="medhasuryan"' in page and "MedhaSuryan score needed" in page and "Hold for T3" in page
++    assert '<option value="fable"' not in page and '<option value="opus_v2"' not in page          # dropped (owner, 15 Nov 2026)
++    assert "Fable score needed" not in page and "Opus v2 score needed" not in page
++    resp = client.post("/settings", data={"csrf": csrf, "scanner_score_model": "medhasuryan", "scanner_min_score_medhasuryan": "77"})
++    assert "Saved: scanner_score_model = medhasuryan, scanner_min_score_medhasuryan = 77" in client.get(resp.headers["location"]).text
++    assert runtime.current().scanner_score_model == "medhasuryan" and runtime.current().scanner_min_score_medhasuryan == D("77")
++    resp = client.post("/settings", data={"csrf": csrf, "scanner_score_model": "fable"})
++    assert "choose opus or opus_v3 or fable_op or medhasuryan" in client.get(resp.headers["location"]).text
++    assert runtime.current().scanner_score_model == "medhasuryan"
      assert '<option value="fable_op"' in page and "Fable-OP score: tuned to reach T1" in page and "Fable-OP score needed" in page
      resp = client.post("/settings", data={"csrf": csrf, "scanner_score_model": "fable_op", "scanner_min_score_fable_op": "78"})
+     assert "Saved: scanner_score_model = fable_op, scanner_min_score_fable_op = 78" in client.get(resp.headers["location"]).text
+
+--- a/engine/tests/test_scanner_trade.py	2026-11-14 19:09:34.733567357 +0000
++++ b/engine/tests/test_scanner_trade.py	2026-11-14 19:48:07.753851016 +0000
+@@ -376,3 +376,22 @@
+     assert answer["result"] == "dry_run" and "MOTHERSON24NOV26162.5CE" in answer["detail"]
+     far = run(intake.handle(signal(key="2026-11-03:MOTHERSON:B", expiry="2026-11-17"), T))
+     assert far["result"] == "skipped" and "not listed for the 17 Nov 2026 expiry" in far["detail"]
++
++
++@pytest.mark.parametrize("plan", ["t1", "t2", "t3", "t2_trail", "t3_trail"])
++def test_a_t1_only_signal_sells_everything_at_t1_whatever_the_plan(plan):
++    """MedhaSuryan on a Nifty downtrend day sends T1 only: every exit plan then sells everything at T1, and says so."""
++    intake, manager, store, quotes, sink, pos = bought(replace(LIVE, scanner_exit_plan=plan), model="medhasuryan",
++                                                       targets=[162.8])
++    if plan != "t1":
++        assert any("sell all at T1: the scanner sent targets up to T1 only" in t for t in sink.texts())
++    quotes.set(m_nov_fut="162.90", m_nov_ce="6.10")
++    run(manager.tick(T + timedelta(seconds=10)))
++    assert store.position(pos.id).state in (EXITING, CLOSED)
++    assert any("EXIT ORDER - L1 162.8 reached (last level)" in t and "x 6150" in t for t in sink.texts())
++
++
++def test_three_targets_keep_the_plan_as_it_is():
++    intake, manager, store, quotes, sink, pos = bought(replace(LIVE, scanner_exit_plan="t3"), model="medhasuryan")
++    assert any("Exit plan: hold for T3, fixed stop" in t for t in sink.texts())
++    assert not any("sent targets up to" in t for t in sink.texts())
 
 --- a/engine/vitezza/config.py	2026-11-14 19:09:34.728342057 +0000
-+++ b/engine/vitezza/config.py	2026-11-14 19:24:48.373517339 +0000
-@@ -77,13 +77,14 @@
++++ b/engine/vitezza/config.py	2026-11-14 19:47:45.266992678 +0000
+@@ -77,13 +77,12 @@
      oi_enabled: bool = True  # read open interest around each held option's strike
      score_enabled: bool = True  # the position score on every open card: Buy more / Hold / Reduce / Exit
      score_horizon_days: int = 3  # sessions the option score looks ahead (today counts while the market is open)
 -    scanner_score_model: str = "opus_v3"  # score the scanner trades on: opus / fable / fable_op / opus_v2 / opus_v3
-+    scanner_score_model: str = "opus_v3"  # score the scanner trades on: opus / fable / fable_op / opus_v2 / opus_v3 / medhasuryan
++    scanner_score_model: str = "opus_v3"  # score the scanner trades on: opus / opus_v3 / fable_op / medhasuryan
                                            # (owner, 14 Nov 2026: opus_v3 is the default)
      scanner_min_score_opus: Decimal = Decimal("75")  # score a signal needs to be taken, per model
-     scanner_min_score_fable: Decimal = Decimal("80")
+-    scanner_min_score_fable: Decimal = Decimal("80")
      scanner_min_score_fable_op: Decimal = Decimal("75")  # Fable-OP: fable re-tuned to reach T1 (scanner/equity/score.py)
-     scanner_min_score_opus_v2: Decimal = Decimal("75")  # Opus v2: Fable-OP score on longs, Opus score on shorts
+-    scanner_min_score_opus_v2: Decimal = Decimal("75")  # Opus v2: Fable-OP score on longs, Opus score on shorts
      scanner_min_score_opus_v3: Decimal = Decimal("75")  # Opus v3: v2, and a long on below-normal volume scores 0
 +    scanner_min_score_medhasuryan: Decimal = Decimal("75")  # MedhaSuryan: Fable-OP, or Opus v3 on Nifty downtrend days
      scanner_trading: bool = False  # hand the signals the scanner takes to the order manager (owner switch)
@@ -78,11 +134,14 @@
      scanner_max_open: int = 6  # scanner trades open at once; a new signal is skipped at the limit
 
 --- a/engine/vitezza/internal.py	2026-11-14 19:09:34.728873956 +0000
-+++ b/engine/vitezza/internal.py	2026-11-14 19:24:48.374210163 +0000
-@@ -106,7 +106,8 @@
-                 "min_score_fable": float(s.scanner_min_score_fable),
++++ b/engine/vitezza/internal.py	2026-11-14 19:47:45.267961413 +0000
+@@ -103,10 +103,9 @@
+         authorize(request)
+         s = runtime.current()
+         return {"score_model": s.scanner_score_model, "min_score_opus": float(s.scanner_min_score_opus),
+-                "min_score_fable": float(s.scanner_min_score_fable),
                  "min_score_fable_op": float(s.scanner_min_score_fable_op),
-                 "min_score_opus_v2": float(s.scanner_min_score_opus_v2),
+-                "min_score_opus_v2": float(s.scanner_min_score_opus_v2),
 -                "min_score_opus_v3": float(s.scanner_min_score_opus_v3)}
 +                "min_score_opus_v3": float(s.scanner_min_score_opus_v3),
 +                "min_score_medhasuryan": float(s.scanner_min_score_medhasuryan)}
@@ -91,29 +150,34 @@
      async def signal(request: Request):
 
 --- a/engine/vitezza/runtime.py	2026-11-14 19:09:34.729850748 +0000
-+++ b/engine/vitezza/runtime.py	2026-11-14 19:24:48.374079279 +0000
-@@ -101,13 +101,16 @@
++++ b/engine/vitezza/runtime.py	2026-11-14 19:47:45.267777096 +0000
+@@ -101,23 +101,25 @@
      Editable("score_horizon_days", "Option score looks ahead", "int", "Sessions; today counts while the market "
               "is open. Shares are scored over 1 week, 1 month, 6 months and 1 year.",
               Decimal(1), Decimal(10), group="Position score", unit="sessions"),
 -    Editable("scanner_score_model", "Score the scanner trades on", "choice", "All five scores are worked out and "
-+    Editable("scanner_score_model", "Score the scanner trades on", "choice", "All six scores are worked out and "
++    Editable("scanner_score_model", "Score the scanner trades on", "choice", "All four scores are worked out and "
               "logged on every signal; this one decides which signals are taken. Applies from the next scan.",
 -             choices=("opus", "fable", "fable_op", "opus_v2", "opus_v3"), group="Scanner", choice_labels=(
-+             choices=("opus", "fable", "fable_op", "opus_v2", "opus_v3", "medhasuryan"), group="Scanner", choice_labels=(
-                  "Opus score: move from the open, VWAP, gap, RSI room", "Fable score: tight stop, early, near 52-week high / low",
+-                 "Opus score: move from the open, VWAP, gap, RSI room", "Fable score: tight stop, early, near 52-week high / low",
++             choices=("opus", "opus_v3", "fable_op", "medhasuryan"), group="Scanner", choice_labels=(
++                 "Opus score: move from the open, VWAP, gap, RSI room",
++                 "Opus v3 score: longs by the Fable-OP score, shorts by the Opus score; a long on below-normal volume "
++                 "is not taken",
                   "Fable-OP score: tuned to reach T1 (day's move in ATRs, fresh extreme, early, Nifty flat or against)",
-                  "Opus v2 score: longs by the Fable-OP score, shorts by the Opus score",
+-                 "Opus v2 score: longs by the Fable-OP score, shorts by the Opus score",
 -                 "Opus v3 score: Opus v2, and a long on below-normal volume is not taken")),
-+                 "Opus v3 score: Opus v2, and a long on below-normal volume is not taken",
 +                 "MedhaSuryan: the Fable-OP score, but the Opus v3 score on days Nifty opens in a downtrend (its last "
 +                 "close below its 20-day average, and that below its 50-day average). Exits at T3, and at T1 on "
-+                 "downtrend days: set the exit plan below to Hold for T3")),
++                 "downtrend days: set the exit plan below to Hold for T3, and back to Sell all at T1 when you leave it")),
      Editable("scanner_min_score_opus", "Opus score needed", "decimal", "A signal is taken when its Opus score "
               "is at least this (while Opus is the score in use).", Decimal(0), Decimal(100), group="Scanner"),
-     Editable("scanner_min_score_fable", "Fable score needed", "decimal", "A signal is taken when its Fable "
-@@ -118,6 +121,9 @@
-              "score is at least this (while Opus v2 is the score in use).", Decimal(0), Decimal(100), group="Scanner"),
+-    Editable("scanner_min_score_fable", "Fable score needed", "decimal", "A signal is taken when its Fable "
+-             "score is at least this (while Fable is the score in use).", Decimal(0), Decimal(100), group="Scanner"),
+     Editable("scanner_min_score_fable_op", "Fable-OP score needed", "decimal", "A signal is taken when its Fable-OP "
+              "score is at least this (while Fable-OP is the score in use).", Decimal(0), Decimal(100), group="Scanner"),
+-    Editable("scanner_min_score_opus_v2", "Opus v2 score needed", "decimal", "A signal is taken when its Opus v2 "
+-             "score is at least this (while Opus v2 is the score in use).", Decimal(0), Decimal(100), group="Scanner"),
      Editable("scanner_min_score_opus_v3", "Opus v3 score needed", "decimal", "A signal is taken when its Opus v3 "
               "score is at least this (while Opus v3 is the score in use).", Decimal(0), Decimal(100), group="Scanner"),
 +    Editable("scanner_min_score_medhasuryan", "MedhaSuryan score needed", "decimal", "A signal is taken when its "
@@ -122,39 +186,84 @@
      Editable("scanner_trading", "Trade the scanner's signals", "bool", "Each signal the scanner takes buys its "
               "option at Angel: a CE for a long, a PE for a short. Real orders also need the server lock "
               "(SCANNER_LIVE_ALLOWED); while that is off you get a Telegram of what would have been bought.",
+@@ -130,7 +132,8 @@
+              Decimal(1), Decimal(50), group="Scanner"),
+     Editable("scanner_exit_plan", "Exit plan for scanner trades", "choice", "Targets and the stop are on the "
+              "stock's future. Trailing: the stop moves to the entry price at T1, then to T1 at T2. Set when a "
+-             "trade is bought: a change applies to new trades.",
++             "trade is bought: a change applies to new trades. MedhaSuryan: Hold for T3 (on Nifty downtrend days "
++             "it sends T1 only, so those trades sell at T1); set it back to Sell all at T1 for the other scores.",
+              choices=("t1", "t2", "t3", "t2_trail", "t3_trail"), group="Scanner", choice_labels=(
+                  "Sell all at T1", "Hold for T2", "Hold for T3", "Hold for T2, trailing stop", "Hold for T3, trailing stop")),
+     Editable("scanner_max_spread_pct", "Skip when the option's bid-ask gap is wider than", "decimal",
+
+--- a/engine/vitezza/scanner_trade.py	2026-11-14 19:09:34.729938651 +0000
++++ b/engine/vitezza/scanner_trade.py	2026-11-14 19:47:51.234052661 +0000
+@@ -16,7 +16,7 @@
+ import math
+ import re
+ from collections.abc import Callable
+-from dataclasses import dataclass
++from dataclasses import dataclass, replace
+ from datetime import date, datetime, timedelta
+ from decimal import Decimal
+ 
+@@ -183,6 +183,9 @@
+             return await skip(f"{contract.symbol} bid {quote.bid} / ask {quote.ask}: the gap is {gap:.1f}% of the "
+                               f"price (limit {s.scanner_max_spread_pct}%)")
+         plan = EXIT_PLANS[s.scanner_exit_plan]
++        if len(signal.targets) < plan.levels:  # fewer targets sent than the plan holds for (MedhaSuryan, Nifty downtrend)
++            plan = replace(plan, levels=len(signal.targets),
++                           text=f"sell all at T{len(signal.targets)}: the scanner sent targets up to T{len(signal.targets)} only")
+         _, direction = _SIDES[signal.side]
+         entry = EntrySignal(
+             name=signal.symbol, symbol=signal.symbol, segment=Segment.OPTION, direction=direction,
 
 --- a/engine/vitezza/scanner_view.py	2026-11-14 19:09:34.729999301 +0000
-+++ b/engine/vitezza/scanner_view.py	2026-11-14 19:24:48.374501886 +0000
-@@ -25,7 +25,9 @@
++++ b/engine/vitezza/scanner_view.py	2026-11-14 19:47:45.268433985 +0000
+@@ -24,8 +24,18 @@
+ # The five exits recorded side by side on every paper trade (scanner/equity/fills.py LIVE_POLICIES).
  POLICIES = (("T1", "Exit T1"), ("T2", "Hold T2"), ("T3", "Hold T3"), ("T2_TR", "T2, trailing SL"), ("T3_TR", "T3, trailing SL"))
  SETUP_NAMES = {"A": "Trend breakout", "B": "Breakdown", "C": "Oversold bounce"}
- MODEL_NAMES = {"opus": "Opus score", "fable": "Fable score", "fable_op": "Fable-OP score",
+-MODEL_NAMES = {"opus": "Opus score", "fable": "Fable score", "fable_op": "Fable-OP score",
 -               "opus_v2": "Opus v2 score", "opus_v3": "Opus v3 score"}
-+               "opus_v2": "Opus v2 score", "opus_v3": "Opus v3 score", "medhasuryan": "MedhaSuryan score"}
-+REGIMES = {"Uptrend": "uptrend", "Downtrend": "downtrend: MedhaSuryan takes the Opus v3 score and exits at T1",
-+           "Sideways": "sideways"}
++MODEL_NAMES = {"opus": "Opus score", "opus_v3": "Opus v3 score", "fable_op": "Fable-OP score",
++               "medhasuryan": "MedhaSuryan score"}
++REGIMES = {"Uptrend": "uptrend", "Downtrend": "downtrend", "Sideways": "sideways"}
++
++
++def regime_text(regime, model: str) -> str:
++    """The day's Nifty trend as the Scanner page words it; what it means for MedhaSuryan only while it is live."""
++    text = REGIMES.get(regime, "not known yet")
++    if model == "medhasuryan":
++        text += (": MedhaSuryan takes the Opus v3 score today and exits at T1" if regime == "Downtrend" else
++                 ": MedhaSuryan takes the Fable-OP score today and exits at T3")
++    return text
  ACTIONS = {"fired": "Taken", "below_score": "Score too low", "over_budget": "Over the risk budget",
             "capped_out": "Daily cap reached"}
  OUTCOMES = {"target": "target", "stopped": "stopped", "trail": "trail stop", "open": "open", "no_data": "no data"}
-@@ -91,6 +93,7 @@
+@@ -89,8 +99,8 @@
+         "day": row.get("day"), "time": _hm(row.get("ts")), "symbol": row.get("symbol"), "setup": row.get("setup"),
+         "setup_name": SETUP_NAMES.get(row.get("setup"), ""), "side": row.get("side"),
          "action": row.get("action"), "action_label": ACTIONS.get(row.get("action"), row.get("action") or "-"),
-         "taken": row.get("action") == "fired", "opus": scores.get("opus"), "fable": scores.get("fable"),
-         "fable_op": scores.get("fable_op"), "opus_v2": scores.get("opus_v2"), "opus_v3": scores.get("opus_v3"),
-+        "medhasuryan": scores.get("medhasuryan"),
+-        "taken": row.get("action") == "fired", "opus": scores.get("opus"), "fable": scores.get("fable"),
+-        "fable_op": scores.get("fable_op"), "opus_v2": scores.get("opus_v2"), "opus_v3": scores.get("opus_v3"),
++        "taken": row.get("action") == "fired", "opus": scores.get("opus"), "opus_v3": scores.get("opus_v3"),
++        "fable_op": scores.get("fable_op"), "medhasuryan": scores.get("medhasuryan"),
          "lots": features.get("lots"), "levels": levels, "features": features,
          "fut_symbol": row.get("fut_symbol"), "opt_symbol": row.get("opt_symbol"),
          "fut": legs.get("FUT"), "opt": legs.get("OPT"),
-@@ -148,6 +151,7 @@
+@@ -148,6 +158,7 @@
          "scan_window": bool(state.get("scan_window")), "last_scan": _hm(status.get("last_scan")),
          "prepared_for": status.get("prepared_for"), "errors": errors[-12:],
          "model": model, "model_name": MODEL_NAMES.get(model, model), "min_score": state.get("live_min_score"),
-+        "nifty_regime": REGIMES.get(status.get("nifty_regime"), "not known yet"),
++        "nifty_regime": regime_text(status.get("nifty_regime"), model),
          "from_settings": bool(state.get("settings_from_dashboard")),
          "top_n": cfg.get("top_n"), "taken": taken, "not_taken": len(todays) - len(taken),
          "signals": signals,
 
 --- a/engine/vitezza/templates/scanner.html	2026-11-14 19:09:34.732268034 +0000
-+++ b/engine/vitezza/templates/scanner.html	2026-11-14 19:24:48.375106709 +0000
++++ b/engine/vitezza/templates/scanner.html	2026-11-14 19:47:51.233578884 +0000
 @@ -99,7 +99,8 @@
  {% if tab == "signals" %}
  <div class="kpis">
@@ -165,12 +274,14 @@
    <div class="card kpi"><div class="k">Qualified, not taken</div><div class="big">{{ view.not_taken }}</div>
      <div class="small">score too low, over the risk budget, or daily cap reached</div></div>
    <div class="card kpi"><div class="k">Shortlist</div><div class="big">{{ view.shortlist | length }}</div>
-@@ -129,7 +130,7 @@
+@@ -128,8 +129,8 @@
+       <div><div class="k">T3</div><div class="mid pos">{{ s.levels.t3 | num }}</div></div>
      </div>
      <div class="wf-facts" style="margin:0 20px 14px">
-       <span>Opus <strong>{{ s.opus | num(1) }}</strong></span><span>Fable <strong>{{ s.fable | num(1) }}</strong></span><span>Fable-OP <strong>{{ s.fable_op | num(1) }}</strong></span>
+-      <span>Opus <strong>{{ s.opus | num(1) }}</strong></span><span>Fable <strong>{{ s.fable | num(1) }}</strong></span><span>Fable-OP <strong>{{ s.fable_op | num(1) }}</strong></span>
 -      <span>Opus v2 <strong>{{ s.opus_v2 | num(1) }}</strong></span><span>Opus v3 <strong>{{ s.opus_v3 | num(1) }}</strong></span>
-+      <span>Opus v2 <strong>{{ s.opus_v2 | num(1) }}</strong></span><span>Opus v3 <strong>{{ s.opus_v3 | num(1) }}</strong></span><span>MedhaSuryan <strong>{{ s.medhasuryan | num(1) }}</strong></span>
++      <span>Opus <strong>{{ s.opus | num(1) }}</strong></span><span>Opus v3 <strong>{{ s.opus_v3 | num(1) }}</strong></span>
++      <span>Fable-OP <strong>{{ s.fable_op | num(1) }}</strong></span><span>MedhaSuryan <strong>{{ s.medhasuryan | num(1) }}</strong></span>
        <span>Stop at <strong>{{ s.levels.chosen or "-" }}</strong></span>
        <span>Day change <strong>{{ s.features.day_chg | pct }}</strong></span>
        <span>Beyond VWAP <strong>{{ s.features.beyond_vwap | pct }}</strong></span>
@@ -179,26 +290,33 @@
  
  <section class="book-section" aria-labelledby="h-log">
 -  <div class="section-head"><h2 id="h-log">Signal log</h2><span class="small">Every stock that met all conditions of a setup, newest first, with all five scores</span></div>
-+  <div class="section-head"><h2 id="h-log">Signal log</h2><span class="small">Every stock that met all conditions of a setup, newest first, with all six scores</span></div>
++  <div class="section-head"><h2 id="h-log">Signal log</h2><span class="small">Every stock that met all conditions of a setup, newest first, with all four scores</span></div>
    <div class="scroll">
    <table>
 -    <thead><tr><th>Day</th><th>Time</th><th>Stock</th><th>Setup</th><th>Side</th><th>Result</th><th class="num">Opus</th><th class="num">Fable</th><th class="num">Fable-OP</th><th class="num">Opus v2</th><th class="num">Opus v3</th>
-+    <thead><tr><th>Day</th><th>Time</th><th>Stock</th><th>Setup</th><th>Side</th><th>Result</th><th class="num">Opus</th><th class="num">Fable</th><th class="num">Fable-OP</th><th class="num">Opus v2</th><th class="num">Opus v3</th><th class="num">MedhaSuryan</th>
++    <thead><tr><th>Day</th><th>Time</th><th>Stock</th><th>Setup</th><th>Side</th><th>Result</th><th class="num">Opus</th><th class="num">Opus v3</th><th class="num">Fable-OP</th><th class="num">MedhaSuryan</th>
        <th class="num">Reference</th><th class="num">Stop</th><th class="num">T1</th><th class="num">T2</th><th class="num">T3</th><th>Stop at</th></tr></thead>
      <tbody>
      {% for s in view.signals %}
-@@ -198,7 +199,7 @@
+@@ -198,13 +199,13 @@
        <td>{{ s.setup }} <span class="small">{{ s.setup_name }}</span></td>
        <td><span class="badge {{ 'buy' if s.side == 'LONG' else 'sell' }}">{{ s.side }}</span></td>
        <td><span class="post-status {{ 'ok' if s.taken else 'quiet' }}">{{ s.action_label }}</span></td>
 -      <td class="num">{{ s.opus | num(1) }}</td><td class="num">{{ s.fable | num(1) }}</td><td class="num">{{ s.fable_op | num(1) }}</td><td class="num">{{ s.opus_v2 | num(1) }}</td><td class="num">{{ s.opus_v3 | num(1) }}</td>
-+      <td class="num">{{ s.opus | num(1) }}</td><td class="num">{{ s.fable | num(1) }}</td><td class="num">{{ s.fable_op | num(1) }}</td><td class="num">{{ s.opus_v2 | num(1) }}</td><td class="num">{{ s.opus_v3 | num(1) }}</td><td class="num">{{ s.medhasuryan | num(1) }}</td>
++      <td class="num">{{ s.opus | num(1) }}</td><td class="num">{{ s.opus_v3 | num(1) }}</td><td class="num">{{ s.fable_op | num(1) }}</td><td class="num">{{ s.medhasuryan | num(1) }}</td>
        <td class="num">{{ s.levels.entry_ref | num }}</td><td class="num">{{ s.levels.stop | num }}</td>
        <td class="num">{{ s.levels.t1 | num }}</td><td class="num">{{ s.levels.t2 | num }}</td><td class="num">{{ s.levels.t3 | num }}</td>
        <td class="small">{{ s.levels.chosen or "-" }}</td>
+     </tr>
+     {% else %}
+-    <tr><td colspan="15" class="muted">No signal logged yet.</td></tr>
++    <tr><td colspan="16" class="muted">No signal logged yet.</td></tr>
+     {% endfor %}
+     </tbody>
+   </table>
 
 --- a/scanner/scanner/equity/backtest.py	2026-11-14 19:09:34.734107326 +0000
-+++ b/scanner/scanner/equity/backtest.py	2026-11-14 19:29:31.648343958 +0000
++++ b/scanner/scanner/equity/backtest.py	2026-11-14 19:47:16.210520683 +0000
 @@ -24,7 +24,7 @@
  from .fills import DAY_POLICIES
  from .rules import SETUPS, enabled
@@ -208,23 +326,47 @@
  
  SELECTIONS = {
      "top": "Top {n} by score (whole day, hindsight on selection)",
-@@ -172,8 +172,10 @@
+@@ -34,7 +34,7 @@
+ }
+ SNAP_KEYS = ("day_chg", "gap", "from_open", "pos", "beyond_pd", "beyond_vwap", "rel_vol", "n_break", "rsi14", "vs20",
+              "ret5", "ret20", "nifty_chg", "mins_since_extreme", "minutes_since_open", "atr_pct", "from_52w_high",
+-             "from_52w_low", "price")
++             "from_52w_low", "price", "nifty_regime")
+ 
+ 
+ def sizing(cfg: EqConfig) -> dict:
+@@ -171,23 +171,30 @@
+ # ---------------------------------------------------------------------------- stored days
  def _fill_scores(day: dict, cfg: EqConfig) -> dict:
      """Signals stored before a model existed get its score from what was stored: fable_op from the snapshot (the
-     inputs the scan had; it needs nothing else), opus_v2 from the stored fable_op / opus score of that side, opus_v3
+-    inputs the scan had; it needs nothing else), opus_v2 from the stored fable_op / opus score of that side, opus_v3
 -    from opus_v2 and the stored rel_vol. Returns `day` itself when every signal already has all of them."""
 -    if all(m in s["scores"] for s in day["signals"] for m in ("fable_op", "opus_v2", "opus_v3")):
-+    from opus_v2 and the stored rel_vol, medhasuryan from the stored fable_op / opus_v3 score by the snapshot's
-+    nifty_regime, or the day's own "nifty_regime" (a day stored with neither counts as no downtrend). Returns `day`
-+    itself when every signal already has all of them."""
-+    if all(m in s["scores"] for s in day["signals"] for m in ("fable_op", "opus_v2", "opus_v3", "medhasuryan")):
++    inputs the scan had; it needs nothing else), opus_v3 from the stored opus_v2 score (or, without one, the stored
++    fable_op score for a long and opus score for a short) through the volume gate on the stored rel_vol, medhasuryan
++    from the stored fable_op / opus_v3 score by the snapshot's nifty_regime or the day's own "nifty_regime" (a day
++    stored with neither counts as no downtrend). Returns `day` itself when every signal already has all of them."""
++    if all(m in s["scores"] for s in day["signals"] for m in ("fable_op", "opus_v3", "medhasuryan")):
          return day
      sigs = []
      for s in day["signals"]:
-@@ -188,6 +190,13 @@
-             sc, parts = volume_gate(s["scores"]["opus_v2"], (s.get("parts") or {}).get("opus_v2", {}),
-                                     (s.get("snapshot") or {}).get("rel_vol", s.get("rel_vol")), s["side"], cfg)
-             s = dict(s, scores=dict(s["scores"], opus_v3=sc), parts=dict(s.get("parts") or {}, opus_v3=parts))
+         if "fable_op" not in s["scores"]:
+             sc, parts = fable_op_score(s.get("snapshot") or {}, s["side"], cfg)
+             s = dict(s, scores=dict(s["scores"], fable_op=sc), parts=dict(s.get("parts") or {}, fable_op=parts))
+-        if "opus_v2" not in s["scores"]:                   # the stored score of the model that side uses
+-            src = "fable_op" if s["side"] == LONG else "opus"
+-            s = dict(s, scores=dict(s["scores"], opus_v2=s["scores"][src]),
+-                     parts=dict(s.get("parts") or {}, opus_v2=(s.get("parts") or {}).get(src, {})))
+-        if "opus_v3" not in s["scores"]:                   # opus_v2's stored score through the volume gate
+-            sc, parts = volume_gate(s["scores"]["opus_v2"], (s.get("parts") or {}).get("opus_v2", {}),
+-                                    (s.get("snapshot") or {}).get("rel_vol", s.get("rel_vol")), s["side"], cfg)
+-            s = dict(s, scores=dict(s["scores"], opus_v3=sc), parts=dict(s.get("parts") or {}, opus_v3=parts))
++        if "opus_v3" not in s["scores"]:                   # opus_v2's score (stored, or the side's own) through the gate
++            parts = s.get("parts") or {}
++            src = "opus_v2" if "opus_v2" in s["scores"] else "fable_op" if s["side"] == LONG else "opus"
++            sc, gp = volume_gate(s["scores"][src], parts.get(src, {}),
++                                 (s.get("snapshot") or {}).get("rel_vol", s.get("rel_vol")), s["side"], cfg)
++            s = dict(s, scores=dict(s["scores"], opus_v3=sc), parts=dict(parts, opus_v3=gp))
 +        if "medhasuryan" not in s["scores"]:               # fable_op's or opus_v3's stored score, by the day's trend
 +            parts = s.get("parts") or {}
 +            snap = s.get("snapshot") or {}
@@ -235,9 +377,29 @@
          sigs.append(s)
      return dict(day, signals=sigs)
  
-@@ -323,7 +332,9 @@
+@@ -285,7 +292,8 @@
+ 
+     groups = {m: [{"all": [], "capped": []} for _ in bands] for m in MODELS}     # per day: list of signals
+     for d in days:
+-        pool = [s for s in d["signals"] if s["setup"] in setups and s["fut"]["T1"]["status"] != "no_data"]
++        pool = [_with_medhasuryan(s, d) for s in d["signals"]
++                if s["setup"] in setups and s["fut"]["T1"]["status"] != "no_data"]
+         for m in MODELS:
+             ordered = sorted((s for s in pool if s["scores"].get(m) is not None),
+                              key=lambda s, m=m: (s["time"], -s["scores"][m], s["symbol"]))
+@@ -322,8 +330,19 @@
+             "window": [days[0]["day"], days[-1]["day"]] if days else None}
  
  
++def _with_medhasuryan(s: dict, day: dict) -> dict:
++    """A stored signal (plain-number scores) without a medhasuryan score gets one when its day carries its
++    "nifty_regime": fable_op's score, or opus_v3's on a downtrend day. Otherwise the signal is returned as it is."""
++    sc = s.get("scores") or {}
++    if sc.get("medhasuryan") is not None or not day.get("nifty_regime") or sc.get("fable_op") is None or sc.get("opus_v3") is None:
++        return s
++    return dict(s, scores=dict(sc, medhasuryan=medhasuryan_pick(day, sc["fable_op"], sc["opus_v3"])))
++
++
  def unpack_signal_days(doc: dict) -> list[dict]:
 -    """Six-month signal file (scripts.eq_backtest6m.signal_doc) -> the per-day shape band_rows reads."""
 +    """Six-month signal file (scripts.eq_backtest6m.signal_doc) -> the per-day shape band_rows reads. A day that
@@ -246,7 +408,7 @@
      ms, ps = doc["models"], doc["policies"]
      out = []
      for d in doc["days"]:
-@@ -331,8 +342,11 @@
+@@ -331,8 +350,11 @@
          for tm, sym, setup, scores, net, r in d["signals"]:
              fut = {p: {"status": "done", "net_rs": net[i], "r": r[i]} if net[i] is not None else {"status": "no_data"}
                     for i, p in enumerate(ps)}
@@ -262,19 +424,19 @@
  
 
 --- a/scanner/scanner/equity/config.py	2026-11-14 19:09:34.734196100 +0000
-+++ b/scanner/scanner/equity/config.py	2026-11-14 19:24:13.960688385 +0000
++++ b/scanner/scanner/equity/config.py	2026-11-14 19:47:16.212489214 +0000
 @@ -97,8 +97,8 @@
      score_w_structure: float = 15.0     # stop sits at a real level, not the ATR fallback
  
      # ---------------------------------------------------------------- scoring model switch + "fable" score
 -    score_model: str = "opus_v3"        # opus | fable | fable_op | opus_v2 | opus_v3: which score the LIVE scanner
 -                                        # trades on when the dashboard has not chosen (all are logged)
-+    score_model: str = "opus_v3"        # opus | fable | fable_op | opus_v2 | opus_v3 | medhasuryan: which score the LIVE
-+                                        # scanner trades on when the dashboard has not chosen (all are logged)
++    score_model: str = "opus_v3"        # opus | opus_v3 | fable_op | medhasuryan: which score the LIVE scanner trades on
++                                        # when the dashboard has not chosen (all four are logged; fable and opus_v2 dropped)
      # Fable score: three equal parts, each 0..1 (see score.py). Scales are fixed, not fitted to outcomes.
      fable_min_score: float = 80.0       # live threshold; median 4 qualifiers a day on 21 Oct-11 Nov
      fable_w_tight: float = 1.0          # stop distance as % of price (tighter = higher)
-@@ -134,6 +134,11 @@
+@@ -134,6 +134,12 @@
      opus_v3_min_score: float = 75.0     # about 2.7 trades a day on May-Nov 2026
      opus_v3_min_rel_vol: float = 1.0    # a long with rel_vol below this scores 0 (missing rel_vol passes)
  
@@ -282,19 +444,21 @@
 +    # No weights of its own: the day's Nifty trend (features.nifty_regime, known before the open) picks the score.
 +    medhasuryan_min_score: float = 75.0 # fable_op's and opus_v3's own threshold; about 2.2 trades a day on May-Nov 2026
 +    regime_days: int = 120              # calendar days of Nifty daily candles read before the open (>= 50 sessions)
++    regime_retry_s: float = 5.0         # wait before reading them again after a failed read (x 1, x 2)
 +
      # ---------------------------------------------------------------- stop and targets
      stop_buffer_pct: float = 0.2        # proposed stop = support x (1 - buffer/100)
      stop_atr_min: float = 0.3           # keep proposals between these multiples of daily ATR
 
 --- a/scanner/scanner/equity/engine.py	2026-11-14 19:09:34.734322177 +0000
-+++ b/scanner/scanner/equity/engine.py	2026-11-14 19:24:13.960460724 +0000
-@@ -37,15 +37,15 @@
++++ b/scanner/scanner/equity/engine.py	2026-11-14 19:47:16.212197106 +0000
+@@ -37,19 +37,23 @@
  from . import store
  from .config import EqConfig, eq_settings
  from .data import Throttle, fetch_range
 -from .features import (LONG, build_context, intraday_base, non_sessions, regular, session_days, side_view,
-+from .features import (LONG, build_context, intraday_base, nifty_regime, non_sessions, regular, session_days, side_view,
++from .features import (LONG, build_context, intraday_base, nifty_regime, non_sessions, prev_session, regular,
++                       session_days, side_view,
                         snapshot)
  from .fills import CLOSED, LIVE_POLICIES, option_leg, run_policies
  from .levels import build_levels
@@ -308,23 +472,40 @@
  from .validation import REPORT_FILE
  
  LIVE_MODEL_KEY = "eq_score_model"
-@@ -82,6 +82,7 @@
+ HANDOFF_RETRY = timedelta(minutes=3)       # an unanswered hand-over is tried again each scan for this long
++NIFTY_REGIME_KEY = "eq_nifty_regime"     # {"day": ISO date, "regime": ...}: today's Nifty trend, kept across a restart
++REGIME_TRIES = 3                           # reads of Nifty's daily candles before giving up for now
++REGIME_RETRY_EVERY = timedelta(minutes=5)  # an unknown trend is read again this often until the scan window opens
+ LIVE_THRESHOLDS_KEY = "eq_min_scores"      # {"opus": 75, "fable": 85, "fable_op": 75}: in-app thresholds; a missing model uses config
+ 
+ log = logging.getLogger("equity")
+@@ -82,6 +86,8 @@
          self.daily: dict[str, pd.DataFrame] = {}
          self.sessions: list[date] = []
          self.skip: set[date] = set()
 +        self.nifty_regime: str | None = None                # the prepared day's Nifty trend (features.nifty_regime)
++        self._regime_retry_at: datetime | None = None
          self.nifty_key = ""
          self.fut_of: dict[str, object] = {}
          self.shortlist: list[dict] = []
-@@ -183,6 +184,7 @@
+@@ -125,7 +131,7 @@
+ 
+     def live_min_score(self, model: str | None = None) -> float:
+         """Score a signal needs to be paper-traded live. The dashboard's Settings page decides; without it, a
+-        value stored in kv, then EQ_MIN_SCORE / EQ_FABLE_MIN_SCORE / EQ_FABLE_OP_MIN_SCORE. The backtest keeps the
++        value stored in kv, then EQ_MIN_SCORE / EQ_FABLE_OP_MIN_SCORE / EQ_OPUS_V3_MIN_SCORE / EQ_MEDHASURYAN_MIN_SCORE. The backtest keeps the
+         config values."""
+         set_by_owner = self.owner.get(f"min_score_{model or self.live_model()}")
+         if isinstance(set_by_owner, (int, float)) and 0 <= set_by_owner <= 100:
+@@ -183,6 +189,7 @@
          nifty_hist = hist.get(nkey)
          sessions = session_days(nifty_hist, self.cfg) if nifty_hist is not None else []
          skip = non_sessions(nifty_hist, self.cfg) if nifty_hist is not None else set()
-+        regime = await self._nifty_regime(day)
++        regime = await self._nifty_regime(day, sessions)
          sem = asyncio.Semaphore(4)
          done = 0
  
-@@ -211,9 +213,29 @@
+@@ -211,9 +218,80 @@
              if cm is None or cm.empty or s not in daily:
                  continue
              ctx[s] = build_context(s, day, daily[s], cm, hist.get(f.key) if f else None,
@@ -334,40 +515,92 @@
 -                "sessions": sessions, "skip": skip}
 +                "sessions": sessions, "skip": skip, "nifty_regime": regime}
 +
-+    async def _nifty_regime(self, day: date) -> str | None:
++    async def _nifty_regime(self, day: date, sessions: list[date] | None = None) -> str | None:
 +        """Nifty 50's trend before the open of `day` (features.nifty_regime), from its daily candles before `day`.
-+        None when they cannot be read: medhasuryan then scores the day as a non-downtrend day (fable_op)."""
-+        u = self.uni.get("NIFTY") if self.uni is not None else None
-+        key = (u.cash_key if u is not None and u.kind == "INDEX" else "") or (
-+            NIFTY_INDEX_KEY if getattr(self.src, "vendor", "") == "angel" else "")
-+        if not key:
-+            self._err("Nifty index key not found: no market trend today")
++        Read up to REGIME_TRIES times; a read whose last close is older than the previous session (from the Nifty
++        minute sessions) counts as failed. A trend saved earlier the same day is used when every read fails. Never
++        raises. None when nothing usable: medhasuryan then scores the day as a non-downtrend day (fable_op) and
++        hands over all three targets."""
++        why = "no Nifty index key"
++        try:
++            u = self.uni.get("NIFTY") if self.uni is not None else None
++            key = (u.cash_key if u is not None and u.kind == "INDEX" else "") or (
++                NIFTY_INDEX_KEY if getattr(self.src, "vendor", "") == "angel" else "")
++            want = prev_session(day, sessions) if sessions else None
++            for attempt in range(REGIME_TRIES if key else 0):
++                try:
++                    nd = await fetch_range(self.src, self.thr, key, "days", day - timedelta(days=self.cfg.regime_days),
++                                           day - timedelta(days=1))
++                    before = nd.index[nd.index.date < day] if nd is not None and not nd.empty else nd.index[:0]
++                    last = before[-1].date() if len(before) else None
++                    if last is None:
++                        why = "no daily candles returned"
++                    elif want is not None and last < want:
++                        why = f"the last daily close is {last.isoformat()}, older than the previous session {want.isoformat()}"
++                    else:
++                        regime = nifty_regime(nd, day)
++                        if regime is not None:
++                            self._save_regime(day, regime)
++                            return regime
++                        why = f"{len(before)} daily closes, too few for the 50-day average"
++                except Exception as e:  # noqa: BLE001 - a missing trend must not stop the pre-open load
++                    why = f"read failed ({type(e).__name__})"
++                if attempt + 1 < REGIME_TRIES:
++                    await asyncio.sleep(self.cfg.regime_retry_s * (attempt + 1))
++        except Exception as e:  # noqa: BLE001
++            why = f"{type(e).__name__}"
++        saved = self._saved_regime(day)
++        self._err(f"Nifty daily candles: {why}; market trend "
++                  + (f"{saved.lower()} (read earlier today)" if saved else "unknown for now"))
++        return saved
++
++    def _save_regime(self, day: date, regime: str) -> None:
++        """Keep today's trend so a restart later in the day reuses it if Nifty's candles cannot be read then."""
++        if self.persist and day == datetime.now(IST).date():
++            try:
++                db.kv_set(NIFTY_REGIME_KEY, {"day": day.isoformat(), "regime": regime})
++            except Exception as e:  # noqa: BLE001
++                self._err(f"saving the Nifty trend: {type(e).__name__}")
++
++    def _saved_regime(self, day: date) -> str | None:
++        if not self.persist:
 +            return None
 +        try:
-+            nd = await fetch_range(self.src, self.thr, key, "days", day - timedelta(days=self.cfg.regime_days),
-+                                   day - timedelta(days=1))
-+        except Exception as e:  # noqa: BLE001 - a missing trend must not stop the pre-open load
-+            self._err(f"Nifty daily candles: {type(e).__name__}")
++            v = db.kv_get(NIFTY_REGIME_KEY)
++        except Exception:  # noqa: BLE001
 +            return None
-+        regime = nifty_regime(nd, day)
-+        if regime is None:
-+            self._err(f"Nifty daily candles: {len(nd)} before {day.isoformat()}, too few for the 50-day average")
-+        return regime
++        return v.get("regime") if isinstance(v, dict) and v.get("day") == day.isoformat() else None
++
++    async def _retry_regime(self, now: datetime) -> None:
++        """Before the scan window opens, read an unknown trend again (every REGIME_RETRY_EVERY) and give it to every
++        stock's context. Once the window is open the day keeps what it has, so the day's signals are scored alike."""
++        if self.nifty_regime is not None or self.day != now.date() or _hm(now) >= _parse_hm(self.cfg.scan_start):
++            return
++        if self._regime_retry_at is not None and now < self._regime_retry_at:
++            return
++        self._regime_retry_at = now + REGIME_RETRY_EVERY
++        regime = await self._nifty_regime(self.day, self.sessions)
++        if regime is not None:
++            self.nifty_regime = regime
++            for c in self.ctx.values():
++                c.nifty_regime = regime
++            self.status["nifty_regime"] = regime
  
      async def prepare(self, today: date) -> None:
          """Load the live context for `today` (instrument file refreshed once a day)."""
-@@ -223,8 +245,10 @@
+@@ -223,8 +301,11 @@
          b = await self._load_contexts(today, progress=lambda m: self.status.update(phase="pre-open " + m))
          self.ctx, self.fut_of, self.nifty_key = b["ctx"], b["fut_of"], b["nifty_key"]
          self.hist, self.daily, self.sessions, self.skip = b["hist"], b["daily"], b["sessions"], b["skip"]
 +        self.nifty_regime = b.get("nifty_regime")
++        self._regime_retry_at = None
          self.day = today
          self.status["prepared_for"] = today.isoformat()
 +        self.status["nifty_regime"] = self.nifty_regime
          self.status["phase"] = f"ready: {len(self.ctx)} stocks"
  
      # ------------------------------------------------------------------ stage 1
-@@ -388,7 +412,9 @@
+@@ -388,7 +469,9 @@
                                     opt_symbol=opt.trading_symbol if opt else None, levels=lv.to_dict(),
                                     features=snap,
                                     note=f"{SETUPS[f['setup']].name}; {model} score {f['score']:g}; stop at {lv.chosen}; "
@@ -378,7 +611,7 @@
              if sid is None:
                  continue
              events.append({"symbol": s, "setup": f["setup"], "action": action, "score": f["score"]})
-@@ -408,7 +434,7 @@
+@@ -408,7 +491,7 @@
                      "key": f"{day}:{s}:{f['setup']}", "ts": f["ts"].isoformat(), "symbol": s, "side": side,
                      "setup": f["setup"], "model": model, "score": f["score"], "expiry": opt.expiry.isoformat(),
                      "strike": opt.strike, "kind": opt.kind, "entry_ref": lv.entry_ref, "stop": lv.stop,
@@ -387,9 +620,17 @@
          return events
  
      async def hand_over(self, events: list[dict], now: datetime) -> None:
+@@ -506,6 +589,7 @@
+             elif now.weekday() < 5:
+                 if self.day != now.date() and _hm(now) >= _parse_hm(self.cfg.prepare_at):
+                     await self.prepare(now.date())
++                await self._retry_regime(now)
+                 if self.day == now.date() and self.scan_now(now):
+                     self.shortlist = await self.stage1(now)
+                     found = await self.stage2(self.shortlist, now) if self.shortlist else []
 
 --- a/scanner/scanner/equity/features.py	2026-11-14 19:09:34.734375529 +0000
-+++ b/scanner/scanner/equity/features.py	2026-11-14 19:30:19.940711046 +0000
++++ b/scanner/scanner/equity/features.py	2026-11-14 19:45:06.577564069 +0000
 @@ -105,6 +105,7 @@
      nifty_prev_close: float | None
      vol_profile: np.ndarray | None  # mean cumulative cash volume by minute offset over previous sessions
@@ -454,16 +695,20 @@
      return snap
 
 --- a/scanner/scanner/equity/score.py	2026-11-14 19:09:34.734584971 +0000
-+++ b/scanner/scanner/equity/score.py	2026-11-14 19:21:15.989102979 +0000
-@@ -1,6 +1,6 @@
++++ b/scanner/scanner/equity/score.py	2026-11-14 19:47:16.209366190 +0000
+@@ -1,6 +1,10 @@
  """Strength scores (0-100) used to rank signals and keep only the strongest few per day.
  
 -Five models, all computed for every signal from what is known at the signal minute (no lookahead):
-+Six models, all computed for every signal from what is known at the signal minute (no lookahead):
++Four models are offered, all computed for every signal from what is known at the signal minute (no lookahead):
++opus, opus_v3, fable_op and medhasuryan (owner, 15 Nov 2026: fable and opus_v2 were dropped from the app). fable and
++opus_v2 are still described below and their functions kept: fable_op grew out of fable, and opus_v3 is opus_v2 with a
++volume gate.
++
  
  opus      "how far has it already moved": move from the open 35, distance beyond VWAP 25, small opening
            gap 15, RSI room 10, stop at a real level 15.
-@@ -22,6 +22,12 @@
+@@ -22,6 +26,12 @@
            fable_op is the reverse (see below).
  opus_v3   opus_v2 with one gate: a long whose volume so far is below normal for the time of day (rel_vol under
            opus_v3_min_rel_vol, default 1) scores 0. Shorts are scored exactly as in opus_v2.
@@ -476,7 +721,7 @@
  
  Evidence, 21 Oct - 11 Nov 2026 (15 sessions; see scripts/eq_backtest.py "research"):
    * opus had no within-day ranking power on setup A (the profitable setup); its top 5 beat a random 5
-@@ -68,8 +74,17 @@
+@@ -68,8 +78,17 @@
      lakh, opus_v2 -Rs 2.03 lakh, fable_op about flat). Shorts picked by the opus score lost Rs 1.50 lakh.
    * So the accuracy gain carried over and the profit did not. The stand-in understates profit, but it is no
      evidence of profit either.
@@ -496,20 +741,19 @@
  """
  from __future__ import annotations
  
-@@ -78,8 +93,10 @@
+@@ -78,8 +97,9 @@
  from .config import EqConfig
  from .features import LONG
  
 -MODELS = ("opus", "fable", "fable_op", "opus_v2", "opus_v3")
 -LABELS = {"opus": "Opus", "fable": "Fable", "fable_op": "Fable-OP", "opus_v2": "Opus v2", "opus_v3": "Opus v3"}
-+MODELS = ("opus", "fable", "fable_op", "opus_v2", "opus_v3", "medhasuryan")
-+LABELS = {"opus": "Opus", "fable": "Fable", "fable_op": "Fable-OP", "opus_v2": "Opus v2", "opus_v3": "Opus v3",
-+          "medhasuryan": "MedhaSuryan"}
++MODELS = ("opus", "opus_v3", "fable_op", "medhasuryan")
++LABELS = {"opus": "Opus", "opus_v3": "Opus v3", "fable_op": "Fable-OP", "medhasuryan": "MedhaSuryan"}
 +DOWNTREND = "Downtrend"        # features.nifty_regime's label for the days medhasuryan takes the opus_v3 score
  
  
  def _c01(x) -> float:
-@@ -189,21 +206,46 @@
+@@ -189,21 +209,43 @@
      return volume_gate(score, parts, snap.get("rel_vol"), side, cfg)
  
  
@@ -529,18 +773,18 @@
 +
  def all_scores(snap: dict, side: str, stop_at: str, risk: float, entry_ref: float, cfg: EqConfig) -> dict:
 -    """{'opus': {'score', 'parts'}, 'fable': {...}, 'fable_op': {...}, 'opus_v2': {...}, 'opus_v3': {...}} for one signal."""
-+    """{'opus': {'score', 'parts'}, 'fable': {...}, 'fable_op': {...}, 'opus_v2': {...}, 'opus_v3': {...},
-+    'medhasuryan': {...}} for one signal."""
-     risk_pct = risk / entry_ref * 100 if entry_ref else None
+-    risk_pct = risk / entry_ref * 100 if entry_ref else None
++    """{'opus': {'score', 'parts'}, 'opus_v3': {...}, 'fable_op': {...}, 'medhasuryan': {...}} for one signal (MODELS).
++    risk and entry_ref are no longer read (they fed the dropped fable score); kept so callers need no change."""
      o, op = opus_score(snap, side, stop_at, cfg)
-     f, fp = fable_score(snap, side, risk_pct, cfg)
+-    f, fp = fable_score(snap, side, risk_pct, cfg)
      t, tp = fable_op_score(snap, side, cfg)
      v, vp = (t, tp) if side == LONG else (o, op)          # opus_v2_score, without scoring twice
      w, wp = volume_gate(v, vp, snap.get("rel_vol"), side, cfg)
-+    m, mp = medhasuryan_pick(snap, (t, tp), (w, wp))
-     return {"opus": {"score": o, "parts": op}, "fable": {"score": f, "parts": fp}, "fable_op": {"score": t, "parts": tp},
+-    return {"opus": {"score": o, "parts": op}, "fable": {"score": f, "parts": fp}, "fable_op": {"score": t, "parts": tp},
 -            "opus_v2": {"score": v, "parts": vp}, "opus_v3": {"score": w, "parts": wp}}
-+            "opus_v2": {"score": v, "parts": vp}, "opus_v3": {"score": w, "parts": wp},
++    m, mp = medhasuryan_pick(snap, (t, tp), (w, wp))
++    return {"opus": {"score": o, "parts": op}, "opus_v3": {"score": w, "parts": wp}, "fable_op": {"score": t, "parts": tp},
 +            "medhasuryan": {"score": m, "parts": dict(mp)}}
  
  
@@ -561,30 +805,42 @@
  strength = opus_score    # earlier name, kept for callers and tests
 
 --- a/scanner/tests/test_equity.py	2026-11-14 19:09:34.734978978 +0000
-+++ b/scanner/tests/test_equity.py	2026-11-14 19:28:41.396314829 +0000
-@@ -260,7 +260,7 @@
++++ b/scanner/tests/test_equity.py	2026-11-14 19:50:19.095446341 +0000
+@@ -260,8 +260,8 @@
      assert fable_score(worst, SHORT, 2.5, CFG)[1]["extreme"] == pytest.approx(33.3 * 0.8, abs=0.1)
      assert fable_score({"minutes_since_open": 30}, LONG, 1.5, CFG)[1]["extreme"] == pytest.approx(16.7, abs=0.1)  # unknown = neutral
      both = all_scores(dict(best, from_open=3.5, beyond_vwap=2.0, gap=0, rsi14=50), LONG, "VWAP", 0.9, 100.0, CFG)
 -    assert set(both) == {"opus", "fable", "fable_op", "opus_v2", "opus_v3"}
-+    assert set(both) == {"opus", "fable", "fable_op", "opus_v2", "opus_v3", "medhasuryan"}
-     assert both["opus"]["score"] == 100.0 and both["fable"]["score"] > 99
+-    assert both["opus"]["score"] == 100.0 and both["fable"]["score"] > 99
++    assert set(both) == {"opus", "opus_v3", "fable_op", "medhasuryan"}       # fable and opus_v2 dropped (owner, 15 Nov 2026)
++    assert both["opus"]["score"] == 100.0
  
  
-@@ -280,9 +280,10 @@
+ def test_fable_op_score_parts():
+@@ -280,9 +280,9 @@
      assert fable_op_score({}, LONG, CFG)[0] == 0.0                         # missing inputs earn nothing, no error
      assert fable_op_score({"day_chg": 2.5, "atr_pct": None, "pos": float("nan")}, LONG, CFG)[0] == 0.0
      assert all_scores(best, LONG, "VWAP", 1.0, 100.0, CFG)["fable_op"] == {"score": 100.0, "parts": parts}
 -    assert MODELS == ("opus", "fable", "fable_op", "opus_v2", "opus_v3")
-+    assert MODELS == ("opus", "fable", "fable_op", "opus_v2", "opus_v3", "medhasuryan")
-     assert [min_score(CFG, m) for m in MODELS] == [CFG.min_score, CFG.fable_min_score, CFG.fable_op_min_score,
+-    assert [min_score(CFG, m) for m in MODELS] == [CFG.min_score, CFG.fable_min_score, CFG.fable_op_min_score,
 -                                                   CFG.opus_v2_min_score, CFG.opus_v3_min_score] == [75.0, 80.0, 75.0, 75.0, 75.0]
-+                                                   CFG.opus_v2_min_score, CFG.opus_v3_min_score,
-+                                                   CFG.medhasuryan_min_score] == [75.0, 80.0, 75.0, 75.0, 75.0, 75.0]
++    assert MODELS == ("opus", "opus_v3", "fable_op", "medhasuryan")
++    assert [min_score(CFG, m) for m in MODELS] == [CFG.min_score, CFG.opus_v3_min_score, CFG.fable_op_min_score,
++                                                   CFG.medhasuryan_min_score] == [75.0, 75.0, 75.0, 75.0]
      looser = EqConfig(fable_op_w_solo=0.0)                                 # weights are config: drop a part, rest rescales
      assert fable_op_score(dict(best, nifty_chg=0.7), LONG, looser)[0] == 100.0
  
-@@ -325,7 +326,8 @@
+@@ -311,8 +311,7 @@
+     assert volume_gate(80.0, {"a": 80.0}, 0.5, SHORT, CFG) == (80.0, {"a": 80.0})
+     for side in (LONG, SHORT):                                                                   # all_scores agrees with the functions
+         got = all_scores(thin, side, "VWAP", 1.0, 100.0, CFG)
+-        assert set(got) == set(MODELS)
+-        assert (got["opus_v2"]["score"], got["opus_v2"]["parts"]) == opus_v2_score(thin, side, "VWAP", CFG)
++        assert set(got) == set(MODELS) and "opus_v2" not in got                # opus_v2 is only opus_v3's first step now
+         assert (got["opus_v3"]["score"], got["opus_v3"]["parts"]) == opus_v3_score(thin, side, "VWAP", CFG)
+     assert all_scores(thin, LONG, "VWAP", 1.0, 100.0, CFG)["opus_v3"]["score"] == 0.0
+ 
+@@ -325,7 +324,8 @@
          return {"symbol": f"S{k}", "setup": setup, "ts": t0 + pd.Timedelta(minutes=minute),
                  "scores": {"opus": {"score": opus, "parts": {}}, "fable": {"score": fable, "parts": {}},
                             "fable_op": {"score": 100 - opus, "parts": {}},
@@ -594,28 +850,58 @@
                  "rel_vol": 1.0, "n_break": 2, "fut": {"T1": {"status": "target"}}}
      sigs = [sig(0, 0, 60, 99), sig(1, 1, 90, 10), sig(2, 2, 80, 85), sig(3, 3, 76, 20), sig(4, 4, 95, 81), sig(5, 5, 85, 30),
              sig(6, 6, 99, 79), sig(7, 7, 99, 99, setup="C")]              # C is off by default: never selected
-@@ -347,7 +349,7 @@
+@@ -337,7 +337,8 @@
+     assert len(sel["all"]) == 7
+     assert [s["symbol"] for s in select(sigs, CFG, "opus")["live"]] == ["S1", "S2", "S3", "S4", "S5", "S6"]   # default cap
+     assert CFG.top_n == 6 and CFG.default_exit_policy == "T1"
+-    fab = select_models(sigs, c5)["fable"]
++    assert "fable" not in select_models(sigs, c5) and "opus_v2" not in select_models(sigs, c5)
++    fab = select(sigs, c5, "fable")                                               # select() still takes any stored score
+     assert [s["symbol"] for s in fab["top"]] == ["S0", "S2", "S4", "S6", "S5"]
+     assert [s["symbol"] for s in fab["live"]] == ["S0", "S2", "S4"]               # fable threshold is 80
+     assert [s["symbol"] for s in fab["first"]] == [s["symbol"] for s in sel["first"]]   # baselines do not depend on the model
+@@ -345,19 +346,23 @@
+     assert [s["symbol"] for s in fop["top"]] == ["S0", "S3", "S2", "S5", "S1"]
+     assert [s["symbol"] for s in fop["live"]] == []                               # best is 40: nothing reaches 75
      both = select_models(sigs, c5)
-     assert [s["symbol"] for s in both["opus_v2"]["live"]] == [s["symbol"] for s in sel["live"]]   # same scores as opus here
+-    assert [s["symbol"] for s in both["opus_v2"]["live"]] == [s["symbol"] for s in sel["live"]]   # same scores as opus here
++    assert [s["symbol"] for s in select(sigs, c5, "opus_v2")["live"]] == [s["symbol"] for s in sel["live"]]   # same scores as opus here
      assert [s["symbol"] for s in both["opus_v3"]["live"]] == ["S1", "S3", "S5"]                   # even-numbered ones gated to 0
 -    assert set(both) == {"opus", "fable", "fable_op", "opus_v2", "opus_v3"}
-+    assert set(both) == {"opus", "fable", "fable_op", "opus_v2", "opus_v3", "medhasuryan"}
++    assert set(both) == {"opus", "opus_v3", "fable_op", "medhasuryan"}
  
  
  def test_live_model_switch_overrides_config():
-@@ -369,7 +371,10 @@
+     from scanner.equity.engine import EquityEngine
+     eng = EquityEngine(source=None, cfg=EqConfig(score_model="opus"), persist=False)
+     assert eng.live_model() == "opus"
+-    assert eng.set_live_model("fable") == "fable" and eng.live_model() == "fable"
++    for gone in ("fable", "opus_v2"):                                   # dropped (owner, 15 Nov 2026)
++        with pytest.raises(ValueError):
++            eng.set_live_model(gone)
+     assert eng.set_live_model("fable_op") == "fable_op" and eng.live_model() == "fable_op"
++    assert eng.set_live_model("medhasuryan") == "medhasuryan" and eng.live_model() == "medhasuryan"
+     assert eng.set_live_model("opus_v3") == "opus_v3" and eng.live_model() == "opus_v3"
+-    assert eng.live_min_score() == CFG.opus_v3_min_score and eng.live_min_score("opus_v2") == CFG.opus_v2_min_score
++    assert eng.live_min_score() == CFG.opus_v3_min_score and eng.live_min_score("medhasuryan") == CFG.medhasuryan_min_score
++    assert EquityEngine(source=None, cfg=EqConfig(score_model="fable"), persist=False).live_model() == "opus"   # a dropped default
+     eng.set_live_model("fable_op")
+     assert EquityEngine(source=None, cfg=EqConfig(score_model="fable_op"), persist=False).live_model() == "fable_op"
+     with pytest.raises(ValueError):
+@@ -369,7 +374,11 @@
      from scanner.equity.backtest import refilter, setups_key, sum_rows, summary_row
      rep = json.loads((REPORT_FILE.parent / "backtest.json").read_text(encoding="utf-8"))
      rows = [summary_row(refilter(d, ["A", "B"], CFG)) for d in rep["days"]]
 -    assert rows == rep["summary"] and sum_rows(rows) == rep["totals"]      # default filter = the stored report
-+    assert all("medhasuryan" in r["models"] for r in rows)                 # stored before medhasuryan: filled in
-+    strip = lambda d: {m: v for m, v in d.items() if m != "medhasuryan"}
-+    assert [dict(r, models=strip(r["models"])) for r in rows] == rep["summary"]   # default filter = the stored report
-+    assert strip(sum_rows(rows)) == rep["totals"]
++    assert all(set(r["models"]) == {"opus", "opus_v3", "fable_op", "medhasuryan"} for r in rows)   # four models now
++    keep = ("opus", "opus_v3", "fable_op")                                 # those the stored report also has
++    pick = lambda d: {m: d[m] for m in keep}
++    assert [dict(r, models=pick(r["models"])) for r in rows] == [dict(r, models=pick(r["models"])) for r in rep["summary"]]
++    assert pick(sum_rows(rows)) == pick(rep["totals"])                     # default filter = the stored report
      day = max(rep["days"], key=lambda d: d["counts"]["C"])
      only_c = refilter(day, ["C"], CFG)
      picked = [s for s in only_c["signals"] if s["enabled"]]
-@@ -384,7 +389,7 @@
+@@ -384,7 +393,7 @@
      """A day stored before fable_op existed (e.g. a re-run kept in kv) is scored from its snapshots."""
      from scanner.equity.backtest import refilter, with_all_models
      rep = json.loads((REPORT_FILE.parent / "backtest.json").read_text(encoding="utf-8"))
@@ -624,16 +910,101 @@
      assert with_all_models(day, CFG) is day                                # nothing missing: returned as it is
      drop = lambda d: {m: v for m, v in d.items() if m != "fable_op"}
      old = dict(day, models=drop(day["models"]),
-@@ -407,7 +412,7 @@
+@@ -401,35 +410,27 @@
+     assert "fable_op" in only_a["models"] and all("fable_op" in s["scores"] for s in only_a["signals"])
+ 
+ 
+-def test_stored_day_gains_opus_v2_and_v3_from_stored_scores():
+-    """A day stored before opus_v2 / opus_v3 existed: v2 is the stored fable_op (longs) or opus (shorts) score,
+-    v3 is v2 through the volume gate on the stored rel_vol. Nothing is re-scanned."""
++def test_stored_day_gains_opus_v3_from_stored_scores():
++    """A day stored before opus_v3 existed: v3 is the stored opus_v2 score, or without one the stored fable_op (longs)
++    or opus (shorts) score, through the volume gate on the stored rel_vol. Nothing is re-scanned."""
      from scanner.equity.backtest import refilter, with_all_models
      rep = json.loads((REPORT_FILE.parent / "backtest.json").read_text(encoding="utf-8"))
-     new = ("opus_v2", "opus_v3")
+-    new = ("opus_v2", "opus_v3")
 -    day = max(rep["days"], key=lambda d: d["models"]["opus_v3"]["selections"]["live"]["n"])
+-    drop = lambda d: {m: v for m, v in d.items() if m not in new}
+-    old = dict(day, models=drop(day["models"]),
+-               signals=[dict(s, scores=drop(s["scores"]), parts=drop(s["parts"]), **{"in": drop(s["in"])}) for s in day["signals"]])
+-    up = with_all_models(old, CFG)
+-    for m in new:
+-        assert [s["scores"][m] for s in up["signals"]] == [s["scores"][m] for s in day["signals"]]
+-        assert [s["parts"][m] for s in up["signals"]] == [s["parts"][m] for s in day["signals"]]
 +    day = with_all_models(max(rep["days"], key=lambda d: d["models"]["opus_v3"]["selections"]["live"]["n"]), CFG)
-     drop = lambda d: {m: v for m, v in d.items() if m not in new}
-     old = dict(day, models=drop(day["models"]),
-                signals=[dict(s, scores=drop(s["scores"]), parts=drop(s["parts"]), **{"in": drop(s["in"])}) for s in day["signals"]])
-@@ -648,3 +653,55 @@
++    for new in (("opus_v3",), ("opus_v2", "opus_v3")):                  # with and without the stored opus_v2 score
++        drop = lambda d: {m: v for m, v in d.items() if m not in new}
++        old = dict(day, models=drop(day["models"]),
++                   signals=[dict(s, scores=drop(s["scores"]), parts=drop(s["parts"]), **{"in": drop(s["in"])}) for s in day["signals"]])
++        up = with_all_models(old, CFG)
++        assert [s["scores"]["opus_v3"] for s in up["signals"]] == [s["scores"]["opus_v3"] for s in day["signals"]]
+         for k in ("top", "live", "first", "all"):
+-            assert up["models"][m]["selections"][k]["futures"] == day["models"][m]["selections"][k]["futures"]
+-    assert [s["in"] for s in up["signals"]] == [s["in"] for s in day["signals"]]
+-    for s in up["signals"]:                                # the definition, on stored numbers
+-        assert s["scores"]["opus_v2"] == s["scores"]["fable_op" if s["side"] == LONG else "opus"]
++            assert up["models"]["opus_v3"]["selections"][k]["futures"] == day["models"]["opus_v3"]["selections"][k]["futures"]
++        assert [s["in"] for s in up["signals"]] == [s["in"] for s in day["signals"]]
++        assert "opus_v3" not in old["models"] and "opus_v3" not in old["signals"][0]["scores"]       # stored day untouched
++    for s in day["signals"]:                                # the definition, on stored numbers
+         gated = s["side"] == LONG and s["rel_vol"] is not None and s["rel_vol"] < CFG.opus_v3_min_rel_vol
+-        assert s["scores"]["opus_v3"] == (0.0 if gated else s["scores"]["opus_v2"])
++        src = s["scores"]["fable_op" if s["side"] == LONG else "opus"]
++        assert s["scores"]["opus_v3"] == (0.0 if gated else src)
+     assert day["models"]["opus_v3"]["selections"]["live"]["n"] > 0
+-    assert any(s["scores"]["opus_v3"] != s["scores"]["opus_v2"] for d in rep["days"] for s in d["signals"])   # the gate bites somewhere
+-    assert "opus_v2" not in old["models"] and "opus_v3" not in old["signals"][0]["scores"]       # stored day untouched
+-    older = dict(old, models={m: v for m, v in old["models"].items() if m != "fable_op"},        # before fable_op as well
+-                 signals=[dict(s, scores={m: v for m, v in s["scores"].items() if m != "fable_op"},
+-                               parts={m: v for m, v in s["parts"].items() if m != "fable_op"}) for s in old["signals"]])
+-    up2 = refilter(older, ["A", "B"], CFG)
+-    assert [s["scores"] for s in up2["signals"]] == [s["scores"] for s in day["signals"]]
+ 
+ 
+ def test_score_bands_on_stored_backtest():
+@@ -449,7 +450,8 @@
+     capped = whole["bands"][0]["models"]["opus"]["capped"]              # first 5 a day, any score = "first 5 to fire"...
+     assert capped["n"] <= CFG.top_n * len(rep["days"]) and capped["n"] <= cell["n"]
+     out = band_rows(rep["days"], [(0, 50), (50, 75), (75, 100)], ["A", "B"], CFG)   # a partition adds back up
+-    for m in ("opus", "fable", "fable_op", "opus_v2", "opus_v3"):
++    assert set(out["best"]) == {"opus", "opus_v3", "fable_op", "medhasuryan"}
++    for m in ("opus", "opus_v3", "fable_op", "medhasuryan"):          # medhasuryan from the days' stored Nifty trend
+         parts = [b["models"][m]["all"] for b in out["bands"]]
+         assert sum(x["n"] for x in parts) == cell["n"]
+         assert abs(sum(x["T1"] for x in parts) - cell["T1"]) <= len(parts) * len(rep["days"])   # rounded per band and day
+@@ -492,7 +494,7 @@
+         got = band_rows(ds, [(0, 100)], rep["enabled"], CFG)
+         assert got["sessions"] == tot["opus"]["all"]["days"]
+         assert stored["models"] == ["opus", "fable", "fable_op", "opus_v2", "opus_v3"]
+-        for m in stored["models"]:                        # one band over everything = the report's "every signal" row
++        for m in ("opus", "opus_v3", "fable_op"):          # one band over everything = the report's "every signal" row
+             cell = got["bands"][0]["models"][m]["all"]
+             assert cell["n"] == tot[m]["all"]["n"]
+             assert all(cell[p] == tot[m]["all"][p] for p in DAY_POLICIES)
+@@ -500,15 +502,17 @@
+ 
+ def test_live_threshold_overrides_config_per_model():
+     from scanner.equity.engine import EquityEngine
+-    eng = EquityEngine(source=None, cfg=EqConfig(score_model="fable"), persist=False)
+-    assert eng.live_min_score() == CFG.fable_min_score and eng.live_min_score("opus") == CFG.min_score
+-    assert eng.set_live_min_score("fable", 85) == 85.0 and eng.live_min_score() == 85.0
++    eng = EquityEngine(source=None, cfg=EqConfig(score_model="medhasuryan"), persist=False)
++    assert eng.live_min_score() == CFG.medhasuryan_min_score and eng.live_min_score("opus") == CFG.min_score
++    assert eng.set_live_min_score("medhasuryan", 85) == 85.0 and eng.live_min_score() == 85.0
+     assert eng.live_min_score("opus") == CFG.min_score               # the other model keeps its own threshold
+     eng.set_live_model("opus")
+     assert eng.live_min_score() == CFG.min_score
+-    assert eng.set_live_min_score("fable", None) == CFG.fable_min_score   # None = back to the default
++    assert eng.set_live_min_score("medhasuryan", None) == CFG.medhasuryan_min_score   # None = back to the default
+     assert eng.live_min_score("fable_op") == CFG.fable_op_min_score == 75.0
+-    assert eng.set_live_min_score("fable_op", 70) == 70.0 and eng.live_min_score("fable") == CFG.fable_min_score
++    assert eng.set_live_min_score("fable_op", 70) == 70.0 and eng.live_min_score("medhasuryan") == CFG.medhasuryan_min_score
++    with pytest.raises(ValueError):
++        eng.set_live_min_score("fable", 85)                          # dropped (owner, 15 Nov 2026)
+     for bad in (-1, 101):
+         with pytest.raises(ValueError):
+             eng.set_live_min_score("opus", bad)
+@@ -648,3 +652,104 @@
      assert CFG.scan_end == "14:15"
      assert list(in_window(idx, CFG)) == [False, True, True, False, False]
  
@@ -689,16 +1060,96 @@
 +    upd = with_all_models(down, CFG)
 +    assert [s["scores"]["medhasuryan"] for s in upd["signals"]] == [s["scores"]["opus_v3"] for s in upd["signals"]]
 +    assert upd["models"]["medhasuryan"]["selections"]["live"]["futures"] == upd["models"]["opus_v3"]["selections"]["live"]["futures"]
++
++
++def test_nifty_trend_read_retries_checks_the_last_session_and_never_raises():
++    """engine._nifty_regime: tried REGIME_TRIES times, a stale last close counts as a failed read, an odd frame is
++    caught; _retry_regime fills an unknown trend in before the scan window only."""
++    import asyncio
++    from types import SimpleNamespace
++    from scanner.equity.engine import REGIME_TRIES, EquityEngine
++    from scanner.equity.features import DayContext
++    day = date(2026, 11, 16)
++    idx = pd.bdate_range(end="2026-11-13", periods=70, tz=IST)
++    falling = pd.DataFrame({"open": 1.0, "high": 1.0, "low": 1.0, "close": np.linspace(26000, 24000, 70), "volume": 0}, index=idx)
++
++    class Src:
++        vendor = "angel"
++
++        def __init__(self, answers):
++            self.answers, self.calls = list(answers), 0
++
++        async def candles(self, key, unit, interval, to, frm):
++            self.calls += 1
++            a = self.answers.pop(0) if self.answers else falling
++            if isinstance(a, Exception):
++                raise a
++            return a
++
++    def engine(answers):
++        eng = EquityEngine(source=Src(answers), cfg=EqConfig(regime_retry_s=0.0), persist=False)
++        eng.uni = SimpleNamespace(get=lambda s: SimpleNamespace(kind="INDEX", cash_key="NSE|99926000"))
++        return eng
++
++    sessions = [d.date() for d in idx]
++    eng = engine([falling.iloc[:0], RuntimeError("engine away")])        # two failed reads, then a good one
++    assert asyncio.run(eng._nifty_regime(day, sessions)) == "Downtrend" and eng.src.calls == 3 == REGIME_TRIES
++    eng = engine([falling.iloc[:-1]] * REGIME_TRIES)                     # 13 Nov missing: one session late
++    assert asyncio.run(eng._nifty_regime(day, sessions)) is None
++    assert any("older than the previous session 2026-11-13" in e for e in eng.status["errors"])
++    eng = engine([falling.drop(columns="close")] * REGIME_TRIES)         # odd frame: caught, not raised
++    assert asyncio.run(eng._nifty_regime(day, sessions)) is None and "unknown for now" in eng.status["errors"][-1]
++    muhurat = pd.concat([falling, falling.iloc[-1:].set_axis(pd.DatetimeIndex([pd.Timestamp("2026-11-15", tz=IST)]))])
++    assert asyncio.run(engine([muhurat])._nifty_regime(day, sessions)) == "Downtrend"   # a special session after it is fine
++    # an unknown trend is read again before the scan window, and handed to every stock's context
++    eng = engine([])
++    eng.day, eng.sessions, eng.nifty_regime = day, sessions, None
++    eng.ctx = {"AAA": DayContext("AAA", day, None, None, None, None, None, None, None)}
++    asyncio.run(eng._retry_regime(datetime(2026, 11, 16, 9, 30, tzinfo=IST)))       # window open: left alone
++    assert eng.nifty_regime is None and eng.src.calls == 0
++    asyncio.run(eng._retry_regime(datetime(2026, 11, 16, 9, 0, tzinfo=IST)))
++    assert eng.nifty_regime == "Downtrend" == eng.ctx["AAA"].nifty_regime == eng.status["nifty_regime"]
 
 --- a/scanner/tests/test_service.py	2026-11-14 19:09:34.735002012 +0000
-+++ b/scanner/tests/test_service.py	2026-11-14 19:27:15.153564840 +0000
-@@ -123,7 +123,8 @@
-     Src.answer = {"score_model": "fable_op", "min_score_opus": 70.0, "min_score_fable": 85.0, "min_score_fable_op": 78.0}
++++ b/scanner/tests/test_service.py	2026-11-14 19:49:59.878481056 +0000
+@@ -102,7 +102,7 @@
+ def test_the_settings_page_decides_the_score_and_threshold():
+     class Src:
+         token = "engine"
+-        answer = {"score_model": "fable", "min_score_opus": 70.0, "min_score_fable": 85.0}
++        answer = {"score_model": "medhasuryan", "min_score_opus": 70.0, "min_score_medhasuryan": 85.0}
+ 
+         async def owner_settings(self):
+             return self.answer
+@@ -110,21 +110,24 @@
+     eng = EquityEngine(source=Src(), cfg=EqConfig(score_model="opus"), persist=False)
+     assert eng.live_model() == "opus" and eng.live_min_score() == EqConfig().min_score   # before the first read
+     asyncio.run(eng.read_owner_settings())
+-    assert eng.live_model() == "fable" and eng.live_min_score() == 85.0 and eng.live_min_score("opus") == 70.0
++    assert eng.live_model() == "medhasuryan" and eng.live_min_score() == 85.0 and eng.live_min_score("opus") == 70.0
+     assert eng.state()["settings_from_dashboard"] is True and eng.state()["live_min_score"] == 85.0
+     Src.answer = None                                                    # engine away: keep what was read last
+     asyncio.run(eng.read_owner_settings())
+-    assert eng.live_model() == "fable"
+-    Src.answer = {"score_model": "gpt", "min_score_opus": 250, "min_score_fable": "high"}   # nonsense: fall back
++    assert eng.live_model() == "medhasuryan"
++    Src.answer = {"score_model": "gpt", "min_score_opus": 250, "min_score_medhasuryan": "high"}   # nonsense: fall back
+     asyncio.run(eng.read_owner_settings())
+     assert eng.live_model() == "opus" and eng.live_min_score("opus") == EqConfig().min_score
+-    assert eng.live_min_score("fable") == EqConfig().fable_min_score
++    assert eng.live_min_score("medhasuryan") == EqConfig().medhasuryan_min_score
++    Src.answer = {"score_model": "fable", "min_score_fable": 85.0}      # a dropped score (owner, 15 Nov 2026): fall back
++    asyncio.run(eng.read_owner_settings())
++    assert eng.live_model() == "opus"
+     # Fable-OP chosen on the Settings page, with its own threshold; an engine that does not send one yet: the default
+-    Src.answer = {"score_model": "fable_op", "min_score_opus": 70.0, "min_score_fable": 85.0, "min_score_fable_op": 78.0}
++    Src.answer = {"score_model": "fable_op", "min_score_opus": 70.0, "min_score_fable_op": 78.0}
      asyncio.run(eng.read_owner_settings())
      assert eng.live_model() == "fable_op" and eng.live_min_score() == 78.0 and eng.state()["live_min_score"] == 78.0
 -    assert eng.state()["live_min_scores"] == {"opus": 70.0, "fable": 85.0, "fable_op": 78.0, "opus_v2": 75.0, "opus_v3": 75.0}
-+    assert eng.state()["live_min_scores"] == {"opus": 70.0, "fable": 85.0, "fable_op": 78.0, "opus_v2": 75.0, "opus_v3": 75.0,
-+                                              "medhasuryan": 75.0}
-     Src.answer = {"score_model": "fable_op", "min_score_opus": 70.0, "min_score_fable": 85.0}
+-    Src.answer = {"score_model": "fable_op", "min_score_opus": 70.0, "min_score_fable": 85.0}
++    assert eng.state()["live_min_scores"] == {"opus": 70.0, "opus_v3": 75.0, "fable_op": 78.0, "medhasuryan": 75.0}
++    Src.answer = {"score_model": "fable_op", "min_score_opus": 70.0}
      asyncio.run(eng.read_owner_settings())
      assert eng.live_model() == "fable_op" and eng.live_min_score() == EqConfig().fable_op_min_score == 75.0
+ 
