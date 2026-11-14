@@ -1,0 +1,48 @@
+{
+ "real": {
+  "Opus v3 (T1)": {
+   "n": 335,
+   "T1": 164,
+   "T2": 58,
+   "T3": 29,
+   "stopped_before_T1": 85
+  },
+  "Fable-OP (T3)": {
+   "n": 233,
+   "T1": 128,
+   "T2": 50,
+   "T3": 27,
+   "stopped_before_T1": 73
+  },
+  "Switch-1": {
+   "n": 272,
+   "T1": 147,
+   "T2": 53,
+   "T3": 27,
+   "stopped_before_T1": 71
+  }
+ },
+ "unseen": {
+  "Opus v3 (T1)": {
+   "n": 366,
+   "T1": 140,
+   "T2": 45,
+   "T3": 20,
+   "stopped_before_T1": 116
+  },
+  "Fable-OP (T3)": {
+   "n": 232,
+   "T1": 108,
+   "T2": 40,
+   "T3": 20,
+   "stopped_before_T1": 80
+  },
+  "Switch-1": {
+   "n": 298,
+   "T1": 126,
+   "T2": 46,
+   "T3": 21,
+   "stopped_before_T1": 96
+  }
+ }
+}

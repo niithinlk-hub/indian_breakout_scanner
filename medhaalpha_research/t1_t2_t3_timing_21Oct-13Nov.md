@@ -55,3 +55,30 @@ Switch-1 exits at T3, except on the two downtrend days (23 and 26 Oct), when it 
 | 11 Nov | 09:17 | WAAREEENER | long | T3 | T3 | same day 09:26 | same day 09:40 | +2 days (13 Nov) |
 | 11 Nov | 09:24 | MAHABANK | long | T3 | T1 | +1 day (12 Nov) | not yet (open) | not yet (open) |
 | 12 Nov | 09:18 | ICICILIFE | long | T3 | T1 | same day 09:25 | stopped +1 day | stopped +1 day |
+
+## Success rate at T1, T2 and T3: Opus v3, Fable-OP and Switch-1
+
+Share of each model's trades whose price reached each target before the stop.
+
+**Six months, squared off the same day** (no overnight holding in these backtests; `hunt/hits/hitrate_6m.py`):
+
+| Period | Model | Trades | T1 | T2 | T3 | Stopped before T1 |
+|---|---|---|---|---|---|---|
+| 12 May-11 Nov 2026 (real futures) | Opus v3 | 335 | 49.0% | 17.3% | 8.7% | 25.4% |
+| | Fable-OP | 233 | **54.9%** | **21.5%** | **11.6%** | 31.3% |
+| | Switch-1 | 272 | 54.0% | 19.5% | 9.9% | 26.1% |
+| 3 Nov 2025-11 May 2026 (cash prices) | Opus v3 | 366 | 38.3% | 12.3% | 5.5% | 31.7% |
+| | Fable-OP | 232 | **46.6%** | **17.2%** | **8.6%** | 34.5% |
+| | Switch-1 | 298 | 42.3% | 15.4% | 7.0% | 32.2% |
+
+The record's R is after costs, so T2 and T3 are read from each exit's R against the T1 exit's R. Checked against the stored outcomes of the 5,051 cash-price signals, the reading agrees on 100% (T1), 99.2% (T2) and 99.1% (T3).
+
+**17 live sessions, held across days until target or stop** (from the table at the top):
+
+| Model | Trades | T1 | T2 | T3 | Stopped before T1 |
+|---|---|---|---|---|---|
+| Opus v3 | 52 | 63% | 48% | 38% | 37% |
+| Fable-OP | 33 | 61% | 55% | **52%** | 39% |
+| Switch-1 | 36 | 61% | 53% | 47% | 39% |
+
+Holding overnight roughly doubles to quadruples how often T2 and T3 are reached: most T3 hits need more than the entry day.

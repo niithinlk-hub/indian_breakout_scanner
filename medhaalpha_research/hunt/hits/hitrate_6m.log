@@ -1,0 +1,9 @@
+rule check on 5051 stand-in signals: T1 agrees 100.0%, T2 99.2%, T3 99.1%
+== 12 May-11 Nov 2026 (real futures)
+  Opus v3 (T1)   n=335 | T1 164 (49.0%) | T2  58 (17.3%) | T3  29 ( 8.7%) | stopped before T1  85 (25.4%) | of T1 hits: T2 35.4% T3 17.7%
+  Fable-OP (T3)  n=233 | T1 128 (54.9%) | T2  50 (21.5%) | T3  27 (11.6%) | stopped before T1  73 (31.3%) | of T1 hits: T2 39.1% T3 21.1%
+  Switch-1       n=272 | T1 147 (54.0%) | T2  53 (19.5%) | T3  27 ( 9.9%) | stopped before T1  71 (26.1%) | of T1 hits: T2 36.1% T3 18.4%
+== 3 Nov 2025-11 May 2026 (cash prices)
+  Opus v3 (T1)   n=366 | T1 140 (38.3%) | T2  45 (12.3%) | T3  20 ( 5.5%) | stopped before T1 116 (31.7%) | of T1 hits: T2 32.1% T3 14.3%
+  Fable-OP (T3)  n=232 | T1 108 (46.6%) | T2  40 (17.2%) | T3  20 ( 8.6%) | stopped before T1  80 (34.5%) | of T1 hits: T2 37.0% T3 18.5%
+  Switch-1       n=298 | T1 126 (42.3%) | T2  46 (15.4%) | T3  21 ( 7.0%) | stopped before T1  96 (32.2%) | of T1 hits: T2 36.5% T3 16.7%
