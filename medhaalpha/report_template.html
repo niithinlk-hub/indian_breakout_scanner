@@ -1,0 +1,248 @@
+<title>MEDHAALPHA Backtest Results</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (research memo) with wide, scrollable data tables; verdict first, evidence after. */
+:root {
+  --bg: #f4f6f4;
+  --surface: #ffffff;
+  --ink: #15211d;
+  --muted: #5b6a64;
+  --rule: #d7dfdb;
+  --accent: #0b6b5d;
+  --accent-soft: #e2efeb;
+  --pos: #19744a;
+  --neg: #b4352b;
+  --pos-bg: 25, 116, 74;
+  --neg-bg: 180, 53, 43;
+  --s1: #0b6b5d;
+  --s2: #b06a12;
+  --band: rgba(11, 107, 93, 0.06);
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1513; --surface: #161e1b; --ink: #e2e9e6; --muted: #98a8a1; --rule: #2a3632;
+    --accent: #5cc2b1; --accent-soft: #1b2c28; --pos: #5fcf92; --neg: #f07e72;
+    --pos-bg: 95, 207, 146; --neg-bg: 240, 126, 114; --s1: #5cc2b1; --s2: #e7a64e;
+    --band: rgba(92, 194, 177, 0.08); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1513; --surface: #161e1b; --ink: #e2e9e6; --muted: #98a8a1; --rule: #2a3632;
+  --accent: #5cc2b1; --accent-soft: #1b2c28; --pos: #5fcf92; --neg: #f07e72;
+  --pos-bg: 95, 207, 146; --neg-bg: 240, 126, 114; --s1: #5cc2b1; --s2: #e7a64e;
+  --band: rgba(92, 194, 177, 0.08); color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font-body); }
+.page { max-width: 1120px; margin: 0 auto; padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 44px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font: 600 12px/1.2 var(--font-body); letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(28px, 4.2vw, 42px)/1.12 var(--font-display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font: 600 24px/1.25 var(--font-display); margin: 0; text-wrap: balance; }
+h3 { font: 600 16px/1.35 var(--font-display); margin: 0; }
+.meta { color: var(--muted); font-size: 14px; }
+p { margin: 0; max-width: 72ch; }
+section { display: grid; gap: 16px; min-width: 0; }
+.lede { font-size: 17px; max-width: 70ch; }
+.verdict { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--neg);
+  border-radius: 6px; padding: 22px 24px; display: grid; gap: 10px; }
+.verdict h2 { font-size: 21px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.tile .k { font-size: 12.5px; color: var(--muted); }
+.tile .v { font: 600 24px/1.2 var(--font-mono); font-variant-numeric: tabular-nums; }
+.tile .s { font-size: 12.5px; color: var(--muted); }
+.findings { display: grid; gap: 10px; margin: 0; padding-left: 20px; max-width: 80ch; }
+.findings li::marker { color: var(--accent); }
+.tw { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font: 600 12px/1.3 var(--font-body); color: var(--muted); letter-spacing: .02em; background: var(--accent-soft); white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+td { font-variant-numeric: tabular-nums; }
+.num, td.num { font-family: var(--font-mono); font-size: 12.5px; white-space: nowrap; }
+.mono { font-family: var(--font-mono); font-size: 12px; }
+.pos { color: var(--pos); font-weight: 500; }
+.neg { color: var(--neg); font-weight: 500; }
+.muted { color: var(--muted); }
+table.seq td:nth-child(n+3), table.metrics td:nth-child(n+2), table.exits td:nth-child(n+3), table.opts td:nth-child(n+2) { font-family: var(--font-mono); font-size: 12.5px; white-space: nowrap; }
+.fam { display: inline-block; min-width: 2.6em; font: 600 11.5px/1.6 var(--font-mono); color: var(--accent); }
+table.heat td.hm { font-family: var(--font-mono); font-size: 12px; text-align: right; }
+table.heat td[data-sign="p"] { background: rgba(var(--pos-bg), calc(var(--a) * 0.42)); }
+table.heat td[data-sign="n"] { background: rgba(var(--neg-bg), calc(var(--a) * 0.42)); }
+.chip { display: inline-block; font: 600 11px/1 var(--font-body); letter-spacing: .03em; padding: 4px 7px; border-radius: 999px; margin-right: 6px; vertical-align: 1px; }
+.chip.ok { background: rgba(var(--pos-bg), .16); color: var(--pos); }
+.chip.bad { background: rgba(var(--neg-bg), .16); color: var(--neg); }
+.chip.na { background: var(--accent-soft); color: var(--muted); }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 12px 8px; display: grid; gap: 8px; min-width: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12.5px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: 3px; background: currentColor; }
+.legend .l1 { color: var(--s1); } .legend .l2 { color: var(--s2); }
+.legend .l1, .legend .l2 { font-weight: 500; }
+svg.chart { width: 100%; height: auto; display: block; }
+svg.chart .grid { stroke: var(--rule); stroke-width: 1; }
+svg.chart .zero { stroke: var(--muted); stroke-width: 1; }
+svg.chart .tick { fill: var(--muted); font: 11px var(--font-mono); }
+svg.chart .tick.mk { fill: var(--accent); font-weight: 500; }
+svg.chart .line { fill: none; stroke-width: 2; stroke-linejoin: round; }
+svg.chart .line.s1 { stroke: var(--s1); } svg.chart .line.s2 { stroke: var(--s2); }
+svg.chart .dot.s1 { fill: var(--s1); } svg.chart .dot.s2 { fill: var(--s2); }
+svg.chart .band { fill: var(--band); }
+svg.chart .marker { stroke: var(--accent); stroke-dasharray: 3 3; }
+svg.chart .bar.pos { fill: var(--pos); } svg.chart .bar.neg { fill: var(--neg); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.grid2 > * { min-width: 0; }
+.note { font-size: 13px; color: var(--muted); max-width: 90ch; }
+.decisions { display: grid; gap: 12px; }
+.decision { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: grid; gap: 6px; }
+dl.facts { display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 8px 18px; margin: 0; }
+dl.facts dt { color: var(--muted); font-size: 13.5px; }
+dl.facts dd { margin: 0; min-width: 0; }
+code { font-family: var(--font-mono); font-size: 12.5px; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+pre { font-family: var(--font-mono); font-size: 12.5px; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px; overflow-x: auto; margin: 0; }
+@media (max-width: 560px) {
+  dl.facts { grid-template-columns: 1fr; gap: 2px 0; }
+  dl.facts dd { margin-bottom: 8px; }
+  .tile .v { font-size: 21px; }
+}
+</style>
+
+<main class="page">
+<header>
+  <div class="eyebrow">Strategy blueprint v1.0 · Historical backtest</div>
+  <h1>MEDHAALPHA EMA 20/50 adaptive trend system</h1>
+  <div class="meta">NSE single-stock F&amp;O universe (177–226 stocks, point in time) · 18 Nov 2024 – 13 Nov 2026 · ₹3,00,000 account, ₹3,000 risk per trade · run 16 Nov 2026</div>
+</header>
+
+<section class="verdict" id="verdict">
+  <h2>Verdict: no tested version earns its way to paper trading</h2>
+  <p>Across {{n_all}} entry, timeframe, filter and exit combinations, the EMA 20/50 signals showed no edge that survives Indian trading costs. None of them met the blueprint's own promotion criteria out of sample. Traded together on the ₹3 lakh account, the best configurations from the development period lost {{bn_loss}} ({{bn_ret}}) over the full two years. The walk-forward run, which chose a configuration on each training window and traded it in the next unseen window, lost {{wf_f_loss}}. Under the blueprint's ₹3,000 maximum-loss rule, stock options were almost never tradable.</p>
+  <p>A stricter "gated" version traded only configurations with positive development expectancy after costs. It returned {{gn_net}} under the ₹75,000 position cap and {{gm_net}} (profit factor {{gm_pf}}) when the cap is read as MIS margin; its walk-forward version lost {{wf_g_loss}}. The blueprint's own fallback therefore applies: <strong>when neither engine qualifies, stay in cash</strong>.</p>
+</section>
+
+<section class="tiles" aria-label="Headline numbers">
+  <div class="tile"><span class="k">Best dev configs, both engines, 2 years</span><span class="v neg">{{bn_net}}</span><span class="s">{{bn_ret}} of capital · PF {{bn_pf}} · max DD {{bn_dd}}</span></div>
+  <div class="tile"><span class="k">Intraday configs profitable after costs</span><span class="v">{{intraday_pos}} of {{n_i}}</span><span class="s">median gross edge {{gross_i}} vs cost {{cost_n}} per trade</span></div>
+  <div class="tile"><span class="k">Walk-forward, out of sample</span><span class="v neg">{{wf_f}}</span><span class="s">PF {{wf_f_pf}} · May 2025 – May 2026</span></div>
+  <div class="tile"><span class="k">Option trades within ₹3,000 max loss</span><span class="v">{{exec_sp}}</span><span class="s">of debit spreads; {{exec_long}} of long options</span></div>
+</section>
+
+<section id="promotion">
+  <h2>Promotion criteria</h2>
+  <p>The blueprint asks for an out-of-sample profit factor above 1.25, manageable drawdowns, positive results after all costs and no dependence on a few exceptional trades. "Manageable" is read here as a drawdown of at most 10% of capital.</p>
+  {{promo}}
+  <p class="note">Gated = trade only configurations whose development-period expectancy after costs was positive. Holdout = 18 May – 13 Nov 2026, never used for any choice. Walk-forward = four rolling 6-month train / 3-month test windows inside the development period. Drawdowns are marked to market daily.</p>
+</section>
+
+<section id="findings">
+  <h2>What the data says</h2>
+  <ul class="findings">
+    <li><strong>The signals are not better than chance.</strong> Random entries with the same stops and exits earned {{rand_short}} (shorts) and {{rand_long}} (longs) per trade before costs. EMA 20/50 signals averaged {{sig_short}} and {{sig_long}}. Stocks in this period tended to drift down during the session, which helps any intraday short. The signals capture little beyond that.</li>
+    <li><strong>Costs are the binding constraint.</strong> The median intraday configuration kept a gross edge of {{gross_i}} per trade. Brokerage, STT, exchange fees, GST, stamp duty and modelled slippage cost it {{cost_n}} per trade under the ₹75,000 per-stock cap and {{cost_m}} even with MIS leverage. {{intraday_pos}} of {{n_i}} intraday configurations are profitable after costs; {{pos_pos}} of {{n_p}} positional ones are.</li>
+    <li><strong>The ₹75,000 cap shrinks every intraday trade.</strong> Read as position value, it limits a 5-minute trade with a 0.5–0.8% stop to roughly ₹400–600 of risk, not ₹3,000. Fixed per-order charges then take a large share of each trade's R.</li>
+    <li><strong>Better exits don't rescue it.</strong> {{n_exit_pos}} of {{n_exit}} entry × exit combinations turned positive on development data, and the best t-statistic across every configuration was {{max_t}}. After ~{{n_all}} tests, results like that are expected from noise alone.</li>
+    <li><strong>Stock options don't fit a ₹3,000 risk budget.</strong> One lot of a near-the-money stock option typically risks {{med_long}}; a debit spread risks {{med_sp}}. Under the strict maximum-loss rule only {{sp_strict_n}} spread trades in two years were executable. Sizing on the underlying stop instead also lost money, mostly to bid-ask costs on four option fills per spread. The best positional idea, a daily short, can't be expressed as an equity trade overnight, so it never reached the account.</li>
+    <li><strong>Adaptive timeframe selection helped but didn't flip the sign.</strong> Switching to 15-minute signals on noisy sessions beat a fixed 5-minute engine in {{ad_share}} of comparisons, moving the average from {{fx_mean}} to {{ad_mean}} per trade.</li>
+  </ul>
+</section>
+
+<section id="sequence">
+  <h2>Experiment sequence</h2>
+  <p>Each entry model was tested on its own with one shared reference exit: a structural stop beyond the last 5 bars' extreme (0.5–3 ATR), a 2R target, a 15:10 intraday flat (15:00 after the closing auction began) and a 5-session limit for positional trades. The row shows the configuration that scored best on development data (net-R t-statistic, at least 60 trades) and how that same configuration did in the holdout.</p>
+  <h3>Intraday engine (TrendPulse) · ₹75,000 notional cap, as specified</h3>
+  {{seq_i}}
+  <h3>Intraday engine · ₹75,000 read as MIS margin (up to ₹3.75 lakh exposure)</h3>
+  {{seq_im}}
+  <h3>Positional engine (TrendSwing) · delivery equity, 2–5 sessions</h3>
+  {{seq_p}}
+  <p class="note">R = the trade's planned risk (|entry − stop| × quantity). Gross R is before costs. Cost R includes statutory charges, brokerage and modelled slippage. PF = profit factor.</p>
+</section>
+
+<section id="anatomy">
+  <h2>Where the edge goes</h2>
+  <p>Trade-weighted averages across all intraday configurations in the development period, MIS-margin reading. Slower signals have wider stops, so fixed costs weigh less per R. A stricter score filter raises gross edge only slightly.</p>
+  <div class="grid2">
+    {{tf_table}}
+    {{thr_table}}
+  </div>
+  {{side_table}}
+</section>
+
+<section id="grid">
+  <h2>Gross edge by entry and timeframe</h2>
+  <p>Average gross R per trade, development period, before any costs. Columns are signal/confirmation timeframe and direction (L long, S short). RAND rows are the random-entry control. Shaded cells sit within ±0.15R; very few configurations clear the random short benchmark.</p>
+  {{heat_gross}}
+</section>
+
+<section id="exits">
+  <h2>Exit study</h2>
+  <p>The three best development entries per engine and side were re-run with 32 exit models: fixed 1.5R and 2R targets; ATR stops at 1.0, 1.5 and 2.0×; structure stops; ATR trailing stops at 2× and 3×; exits on an EMA 20 violation or an EMA 20/50 breakdown; 50% partial profit at 1R with a breakeven stop and trailed remainder; and time-only exits.</p>
+  {{exits}}
+</section>
+
+<section id="portfolio">
+  <h2>₹3,00,000 portfolio simulation</h2>
+  <p>Both engines share one risk manager: ₹3,000 per trade, ₹6,000 total open risk (overnight risk includes a 0.5 × daily-ATR gap allowance), ₹6,000 daily and ₹12,000 weekly loss limits, at most ₹75,000 per stock, one position per stock, one per sector and direction, at most 6 intraday entries a day, and no overnight equity shorts. Positional entries are blocked around results dates. The configurations come from the development period:</p>
+  {{cfg_table}}
+  <div class="figure">
+    <div class="legend"><span class="l1">Best dev configs, ₹75k notional cap</span><span class="l2">Best dev configs, MIS-margin reading</span></div>
+    {{eq_svg}}
+  </div>
+  <p class="note">Cumulative net P&amp;L, marked to market at each daily close. The shaded area is the untouched holdout. Development-period results are in-sample for configuration choice.</p>
+  {{port_main}}
+  <div class="figure"><h3>Monthly net P&amp;L · best configs, spec cap</h3>{{mr_svg}}</div>
+  <h3>By market regime · best configs, spec cap</h3>
+  {{reg_table}}
+  <h3>Sensitivity</h3>
+  {{sens_table}}
+</section>
+
+<section id="options">
+  <h2>Options instrument test</h2>
+  <p>Each final signal was mapped to a real contract from the previous session's NSE F&amp;O bhavcopy. Contracts had to be at least 7 days (intraday) or 14 days (positional) from expiry, to stay clear of physical settlement, and to have traded at least 10 lots. The strike was the one with delta nearest 0.55 inside 0.40–0.65, and debit spreads sold the liquid strike nearest the 2R target. Contracts were priced with their own implied volatility at the underlying's actual entry and exit prices. Bid-ask cost was 1–2.5% of premium per leg per side, plus option STT (0.15% from April 2026) and charges.</p>
+  {{opt_table}}
+  <p class="note">The strict rule caps the maximum possible loss of the structure at ₹3,000, as the blueprint requires. The relaxed reading sizes on the modelled loss at the underlying stop (maximum premium ≤ ₹30,000). It breaks the 1% rule and is shown only to check whether options would help at all. Halving the assumed bid-ask cost still leaves both relaxed variants losing money. Model check: on positional trades the model's close-to-close P&amp;L correlates {{corr_long}} (long options) and {{corr_sp}} (spreads) with actual bhavcopy closing prices.</p>
+</section>
+
+<section id="decisions">
+  <h2>Decisions for you</h2>
+  <div class="decisions">
+    <div class="decision"><h3>1. Don't move this design to paper trading</h3><p>Paper trading tests execution, not edge. With no out-of-sample edge, 20–30 sessions of paper trading would only confirm costs. A redesign should come first.</p></div>
+    <div class="decision"><h3>2. Settle what the ₹75,000 cap means for intraday</h3><p>As written (position value), it caps intraday risk at a few hundred rupees, so costs dominate. Read as MIS margin, results improve ({{gm_net}} over two years for the gated system, PF {{gm_pf}}), but they are still far from the 1.25 bar.</p></div>
+    <div class="decision"><h3>3. Drop stock options from v1 at this capital, or change the risk rule</h3><p>A ₹3,000 maximum loss doesn't fit ₹5–10 lakh stock-option contracts. Index options with smaller premiums, or a larger account, would be needed. Either is a separate study.</p></div>
+    <div class="decision"><h3>4. If you continue the research, test slower, cheaper signals</h3><p>The least-bad results came from 15-minute and daily signals, short-side bias and wider stops, which all lower the cost per R. A daily-timeframe system with fewer, larger trades, or a different source of edge than EMA crossovers, is the more promising path. The random-entry benchmark built here should stay in every future test.</p></div>
+  </div>
+</section>
+
+<section id="method">
+  <h2>Data, method and limits</h2>
+  <dl class="facts">
+    <dt>Prices</dt><dd>Upstox V3 historical candles (3-min, 5-min, daily), adjusted for splits and bonuses. 15-min and 60-min bars resampled from 5-min, anchored at 09:15. NIFTY 50 for market regime.</dd>
+    <dt>Universe</dt><dd>Point in time: in the previous session's NSE F&amp;O bhavcopy, 20-day average traded value ≥ ₹20 crore, ≥ 200 sessions of history. That gave 177 to 226 stocks a day, matching NSE's published F&amp;O counts. 274 symbols over the window, including names later dropped or renamed.</dd>
+    <dt>No look-ahead</dt><dd>Signals use completed bars only; orders become active on the next bar. Higher-timeframe and daily values join by bar end time. Sector strength uses point-in-time industry baskets that exclude the stock itself. Training trades whose exits fall in a test window are purged.</dd>
+    <dt>Fills</dt><dd>Simulated on 3- or 5-minute bars. A bar that touches both stop and target counts as a stop. Gaps fill at the open. A stop-order entry bar can only stop out. Closing-auction bars after 3 Aug 2026 are single prints. Slippage is 5 bps a side, +3 bps on stops; doubling it is a sensitivity case.</dd>
+    <dt>Costs</dt><dd>Upstox Basic plan, date-aware: brokerage, STT (option STT 0.15% from 1 Apr 2026), NSE charges incl. IPFT, SEBI fee, stamp duty, GST and DP charges. Same-day exits of delivery trades are taxed as intraday. Sources and dates are in <code>docs/medhaalpha/COST_ASSUMPTIONS.md</code>.</dd>
+    <dt>Earnings</dt><dd>Actual results dates until mid-2025 (Yahoo Finance); later quarters projected from the same quarter a year earlier (median error 4 days) with a widened blackout window.</dd>
+    <dt>Validation</dt><dd>Development 18 Nov 2024 – 15 May 2026 with four walk-forward windows; holdout 18 May – 13 Nov 2026. Four independent reviewers audited the code for look-ahead, fill, cost and accounting errors, with a separate verifier for each finding; every confirmed defect was fixed before these results were produced. 18 unit tests cover the simulator, costs and risk rules.</dd>
+    <dt>Known gaps</dt><dd>PEL (Piramal Enterprises, F&amp;O until Jul 2025) is missing because its candles were retired after its merger; that is about 0.5% of the universe. Market-cap screening is implied by F&amp;O eligibility, not applied separately. No order-book depth, partial fills or rejected orders were modelled. Option prices between closes are modelled (sticky-strike IV), not traded quotes.</dd>
+  </dl>
+</section>
+
+<section id="reproduce">
+  <h2>Reproduce</h2>
+  <p>Code is on branch <code>claude/ecstatic-shannon-bztbos</code> in <code>medhaalpha/</code>. Results land in <code>data/medhaalpha/results/</code>.</p>
+<pre>python -m medhaalpha.data.bhavcopy --start 2024-09-01 --end 2026-11-13
+python -m medhaalpha.data.upstox --symbols-file data/medhaalpha/universe_symbols.txt \
+       --intervals days,minutes5,minutes3 --start 2024-09-01 --daily-start 2023-01-01 --end 2026-11-13
+python -m medhaalpha.data.earnings
+python -m medhaalpha.run_study --stage all
+python -m medhaalpha.report</pre>
+</section>
+</main>

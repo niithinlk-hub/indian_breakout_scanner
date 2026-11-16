@@ -4,3 +4,5 @@ data/*.sqlite
 data/*.log
 __pycache__/
 .pytest_cache/
+
+data/medhaalpha/
