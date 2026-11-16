@@ -1,0 +1,8 @@
+real: 588 distinct trades
+   T1  stored total    +1079804  rebuilt    +1080935  (diff 0.10%)  trades differing 0
+   T2  stored total    +1553736  rebuilt    +1554870  (diff 0.07%)  trades differing 0
+   T3  stored total    +1591358  rebuilt    +1592502  (diff 0.07%)  trades differing 0
+unseen: 604 distinct trades
+   T1  stored total     -209766  rebuilt     -208627  (diff 0.54%)  trades differing 0
+   T2  stored total     -441665  rebuilt     -440536  (diff 0.26%)  trades differing 0
+   T3  stored total     -571055  rebuilt     -569931  (diff 0.20%)  trades differing 0
